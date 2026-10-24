@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.8.3 — 2026-10-24
+
+### Fixed
+- Added dedicated, in-panel poster buttons to the **ترکیب دو اپراتور** and **رقابت دونفره (1v1)** views, instead of relying only on the floating global action.
+- Each button invokes the contextual poster exporter so the generated poster uses the active Duo or Duel state.
+- Bumped app version to 1.8.3 and Service Worker cache to r6-cache-v20.
+
+### Validation
+- Source checks confirm both buttons are located inside their respective view panels and call the contextual poster handler. Browser/device visual confirmation remains outstanding.
+
 ## 1.8.2 — 2026-10-24
 
 ### Fixed
