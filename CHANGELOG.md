@@ -18,3 +18,14 @@
 - Inline JavaScript and Service Worker syntax compilation passed.
 - Key UI and dynamic-label markers were checked against the branch.
 - Browser/device visual testing has not yet been performed.
+
+## 1.1.1 — 2026-10-24
+
+### Fixed
+- Restored natural document scrolling on mobile instead of trapping touch scroll in a fixed-height viewport.
+- Removed mobile-only fixed-height constraints from the active hub sections so long content can extend and scroll normally.
+- Kept the mobile bottom navigation visible with safe-area-aware sticky positioning.
+- Made tall dialogs scrollable on small screens, including devices with short viewports and browser safe areas.
+
+### Maintenance
+- Bumped app version metadata to 1.1.1.
