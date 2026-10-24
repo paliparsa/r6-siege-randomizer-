@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.8.2 — 2026-10-24
+
+### Fixed
+- Made the global contextual poster action explicitly visible and interactive above the mobile navigation, while keeping it below modal overlays; adjusted small-screen placement.
+- Renamed the former Maps & Timer tab to **نقشه و سایت** in the desktop section label and mobile navigation to reflect the timer removal.
+- Bumped app version to 1.8.2 and Service Worker cache to r6-cache-v19.
+
+### Validation
+- Source checks verify poster action markup and contextual handler, map-tab labels, timer removal, and JavaScript syntax. Browser/device visual confirmation remains outstanding.
+
 ## 1.8.1 — 2026-10-24
 
 ### Fixed
