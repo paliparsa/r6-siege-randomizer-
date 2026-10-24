@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#06090e">
+  <meta name="theme-color" content="#0B0D0F">
   <meta name="app-version" content="1.5.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
@@ -30,11 +30,11 @@
               orange: '#D94A45',
               cyan: '#D6F04A',
               ice: '#D6F04A',
-              red: '#FF2A4D',
-              dark: '#06090f',
-              card: '#0b121e',
-              surface: '#111c2d',
-              border: '#1e2d47'
+              red: '#D94A45',
+              dark: '#0B0D0F',
+              card: '#191D21',
+              surface: '#191D21',
+              border: '#343A3F'
             }
           },
           fontFamily: {
@@ -446,7 +446,7 @@
       }
       body > header h1 { letter-spacing: .075em; }
       body > header #xpProgressBar { background: var(--noir-signal) !important; box-shadow: 0 0 12px rgba(214,240,74,.18); }
-      body > nav:not(.sm\\:hidden) {
+      body > nav.hidden {
         background: rgba(11,13,15,.84) !important;
         border-color: rgba(232,233,229,.09) !important;
         -webkit-backdrop-filter: blur(14px);
@@ -502,7 +502,8 @@
         background: rgba(214,240,74,.075) !important;
       }
       .tactical-pill { color: var(--noir-signal) !important; border-color: rgba(214,240,74,.30) !important; background: rgba(214,240,74,.06) !important; }
-      .duel-round-title { color: var(--noir-signal) !important; }
+      .duel-round-title, .duo-link-core { color: var(--noir-signal) !important; }
+      .duo-link-core { border-color: rgba(214,240,74,.30) !important; background: rgba(214,240,74,.08) !important; box-shadow: 0 0 22px rgba(214,240,74,.08); }
       .modal-backdrop:not(.hidden-modal) {
         -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); background-color: rgba(3,4,5,.78);
       }
