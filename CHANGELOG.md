@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.8.1 — 2026-10-24
+
+### Fixed
+- Updated map-hub card and mobile layout selectors to match the new single-card structure, preserving the Tactical Noir surface, grid texture, and responsive spacing after the timer panel was removed.
+- Bumped app version to 1.8.1 and Service Worker cache to r6-cache-v18.
+
+### Validation
+- Source checks confirm the new selectors match the rendered map hub, inline JavaScript remains syntactically valid, and map/timer behavior from 1.8.0 is preserved.
+
 ## 1.8.0 — 2026-10-24
 
 ### Map intelligence and poster coverage
