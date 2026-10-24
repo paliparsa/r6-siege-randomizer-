@@ -2143,7 +2143,7 @@
               <span class="font-tactical font-bold uppercase text-[10px] leading-tight truncate max-w-full ${banned ? 'line-through text-slate-500' : 'text-white'}">${op.name}</span>
             </label>`;
           }).join('')}
-        </div>`;`;
+        </div>`;
       document.getElementById('opsChecklistContainer').innerHTML =
         makeGrid('ATTACKERS', atk, 'text-siege-cyan') + '<div class="pt-2">' + makeGrid('DEFENDERS', def, 'text-siege-orange') + '</div>';
       document.getElementById('activeOpsStats').innerText = `ACTIVE: ${OPERATORS.length - bannedOpIds.length} / ${OPERATORS.length}`;
