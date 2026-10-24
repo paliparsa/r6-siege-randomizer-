@@ -2117,6 +2117,7 @@
       if(currentDuoCombo) rollDuoCombo();
     }
     function duoCategory(combo) {
+      if(combo.category && ['breach','intel','control'].includes(combo.category)) return combo.category;
       const t=[combo.title,combo.role1,combo.role2,combo.plan,combo.op1,combo.op2].join(' ').toLowerCase();
       if(/breach|thermite|thatcher|wall|emp|maverick|hibana|ace/.test(t)) return 'breach';
       if(/intel|drone|camera|scan|dokkaebi|deimos|pulse|tracker|recon|sensor|zero|lion/.test(t)) return 'intel';
