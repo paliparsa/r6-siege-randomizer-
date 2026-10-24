@@ -2555,7 +2555,8 @@
           : 'از منوی مرورگر گزینه Install app یا Add to Home Screen را بزن.';
         if (introButton) { introButton.classList.remove('hidden'); introButton.innerHTML = '<i class="fa-solid fa-mobile-screen-button ml-1"></i> راهنمای نصب'; }
       }
-      if (introHint) introHint.classList.toggle('hidden', currentIntroSlide !== 3);
+      if (introButton) introButton.classList.toggle('hidden', currentIntroSlide !== 3 || isStandaloneApp() || installWasCompleted);
+      if (introHint) introHint.classList.toggle('hidden', currentIntroSlide !== 3 || isStandaloneApp() || installWasCompleted);
     }
     async function installWebApp() {
       if (isStandaloneApp()) { installWasCompleted = true; refreshInstallUI(); return; }
