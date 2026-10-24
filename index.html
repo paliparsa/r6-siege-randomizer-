@@ -1766,9 +1766,9 @@
 
       const xpAwarded = claimDailyXp('strat', 100);
       userProfile.wins = (userProfile.wins || 0) + 1;
-      if (userProfile.wins % 5 === 0) {
+      if (xpAwarded && userProfile.wins % 5 === 0) {
         userProfile.packs = (userProfile.packs || 0) + 1;
-        showToast(xpAwarded ? '🏆 ۵ چالش تکمیل شد! Alpha Pack و +100 XP گرفتی!' : '🏆 ۵ چالش تکمیل شد! ۱ عدد Alpha Pack جایزه گرفتی!');
+        showToast('🏆 ۵ چالش تکمیل شد! Alpha Pack و +100 XP گرفتی!');
       } else if (xpAwarded) showToast('🎖️ پیروزی ثبت شد! +100 XP دریافت کردی.');
       saveProfile();
       triggerHaptic([30, 50, 40]);
