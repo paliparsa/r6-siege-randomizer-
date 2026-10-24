@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.2.0 — 2026-10-24
+
+### Added
+- Added mission briefing presets (balanced, aggressive, intel/control, objective defense) that influence squad selection while respecting faction and ban constraints.
+- Rebuilt the five-operator lineup as a cinematic deployment with role slots, operator icons, gadgets, primary weapons, speed, and armor.
+- Added squad intelligence reporting for estimated role coverage/gaps, average speed/armor, gadget diversity, and a clearly non-official readiness score.
+- Added responsive squad cards and reduced-motion support.
+
+### Improved
+- Kept the existing squad poster export/share flow accessible from the squad view.
+- Clearly labeled inferred role coverage and readiness as estimates rather than official in-game ratings.
+- Bumped app version to 1.2.0 and Service Worker cache to `r6-cache-v8`.
+
+### Validation
+- Source-level checks cover mission presets, rendering, report metrics, version/cache markers, and reduced-motion behavior.
+- Physical-device visual testing and live deployment health have not been verified.
+
 ## 1.1.5 — 2026-10-24
 
 ### Improved
