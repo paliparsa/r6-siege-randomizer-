@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.1.4 — 2026-10-24
+
+### Added
+- Added the missing Nøkk and Blackbeard attacker entries.
+- Added Year 11 operators Solid Snake (attacker) and Noor (defender), including gadget, weapon, organization, speed, armor, and icon-slug metadata.
+- Updated the operator roster from 74 to 78 entries: 39 attackers and 39 defenders, excluding Recruit as a separate legacy entry.
+
+### Maintenance
+- Bumped app version metadata to 1.1.4.
+- Bumped the Service Worker cache to `r6-cache-v6` so installed clients refresh the updated roster.
+
+### Validation
+- Verified unique operator IDs and roster counts (39 attackers, 39 defenders).
+- Solid Snake and Noor use the existing icon fallback if their upstream SVGs are unavailable.
+
+
 ## 1.1.3 — 2026-10-24
 
 ### Fixed
