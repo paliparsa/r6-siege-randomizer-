@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#06090e">
-  <meta name="app-version" content="1.1.5">
+  <meta name="app-version" content="1.2.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -250,6 +250,20 @@
       #webAppInstallCard { bottom: calc(72px + var(--safe-bottom)); }
       .modal-backdrop#introModal { padding-top: calc(12px + var(--safe-top)); }
     }
+
+    /* v1.2.0 — cinematic five-operator squad command deck */
+    .squad-briefing{background:linear-gradient(125deg,rgba(11,18,30,.98),rgba(7,13,23,.96));border:1px solid rgba(56,189,248,.22)}
+    .squad-operator-card{position:relative;overflow:hidden;isolation:isolate;animation:squadDeploy .52s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--deploy-delay,0ms)}
+    .squad-operator-card::before{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.055) 48%,transparent 70%);transform:translateX(120%);animation:squadSweep .9s ease-out both;animation-delay:calc(var(--deploy-delay,0ms) + 160ms);pointer-events:none;z-index:-1}
+    .squad-operator-card:hover{transform:translateY(-3px);border-color:var(--theme-primary);box-shadow:0 10px 28px var(--theme-glow)}
+    .squad-op-portrait{background:radial-gradient(circle at 50% 35%,var(--theme-glow),transparent 70%),#06090f}
+    .squad-stat{border:1px solid rgba(148,163,184,.13);background:rgba(6,9,15,.55)}
+    .squad-report-meter{height:5px;border-radius:999px;overflow:hidden;background:#172235}
+    .squad-report-meter>span{display:block;height:100%;background:linear-gradient(90deg,var(--theme-primary),#f8aa00);transition:width .45s ease}
+    @keyframes squadDeploy{from{opacity:0;transform:translateY(14px) scale(.97);filter:blur(3px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+    @keyframes squadSweep{to{transform:translateX(-120%)}}
+    @media(prefers-reduced-motion:reduce){.squad-operator-card,.squad-operator-card::before{animation:none!important;transition:none!important}}
+    @media(max-width:639.98px){#squadGridContainer{grid-template-columns:1fr!important}.squad-operator-card{min-height:112px}}
 
     /* Alpha Pack Foil Glow */
     .alpha-pack-bag {
@@ -606,9 +620,27 @@
             <span>ساخت پوستر ترکیب تیم</span>
           </button>
         </div>
-        <div id="squadGridContainer" class="grid grid-cols-1 sm:grid-cols-5 gap-2 overflow-y-auto no-scrollbar py-1 my-auto">
-          <!-- Populated by JS -->
+        <div class="squad-briefing rounded-xl p-3 shrink-0 space-y-2">
+          <div class="flex items-center justify-between gap-2"><div><div class="text-[10px] uppercase tracking-[.18em] font-mono text-siege-cyan">MISSION BRIEFING</div><div class="text-xs font-bold text-white mt-0.5">هدف مأموریت را انتخاب کن</div></div><span id="squadDoctrineBadge" class="text-[9px] font-mono text-siege-yellow border border-siege-yellow/30 bg-siege-yellow/10 rounded-full px-2 py-1">BALANCED</span></div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5" role="group" aria-label="الگوی مأموریت">
+            <button type="button" onclick="setSquadDoctrine('balanced')" data-doctrine="balanced" class="squad-doctrine-btn rounded-lg border border-siege-cyan/50 bg-siege-cyan/10 text-siege-cyan px-2 py-2 text-[10px] font-bold">⚖️ متعادل</button>
+            <button type="button" onclick="setSquadDoctrine('aggressive')" data-doctrine="aggressive" class="squad-doctrine-btn rounded-lg border border-siege-border bg-siege-dark text-slate-300 px-2 py-2 text-[10px] font-bold">⚡ تهاجمی</button>
+            <button type="button" onclick="setSquadDoctrine('intel')" data-doctrine="intel" class="squad-doctrine-btn rounded-lg border border-siege-border bg-siege-dark text-slate-300 px-2 py-2 text-[10px] font-bold">📡 اطلاعاتی</button>
+            <button type="button" onclick="setSquadDoctrine('objective')" data-doctrine="objective" class="squad-doctrine-btn rounded-lg border border-siege-border bg-siege-dark text-slate-300 px-2 py-2 text-[10px] font-bold">🛡️ دفاع هدف</button>
+          </div><p id="squadDoctrineDescription" class="text-[10px] text-slate-400 leading-relaxed">ترکیبی متوازن از سرعت، ابزار و انعطاف؛ مناسب شروع راند و هماهنگی عمومی.</p>
         </div>
+        <div id="squadGridContainer" class="grid grid-cols-1 sm:grid-cols-5 gap-2 py-1"></div>
+        <section id="squadIntelReport" class="squad-briefing rounded-xl p-3 space-y-3" aria-live="polite">
+          <div class="flex items-center justify-between gap-2"><div><div class="text-[10px] font-mono tracking-widest text-siege-cyan">SQUAD INTELLIGENCE</div><h3 class="text-sm font-black text-white">گزارش ترکیب تیم</h3></div><span id="squadReadinessLabel" class="text-[10px] font-bold text-siege-yellow">در انتظار تیم</span></div>
+          <div id="squadCoverageList" class="space-y-2"></div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <div class="squad-stat rounded-lg p-2"><div class="text-[9px] text-slate-500">سرعت میانگین</div><div id="squadAvgSpeed" class="text-lg font-black font-tactical text-white">—</div></div>
+            <div class="squad-stat rounded-lg p-2"><div class="text-[9px] text-slate-500">زره میانگین</div><div id="squadAvgArmor" class="text-lg font-black font-tactical text-white">—</div></div>
+            <div class="squad-stat rounded-lg p-2"><div class="text-[9px] text-slate-500">ابزارهای متفاوت</div><div id="squadUniqueGadgets" class="text-lg font-black font-tactical text-white">—</div></div>
+            <div class="squad-stat rounded-lg p-2"><div class="text-[9px] text-slate-500">آمادگی ترکیب</div><div id="squadReadinessScore" class="text-lg font-black font-tactical text-siege-cyan">—</div></div>
+          </div><p id="squadTacticalNote" class="text-[11px] text-slate-300 leading-relaxed">پس از ساخت ترکیب، پوشش نقش‌ها و نکات تاکتیکی اینجا نمایش داده می‌شود.</p>
+          <p class="text-[9px] text-slate-500 leading-relaxed">تحلیل نقش‌ها تخمینی و مبتنی بر اطلاعات موجود در اپراتورهاست؛ امتیاز آمادگی، رتبه‌بندی رسمی بازی نیست.</p>
+        </section>
       </div>
 
       <!-- Bottom Roll & Confirm XP Action Buttons -->
@@ -1780,43 +1812,48 @@
         : 'fa-regular fa-star text-sm text-slate-400';
     }
 
-    /* 12. 5-MAN SQUAD GENERATOR */
-    function renderSquadGrid(picked, side) {
-      const roles = side === 'atk'
-        ? ['ENTRY FRAG', 'HARD BREACH', 'SUPPORT', 'INTEL / FLANK', 'FLEX']
-        : ['ANCHOR', 'ROAMER', 'TRAPPER', 'WALL DENIAL', 'INTEL'];
-
-      document.getElementById('squadGridContainer').innerHTML = picked.map((op, i) => `
-        <div class="bg-siege-card dynamic-border border rounded-xl p-2.5 flex sm:flex-col items-center justify-between sm:justify-center gap-2.5 text-center clip-corner">
-          <div class="flex sm:flex-col items-center gap-2.5">
-            <div class="w-11 h-11 rounded-lg bg-siege-dark border border-siege-border p-1 shrink-0 flex items-center justify-center">
-              <img src="${getOperatorIconUrl(op.slug)}" alt="${op.name}" class="w-full h-full object-contain" onerror="this.style.display='none'">
-            </div>
-            <div class="text-right sm:text-center">
-              <div class="text-[9px] font-mono text-siege-yellow">${roles[i]}</div>
-              <div class="font-tactical font-black text-sm text-white uppercase">${op.name}</div>
-              <div class="text-[10px] text-slate-400 truncate max-w-[120px]">${op.primary}</div>
-            </div>
-          </div>
-          <span class="px-2 py-0.5 rounded bg-siege-dark border border-siege-border text-[9px] font-mono text-slate-300">SPD ${op.speed}</span>
-        </div>
-      `).join('');
+    /* 12. 5-MAN SQUAD GENERATOR — cinematic and mission-aware */
+    let currentSquadDoctrine = 'balanced';
+    const SQUAD_DOCTRINES = {
+      balanced:{label:'BALANCED',description:'ترکیبی متوازن از سرعت، ابزار و انعطاف؛ مناسب شروع راند و هماهنگی عمومی.'},
+      aggressive:{label:'AGGRESSIVE',description:'اولویت بیشتر به اپراتورهای سریع‌تر و سبک بازی تهاجمی؛ سرعت به‌تنهایی تضمین‌کننده برتری نیست.'},
+      intel:{label:'INTEL / CONTROL',description:'اولویت به ابزارهای شناسایی، ردیابی، اختلال و کنترل اطلاعات؛ تشخیص از روی نام ابزارها تقریبی است.'},
+      objective:{label:'OBJECTIVE',description:'اولویت به ابزارهای دفاع از هدف، استقرار، ضدنفوذ و کنترل مسیرها؛ ترکیب نهایی به جناح انتخاب‌شده بستگی دارد.'}
+    };
+    const SQUAD_ROLE_LABELS = {atk:['ENTRY / ENTRY FRAG','HARD BREACH','SUPPORT','INTEL / FLANK','FLEX'],def:['ANCHOR','ROAMER','TRAPPER','WALL DENIAL','INTEL']};
+    function setSquadDoctrine(doctrine) {
+      if (!SQUAD_DOCTRINES[doctrine]) return; currentSquadDoctrine=doctrine;
+      document.querySelectorAll('.squad-doctrine-btn').forEach(btn=>{const active=btn.dataset.doctrine===doctrine;btn.className='squad-doctrine-btn rounded-lg border px-2 py-2 text-[10px] font-bold transition '+(active?'border-siege-cyan/50 bg-siege-cyan/10 text-siege-cyan':'border-siege-border bg-siege-dark text-slate-300');});
+      const badge=document.getElementById('squadDoctrineBadge'),desc=document.getElementById('squadDoctrineDescription');
+      if(badge)badge.textContent=SQUAD_DOCTRINES[doctrine].label;if(desc)desc.textContent=SQUAD_DOCTRINES[doctrine].description;
+      if(currentHqMode==='squad'&&currentSquadList&&currentSquadList.length===5){const side=currentSquadList[0].side;const pool=OPERATORS.filter(o=>o.side===side&&!bannedOpIds.includes(o.id));currentSquadList=selectSquadForDoctrine(pool,doctrine);renderSquadGrid(currentSquadList,side);}
     }
-
-    function rollFullSquad() {
-      const side = currentFaction === 'def' ? 'def' : 'atk';
-      const pool = OPERATORS.filter(o => o.side === side && !bannedOpIds.includes(o.id));
-      if (pool.length < 5) {
-        showToast('حداقل ۵ اپراتور باز در این جناح نیاز است!');
-        return;
-      }
-      currentSquadList = [...pool].sort(() => 0.5 - Math.random()).slice(0, 5);
-      renderSquadGrid(currentSquadList, side);
-      setHqConfirmButtonState(true);
-      triggerHaptic([15, 30]);
-      playTone(700, 'sine', 0.08);
+    function squadText(op){return [op.name,op.gadget,op.primary,op.sec,op.org].filter(Boolean).join(' ').toLowerCase();}
+    function squadDoctrineScore(op,doctrine){const t=squadText(op),speed=Number(op.speed)||2,armor=Number(op.armor)||2;
+      if(doctrine==='aggressive')return speed*2+(/entry|breach|rush|flash|shotgun|frag|explosive|assault/.test(t)?2:0);
+      if(doctrine==='intel')return (/intel|camera|drone|scan|sensor|detect|tracker|recon|heartbeat|surveillance|signal|hack|observation|pulse|radar|mark/.test(t)?5:0)+(speed>=2?1:0);
+      if(doctrine==='objective')return (/wall|reinforc|shield|trap|mine|barrier|defend|anti|counter|deploy|cover|area|gas|electro|jammer|armor|heal|protect|riot/.test(t)?5:0)+(armor>=2?1:0);
+      return 3+(speed===2?1:0)+(armor===2?1:0);
     }
-
+    function selectSquadForDoctrine(pool,doctrine){const ranked=pool.map(op=>({op:op,weight:Math.max(1,squadDoctrineScore(op,doctrine))*(.72+Math.random()*.56)})).sort((a,b)=>b.weight-a.weight);const top=ranked.slice(0,Math.min(12,ranked.length)).sort(()=>Math.random()-.5);const selected=top.slice(0,5).map(x=>x.op);return selected.length===5?selected:[...pool].sort(()=>Math.random()-.5).slice(0,5);}
+    function squadRoleCoverage(picked,side){const checks=side==='atk'?[['ورود و فشار','entry|flash|breach|frag|rush|assault'],['بازکردن دیوار','hard breach|thermite|hibana|ace|maverick|breach charge|exothermic'],['شناسایی','drone|camera|scan|sensor|recon|intel|tracker|heartbeat|observation'],['ضدابزار و کنترل','emp|jammer|disable|counter|destroy|electro|anti']]:[['نگه‌داری هدف','shield|deployable|armor|heal|protect|anchor|cover'],['گشت‌زنی و فشار','roam|speed|flank|trap|mine|ambush'],['اطلاعات و شناسایی','camera|drone|scan|sensor|recon|intel|tracker|observation'],['ضدنفوذ و دیوار','wall|reinforc|electro|jammer|denial|mute|bandit|kaid']];
+      return checks.map(([label,pattern])=>{const re=new RegExp(pattern,'i'),count=picked.filter(op=>re.test(squadText(op))).length;return {label:label,count:count,covered:count>0};});
+    }
+    function renderSquadGrid(picked,side){
+      const roles=SQUAD_ROLE_LABELS[side]||SQUAD_ROLE_LABELS.atk;
+      const safe=value=>String(value==null?'—':value).replace(/[&<>\"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[ch]));
+      document.getElementById('squadGridContainer').innerHTML=picked.map((op,i)=>'<article class="squad-operator-card bg-siege-card dynamic-border border rounded-xl p-3 flex items-center sm:flex-col sm:items-stretch gap-3 clip-corner transition duration-200" style="--deploy-delay:'+(i*95)+'ms">'+
+        '<div class="squad-op-portrait relative w-[76px] h-[76px] sm:w-full sm:h-28 rounded-xl border border-siege-border p-2 shrink-0 flex items-center justify-center overflow-hidden"><span class="absolute top-1.5 left-2 text-[8px] font-mono text-slate-600">0'+(i+1)+'</span><img src="'+getOperatorIconUrl(op.slug)+'" alt="'+safe(op.name)+'" loading="lazy" class="relative w-full h-full object-contain" onerror="this.style.opacity=\'.15\';this.alt=\'آیکون در دسترس نیست\'"></div>'+
+        '<div class="min-w-0 flex-1 sm:w-full"><div class="text-[9px] font-mono text-siege-yellow mb-1">'+roles[i]+'</div><div class="font-tactical font-black text-base text-white uppercase leading-tight">'+safe(op.name)+'</div><div class="text-[10px] text-slate-400 mt-1 truncate" title="'+safe(op.gadget)+'">GADGET · '+safe(op.gadget)+'</div><div class="text-[10px] text-slate-300 mt-1 truncate" title="'+safe(op.primary)+'">PRIMARY · '+safe(op.primary)+'</div><div class="grid grid-cols-2 gap-1.5 mt-2"><span class="squad-stat rounded-md px-2 py-1 text-[9px] text-slate-300">SPD <b class="text-white">'+safe(op.speed)+'</b></span><span class="squad-stat rounded-md px-2 py-1 text-[9px] text-slate-300">ARM <b class="text-white">'+safe(op.armor)+'</b></span></div></div></article>').join('');
+      renderSquadIntelligence(picked,side);
+    }
+    function renderSquadIntelligence(picked,side){
+      const coverage=squadRoleCoverage(picked,side),covered=coverage.filter(x=>x.covered).length,speed=picked.reduce((n,o)=>n+(Number(o.speed)||0),0)/Math.max(1,picked.length),armor=picked.reduce((n,o)=>n+(Number(o.armor)||0),0)/Math.max(1,picked.length),gadgets=new Set(picked.map(o=>String(o.gadget||'').trim().toLowerCase()).filter(Boolean)),score=Math.round((covered/Math.max(1,coverage.length))*70+(gadgets.size/Math.max(1,picked.length))*30);
+      const set=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value;};set('squadAvgSpeed',speed.toFixed(1)+'/3');set('squadAvgArmor',armor.toFixed(1)+'/3');set('squadUniqueGadgets',gadgets.size+'/5');set('squadReadinessScore',score+'/100');set('squadReadinessLabel',score>=80?'پوشش خوب':score>=60?'پوشش متوسط':'نیازمند بازبینی');
+      const list=document.getElementById('squadCoverageList');if(list)list.innerHTML=coverage.map(item=>'<div class="grid grid-cols-[minmax(0,1fr)_auto] gap-2 items-center"><div><div class="flex items-center gap-2 text-[10px] '+(item.covered?'text-slate-200':'text-slate-500')+'"><i class="fa-solid '+(item.covered?'fa-check text-emerald-400':'fa-triangle-exclamation text-siege-yellow')+'"></i>'+item.label+'</div><div class="squad-report-meter mt-1.5"><span style="width:'+(item.covered?'100':'8')+'%"></span></div></div><span class="text-[9px] font-mono '+(item.covered?'text-emerald-400':'text-siege-yellow')+'">'+(item.covered?'COVERED':'GAP')+'</span></div>').join('');
+      const gaps=coverage.filter(x=>!x.covered).map(x=>x.label),note=document.getElementById('squadTacticalNote'),duplicates=picked.length-gadgets.size;if(note)note.textContent=(gaps.length?'نقاط قابل بررسی: '+gaps.join('، ')+'. پوشش از روی نام ابزارها تخمین زده می‌شود و لزوماً به معنی نبود قابلیت در بازی نیست.':'نشانه‌ای از شکاف واضح در دسته‌های بررسی‌شده دیده نشد.')+(duplicates>0?' '+duplicates+' ابزار تکراری بر اساس نام ثبت‌شده دیده می‌شود؛ ممکن است همچنان هم‌افزایی مفیدی داشته باشد.':' ابزارهای ثبت‌شده تنوع خوبی دارند.');
+    }
+    function rollFullSquad(){const side=currentFaction==='def'?'def':'atk',pool=OPERATORS.filter(o=>o.side===side&&!bannedOpIds.includes(o.id));if(pool.length<5){showToast('حداقل ۵ اپراتور باز در این جناح نیاز است!');return;}currentSquadList=selectSquadForDoctrine(pool,currentSquadDoctrine);renderSquadGrid(currentSquadList,side);setHqConfirmButtonState(true);triggerHaptic([15,30]);playTone(700,'sine',.08);}
     /* 13. TOUCH SWIPE GESTURES (TINDER-STYLE SWIPE & SHAKE TO ROLL) */
     (function initTouchGestures() {
       const card = document.getElementById('operatorMainCard');
@@ -2602,7 +2639,7 @@
     }
     function closeIntroModal() {
       document.getElementById('introModal').classList.add('hidden-modal');
-      try { window.localStorage.setItem('r6_intro_seen_v6', '1'); } catch (error) { console.warn('Unable to persist onboarding state.', error); }
+      try { window.localStorage.setItem('r6_intro_seen_v7', '1'); } catch (error) { console.warn('Unable to persist onboarding state.', error); }
     }
     function renderIntroSlide() {
       [1, 2, 3].forEach(n => {
@@ -2641,7 +2678,7 @@
       setHqConfirmButtonState(true);
 
       let introSeen = false;
-      try { introSeen = window.localStorage.getItem('r6_intro_seen_v5') === '1'; } catch (error) { console.warn('Unable to read onboarding state.', error); }
+      try { introSeen = window.localStorage.getItem('r6_intro_seen_v7') === '1'; } catch (error) { console.warn('Unable to read onboarding state.', error); }
       if (!introSeen) {
         setTimeout(() => openIntroModal(), 450);
       }
