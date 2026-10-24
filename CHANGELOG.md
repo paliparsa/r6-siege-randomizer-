@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.1.3 — 2026-10-24
+
+### Fixed
+- Corrected operator icon URLs to match the actual folder/file structure in the upstream icon repository.
+- Corrected Rauora and Denari icon slugs so each uses its own icon instead of Sens or Azami.
+
+### Maintenance
+- Bumped app version metadata to 1.1.3.
+- Bumped the Service Worker cache to `r6-cache-v5` so installed clients can refresh the app shell.
+
 ## 1.1.2 — 2026-10-24
 
 ### Improved
