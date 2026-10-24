@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.8.0 — 2026-10-24
+
+### Map intelligence and poster coverage
+- Expanded the map roulette from a small legacy subset to the 15-map Ranked pool for Y11S3.2, with bomb-site pairs, floor labels, and tactical notes.
+- Added direct map and site selectors, safer site changes, consistent floor/site rendering, and a dataset status count so the displayed site and poster stay synchronized.
+- Extended contextual poster details across challenge filters, Duo Synergy faction/style/search filters, Duel Arena modes and tournament status, and the selected map/site.
+- Removed the round/defuser timer panel and its countdown logic; the map hub now focuses entirely on map and bomb-site selection.
+- Bumped app version to 1.8.0 and Service Worker cache to r6-cache-v17.
+
+### Validation
+- Source assertions cover 15 ranked maps, map/site selector wiring, poster contexts, timer UI/logic removal, version/cache alignment, and changelog placement. Real-browser visual and gameplay-data verification remain recommended.
+
 ## 1.7.1 — 2026-10-24
 
 ### Fix clipped Duel Arena and Squad Intelligence content
