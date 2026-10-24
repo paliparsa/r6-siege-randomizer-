@@ -3,24 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#080c10">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="R6 Tactical">
-  <title>R6 Siege Tactical Randomizer Pro | رندمایزر رینبو سیکس سیج</title>
-  
-  <!-- Dynamic PWA Manifest & Icons -->
+  <meta name="theme-color" content="#06090e">
+  <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
+
+  <!-- PWA & Dynamic Favicon -->
   <link rel="icon" id="dynamicFavicon" type="image/svg+xml">
   <link rel="apple-touch-icon" id="dynamicAppleIcon">
   <link rel="manifest" id="dynamicManifest">
 
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts & FontAwesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,700;1,700&family=Vazirmatn:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,600;0,700;0,900;1,800&family=Vazirmatn:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <script>
@@ -31,15 +26,14 @@
           colors: {
             siege: {
               yellow: '#F8AA00',
-              orange: '#FF7300',
-              cyan: '#00D8F6',
-              blue: '#0062FF',
+              orange: '#FF6B00',
+              cyan: '#00E5FF',
+              ice: '#38bdf8',
               red: '#FF2A4D',
-              dark: '#070a10',
-              card: '#0e1624',
-              surface: '#141f33',
-              border: '#1f2e4a',
-              accent: '#243758'
+              dark: '#06090f',
+              card: '#0b121e',
+              surface: '#111c2d',
+              border: '#1e2d47'
             }
           },
           fontFamily: {
@@ -53,52 +47,151 @@
 
   <style>
     :root {
+      --safe-top: env(safe-area-inset-top, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --theme-primary: #00E5FF;
+      --theme-secondary: #F8AA00;
+      --theme-glow: rgba(0, 229, 255, 0.16);
+      --bg-base: #06090f;
+      --bg-card: rgba(11, 18, 30, 0.92);
     }
 
-    html, body {
-      min-height: 100dvh;
-      background-color: #070a10;
-      color: #e2e8f0;
-      font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif;
-      overflow-x: hidden;
+    /* Dynamic Faction / Skin Themes */
+    body[data-faction="atk"] {
+      --theme-primary: #00E5FF;
+      --theme-glow: rgba(0, 229, 255, 0.18);
+    }
+    body[data-faction="def"] {
+      --theme-primary: #FF6B00;
+      --theme-glow: rgba(255, 107, 0, 0.18);
+    }
+    body[data-skin="blackice"] {
+      --theme-primary: #38bdf8;
+      --theme-secondary: #a5f3fc;
+      --theme-glow: rgba(56, 189, 248, 0.25);
+      --bg-base: #040d1a;
+      --bg-card: rgba(8, 25, 48, 0.92);
+    }
+    body[data-skin="keres"] {
+      --theme-primary: #ff2a4d;
+      --theme-secondary: #ff758f;
+      --theme-glow: rgba(255, 42, 77, 0.22);
+      --bg-base: #0b0507;
+      --bg-card: rgba(24, 9, 14, 0.94);
+    }
+    body[data-skin="nighthaven"] {
+      --theme-primary: #a855f7;
+      --theme-secondary: #22d3ee;
+      --theme-glow: rgba(168, 85, 247, 0.22);
+      --bg-base: #080612;
+      --bg-card: rgba(17, 12, 34, 0.94);
+    }
+
+    * {
+      box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
       user-select: none;
     }
 
-    body {
-      background-image: 
-        radial-gradient(circle at 50% 0%, rgba(248, 170, 0, 0.09) 0%, transparent 65%),
-        linear-gradient(rgba(20, 31, 51, 0.4) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(20, 31, 51, 0.4) 1px, transparent 1px);
-      background-size: 100% 100%, 28px 28px, 28px 28px;
-      padding-bottom: calc(85px + var(--safe-bottom));
+    html, body {
+      height: 100dvh;
+      width: 100vw;
+      overflow: hidden;
+      background-color: var(--bg-base);
+      color: #e2e8f0;
+      font-family: 'Vazirmatn', system-ui, sans-serif;
+      transition: background-color 0.35s ease;
     }
 
-    @media (min-width: 768px) {
-      body {
-        padding-bottom: 24px;
-      }
+    body {
+      background-image: 
+        radial-gradient(circle at 50% 0%, var(--theme-glow) 0%, transparent 65%),
+        linear-gradient(rgba(30, 45, 71, 0.22) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30, 45, 71, 0.22) 1px, transparent 1px);
+      background-size: 100% 100%, 26px 26px, 26px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
+
+    .dynamic-border {
+      border-color: color-mix(in srgb, var(--theme-primary) 40%, #1e2d47);
+      box-shadow: 0 8px 32px -4px var(--theme-glow);
+    }
+    .dynamic-text { color: var(--theme-primary); }
+    .dynamic-bg { background-color: var(--theme-primary); }
 
     .clip-corner {
       clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
     }
-    .clip-corner-sm {
-      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+
+    /* 3D Flip & Laser Scanline & Glitch Reveal */
+    .perspective-wrap { perspective: 1200px; }
+    .card-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+    }
+    .card-flipping {
+      animation: flip3D 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes flip3D {
+      0% { transform: rotateY(0deg) scale(1); }
+      50% { transform: rotateY(90deg) scale(0.95); filter: brightness(1.5) hue-rotate(25deg); }
+      100% { transform: rotateY(0deg) scale(1); }
+    }
+
+    .laser-scanline {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--theme-primary), #fff, var(--theme-primary), transparent);
+      box-shadow: 0 0 18px 4px var(--theme-primary);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 30;
+    }
+    .scanning .laser-scanline {
+      animation: scanSweep 0.55s ease-in-out;
+    }
+    @keyframes scanSweep {
+      0% { top: 0%; opacity: 1; }
+      90% { top: 98%; opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    .glitch-active {
+      animation: cyberGlitch 0.35s steps(2, end);
+    }
+    @keyframes cyberGlitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-3px, 2px); filter: drop-shadow(3px 0 #ff2a4d) drop-shadow(-3px 0 #00e5ff); }
+      40% { transform: translate(3px, -2px); }
+      60% { transform: translate(-2px, -1px); filter: drop-shadow(-2px 0 #f8aa00); }
+      80% { transform: translate(2px, 1px); }
+      100% { transform: translate(0); filter: none; }
+    }
+
+    /* Watermark Portrait Styling */
+    .op-watermark {
+      position: absolute;
+      left: -15px;
+      bottom: -25px;
+      width: 210px;
+      height: 210px;
+      opacity: 0.06;
+      pointer-events: none;
+      transform: rotate(-8deg);
+      filter: grayscale(20%) contrast(130%);
+      z-index: 0;
+      transition: all 0.4s ease;
     }
 
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: #070a10; }
-    ::-webkit-scrollbar-thumb { background: #1f2e4a; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #F8AA00; }
-
-    /* Modal Animation */
     .modal-backdrop {
-      transition: opacity 0.25s ease, visibility 0.25s ease;
+      transition: opacity 0.22s ease, visibility 0.22s ease;
     }
     .modal-backdrop.hidden-modal {
       opacity: 0;
@@ -110,447 +203,753 @@
       visibility: visible;
       pointer-events: auto;
     }
+
+    /* Alpha Pack Foil Glow */
+    .alpha-pack-bag {
+      background: linear-gradient(145deg, #1a2436 0%, #0d131f 50%, #23314a 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .alpha-pack-bag::after {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%; width: 200%; height: 200%;
+      background: linear-gradient(45deg, transparent 40%, rgba(248, 170, 0, 0.2) 50%, transparent 60%);
+      animation: foilShine 3s infinite linear;
+      pointer-events: none;
+    }
+    @keyframes foilShine {
+      0% { transform: translateX(-40%) translateY(-40%); }
+      100% { transform: translateX(40%) translateY(40%); }
+    }
   </style>
 </head>
-<body class="antialiased selection:bg-siege-yellow selection:text-black flex flex-col justify-between">
+<body data-faction="atk" data-skin="default" class="antialiased selection:bg-siege-yellow selection:text-black">
 
-  <!-- TOP HEADER HUD -->
-  <header class="border-b border-siege-border bg-siege-dark/95 backdrop-blur-md sticky top-0 z-40 px-3 sm:px-6 py-2.5">
-    <div class="max-w-6xl mx-auto flex items-center justify-between gap-2">
-      
-      <!-- Brand & Version -->
-      <div class="flex items-center space-x-2.5 rtl:space-x-reverse min-w-0">
-        <div class="w-9 h-9 shrink-0 rounded-lg bg-gradient-to-br from-siege-yellow to-siege-orange text-black font-tactical font-black text-xl flex items-center justify-center shadow-lg shadow-siege-yellow/20">
-          6
-        </div>
-        <div class="min-w-0">
-          <div class="flex items-center gap-1.5">
-            <h1 class="text-sm sm:text-base font-black font-tactical tracking-wider text-white truncate">
-              <span class="text-siege-yellow">R6S</span> RANDOMIZER PRO
-            </h1>
-            <span class="text-[9px] uppercase font-bold tracking-widest px-1.5 py-0.2 rounded bg-siege-yellow/20 text-siege-yellow border border-siege-yellow/40">
-              Y9
+  <!-- ================= TOP COMMAND HEADER + XP & RANK BAR ================= -->
+  <header class="border-b border-siege-border bg-siege-dark/95 backdrop-blur-md z-40 px-3 sm:px-5 pt-2 pb-1.5 shrink-0">
+    <div class="max-w-5xl mx-auto flex flex-col gap-1.5">
+      <div class="flex items-center justify-between gap-2">
+        <!-- Brand & Live Rank Badge -->
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div onclick="openProfileModal()" class="cursor-pointer group relative w-9 h-9 rounded-xl bg-gradient-to-br from-siege-yellow to-siege-orange text-black font-tactical font-black text-xl flex items-center justify-center shadow-lg shadow-siege-yellow/20 shrink-0">
+            6
+            <span class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-siege-dark border border-siege-yellow flex items-center justify-center text-[8px] text-siege-yellow">
+              <i id="headerRankMiniIcon" class="fa-solid fa-medal"></i>
             </span>
           </div>
-          <p class="text-[10px] text-slate-400 font-persian truncate hidden sm:block">سامانه تاکتیکی انتخاب اپراتور، لوداوت و چالش‌های استراتژیک</p>
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5">
+              <h1 class="text-xs sm:text-sm font-black font-tactical tracking-wider text-white truncate">
+                <span class="dynamic-text">R6</span> COMMAND CENTER
+              </h1>
+              <span id="headerRankTitleBadge" onclick="openProfileModal()" class="cursor-pointer px-1.5 py-0.5 rounded bg-siege-surface border border-siege-border text-[9px] font-tactical font-bold text-siege-yellow uppercase">
+                COPPER V
+              </span>
+            </div>
+            <div class="flex items-center gap-2 text-[10px] text-slate-400">
+              <span id="headerCallsignText" class="font-tactical font-bold text-slate-300 truncate">OPERATOR</span>
+              <span>•</span>
+              <span id="headerTitleText" class="text-siege-cyan truncate">Recruit Operative</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Header Actions -->
+        <div class="flex items-center gap-1.5 shrink-0">
+          <!-- Alpha Pack Trigger -->
+          <button onclick="openAlphaModal()" class="relative px-2.5 py-1.5 rounded-lg bg-siege-card border border-siege-yellow/50 hover:border-siege-yellow text-xs text-siege-yellow flex items-center gap-1.5 transition active:scale-95" title="آلفا پک‌های جایزه">
+            <i class="fa-solid fa-box-open animate-pulse"></i>
+            <span id="headerPackCount" class="font-mono font-black text-[11px]">0</span>
+          </button>
+
+          <!-- Ban / Lock Phase -->
+          <button onclick="openBanModal()" class="px-2 py-1.5 rounded-lg bg-siege-card border border-siege-border hover:border-siege-red text-xs text-slate-300 flex items-center gap-1 transition active:scale-95" title="بن و قفل اپراتورها">
+            <i class="fa-solid fa-ban text-siege-red"></i>
+            <span id="bannedCountBadge" class="font-mono text-[10px] font-bold text-siege-red">0</span>
+          </button>
+
+          <!-- Shake Sensor Toggle (Mobile) -->
+          <button onclick="toggleShakeSensor()" id="shakeBtn" class="w-8 h-8 rounded-lg border border-siege-border bg-siege-card text-xs flex items-center justify-center text-slate-400 hover:text-white transition active:scale-95" title="تکان دادن گوشی برای رول (Shake to Roll)">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+          </button>
+
+          <!-- Sound Toggle -->
+          <button onclick="toggleAudio()" class="w-8 h-8 rounded-lg border border-siege-border bg-siege-card text-xs flex items-center justify-center text-slate-300 hover:text-siege-yellow transition active:scale-95" title="صدا">
+            <i class="fa-solid fa-volume-high text-siege-yellow" id="soundIcon"></i>
+          </button>
+
+          <!-- Intro Guide -->
+          <button onclick="openIntroModal()" class="w-8 h-8 rounded-lg border border-siege-border bg-siege-card text-xs flex items-center justify-center text-slate-300 hover:text-siege-cyan transition active:scale-95" title="راهنمای برنامه">
+            <i class="fa-solid fa-circle-question text-siege-cyan"></i>
+          </button>
         </div>
       </div>
 
-      <!-- Quick Action Controls -->
-      <div class="flex items-center gap-1.5 shrink-0">
-        <!-- Reopen Intro Carousel -->
-        <button onclick="openIntroModal()" class="w-8 h-8 rounded-lg border border-siege-border hover:border-siege-yellow bg-siege-card text-xs flex items-center justify-center text-slate-300 hover:text-siege-yellow transition active:scale-95" title="راهنما">
-          <i class="fa-solid fa-circle-question"></i>
-        </button>
-
-        <!-- Sound FX Toggle -->
-        <button onclick="toggleAudio()" class="w-8 h-8 rounded-lg border border-siege-border hover:border-siege-yellow bg-siege-card text-xs flex items-center justify-center text-slate-300 hover:text-siege-yellow transition active:scale-95" title="صدا">
-          <i class="fa-solid fa-volume-high text-siege-yellow" id="soundIcon"></i>
-        </button>
-
-        <!-- Profile Trigger (Desktop/Tablet) -->
-        <button onclick="openProfileModal()" class="hidden sm:flex px-2.5 py-1.5 rounded-lg bg-siege-card border border-siege-border hover:border-siege-yellow text-xs font-bold text-white items-center gap-1.5 transition active:scale-95">
-          <span id="navRankBadge" class="w-5 h-5 rounded bg-siege-yellow/20 text-siege-yellow flex items-center justify-center text-[10px]">
-            <i class="fa-solid fa-shield-halved"></i>
-          </span>
-          <span id="navCallsign" class="text-white font-tactical font-black text-xs">RECRUIT</span>
-        </button>
+      <!-- XP Progress Bar -->
+      <div class="flex items-center gap-2 text-[10px] font-mono">
+        <span id="xpLevelBadge" class="text-siege-yellow font-bold shrink-0">LVL 1</span>
+        <div class="flex-1 h-1.5 bg-siege-surface rounded-full overflow-hidden border border-siege-border/70">
+          <div id="xpProgressBar" class="h-full bg-gradient-to-r from-siege-cyan via-siege-yellow to-siege-orange transition-all duration-500" style="width: 15%"></div>
+        </div>
+        <span id="xpCounterText" class="text-slate-400 shrink-0">0 / 200 XP</span>
       </div>
-
     </div>
   </header>
 
-  <!-- DESKTOP TOP NAV TABS -->
-  <nav class="hidden md:block bg-siege-dark/80 border-b border-siege-border px-4 py-2 sticky top-[53px] z-30 backdrop-blur">
-    <div class="max-w-6xl mx-auto flex items-center justify-between gap-2">
-      <div class="flex items-center gap-1.5">
-        <button onclick="switchMode('solo')" id="tab-solo" class="mode-tab active px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2 border transition bg-siege-yellow text-black border-siege-yellow font-persian">
-          <i class="fa-solid fa-user-ninja"></i>
-          <span>سولو اپراتور</span>
+  <!-- ================= BENTO COMMAND NAVIGATION (DESKTOP & TABLET) ================= -->
+  <nav class="hidden sm:block bg-siege-dark/80 border-b border-siege-border px-4 py-2 shrink-0">
+    <div class="max-w-5xl mx-auto flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <button onclick="switchHub('hq')" id="hub-btn-hq" class="px-4 py-1.5 rounded-xl font-bold text-xs transition bg-siege-yellow text-black shadow-md shadow-siege-yellow/20 flex items-center gap-2">
+          <i class="fa-solid fa-crosshairs"></i>
+          <span>۱. مقر اپراتور و لوداوت (Operators HQ)</span>
         </button>
-        <button onclick="switchMode('squad')" id="tab-squad" class="mode-tab px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2 border border-transparent text-slate-400 hover:text-white hover:bg-slate-800/50 transition font-persian">
-          <i class="fa-solid fa-users"></i>
-          <span>تیم ۵ نفره (Squad)</span>
+        <button onclick="switchHub('ops')" id="hub-btn-ops" class="px-4 py-1.5 rounded-xl font-bold text-xs transition text-slate-300 hover:bg-siege-surface border border-transparent flex items-center gap-2">
+          <i class="fa-solid fa-bullseye"></i>
+          <span>۲. عملیات و چالش‌ها (Operations)</span>
         </button>
-        <button onclick="switchMode('strats')" id="tab-strats" class="mode-tab px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2 border border-transparent text-slate-400 hover:text-white hover:bg-slate-800/50 transition font-persian">
-          <i class="fa-solid fa-dice-d20"></i>
-          <span>۵۴+ چالش تاکتیکی</span>
+        <button onclick="switchHub('tools')" id="hub-btn-tools" class="px-4 py-1.5 rounded-xl font-bold text-xs transition text-slate-300 hover:bg-siege-surface border border-transparent flex items-center gap-2">
+          <i class="fa-solid fa-map-location-dot"></i>
+          <span>۳. نقشه و تایمر بمب (Tactical Tools)</span>
         </button>
       </div>
-      <button onclick="openProfileModal()" class="px-3 py-1.5 rounded-lg border border-siege-border hover:border-siege-yellow bg-siege-card text-xs text-slate-300 hover:text-white flex items-center gap-1.5 transition font-persian">
-        <i class="fa-solid fa-id-badge text-siege-yellow"></i>
-        <span>پروفایل و آمار</span>
-      </button>
+
+      <!-- Theme Switcher Quick Pill -->
+      <div class="flex items-center gap-1 bg-siege-card px-2 py-1 rounded-xl border border-siege-border text-[11px]">
+        <span class="text-slate-400 pl-1">تم:</span>
+        <button onclick="setSkinTheme('default')" class="px-2 py-0.5 rounded hover:text-white text-siege-yellow font-bold">Siege</button>
+        <button onclick="setSkinTheme('blackice')" class="px-2 py-0.5 rounded hover:text-white text-sky-400 font-bold">Black Ice</button>
+        <button onclick="setSkinTheme('keres')" class="px-2 py-0.5 rounded hover:text-white text-rose-500 font-bold">Keres</button>
+        <button onclick="setSkinTheme('nighthaven')" class="px-2 py-0.5 rounded hover:text-white text-purple-400 font-bold">Nighthaven</button>
+      </div>
     </div>
   </nav>
 
-  <!-- PWA INSTALL BANNER (Mobile Only) -->
-  <div id="mobilePwaBanner" class="hidden px-3 pt-3 max-w-6xl mx-auto w-full">
-    <div class="bg-gradient-to-r from-siege-surface to-siege-card border border-siege-yellow/70 rounded-xl p-3 shadow-xl flex items-center justify-between gap-2.5 clip-corner-sm">
-      <div class="flex items-center gap-2.5 min-w-0">
-        <div id="pwaIconPreview" class="w-10 h-10 rounded-lg bg-black flex items-center justify-center shrink-0 border border-siege-border overflow-hidden p-1"></div>
-        <div class="min-w-0">
-          <h4 class="text-xs font-bold text-white font-persian flex items-center gap-1.5">
-            <span>نصب اپلیکیشن R6 Tactical</span>
-            <span class="text-[9px] px-1.5 rounded bg-siege-cyan/20 text-siege-cyan font-mono">PWA</span>
-          </h4>
-          <p id="pwaInstructionText" class="text-[11px] text-slate-300 font-persian truncate">اجرای تمام‌صفحه و سریع بدون فیلتر روی صفحه گوشی</p>
+  <!-- ================= APP-LIKE MAIN VIEWPORT (NO PAGE OVERFLOW) ================= -->
+  <main class="max-w-5xl mx-auto w-full px-3 sm:px-5 py-2.5 flex-1 overflow-y-auto no-scrollbar flex flex-col justify-between">
+
+    <!-- =========================================================================
+         HUB 1: OPERATORS HQ (Standard Solo / Cursed Loadout / 5-Man Squad)
+         ========================================================================= -->
+    <section id="hub-hq" class="flex flex-col justify-between h-full gap-2.5">
+      <!-- Top Mode Switcher + Faction Selector -->
+      <div class="flex flex-col sm:flex-row gap-2 shrink-0">
+        <!-- Sub-mode Switcher -->
+        <div class="grid grid-cols-3 gap-1 bg-siege-card p-1 rounded-xl border border-siege-border flex-1">
+          <button onclick="setHqMode('standard')" id="hqMode-standard" class="py-1.5 rounded-lg text-xs font-bold bg-siege-yellow text-black transition flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-user-shield"></i><span>استاندارد (تکی)</span>
+          </button>
+          <button onclick="setHqMode('cursed')" id="hqMode-cursed" class="py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-skull-crossbones"></i><span>نفرین‌شده (Cursed)</span>
+          </button>
+          <button onclick="setHqMode('squad')" id="hqMode-squad" class="py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-users"></i><span>اسکواد ۵ نفره</span>
+          </button>
+        </div>
+
+        <!-- Faction Theme Selector (Dynamic Theme Engine) -->
+        <div class="grid grid-cols-3 gap-1 bg-siege-card p-1 rounded-xl border border-siege-border sm:w-72">
+          <button onclick="setFaction('all')" id="facBtn-all" class="py-1.5 rounded-lg text-[11px] font-bold text-slate-400 hover:text-white transition">
+            همه
+          </button>
+          <button onclick="setFaction('atk')" id="facBtn-atk" class="py-1.5 rounded-lg text-[11px] font-bold bg-siege-cyan/20 text-siege-cyan border border-siege-cyan/50 transition">
+            <i class="fa-solid fa-crosshairs mr-1"></i>ATTACK
+          </button>
+          <button onclick="setFaction('def')" id="facBtn-def" class="py-1.5 rounded-lg text-[11px] font-bold text-slate-400 hover:text-siege-orange transition">
+            <i class="fa-solid fa-shield mr-1"></i>DEFEND
+          </button>
         </div>
       </div>
-      <div class="flex items-center gap-1 shrink-0">
-        <button onclick="triggerPwaInstall()" class="px-3 py-1.5 rounded-lg bg-siege-yellow text-black font-tactical font-black text-xs active:scale-95 shadow">
-          نصب
+
+      <!-- 1A. STANDARD & CURSED UNIFIED 3D INTERACTIVE CARD (Swipeable) -->
+      <div id="hqSingleCardWrap" class="perspective-wrap flex-1 flex flex-col justify-center min-h-0">
+        <div id="operatorMainCard" class="card-3d bg-siege-card/95 dynamic-border border rounded-2xl p-4 sm:p-5 clip-corner relative overflow-hidden flex flex-col justify-between h-full max-h-[430px] shadow-2xl">
+          <!-- Laser Scanline Element -->
+          <div class="laser-scanline"></div>
+
+          <!-- Background Portrait Watermark -->
+          <img id="cardWatermarkImg" src="" alt="" class="op-watermark" onerror="this.style.display='none'">
+
+          <!-- Top Bar: Side, Speed/Armor, Favorite & Share -->
+          <div class="flex items-center justify-between z-10">
+            <div class="flex items-center gap-1.5">
+              <span id="cardSideBadge" class="px-2.5 py-0.5 text-[10px] font-tactical font-black rounded uppercase border bg-siege-cyan/20 border-siege-cyan text-siege-cyan">
+                ATTACKER
+              </span>
+              <span id="cardSpeedArmor" class="px-2 py-0.5 rounded text-[10px] font-mono bg-siege-dark/90 border border-siege-border text-slate-300">
+                SPD 3 • ARM 1
+              </span>
+              <span id="cardModeTag" class="hidden px-2 py-0.5 rounded text-[10px] font-tactical font-black bg-siege-red/20 border border-siege-red text-siege-red">
+                CURSED MODE
+              </span>
+            </div>
+
+            <div class="flex items-center gap-1.5">
+              <button onclick="exportCurrentCard()" class="px-2.5 py-1 rounded-lg bg-siege-dark border border-siege-border hover:border-siege-yellow text-slate-300 hover:text-siege-yellow text-[11px] font-bold flex items-center gap-1 transition active:scale-95" title="خروجی پوستر دیسکورد">
+                <i class="fa-solid fa-share-nodes"></i>
+                <span class="hidden sm:inline">پوستر دیسکورد</span>
+              </button>
+              <button onclick="toggleFavoriteCurrent()" class="w-8 h-8 rounded-lg bg-siege-dark border border-siege-border text-slate-400 hover:text-siege-yellow flex items-center justify-center transition active:scale-95" title="افزودن به علاقه‌مندی‌ها (یا کشیدن کارت به بالا)">
+                <i class="fa-regular fa-star text-sm" id="cardFavIcon"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Center Operator Identity -->
+          <div class="flex items-center gap-4 my-auto py-2 z-10">
+            <div id="cardBadgeBox" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-siege-dark border-2 border-siege-cyan flex items-center justify-center p-2 shrink-0 shadow-xl relative overflow-hidden">
+              <img id="cardOpIcon" src="" alt="Operator" class="w-full h-full object-contain drop-shadow" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div id="cardOpFallback" class="hidden w-full h-full items-center justify-center font-tactical font-black text-2xl text-siege-yellow">R6</div>
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="text-[10px] font-mono text-slate-400 uppercase tracking-wider" id="cardOrgName">FBI SWAT</div>
+              <h2 id="cardOpName" class="text-3xl sm:text-4xl font-black font-tactical text-white uppercase tracking-tight truncate">ASH</h2>
+              <div class="inline-flex items-center gap-1.5 mt-1 px-2.5 py-0.5 rounded-lg bg-siege-dark/90 border border-siege-border text-xs text-siege-yellow font-bold">
+                <i class="fa-solid fa-microchip"></i>
+                <span id="cardGadgetName">Breaching Round</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Loadout & Cursed Attachments Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-2.5 border-t border-siege-border/80 text-xs z-10">
+            <div class="bg-siege-dark/90 p-2.5 sm:p-3 rounded-xl border border-siege-border space-y-1">
+              <div class="flex items-center justify-between text-slate-400">
+                <span><i class="fa-solid fa-gun text-siege-yellow ml-1"></i>سلاح اصلی</span>
+                <span id="cardPrimaryWeapon" class="font-tactical font-black text-siege-yellow text-sm">R4-C / G36C</span>
+              </div>
+              <div id="cursedPrimaryAttachments" class="hidden text-[11px] text-slate-300 grid grid-cols-2 gap-1 pt-1 border-t border-siege-border/50">
+                <div>اسکوپ: <strong id="attScope" class="text-white">Iron Sight</strong></div>
+                <div>سرلوله: <strong id="attMuzzle" class="text-white">Suppressor</strong></div>
+                <div>گریپ: <strong id="attGrip" class="text-white">No Grip</strong></div>
+                <div>زیرلوله: <strong id="attLaser" class="text-white">Laser On</strong></div>
+              </div>
+            </div>
+
+            <div class="bg-siege-dark/90 p-2.5 sm:p-3 rounded-xl border border-siege-border flex flex-col justify-between space-y-1">
+              <div class="flex items-center justify-between text-slate-400">
+                <span><i class="fa-solid fa-crosshairs text-siege-orange ml-1"></i>سلاح کمری</span>
+                <span id="cardSecWeapon" class="font-tactical font-black text-siege-orange text-sm">5.7 USG</span>
+              </div>
+              <div id="cursedRuleBox" class="hidden p-1.5 rounded-lg bg-siege-red/20 border border-siege-red/50 text-siege-red font-bold text-[11px] truncate">
+                <i class="fa-solid fa-triangle-exclamation ml-1"></i>
+                <span id="cursedRuleText">فقط شلیک از لگن (Hip-Fire)!</span>
+              </div>
+              <div id="standardHintBox" class="text-[10px] text-slate-400 flex items-center justify-between pt-0.5">
+                <span><i class="fa-solid fa-hand-pointer ml-1 text-siege-cyan"></i>سوایپ چپ/راست: رول مجدد</span>
+                <span>سوایپ بالا: ★ ستاره</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1B. 5-MAN SQUAD GENERATOR VIEW -->
+      <div id="hqSquadWrap" class="hidden flex-1 flex flex-col justify-center min-h-0">
+        <div id="squadGridContainer" class="grid grid-cols-1 sm:grid-cols-5 gap-2 overflow-y-auto no-scrollbar py-1">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Bottom Roll Action Button -->
+      <div class="shrink-0">
+        <button onclick="triggerHqRoll()" id="hqRollBtn" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-siege-yellow to-siege-orange text-black font-tactical font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-siege-yellow/25 active:scale-95 transition">
+          <i class="fa-solid fa-dice-d20 text-base"></i>
+          <span id="hqRollBtnText">انتخاب تصادفی اپراتور (+10 XP)</span>
         </button>
-        <button onclick="dismissPwaBanner()" class="w-7 h-7 text-slate-400 hover:text-white flex items-center justify-center">
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         HUB 2: OPERATIONS & CHALLENGES (55 Secret Strats / Duo Synergy / 1v1 Duel)
+         ========================================================================= -->
+    <section id="hub-ops" class="hidden flex flex-col justify-between h-full gap-2.5">
+      <!-- Sub-navigation for Operations -->
+      <div class="grid grid-cols-3 gap-1 bg-siege-card p-1 rounded-xl border border-siege-border shrink-0">
+        <button onclick="setOpsMode('strats')" id="opsMode-strats" class="py-1.5 rounded-lg text-xs font-bold bg-siege-yellow text-black transition">
+          <i class="fa-solid fa-user-secret ml-1"></i>۵۵ چالش مخفی
+        </button>
+        <button onclick="setOpsMode('duo')" id="opsMode-duo" class="py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition">
+          <i class="fa-solid fa-user-group ml-1"></i>کمبو ۲ نفره (Duo)
+        </button>
+        <button onclick="setOpsMode('duel')" id="opsMode-duel" class="py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition">
+          <i class="fa-solid fa-swords ml-1"></i>دوئل تن‌به‌تن (1v1)
+        </button>
+      </div>
+
+      <!-- 2A. 55 SECRET STRATS CARD -->
+      <div id="opsStratsView" class="flex-1 flex flex-col justify-between gap-2.5 min-h-0">
+        <div class="grid grid-cols-3 gap-1.5 bg-siege-card/70 p-1 rounded-xl border border-siege-border shrink-0">
+          <button onclick="setStratSide('all')" id="stratSideAll" class="py-1 rounded-lg text-[11px] font-bold bg-siege-yellow/20 text-siege-yellow border border-siege-yellow/40">همه (55)</button>
+          <button onclick="setStratSide('atk')" id="stratSideAtk" class="py-1 rounded-lg text-[11px] font-bold text-slate-400">ویژه حمله</button>
+          <button onclick="setStratSide('def')" id="stratSideDef" class="py-1 rounded-lg text-[11px] font-bold text-slate-400">ویژه دفاع</button>
+        </div>
+
+        <div id="stratCard3D" class="card-3d bg-siege-card dynamic-border border rounded-2xl p-4 sm:p-5 clip-corner flex-1 flex flex-col justify-between relative overflow-hidden">
+          <div class="laser-scanline"></div>
+          <div class="flex items-center justify-between border-b border-siege-border pb-2.5">
+            <div class="flex items-center gap-1.5">
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-siege-red/20 text-siege-red border border-siege-red/40">TOP SECRET</span>
+              <span id="stratSideTag" class="px-2 py-0.5 rounded text-[10px] font-mono bg-siege-dark text-siege-cyan border border-siege-border">UNIVERSAL</span>
+            </div>
+            <span id="stratDiffBadge" class="px-2.5 py-0.5 rounded text-[10px] font-tactical font-black uppercase bg-siege-yellow/20 text-siege-yellow border border-siege-yellow/40">VETERAN</span>
+          </div>
+
+          <div class="my-auto py-2 space-y-2">
+            <div class="text-[11px] font-mono text-slate-400" id="stratCounterCode">OPERATION CODE: #STRAT-01 / 55</div>
+            <h2 id="stratTitleText" class="text-xl sm:text-2xl font-black text-white leading-snug">راش ۳۰ ثانیه‌ای (Blitzkrieg)</h2>
+            <p id="stratDescText" class="text-xs sm:text-sm text-slate-300 leading-relaxed bg-siege-dark/90 p-3.5 rounded-xl border border-siege-border">
+              تمام مهاجمان موظفند در ۳۰ ثانیه اول راند داخل اتاق بمب باشند! ایستادن بیرون ساختمان ممنوع است.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2 pt-2">
+            <button onclick="completeCurrentStrat()" class="w-full py-2.5 px-4 rounded-xl bg-siege-cyan/15 border border-siege-cyan hover:bg-siege-cyan hover:text-black text-siege-cyan font-bold text-xs transition flex items-center justify-center gap-2 active:scale-95">
+              <i class="fa-solid fa-trophy"></i>
+              <span>ثبت پیروزی در این چالش (+100 XP و پیشرفت آلفا پک)</span>
+            </button>
+          </div>
+        </div>
+
+        <button onclick="rollRandomStrat()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-siege-yellow to-siege-orange text-black font-tactical font-black text-sm uppercase flex items-center justify-center gap-2 shadow-lg shrink-0 active:scale-95 transition">
+          <i class="fa-solid fa-dice"></i>
+          <span>دریافت چالش مخفی بعدی (+10 XP)</span>
+        </button>
+      </div>
+
+      <!-- 2B. DUO SYNERGY VIEW -->
+      <div id="opsDuoView" class="hidden flex-1 flex flex-col justify-between gap-2.5 min-h-0">
+        <div class="bg-siege-card dynamic-border border rounded-2xl p-4 clip-corner flex-1 flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <div class="flex gap-1 bg-siege-dark p-1 rounded-lg border border-siege-border">
+              <button onclick="setDuoSide('atk')" id="duoSideAtk" class="px-3 py-1 rounded text-xs font-bold bg-siege-cyan text-black">مهاجمان (ATK)</button>
+              <button onclick="setDuoSide('def')" id="duoSideDef" class="px-3 py-1 rounded text-xs font-bold text-slate-400">مدافعان (DEF)</button>
+            </div>
+            <span id="duoTitle" class="font-tactical font-black text-sm text-siege-yellow">THE BREACH MASTERS</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 my-auto py-2">
+            <div class="bg-siege-dark p-3 rounded-xl border border-siege-border text-center space-y-1.5">
+              <div class="w-14 h-14 mx-auto rounded-lg bg-siege-card border border-siege-border p-1 flex items-center justify-center">
+                <img id="duoOp1Img" src="" alt="Op 1" class="w-full h-full object-contain">
+              </div>
+              <strong id="duoOp1Name" class="text-sm sm:text-base font-tactical text-white block">THERMITE</strong>
+              <span id="duoOp1Role" class="text-[11px] text-siege-yellow block">هاردبریچر اصلی</span>
+            </div>
+
+            <div class="bg-siege-dark p-3 rounded-xl border border-siege-border text-center space-y-1.5">
+              <div class="w-14 h-14 mx-auto rounded-lg bg-siege-card border border-siege-border p-1 flex items-center justify-center">
+                <img id="duoOp2Img" src="" alt="Op 2" class="w-full h-full object-contain">
+              </div>
+              <strong id="duoOp2Name" class="text-sm sm:text-base font-tactical text-white block">THATCHER</strong>
+              <span id="duoOp2Role" class="text-[11px] text-siege-cyan block">خنثی‌کننده گجت برق</span>
+            </div>
+          </div>
+
+          <div class="bg-siege-dark/90 p-3 rounded-xl border border-siege-border text-xs text-slate-300">
+            <span class="font-bold text-siege-yellow ml-1"><i class="fa-solid fa-diagram-project"></i> تاکتیک اجرا:</span>
+            <span id="duoPlanText">تچر با EMP برق دیوار را قطع کرده و ترمایت بلافاصله دیوار اصلی سایت را باز می‌کند.</span>
+          </div>
+        </div>
+
+        <button onclick="rollDuoCombo()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-siege-yellow to-siege-orange text-black font-tactical font-black text-sm uppercase flex items-center justify-center gap-2 shrink-0 active:scale-95 transition">
+          <i class="fa-solid fa-user-plus"></i>
+          <span>پیشنهاد کمبوی ۲ نفره بعدی (+10 XP)</span>
+        </button>
+      </div>
+
+      <!-- 2C. 1V1 CUSTOM DUEL VIEW -->
+      <div id="opsDuelView" class="hidden flex-1 flex flex-col justify-between gap-2.5 min-h-0">
+        <div class="bg-siege-card dynamic-border border rounded-2xl p-4 clip-corner flex-1 flex flex-col justify-between">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 my-auto text-xs">
+            <div class="bg-siege-dark p-3 rounded-xl border border-siege-cyan/40 space-y-1.5">
+              <div class="font-tactical font-black text-siege-cyan text-sm">PLAYER 1 (مهاجم)</div>
+              <div>اپراتور: <strong id="duelP1Op" class="text-white font-tactical text-sm">BUCK</strong></div>
+              <div>سلاح: <span id="duelP1Weapon" class="text-siege-yellow">فقط کلت کمری</span></div>
+              <div>حرکت: <span id="duelP1Move" class="text-slate-400">بدون دویدن</span></div>
+            </div>
+            <div class="bg-siege-dark p-3 rounded-xl border border-siege-orange/40 space-y-1.5">
+              <div class="font-tactical font-black text-siege-orange text-sm">PLAYER 2 (مدافع)</div>
+              <div>اپراتور: <strong id="duelP2Op" class="text-white font-tactical text-sm">FROST</strong></div>
+              <div>سلاح: <span id="duelP2Weapon" class="text-siege-yellow">شاتگان تک‌تیر</span></div>
+              <div>حرکت: <span id="duelP2Move" class="text-slate-400">فقط داخل سایت بمب</span></div>
+            </div>
+          </div>
+
+          <div class="bg-siege-dark/90 p-3 rounded-xl border border-siege-border text-xs text-center">
+            <span class="text-slate-400 block mb-0.5">قانون سراسری این دوئل:</span>
+            <strong id="duelGlobalRule" class="text-siege-yellow text-sm">فقط هدشات یا نایف مجاز است!</strong>
+          </div>
+        </div>
+
+        <button onclick="rollDuelMatch()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-siege-red to-siege-orange text-white font-tactical font-black text-sm uppercase flex items-center justify-center gap-2 shrink-0 active:scale-95 transition">
+          <i class="fa-solid fa-swords"></i>
+          <span>قرعه‌کشی قوانین دوئل 1v1 جدید (+10 XP)</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         HUB 3: TACTICAL TOOLS (Combined Map & Site Roulette + Bomb Defuse Timer)
+         ========================================================================= -->
+    <section id="hub-tools" class="hidden flex flex-col justify-between h-full gap-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1 min-h-0">
+        <!-- Map & Site Roulette Panel -->
+        <div class="bg-siege-card dynamic-border border rounded-2xl p-4 clip-corner flex flex-col justify-between">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-mono font-bold text-siege-yellow"><i class="fa-solid fa-map-location-dot ml-1"></i>MAP & SITE ROULETTE</span>
+            <span id="mapFloorDisplay" class="px-2 py-0.5 rounded bg-siege-dark border border-siege-border text-[10px] text-slate-300">2nd Floor</span>
+          </div>
+
+          <div class="my-auto py-2 text-center space-y-1.5">
+            <h2 id="mapNameDisplay" class="text-2xl sm:text-3xl font-black font-tactical text-white uppercase tracking-wider">CLUBHOUSE</h2>
+            <div id="mapSiteDisplay" class="text-sm font-tactical font-bold text-siege-cyan bg-siege-dark py-1.5 px-3 rounded-lg border border-siege-border inline-block">
+              2F CCTV / 2F Cash Room
+            </div>
+            <p id="mapTacticalTip" class="text-[11px] text-slate-400 leading-relaxed px-2">
+              توصیه تاکتیکی: باز کردن دیوار بیرونی سی‌سی‌تی‌وی با Ace یا Thermite کلید پیروزی است.
+            </p>
+          </div>
+
+          <div class="flex gap-2 pt-2">
+            <button onclick="rollMapAndSite()" class="flex-1 py-2.5 rounded-xl bg-siege-yellow text-black font-bold text-xs active:scale-95 transition">
+              <i class="fa-solid fa-shuffle ml-1"></i>رول نقشه و سایت
+            </button>
+            <button onclick="rollOnlySite()" class="px-3 py-2.5 rounded-xl bg-siege-surface border border-siege-border text-xs font-bold text-white active:scale-95 transition">
+              تغییر سایت
+            </button>
+          </div>
+        </div>
+
+        <!-- Bomb Defuser & Round Timer Panel -->
+        <div class="bg-siege-card dynamic-border border rounded-2xl p-4 clip-corner flex flex-col justify-between text-center">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-mono font-bold text-slate-300"><i class="fa-solid fa-stopwatch ml-1 text-siege-red"></i>DEFUSER TIMER</span>
+            <span id="timerStatusBadge" class="px-2 py-0.5 rounded font-mono text-[10px] bg-siege-dark border border-siege-border text-siege-cyan">READY</span>
+          </div>
+
+          <div class="my-auto py-2">
+            <div id="bigTimerDisplay" class="font-tactical font-black text-5xl sm:text-6xl tracking-widest text-white drop-shadow-[0_0_15px_rgba(248,170,0,0.3)]">
+              03:00
+            </div>
+            <div id="timerSubText" class="text-[10px] font-mono text-slate-400 mt-1">STANDARD RANKED ROUND</div>
+          </div>
+
+          <div class="space-y-2">
+            <div class="grid grid-cols-3 gap-1.5 text-[11px] font-bold">
+              <button onclick="setTimerPreset(180, 'RANKED ROUND (3:00)')" class="py-1.5 rounded-lg bg-siege-dark border border-siege-border hover:border-siege-yellow text-slate-300">۳:۰۰ راند</button>
+              <button onclick="setTimerPreset(45, 'DEFUSER PLANTED (0:45)')" class="py-1.5 rounded-lg bg-siege-dark border border-siege-border hover:border-siege-yellow text-slate-300">۰:۴۵ پلنت</button>
+              <button onclick="startDefuseCountdown(7)" class="py-1.5 rounded-lg bg-siege-red/20 border border-siege-red text-siege-red hover:bg-siege-red hover:text-black transition">۷s خنثی</button>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="startStopTimer()" id="timerControlBtn" class="flex-1 py-2.5 rounded-xl bg-siege-yellow text-black font-bold text-xs flex items-center justify-center gap-1.5 active:scale-95 transition">
+                <i class="fa-solid fa-play"></i><span>شروع تایمر</span>
+              </button>
+              <button onclick="resetTimer()" class="w-10 rounded-xl bg-siege-dark border border-siege-border text-slate-400 hover:text-white flex items-center justify-center active:scale-95">
+                <i class="fa-solid fa-rotate-left"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= MOBILE BOTTOM NAVIGATION BAR (4 BENTO HUBS) ================= -->
+  <nav class="sm:hidden bg-siege-dark/95 backdrop-blur-md border-t border-siege-border px-2 py-1.5 flex items-center justify-around z-40 shrink-0" style="padding-bottom: calc(6px + var(--safe-bottom));">
+    <button onclick="switchHub('hq')" id="mhub-hq" class="flex flex-col items-center gap-0.5 text-siege-yellow text-[10px] font-bold py-1 px-3">
+      <i class="fa-solid fa-crosshairs text-base"></i>
+      <span>اپراتور HQ</span>
+    </button>
+    <button onclick="switchHub('ops')" id="mhub-ops" class="flex flex-col items-center gap-0.5 text-slate-400 text-[10px] font-bold py-1 px-3">
+      <i class="fa-solid fa-bullseye text-base"></i>
+      <span>عملیات و چالش</span>
+    </button>
+    <button onclick="switchHub('tools')" id="mhub-tools" class="flex flex-col items-center gap-0.5 text-slate-400 text-[10px] font-bold py-1 px-3">
+      <i class="fa-solid fa-stopwatch text-base"></i>
+      <span>مپ و تایمر</span>
+    </button>
+    <button onclick="openProfileModal()" class="flex flex-col items-center gap-0.5 text-slate-400 text-[10px] font-bold py-1 px-3">
+      <i class="fa-solid fa-user-astronaut text-base"></i>
+      <span>پروفایل و تم</span>
+    </button>
+  </nav>
+
+  <!-- ================= ALPHA PACK SIMULATOR MODAL ================= -->
+  <div id="alphaModal" class="modal-backdrop hidden-modal fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-siege-card border border-siege-yellow rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl clip-corner flex flex-col">
+      <div class="p-3.5 bg-siege-dark border-b border-siege-border flex items-center justify-between">
+        <span class="text-xs font-bold text-siege-yellow flex items-center gap-1.5">
+          <i class="fa-solid fa-box-open"></i> شبیه‌ساز باز کردن ALPHA PACK
+        </span>
+        <button onclick="closeAlphaModal()" class="w-7 h-7 rounded bg-siege-surface text-slate-400 hover:text-white flex items-center justify-center">
           <i class="fa-solid fa-xmark text-xs"></i>
         </button>
+      </div>
+
+      <div class="p-5 text-center space-y-4">
+        <div class="flex items-center justify-between text-xs bg-siege-dark px-3 py-2 rounded-xl border border-siege-border">
+          <span class="text-slate-400">موجودی آلفا پک شما:</span>
+          <strong id="modalPackCount" class="font-mono text-base text-siege-yellow">0 PACKS</strong>
+        </div>
+
+        <!-- Pack Visual Card -->
+        <div id="alphaPackVisual" class="alpha-pack-bag h-52 rounded-2xl border-2 border-siege-border flex flex-col items-center justify-center p-4 relative select-none">
+          <div class="w-16 h-16 rounded-2xl bg-siege-yellow/20 border border-siege-yellow text-siege-yellow font-tactical font-black text-4xl flex items-center justify-center shadow-lg mb-2">
+            6
+          </div>
+          <div id="alphaRewardTitle" class="font-tactical font-black text-sm text-white uppercase tracking-wider">ALPHA PACK READY</div>
+          <div id="alphaRewardSub" class="text-[11px] text-slate-400 mt-1">زیپ زیر را بکشید تا جایزه باز شود!</div>
+        </div>
+
+        <!-- Zipper Slider Control -->
+        <div class="space-y-1.5">
+          <label class="text-[11px] text-slate-400 block">زیپ بسته را تا انتها به سمت چپ/راست بکشید:</label>
+          <input type="range" id="alphaZipperSlider" min="0" max="100" value="0" oninput="handleZipperPull(this.value)" class="w-full accent-yellow-400 cursor-pointer h-2 bg-siege-dark rounded-lg">
+        </div>
+
+        <p class="text-[10px] text-slate-500">
+          به ازای هر ۵ پیروزی در چالش‌ها یا هر ۱۰۰ XP یک آلفا پک دریافت می‌کنید (حاوی تایتل‌های لجندری و تم‌های ویژه).
+        </p>
       </div>
     </div>
   </div>
 
-  <!-- MAIN VIEW CONTAINER -->
-  <main class="max-w-6xl mx-auto w-full px-3 sm:px-6 py-3 space-y-3.5 flex-grow">
-
-    <!-- 1. SOLO RANDOMIZER VIEW -->
-    <div id="view-solo" class="mode-view space-y-3">
-      
-      <!-- Side Filter Pill Buttons -->
-      <div class="grid grid-cols-3 gap-1.5 bg-siege-card p-1 rounded-xl border border-siege-border">
-        <button onclick="setSideFilter('all')" id="sideBtn-all" class="filter-side-btn py-2 rounded-lg text-xs font-bold bg-siege-surface text-white transition active:scale-95">همه اپراتورها</button>
-        <button onclick="setSideFilter('atk')" id="sideBtn-atk" class="filter-side-btn py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-siege-cyan transition active:scale-95">مهاجمان (ATK)</button>
-        <button onclick="setSideFilter('def')" id="sideBtn-def" class="filter-side-btn py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-siege-orange transition active:scale-95">مدافعان (DEF)</button>
-      </div>
-
-      <!-- Main Operator Display Card -->
-      <div class="bg-siege-card border border-siege-border rounded-2xl p-4 sm:p-6 clip-corner relative overflow-hidden shadow-2xl space-y-4">
-        
-        <!-- Header Info -->
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span id="opSideBadge" class="px-2.5 py-0.5 text-[11px] font-tactical font-bold uppercase rounded-md tracking-wider border bg-siege-cyan/15 border-siege-cyan text-siege-cyan">
-              ATTACKER
-            </span>
-            <span id="opOrgBadge" class="text-xs text-slate-400 font-mono">FBI SWAT</span>
-          </div>
-          <button onclick="toggleFavCurrentOp()" id="favToggleBtn" class="w-8 h-8 rounded-lg bg-siege-surface border border-siege-border text-slate-400 hover:text-siege-yellow flex items-center justify-center transition active:scale-95" title="ستاره‌دار کردن">
-            <i class="fa-regular fa-star" id="favStarIcon"></i>
-          </button>
-        </div>
-
-        <!-- Center Identity -->
-        <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 py-1">
-          <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-siege-dark border-2 border-siege-yellow/70 flex items-center justify-center p-2 relative shadow-xl overflow-hidden shrink-0">
-            <img id="opBadgeImg" 
-                 src="https://raw.githubusercontent.com/marcopixel/r6operators/master/icons/ash.svg" 
-                 alt="Operator Badge" 
-                 onerror="this.style.display='none'; document.getElementById('opIconFallback').style.display='flex';"
-                 class="w-full h-full object-contain">
-            <div id="opIconFallback" class="hidden w-full h-full items-center justify-center text-siege-yellow text-4xl font-tactical font-black">
-              ASH
-            </div>
-          </div>
-
-          <div class="text-center sm:text-right flex-1 space-y-1">
-            <h2 id="opCodename" class="text-3xl sm:text-4xl font-black font-tactical text-white uppercase tracking-tight">ASH</h2>
-            <div class="text-xs sm:text-sm font-bold text-siege-cyan flex items-center justify-center sm:justify-start gap-1.5">
-              <i class="fa-solid fa-microchip"></i>
-              <span id="opGadgetName">Breaching Round</span>
-            </div>
-            <p id="opGadgetDesc" class="text-xs text-slate-400 max-w-xl leading-relaxed pt-0.5">
-              پرتابه‌های انفجاری دوربرد برای تخریب سریع موانع، دیوارهای نرم و کاورهای مستقر حریف.
-            </p>
-          </div>
-        </div>
-
-        <!-- Badges & Stats Pips -->
-        <div class="grid grid-cols-2 gap-2 pt-2 border-t border-siege-border/80 text-xs font-mono">
-          <div class="p-2 rounded-lg bg-siege-dark/80 border border-siege-border flex items-center justify-between">
-            <span class="text-slate-400">⚡ سرعت (Speed):</span>
-            <span id="opSpeedDisplay" class="font-bold text-siege-yellow">3 Speed</span>
-          </div>
-          <div class="p-2 rounded-lg bg-siege-dark/80 border border-siege-border flex items-center justify-between">
-            <span class="text-slate-400">🛡️ زره (Armor):</span>
-            <span id="opArmorDisplay" class="font-bold text-siege-cyan">1 Health</span>
-          </div>
-        </div>
-
-        <!-- Loadout Summary Box -->
-        <div class="bg-siege-dark/90 p-3 rounded-xl border border-siege-border text-xs space-y-1.5">
-          <div class="flex justify-between items-center">
-            <span class="text-slate-400">اسلحه اصلی:</span>
-            <span id="opPrimaryWep" class="font-bold text-white">R4-C / G36C</span>
-          </div>
-          <div class="flex justify-between items-center">
-            <span class="text-slate-400">اسلحه دوم:</span>
-            <span id="opSecondaryWep" class="font-bold text-white">5.7 USG / M45 MEUSOC</span>
-          </div>
-          <div class="flex justify-between items-center">
-            <span class="text-slate-400">تجهیز کمکی:</span>
-            <span id="opSecGadget" class="font-bold text-siege-yellow">Claymore / Breach Charge</span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Action Button -->
-      <button onclick="rollSoloOperator()" id="mainRollBtn" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-siege-yellow to-siege-orange text-black font-tactical font-black text-base tracking-wider uppercase flex items-center justify-center gap-2 shadow-lg shadow-siege-yellow/20 active:scale-95 transition">
-        <i class="fa-solid fa-dice-d20 text-lg"></i>
-        <span>انتخاب اپراتور رندوم</span>
-      </button>
-
-    </div>
-
-    <!-- 2. SQUAD 5-MAN VIEW -->
-    <div id="view-squad" class="mode-view hidden space-y-3">
-      <div class="flex items-center justify-between bg-siege-card p-3 rounded-xl border border-siege-border">
-        <div>
-          <h3 class="text-sm font-bold text-white">ترکیب اسکواد ۵ نفره متوازن</h3>
-          <p class="text-[11px] text-slate-400">تولید خودکار تیم با نقش‌های هجومی و دفاعی هماهنگ</p>
-        </div>
-        <div class="flex items-center gap-1.5">
-          <button onclick="generateSquad('atk')" class="px-3 py-1.5 rounded-lg bg-siege-cyan/15 border border-siege-cyan text-siege-cyan hover:bg-siege-cyan hover:text-black font-bold text-xs transition active:scale-95">
-            تیم اتک
-          </button>
-          <button onclick="generateSquad('def')" class="px-3 py-1.5 rounded-lg bg-siege-orange/15 border border-siege-orange text-siege-orange hover:bg-siege-orange hover:text-black font-bold text-xs transition active:scale-95">
-            تیم دفاع
-          </button>
-        </div>
-      </div>
-
-      <div id="squadContainer" class="space-y-2">
-        <!-- Injected via JS -->
-      </div>
-    </div>
-
-    <!-- 3. STRAT ROULETTE (54+ Challenges) -->
-    <div id="view-strats" class="mode-view hidden space-y-3">
-      
-      <!-- Highlight Card -->
-      <div class="bg-siege-card border border-siege-yellow/70 rounded-2xl p-4 sm:p-5 relative overflow-hidden clip-corner-sm shadow-xl space-y-3">
-        <div class="flex items-center justify-between">
-          <span id="stratSideBadge" class="px-2 py-0.5 rounded bg-siege-yellow/20 text-siege-yellow border border-siege-yellow/40 text-[10px] font-mono font-bold uppercase">
-            ATTACK CHALLENGE
-          </span>
-          <span id="stratDiffBadge" class="px-2 py-0.5 rounded bg-siege-dark border border-siege-border text-slate-300 text-[10px] font-mono font-bold uppercase">
-            HARDCORE
-          </span>
-        </div>
-
-        <h3 id="stratTitle" class="text-lg sm:text-xl font-tactical font-black text-white">
-          راش ۳۰ ثانیه‌ای همه باهم (Sprint Rush)
-        </h3>
-        <p id="stratDesc" class="text-xs text-slate-300 leading-relaxed font-persian">
-          به محض شروع راند، کل اعضای تیم باید بدون توقف و بدون درون کردن وارد نزدیک‌ترین درب سایت بمب شوند!
-        </p>
-
-        <div class="pt-2 border-t border-siege-border flex items-center justify-between gap-2">
-          <button onclick="rollRandomStrat()" class="px-4 py-2 rounded-lg bg-siege-yellow text-black font-tactical font-black text-xs uppercase active:scale-95 transition">
-            <i class="fa-solid fa-shuffle mr-1"></i> چالش بعدی
-          </button>
-          <button onclick="markChallengeComplete()" class="px-3 py-2 rounded-lg bg-siege-cyan/15 border border-siege-cyan text-siege-cyan font-bold text-xs transition active:scale-95 flex items-center gap-1.5">
-            <i class="fa-solid fa-check"></i>
-            <span>تکمیل شد (+1)</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Scrollable list of all challenges -->
-      <div class="bg-siege-card border border-siege-border rounded-xl p-3">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-bold text-slate-300">بانک کامل چالش‌ها (۵۴ مورد)</span>
-          <span class="text-[10px] text-slate-500 font-mono" id="stratCounter">54 TACTICS</span>
-        </div>
-        <div id="stratsList" class="space-y-2 max-h-[360px] overflow-y-auto pr-1"></div>
-      </div>
-
-    </div>
-
-  </main>
-
-  <!-- MOBILE BOTTOM APP BAR (Fixed for Smartphones) -->
-  <aside class="md:hidden fixed bottom-0 inset-x-0 bg-siege-dark/95 border-t border-siege-border backdrop-blur-md z-30" style="padding-bottom: var(--safe-bottom);">
-    <div class="grid grid-cols-4 h-14 text-center">
-      <button onclick="switchMode('solo')" id="m-nav-solo" class="m-nav-btn active flex flex-col items-center justify-center text-siege-yellow transition">
-        <i class="fa-solid fa-user-ninja text-sm mb-0.5"></i>
-        <span class="text-[10px] font-bold">سولو</span>
-      </button>
-      <button onclick="switchMode('squad')" id="m-nav-squad" class="m-nav-btn flex flex-col items-center justify-center text-slate-400 hover:text-white transition">
-        <i class="fa-solid fa-users text-sm mb-0.5"></i>
-        <span class="text-[10px] font-bold">اسکواد ۵</span>
-      </button>
-      <button onclick="switchMode('strats')" id="m-nav-strats" class="m-nav-btn flex flex-col items-center justify-center text-slate-400 hover:text-white transition">
-        <i class="fa-solid fa-dice-d20 text-sm mb-0.5"></i>
-        <span class="text-[10px] font-bold">چالش‌ها</span>
-      </button>
-      <button onclick="openProfileModal()" id="m-nav-profile" class="m-nav-btn flex flex-col items-center justify-center text-slate-400 hover:text-white transition">
-        <i class="fa-solid fa-id-badge text-sm mb-0.5"></i>
-        <span class="text-[10px] font-bold">پروفایل</span>
-      </button>
-    </div>
-  </aside>
-
-  <!-- 1. PROFILE MODAL -->
+  <!-- ================= PROFILE, PROGRESSION 2.0 & THEME ENGINE MODAL ================= -->
   <div id="profileModal" class="modal-backdrop hidden-modal fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4">
-    <div class="bg-siege-card border border-siege-border rounded-2xl w-full max-w-md overflow-hidden shadow-2xl flex flex-col clip-corner-sm max-h-[85dvh]">
-      
+    <div class="bg-siege-card border border-siege-border rounded-2xl w-full max-w-md overflow-hidden shadow-2xl flex flex-col clip-corner max-h-[88dvh]">
       <div class="p-3.5 bg-siege-dark border-b border-siege-border flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <i class="fa-solid fa-id-card text-siege-yellow"></i>
-          <h3 class="font-bold text-white text-xs sm:text-sm font-persian">پروفایل تاکتیکی بازیکن</h3>
+          <i class="fa-solid fa-id-badge text-siege-yellow"></i>
+          <h3 class="font-bold text-white text-xs sm:text-sm">پروفایل، رنک و موتور تم</h3>
         </div>
         <button onclick="closeProfileModal()" class="w-7 h-7 rounded bg-siege-surface text-slate-400 hover:text-white flex items-center justify-center">
           <i class="fa-solid fa-xmark text-xs"></i>
         </button>
       </div>
 
-      <div class="p-4 space-y-4 overflow-y-auto flex-1">
-        
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">کال‌ساین / نام جنگی (Callsign):</label>
-          <input type="text" id="inputCallsign" maxlength="15" placeholder="مثلاً: VANGUARD_77" class="w-full bg-siege-dark border border-siege-border text-white px-3 py-2 rounded-lg font-tactical focus:border-siege-yellow focus:outline-none uppercase tracking-wider text-sm">
-        </div>
-
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-2">انتخاب نشان نظامی رنک:</label>
-          <div class="grid grid-cols-5 gap-2" id="rankIconsPicker"></div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2 text-center text-xs">
-          <div class="bg-siege-dark p-3 rounded-xl border border-siege-border">
-            <span class="text-[10px] text-slate-400 block font-mono">TOTAL ROLLS</span>
-            <strong class="text-xl font-tactical text-siege-yellow font-black" id="modalRollsCount">0</strong>
+      <div class="p-4 overflow-y-auto space-y-4 text-xs">
+        <!-- Rank & XP Banner -->
+        <div class="bg-siege-dark p-3.5 rounded-xl border border-siege-border flex items-center justify-between">
+          <div>
+            <div class="text-[10px] text-slate-400">رنک فعلی شما در سیج:</div>
+            <div id="profileRankName" class="text-lg font-black font-tactical text-siege-yellow">GOLD I</div>
+            <div id="profileXpText" class="text-[11px] font-mono text-siege-cyan">TOTAL XP: 0</div>
           </div>
-          <div class="bg-siege-dark p-3 rounded-xl border border-siege-border">
-            <span class="text-[10px] text-slate-400 block font-mono">CHALLENGES BEATEN</span>
-            <strong class="text-xl font-tactical text-siege-cyan font-black" id="modalWinsCount">0</strong>
+          <div class="w-12 h-12 rounded-xl bg-siege-surface border border-siege-yellow/50 flex items-center justify-center text-2xl text-siege-yellow">
+            <i class="fa-solid fa-trophy"></i>
           </div>
         </div>
 
-        <div>
-          <h4 class="text-xs font-bold text-slate-400 mb-1.5 font-persian">اپراتورهای ستاره‌دار شما:</h4>
-          <div id="modalFavsList" class="flex flex-wrap gap-1.5 max-h-28 overflow-y-auto p-1 bg-siege-dark/60 rounded-lg border border-siege-border/60">
-            <span class="text-xs text-slate-500 py-1 px-2">هیچ اپراتوری ستاره‌دار نشده است.</span>
+        <!-- Callsign Input -->
+        <div class="space-y-1.5">
+          <label class="text-slate-400 block font-bold">کال‌ساین نظامی (نام شما):</label>
+          <div class="flex gap-2">
+            <input type="text" id="callsignInput" maxlength="18" placeholder="VANGUARD_01" class="flex-1 bg-siege-dark border border-siege-border focus:border-siege-yellow rounded-xl px-3 py-2 text-white font-tactical font-bold outline-none uppercase">
+            <button onclick="saveCallsign()" class="px-4 py-2 bg-siege-yellow text-black font-bold rounded-xl active:scale-95">ذخیره</button>
           </div>
         </div>
 
+        <!-- Theme Selector (Skin Engine) -->
+        <div class="space-y-1.5">
+          <label class="text-slate-400 block font-bold">انتخاب تم ویژه سایت (Dynamic Skin):</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="setSkinTheme('default')" class="p-2.5 rounded-xl bg-siege-dark border border-siege-border hover:border-siege-yellow text-right flex items-center justify-between">
+              <span class="font-bold text-white">Default Tactical</span>
+              <span class="w-3 h-3 rounded-full bg-siege-yellow"></span>
+            </button>
+            <button onclick="setSkinTheme('blackice')" class="p-2.5 rounded-xl bg-siege-dark border border-sky-500/40 hover:border-sky-400 text-right flex items-center justify-between">
+              <span class="font-bold text-sky-300">❄️ Black Ice</span>
+              <span class="w-3 h-3 rounded-full bg-sky-400"></span>
+            </button>
+            <button onclick="setSkinTheme('keres')" class="p-2.5 rounded-xl bg-siege-dark border border-rose-500/40 hover:border-rose-500 text-right flex items-center justify-between">
+              <span class="font-bold text-rose-400">💀 Keres Legion</span>
+              <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+            </button>
+            <button onclick="setSkinTheme('nighthaven')" class="p-2.5 rounded-xl bg-siege-dark border border-purple-500/40 hover:border-purple-400 text-right flex items-center justify-between">
+              <span class="font-bold text-purple-300">⚡ Nighthaven</span>
+              <span class="w-3 h-3 rounded-full bg-purple-400"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Lifetime Stats -->
+        <div class="grid grid-cols-3 gap-2 text-center">
+          <div class="bg-siege-dark p-2.5 rounded-xl border border-siege-border">
+            <div id="statTotalRolls" class="text-lg font-black font-tactical text-siege-yellow">0</div>
+            <div class="text-[10px] text-slate-400">کل رول‌ها</div>
+          </div>
+          <div class="bg-siege-dark p-2.5 rounded-xl border border-siege-border">
+            <div id="statChallengesWon" class="text-lg font-black font-tactical text-siege-red">0</div>
+            <div class="text-[10px] text-slate-400">چالش‌های برده</div>
+          </div>
+          <div class="bg-siege-dark p-2.5 rounded-xl border border-siege-border">
+            <div id="statFavCount" class="text-lg font-black font-tactical text-siege-cyan">0</div>
+            <div class="text-[10px] text-slate-400">ستاره‌دارها</div>
+          </div>
+        </div>
+
+        <!-- Favorites List -->
+        <div class="space-y-1.5">
+          <span class="text-slate-400 font-bold block">اپراتورهای ستاره‌دار (علاقه‌مندی‌ها):</span>
+          <div id="profileFavsContainer" class="flex flex-wrap gap-1.5 bg-siege-dark/60 p-2.5 rounded-xl border border-siege-border/60 min-h-[44px] items-center"></div>
+        </div>
+
+        <div class="pt-2 border-t border-siege-border flex justify-between items-center">
+          <button onclick="openAlphaModal(); closeProfileModal();" class="text-siege-yellow font-bold hover:underline">
+            <i class="fa-solid fa-box-open ml-1"></i>باز کردن آلفا پک‌ها
+          </button>
+          <button onclick="resetProfileStats()" class="text-siege-red hover:underline text-[11px]">
+            <i class="fa-solid fa-trash-can ml-1"></i>ریست آمار
+          </button>
+        </div>
       </div>
+    </div>
+  </div>
 
-      <div class="p-3 border-t border-siege-border bg-siege-dark flex justify-between items-center">
-        <button onclick="resetStats()" class="text-xs text-siege-red hover:underline font-persian">ریست آمار</button>
-        <button onclick="saveUserProfile()" class="px-5 py-2 rounded-lg bg-siege-yellow text-black font-bold text-xs hover:bg-yellow-400 transition font-persian">
-          ذخیره تغییرات
+  <!-- ================= BAN & UNLOCKED OPERATORS MODAL ================= -->
+  <div id="banModal" class="modal-backdrop hidden-modal fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-siege-card border border-siege-border rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl flex flex-col clip-corner max-h-[85dvh]">
+      <div class="p-3.5 bg-siege-dark border-b border-siege-border flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-ban text-siege-red"></i>
+          <h3 class="font-bold text-white text-xs sm:text-sm">مدیریت اپراتورهای بن‌شده و قفل</h3>
+        </div>
+        <button onclick="closeBanModal()" class="w-7 h-7 rounded bg-siege-surface text-slate-400 hover:text-white flex items-center justify-center">
+          <i class="fa-solid fa-xmark text-xs"></i>
         </button>
       </div>
 
+      <div class="p-3 border-b border-siege-border/60 bg-siege-dark/60 flex items-center justify-between text-xs">
+        <span class="text-slate-400">اپراتورهای بدون تیک از قرعه‌کشی حذف می‌شوند:</span>
+        <div class="flex gap-2">
+          <button onclick="toggleAllOps(true)" class="text-siege-yellow hover:underline">انتخاب همه</button>
+          <button onclick="toggleAllOps(false)" class="text-slate-400 hover:underline">حذف همه</button>
+        </div>
+      </div>
+
+      <div class="p-3 overflow-y-auto flex-1 space-y-3" id="opsChecklistContainer"></div>
+
+      <div class="p-3 border-t border-siege-border bg-siege-dark flex justify-between items-center text-xs">
+        <span id="activeOpsStats" class="text-slate-400 font-mono">ACTIVE: 0 / 0</span>
+        <button onclick="closeBanModal()" class="px-4 py-2 rounded-lg bg-siege-yellow text-black font-bold active:scale-95">تایید و بستن</button>
+      </div>
     </div>
   </div>
 
-  <!-- 2. ONBOARDING INTRO MODAL (Carousel) -->
+  <!-- ================= SHAREABLE DOSSIER CARD MODAL ================= -->
+  <div id="shareModal" class="modal-backdrop hidden-modal fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-3">
+    <div class="bg-siege-card border-2 border-siege-yellow rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl flex flex-col clip-corner">
+      <div class="p-3 bg-siege-dark border-b border-siege-border flex items-center justify-between">
+        <span class="text-xs font-tactical font-black text-white flex items-center gap-1.5">
+          <i class="fa-solid fa-id-card text-siege-yellow"></i> TACTICAL SQUAD POSTER
+        </span>
+        <button onclick="closeShareModal()" class="w-6 h-6 rounded text-slate-400 hover:text-white flex items-center justify-center">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+      <div class="p-4 space-y-3 text-center">
+        <div class="bg-black p-2 rounded-xl border border-siege-border flex items-center justify-center overflow-hidden">
+          <canvas id="dossierCanvas" width="500" height="600" class="w-full h-auto rounded-lg"></canvas>
+        </div>
+        <button onclick="downloadDossierImage()" class="w-full py-2.5 rounded-lg bg-siege-yellow text-black font-tactical font-black text-xs uppercase flex items-center justify-center gap-1.5 active:scale-95 shadow">
+          <i class="fa-solid fa-download"></i>
+          <span>دانلود پوستر دیسکورد (PNG)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ONBOARDING INTRO SLIDER MODAL ================= -->
   <div id="introModal" class="modal-backdrop hidden-modal fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4">
-    <div class="bg-siege-card border-2 border-siege-yellow rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl flex flex-col clip-corner-sm">
-      
-      <div class="px-4 py-2.5 bg-siege-dark border-b border-siege-border flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <span class="w-5 h-5 rounded bg-siege-yellow text-black flex items-center justify-center text-xs font-black">6</span>
-          <span class="text-xs font-tactical font-black text-white">TACTICAL BRIEFING</span>
-        </div>
-        <button onclick="closeIntroModal()" class="text-xs text-slate-400 hover:text-white font-persian">رد کردن</button>
+    <div class="bg-siege-card border border-siege-yellow/50 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl flex flex-col clip-corner">
+      <div class="p-3.5 bg-siege-dark border-b border-siege-border flex items-center justify-between">
+        <span class="text-xs font-bold text-siege-yellow flex items-center gap-1.5">
+          <i class="fa-solid fa-satellite-dish"></i> راهنمای مرکز فرماندهی R6 2.0
+        </span>
+        <button onclick="closeIntroModal()" class="w-7 h-7 rounded bg-siege-surface text-slate-400 hover:text-white flex items-center justify-center">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
       </div>
 
-      <div class="p-5 flex flex-col justify-between min-h-[300px]">
-        
-        <!-- Slide 1 -->
-        <div id="introSlide-0" class="intro-slide space-y-3 text-center">
-          <div class="w-16 h-16 mx-auto rounded-2xl bg-siege-yellow/20 border border-siege-yellow flex items-center justify-center text-3xl text-siege-yellow">
-            <i class="fa-solid fa-crosshairs"></i>
+      <div class="p-5 text-center space-y-4">
+        <div id="introSlide1" class="space-y-2">
+          <div class="w-14 h-14 rounded-2xl bg-siege-cyan/15 border border-siege-cyan text-siege-cyan flex items-center justify-center mx-auto text-2xl">
+            <i class="fa-solid fa-layer-group"></i>
           </div>
-          <h3 class="text-base font-black text-white">تمام اپراتورها تا آخرین آپدیت</h3>
-          <p class="text-xs text-slate-300 leading-relaxed font-persian">
-            شامل جدیدترین اپراتورها (استریکر، سنتری، اسکوپوس، رورا، دیناری و...) با سرعت، زره و تسلیحات دقیق.
+          <h3 class="text-base font-black text-white">داشبورد فرماندهی یکپارچه + ژست حرکتی</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            کارت اپراتور را به چپ/راست بکشید (Swipe) یا گوشی را تکان دهید (Shake) تا با انیمیشن اسکن لیزری و سه‌بعدی رول شود! کشیدن کارت به بالا اپراتور را ستاره‌دار می‌کند.
           </p>
         </div>
 
-        <!-- Slide 2 -->
-        <div id="introSlide-1" class="intro-slide hidden space-y-3 text-center">
-          <div class="w-16 h-16 mx-auto rounded-2xl bg-siege-cyan/20 border border-siege-cyan flex items-center justify-center text-3xl text-siege-cyan">
-            <i class="fa-solid fa-dice-d20"></i>
+        <div id="introSlide2" class="hidden space-y-2">
+          <div class="w-14 h-14 rounded-2xl bg-siege-yellow/15 border border-siege-yellow text-siege-yellow flex items-center justify-center mx-auto text-2xl">
+            <i class="fa-solid fa-box-open"></i>
           </div>
-          <h3 class="text-base font-black text-white">بیش از ۵۰ چالش تاکتیکی</h3>
-          <p class="text-xs text-slate-300 leading-relaxed font-persian">
-            چالش‌های دیوانه‌وار مانند راش بدون درون، فقط شاتگان و بازی بدون هدست را تکمیل کرده و امتیاز ثبت کنید!
+          <h3 class="text-base font-black text-white">رنک واقعی، XP و باز کردن Alpha Pack</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            با هر رول (+10 XP) و هر پیروزی در ۵۵ چالش مخفی (+100 XP) از Copper V تا Champion رنک‌آپ کنید و زیپ آلفا پک‌ها را برای باز کردن تایتل‌ها و تم Black Ice بکشید!
           </p>
         </div>
 
-        <!-- Slide 3 -->
-        <div id="introSlide-2" class="intro-slide hidden space-y-3 text-center">
-          <div class="w-16 h-16 mx-auto rounded-2xl bg-siege-orange/20 border border-siege-orange flex items-center justify-center text-3xl text-siege-orange">
-            <i class="fa-solid fa-mobile-screen-button"></i>
+        <div id="introSlide3" class="hidden space-y-2">
+          <div class="w-14 h-14 rounded-2xl bg-siege-orange/15 border border-siege-orange text-siege-orange flex items-center justify-center mx-auto text-2xl">
+            <i class="fa-solid fa-stopwatch"></i>
           </div>
-          <h3 class="text-base font-black text-white">نصب به صورت اپلیکیشن PWA</h3>
-          <p class="text-xs text-slate-300 leading-relaxed font-persian">
-            روی گوشی می‌توانید این برنامه را با یک لمس به هوم‌اسکرین اضافه کنید تا به‌صورت تمام‌صفحه و سریع اجرا شود.
+          <h3 class="text-base font-black text-white">تم داینامیک + ابزار کامل مچ</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            کمبوهای ۲ نفره، دوئل 1v1، مپ رولت و تایمر بوق بمب همگی در دسترس شمایند. همچنین می‌توانید برنامه را روی صفحه اصلی موبایل نصب (PWA) کنید.
           </p>
         </div>
 
-        <!-- Carousel Nav -->
-        <div class="pt-4 border-t border-siege-border flex items-center justify-between">
-          <div class="flex items-center gap-1.5" id="introDots">
-            <span class="w-4 h-2 rounded-full bg-siege-yellow transition-all"></span>
-            <span class="w-2 h-2 rounded-full bg-slate-700 transition-all"></span>
-            <span class="w-2 h-2 rounded-full bg-slate-700 transition-all"></span>
-          </div>
-          <div class="flex items-center gap-1.5">
-            <button onclick="prevSlide()" id="introPrevBtn" class="px-3 py-1.5 rounded-lg bg-siege-dark border border-siege-border text-xs text-slate-400 disabled:opacity-30">قبلی</button>
-            <button onclick="nextSlide()" id="introNextBtn" class="px-4 py-1.5 rounded-lg bg-siege-yellow text-black font-tactical font-black text-xs">بعدی</button>
-          </div>
+        <div class="flex items-center justify-center gap-1.5 pt-2">
+          <span id="introDot1" class="w-5 h-1.5 rounded-full bg-siege-yellow transition-all"></span>
+          <span id="introDot2" class="w-1.5 h-1.5 rounded-full bg-slate-600 transition-all"></span>
+          <span id="introDot3" class="w-1.5 h-1.5 rounded-full bg-slate-600 transition-all"></span>
         </div>
 
+        <button onclick="nextIntroSlide()" id="introNextBtn" class="w-full py-2.5 rounded-xl bg-siege-yellow text-black font-bold text-xs active:scale-95 transition">
+          اسلاید بعدی
+        </button>
       </div>
-
     </div>
   </div>
 
+  <!-- ================= JAVASCRIPT CORE ENGINE ================= -->
   <script>
-    /* =====================================================================
-       1. EMBEDDED PWA ENGINE & SVG DATA-URI ASSETS
-       ===================================================================== */
+    /* 1. PWA ICONS & MANIFEST */
     const R6_ICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-      <rect width="512" height="512" rx="100" fill="#070a10"/>
-      <path d="M60 60 L452 60 L396 452 L116 452 Z" fill="#0e1624" stroke="#1f2e4a" stroke-width="12"/>
-      <text x="256" y="345" font-family="'Chakra Petch', sans-serif" font-size="285" font-weight="900" fill="#F8AA00" text-anchor="middle">6</text>
-      <circle cx="385" cy="125" r="28" fill="#00D8F6"/>
+      <rect width="512" height="512" rx="110" fill="#06090f"/>
+      <path d="M70 70 L442 70 L390 442 L122 442 Z" fill="#0b121e" stroke="#00E5FF" stroke-width="14"/>
+      <text x="256" y="345" font-family="sans-serif" font-size="280" font-weight="900" fill="#F8AA00" text-anchor="middle">6</text>
     </svg>`;
     const R6_ICON_URI = 'data:image/svg+xml;base64,' + btoa(R6_ICON_SVG);
-
     document.getElementById('dynamicFavicon').href = R6_ICON_URI;
     document.getElementById('dynamicAppleIcon').href = R6_ICON_URI;
-    document.getElementById('pwaIconPreview').innerHTML = `<img src="${R6_ICON_URI}" class="w-full h-full object-contain">`;
 
-    // Dynamic Manifest Blob
     const pwaManifest = {
-      name: "R6 Tactical Randomizer Pro",
-      short_name: "R6 Tactical",
+      name: "R6 Command Center Pro",
+      short_name: "R6 Command",
       start_url: "./",
       display: "standalone",
-      background_color: "#070a10",
-      theme_color: "#070a10",
-      icons: [{ src: R6_ICON_URI, sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }]
+      background_color: "#06090f",
+      theme_color: "#06090f",
+      icons: [{ src: R6_ICON_URI, sizes: "512x512", type: "image/svg+xml" }]
     };
-    const manifestBlob = new Blob([JSON.stringify(pwaManifest)], { type: 'application/json' });
-    document.getElementById('dynamicManifest').href = URL.createObjectURL(manifestBlob);
+    document.getElementById('dynamicManifest').href = URL.createObjectURL(new Blob([JSON.stringify(pwaManifest)], { type: 'application/json' }));
 
-    // Dynamic Service Worker Blob
-    if ('serviceWorker' in navigator) {
-      const swScript = `self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => caches.match(e.request))));`;
-      const swBlob = new Blob([swScript], { type: 'application/javascript' });
-      navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(()=>{});
-    }
-
-    /* =====================================================================
-       2. WEB AUDIO API SYNTHESIZER
-       ===================================================================== */
+    /* 2. HAPTIC FEEDBACK & PROCEDURAL AUDIO ENGINE */
     let audioCtx = null;
     let isSoundMuted = false;
+
+    function triggerHaptic(pattern = 18) {
+      try {
+        if (navigator.vibrate) navigator.vibrate(pattern);
+      } catch (e) {}
+    }
 
     function playTone(freq, type = 'sine', duration = 0.08) {
       if (isSoundMuted) return;
@@ -561,7 +960,7 @@
         const gain = audioCtx.createGain();
         osc.type = type;
         osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
@@ -572,506 +971,1015 @@
 
     function toggleAudio() {
       isSoundMuted = !isSoundMuted;
-      document.getElementById('soundIcon').className = isSoundMuted 
-        ? 'fa-solid fa-volume-xmark text-slate-500' 
+      document.getElementById('soundIcon').className = isSoundMuted
+        ? 'fa-solid fa-volume-xmark text-slate-500'
         : 'fa-solid fa-volume-high text-siege-yellow';
-      if (!isSoundMuted) playTone(600, 'triangle', 0.1);
+      if (!isSoundMuted) playTone(650, 'sine', 0.08);
     }
 
-    /* =====================================================================
-       3. COMPLETE R6 SIEGE DATABASE (Up to Latest Seasons)
-       ===================================================================== */
-    const CDN_ICONS = "https://raw.githubusercontent.com/marcopixel/r6operators/master/icons/";
+    /* 3. COMPLETE OPERATOR ROSTER */
+    const CDN_ICON = "https://raw.githubusercontent.com/marcopixel/r6operators/master/icons/";
+    function getOperatorIconUrl(slug) { return `${CDN_ICON}${slug}.svg`; }
 
     const OPERATORS = [
-      // Attackers
-      { id: 'striker', name: 'Striker', side: 'atk', speed: 2, armor: 2, org: 'Modern Recruit', slug: 'striker', gadget: 'Custom Dual-Gadget Rig', gadgetDesc: 'تجهیز همزمان دو نوع گجت کمکی تهاجمی (هاردبریچ و EMP)', primary: 'M4 / SR-25', sec: '5.7 USG / ITA12S', secGadget: 'Frag Grenade & EMP' },
-      { id: 'deimos', name: 'Deimos', side: 'atk', speed: 2, armor: 2, org: 'Keres Legion', slug: 'deimos', gadget: 'DeathMARK Tracker Drone', gadgetDesc: 'درون هدف‌یاب برای نشانه‌گذاری و دوئل مرگبار یک به یک با مدافع انتخابی', primary: 'AK-74M / M1014', sec: '.44 Vendetta', secGadget: 'Frag Grenade / Hard Breach' },
-      { id: 'ram', name: 'Ram', side: 'atk', speed: 1, armor: 3, org: 'Redhammer', slug: 'ram', gadget: 'BU-GI Auto-Breacher', gadgetDesc: 'تانک مینیاتوری اره‌ای برای تخریب سرتاسری و خودکار کف‌های چوبی سایت', primary: 'R4-C / LMG-E', sec: 'Mk1 9mm / ITA12S', secGadget: 'Flash Grenade / Smoke' },
-      { id: 'brava', name: 'Brava', side: 'atk', speed: 3, armor: 1, org: 'Viperstrike', slug: 'brava', gadget: 'Kludge Hack Drone', gadgetDesc: 'درون هکر برای سرقت ابزارهای مدافع و تبدیل آن‌ها به نفع اتکرها', primary: 'PARA-308 / CAMRS', sec: 'Super Shorty / USP40', secGadget: 'Smoke / Claymore' },
-      { id: 'grim', name: 'Grim', side: 'atk', speed: 3, armor: 1, org: 'Nighthaven', slug: 'grim', gadget: 'Kawan Hive Launcher', gadgetDesc: 'شلیک کلونی زنبورهای رباتیک که حریف را در محیط ردیابی و پینگ می‌کنند', primary: '552 Commando / SG-CQB', sec: 'Bailiff 410 / P229', secGadget: 'Hard Breach / Claymore' },
-      { id: 'sens', name: 'Sens', side: 'atk', speed: 3, armor: 1, org: 'Wolfguard', slug: 'sens', gadget: 'R.O.U. Projector Screen', gadgetDesc: 'چرخ پرتاب‌کننده دیواره نوری کدر برای سد دید تک‌تیراندازها و دفاع', primary: 'POF-9 / 417 DMR', sec: 'SDP 9mm', secGadget: 'Hard Breach / Frag Grenade' },
-      { id: 'osa', name: 'Osa', side: 'atk', speed: 1, armor: 3, org: 'Nighthaven', slug: 'osa', gadget: 'Talon-8 Clear Shield', gadgetDesc: 'سپر شفاف ضدگلوله قابل کاشت روی زمین و فریم پنجره‌ها', primary: '556XI / PDW9', sec: 'PMM', secGadget: 'Smoke / Claymore' },
-      { id: 'flores', name: 'Flores', side: 'atk', speed: 2, armor: 2, org: 'Unaffiliated', slug: 'flores', gadget: 'RCE-RATERO Bomb Drone', gadgetDesc: 'درون انتحاری کنترل از راه دور که تبدیل به بمب ضدگلوله زمان‌دار می‌شود', primary: 'AR33 / SR-25', sec: 'GSH-18', secGadget: 'Claymore / Stun' },
-      { id: 'zero', name: 'Zero', side: 'atk', speed: 3, armor: 1, org: 'Third Echelon', slug: 'zero', gadget: 'Argus Camera Launcher', gadgetDesc: 'دوربین‌های مته‌ای عبورکننده از دیوارهای تقویت شده با شلیک لیزر', primary: 'SC3000K / MP7', sec: '5.7 USG', secGadget: 'Hard Breach / Claymore' },
-      { id: 'ace', name: 'Ace', side: 'atk', speed: 2, armor: 2, org: 'Nighthaven', slug: 'ace', gadget: 'S.E.L.M.A. Aqua Breacher', gadgetDesc: 'سیلندرهای هیدرولیکی پرتابی که دیوارهای سخت را پله‌پله باز می‌کنند', primary: 'AK-12 / M1014', sec: 'P9', secGadget: 'Claymore / Breach Charge' },
-      { id: 'iana', name: 'Iana', side: 'atk', speed: 2, armor: 2, org: 'REU', slug: 'iana', gadget: 'Gemini Hologram Replicator', gadgetDesc: 'تولید هولوگرام فریبنده متحرک از خودش برای دیده‌بانی امن و شکار کمین‌ها', primary: 'ARX200 / G36C', sec: 'Mk1 9mm', secGadget: 'Smoke / Frag Grenade' },
-      { id: 'ash', name: 'Ash', side: 'atk', speed: 3, armor: 1, org: 'FBI SWAT', slug: 'ash', gadget: 'Breaching Round', gadgetDesc: 'پرتابه‌های انفجاری دوربرد برای تخریب موانع و کاورهای مستقر حریف', primary: 'R4-C / G36C', sec: '5.7 USG / M45', secGadget: 'Claymore / Breach Charge' },
-      { id: 'thermite', name: 'Thermite', side: 'atk', speed: 2, armor: 2, org: 'FBI SWAT', slug: 'thermite', gadget: 'Exothermic Charge', gadgetDesc: 'شارژ مذاب ترمایت که دیوارهای فولادی و تقویت‌شده را باز می‌کند', primary: '556XI / M1014', sec: '5.7 USG', secGadget: 'Smoke / Stun Grenade' },
-      { id: 'twitch', name: 'Twitch', side: 'atk', speed: 2, armor: 2, org: 'GIGN', slug: 'twitch', gadget: 'Shock Drone RSD-1', gadgetDesc: 'درون شوکر الکتریکی با لیزر جهت از کار انداختن وسایل دفاعی حریف', primary: 'F2 / 417 DMR', sec: 'P9 / LFP586', secGadget: 'Smoke / Claymore' },
-      { id: 'sledge', name: 'Sledge', side: 'atk', speed: 1, armor: 3, org: 'SAS', slug: 'sledge', gadget: 'Tactical Breaching Hammer', gadgetDesc: 'پتک تاکتیکی برای تخریب سریع سطوح نرم، باریکیدهای کاستل و تله‌ها', primary: 'L85A2 / M590A1', sec: 'P226 Mk 25', secGadget: 'Frag Grenade / EMP' },
-      { id: 'thatcher', name: 'Thatcher', side: 'atk', speed: 1, armor: 3, org: 'SAS', slug: 'thatcher', gadget: 'EG MKO-EMP Grenade', gadgetDesc: 'نارنجک‌های الکترومغناطیسی که وسایل برقی مدافعان را موقتاً خنثی می‌کنند', primary: 'AR33 / L85A2', sec: 'P226 Mk 25', secGadget: 'Claymore / Breach' },
+      { id: 'striker', name: 'Striker', side: 'atk', org: 'Wolfguard', slug: 'striker', gadget: 'Dual Breaching Gear', primary: 'M4 / SR-25', sec: '5.7 USG', speed: 2, armor: 2 },
+      { id: 'deimos', name: 'Deimos', side: 'atk', org: 'Keres Legion', slug: 'deimos', gadget: 'DeathMARK Tracker', primary: 'AK-74M / M590A1', sec: '.44 Vendetta', speed: 2, armor: 2 },
+      { id: 'ram', name: 'Ram', side: 'atk', org: 'Redhammer', slug: 'ram', gadget: 'BU-GI Auto-Breacher', primary: 'R4-C / LMG-E', sec: 'ITA12S', speed: 1, armor: 3 },
+      { id: 'brava', name: 'Brava', side: 'atk', org: 'Viperstrike', slug: 'brava', gadget: 'Kludge Drone', primary: 'PARA-308 / CAMRS', sec: 'Super Shorty', speed: 3, armor: 1 },
+      { id: 'grim', name: 'Grim', side: 'atk', org: 'Nighthaven', slug: 'grim', gadget: 'Kawan Hive', primary: '552 Commando', sec: 'Bailiff 410', speed: 3, armor: 1 },
+      { id: 'sens', name: 'Sens', side: 'atk', org: 'Wolfguard', slug: 'sens', gadget: 'R.O.U. Projector', primary: 'POF-9 / 417', sec: 'SDP 9mm', speed: 3, armor: 1 },
+      { id: 'osa', name: 'Osa', side: 'atk', org: 'Nighthaven', slug: 'osa', gadget: 'Talon-8 Shield', primary: '556XI / PDW9', sec: 'PMM', speed: 2, armor: 2 },
+      { id: 'ace', name: 'Ace', side: 'atk', org: 'Nighthaven', slug: 'ace', gadget: 'S.E.L.M.A. Breacher', primary: 'AK-12 / M1014', sec: 'P9', speed: 2, armor: 2 },
+      { id: 'iana', name: 'Iana', side: 'atk', org: 'REU', slug: 'iana', gadget: 'Gemini Hologram', primary: 'ARX200 / G36C', sec: 'Mk1 9mm', speed: 2, armor: 2 },
+      { id: 'ash', name: 'Ash', side: 'atk', org: 'FBI SWAT', slug: 'ash', gadget: 'Breaching Round', primary: 'R4-C / G36C', sec: '5.7 USG', speed: 3, armor: 1 },
+      { id: 'thermite', name: 'Thermite', side: 'atk', org: 'FBI SWAT', slug: 'thermite', gadget: 'Exothermic Charge', primary: '556XI / M1014', sec: '5.7 USG', speed: 2, armor: 2 },
+      { id: 'thatcher', name: 'Thatcher', side: 'atk', org: 'SAS', slug: 'thatcher', gadget: 'EMP Grenade', primary: 'AR33 / L85A2', sec: 'P226', speed: 1, armor: 3 },
+      { id: 'sledge', name: 'Sledge', side: 'atk', org: 'SAS', slug: 'sledge', gadget: 'Breaching Hammer', primary: 'L85A2 / M590A1', sec: 'P226', speed: 1, armor: 3 },
+      { id: 'buck', name: 'Buck', side: 'atk', org: 'JTF2', slug: 'buck', gadget: 'Skeleton Key', primary: 'C8-SFW / CAMRS', sec: 'Gonne-6', speed: 2, armor: 2 },
+      { id: 'hibana', name: 'Hibana', side: 'atk', org: 'SAT', slug: 'hibana', gadget: 'X-KAIROS', primary: 'Type-89', sec: 'Bearing 9', speed: 3, armor: 1 },
+      { id: 'jackal', name: 'Jackal', side: 'atk', org: 'GEO', slug: 'jackal', gadget: 'Eyenox Model III', primary: 'C7E / PDW9', sec: 'ITA12S', speed: 2, armor: 2 },
+      { id: 'dokkaebi', name: 'Dokkaebi', side: 'atk', org: '707th SMB', slug: 'dokkaebi', gadget: 'Logic Bomb', primary: 'Mk 14 EBR / BOSG', sec: 'SMG-12', speed: 3, armor: 1 },
+      { id: 'finka', name: 'Finka', side: 'atk', org: 'CBRN', slug: 'finka', gadget: 'Adrenal Surge', primary: 'Spear .308', sec: 'PMM', speed: 2, armor: 2 },
+      { id: 'lion', name: 'Lion', side: 'atk', org: 'CBRN', slug: 'lion', gadget: 'EE-ONE-D', primary: 'V308 / 417', sec: 'LFP586', speed: 2, armor: 2 },
+      { id: 'rauora', name: 'Rauora', side: 'atk', org: 'NZSAS', slug: 'sens', gadget: 'Deployable Armored Canopy', primary: '417 / M249', sec: 'GSH-18', speed: 2, armor: 2 },
+      { id: 'capitao', name: 'Capitão', side: 'atk', org: 'BOPE', slug: 'capitao', gadget: 'Tactical Crossbow', primary: 'PARA-308 / M249', sec: 'PRB92', speed: 3, armor: 1 },
+      { id: 'nomad', name: 'Nomad', side: 'atk', org: 'GIGR', slug: 'nomad', gadget: 'Airjab Launcher', primary: 'AK-74M / ARX200', sec: '.44 Mag', speed: 2, armor: 2 },
+      { id: 'maverick', name: 'Maverick', side: 'atk', org: 'The Unit', slug: 'maverick', gadget: 'Breaching Torch', primary: 'M4 / AR-15.50', sec: '1911 TACOPS', speed: 3, armor: 1 },
+      { id: 'zero', name: 'Zero', side: 'atk', org: 'Third Echelon', slug: 'zero', gadget: 'Argus Camera', primary: 'SC3000K / MP7', sec: '5.7 USG', speed: 3, armor: 1 },
+      { id: 'flores', name: 'Flores', side: 'atk', org: 'Unaffiliated', slug: 'flores', gadget: 'RCE-Ratero Drone', primary: 'AR33 / SR-25', sec: 'GSH-18', speed: 2, armor: 2 },
+      { id: 'ying', name: 'Ying', side: 'atk', org: 'SDU', slug: 'ying', gadget: 'Candela Flash', primary: 'T-95 LSW / SIX12', sec: 'Q-929', speed: 2, armor: 2 },
+      { id: 'zofia', name: 'Zofia', side: 'atk', org: 'GROM', slug: 'zofia', gadget: 'KS79 Lifeline', primary: 'M762 / LMG-E', sec: 'RG15', speed: 1, armor: 3 },
+      { id: 'amaru', name: 'Amaru', side: 'atk', org: 'APCA', slug: 'amaru', gadget: 'Garra Hook', primary: 'G8A1 / SuperNova', sec: 'SMG-11', speed: 2, armor: 2 },
+      { id: 'kali', name: 'Kali', side: 'atk', org: 'Nighthaven', slug: 'kali', gadget: 'LV Explosive Lance', primary: 'CSRX 300', sec: 'SPSMG9', speed: 2, armor: 2 },
+      { id: 'gridlock', name: 'Gridlock', side: 'atk', org: 'SASR', slug: 'gridlock', gadget: 'Trax Stingers', primary: 'F90 / M249', sec: 'Super Shorty', speed: 1, armor: 3 },
+      { id: 'twitch', name: 'Twitch', side: 'atk', org: 'GIGN', slug: 'twitch', gadget: 'Shock Drone', primary: 'F2 / 417', sec: 'P9', speed: 2, armor: 2 },
+      { id: 'montagne', name: 'Montagne', side: 'atk', org: 'GIGN', slug: 'montagne', gadget: 'Extendable Shield', primary: 'Le Roc Shield', sec: 'P9', speed: 1, armor: 3 },
+      { id: 'blitz', name: 'Blitz', side: 'atk', org: 'GSG 9', slug: 'blitz', gadget: 'Flash Shield', primary: 'Tactical Shield', sec: 'P12', speed: 2, armor: 2 },
+      { id: 'iq', name: 'IQ', side: 'atk', org: 'GSG 9', slug: 'iq', gadget: 'RED Mk III Detector', primary: 'AUG A2 / 552', sec: 'P12', speed: 3, armor: 1 },
+      { id: 'fuze', name: 'Fuze', side: 'atk', org: 'Spetsnaz', slug: 'fuze', gadget: 'Cluster Charge', primary: 'AK-12 / 6P41', sec: 'PMM', speed: 1, armor: 3 },
+      { id: 'glaz', name: 'Glaz', side: 'atk', org: 'Spetsnaz', slug: 'glaz', gadget: 'Flip Sight Thermal', primary: 'OTs-03', sec: 'Bearing 9', speed: 3, armor: 1 },
 
       // Defenders
-      { id: 'sentry', name: 'Sentry', side: 'def', speed: 2, armor: 2, org: 'Modern Recruit', slug: 'sentry', gadget: 'Custom Defensive Rig', gadgetDesc: 'مدافع انعطاف‌پذیر با توانایی تجهیز همزمان ۲ گجت کمکی دفاعی', primary: 'Commando 9 / M870', sec: 'C75 Auto / Super Shorty', secGadget: 'C4 Nitro / Deployable Shield' },
-      { id: 'skopos', name: 'Skópos', side: 'def', speed: 2, armor: 2, org: 'Keres Legion', slug: 'skopos', gadget: 'Pantheon Twin War-Robots', gadgetDesc: 'کنترل دو ربات شبه‌انسان با جابجایی هوشیاری و شیلد کمکی', primary: 'PCX-33 SMG', sec: 'P229', secGadget: 'Impact Grenade / Proximity' },
-      { id: 'tubarao', name: 'Tubarão', side: 'def', speed: 2, armor: 2, org: 'Wolfguard', slug: 'tubarao', gadget: 'Zoto Cryo Canister', gadgetDesc: 'کپسول‌های انجماد سرد جهت فریز کردن فوری گجت‌ها و هاردبریچ‌ها', primary: 'MPX / AR-15.50', sec: 'P226 Mk 25', secGadget: 'C4 Nitro Cell / Proximity' },
-      { id: 'fenrir', name: 'Fenrir', side: 'def', speed: 2, armor: 2, org: 'Redhammer', slug: 'fenrir', gadget: 'F-NATT Dread Mine', gadgetDesc: 'مین‌های گاز رعب‌آور که پس از فعال‌سازی، دید اتکر را تار و محدود می‌سازند', primary: 'MP7 / SASG-12', sec: 'Bailiff 410', secGadget: 'Bulletproof Camera / Wire' },
-      { id: 'solis', name: 'Solis', side: 'def', speed: 2, armor: 2, org: 'Ghosteyes', slug: 'solis', gadget: 'SPEC-IO Electro-Sensor', gadgetDesc: 'عینک تحلیلگر الکترونیک برای شناسایی محل درون‌ها و تبلت‌های پلنت بمب', primary: 'P90 / ITA12L', sec: 'SMG-11', secGadget: 'Impact Grenade / Bulletproof' },
-      { id: 'azami', name: 'Azami', side: 'def', speed: 2, armor: 2, org: 'Viperstrike', slug: 'azami', gadget: 'Kiba Barrier Kunai', gadgetDesc: 'کونای‌های فوم فشرده بالستیک برای ترمیم سریع سوراخ‌ها و ساخت کاور اختصاصی', primary: '9x19VSN / ACS12', sec: 'D-50', secGadget: 'Impact Grenade / Barbed Wire' },
-      { id: 'thorn', name: 'Thorn', side: 'def', speed: 2, armor: 2, org: 'Redhammer', slug: 'thorn', gadget: 'Razorbloom Shell', gadgetDesc: 'بمب‌های چسبنده تیغ‌دار که با نزدیک شدن حریف ترکش‌های مرگبار شلیک می‌کنند', primary: 'UZK50GI / M870', sec: '1911 TACOPS', secGadget: 'Deployable Shield / Wire' },
-      { id: 'aruni', name: 'Aruni', side: 'def', speed: 2, armor: 2, org: 'Nighthaven', slug: 'aruni', gadget: 'Surya Laser Gate', gadgetDesc: 'گیت‌های لیزری خورشیدی جهت انهدام پرتابه‌ها و آسیب به اتکرها با مشت تخریبگر', primary: 'P10 Roni / Mk 14 EBR', sec: 'PRB92', secGadget: 'Barbed Wire / Bulletproof' },
-      { id: 'melusi', name: 'Melusi', side: 'def', speed: 1, armor: 3, org: 'ITF', slug: 'melusi', gadget: 'Banshee Sonic Defense', gadgetDesc: 'دستگاه‌های آکوستیک بنشی که سرعت حرکت اتکرها را به شدت کُند می‌سازند', primary: 'MP5 / Super 90', sec: 'RG15', secGadget: 'Impact Grenade / Bulletproof' },
-      { id: 'oryx', name: 'Oryx', side: 'def', speed: 2, armor: 2, org: 'Unaffiliated', slug: 'oryx', gadget: 'Remah Dash & Leap', gadgetDesc: 'یورش بدنی جهت تخریب دیوارهای گچی با ضربه بدن و پرش به دریچه سقف', primary: 'T-5 SMG / SPAS-12', sec: 'Bailiff 410', secGadget: 'Barbed Wire / Proximity' },
-      { id: 'wamai', name: 'Wamai', side: 'def', speed: 2, armor: 2, org: 'Nighthaven', slug: 'wamai', gadget: 'Mag-NET Interceptor', gadgetDesc: 'آهنرباهای مغناطیسی جاذب که نارنجک‌های مهاجم را به سوی خود می‌کشند', primary: 'AUG A2 / MP5K', sec: 'Keratos .357', secGadget: 'Impact Grenade / Proximity' },
-      { id: 'smoke', name: 'Smoke', side: 'def', speed: 2, armor: 2, org: 'SAS', slug: 'smoke', gadget: 'Remote Gas Grenade', gadgetDesc: 'کپسول‌های گاز سمی ریموت‌دار برای خفه کردن راش و جلوگیری از پلنت آخر راند', primary: 'M590A1 / FMG-9', sec: 'SMG-11', secGadget: 'Deployable Shield / Wire' },
-      { id: 'mute', name: 'Mute', side: 'def', speed: 1, armor: 3, org: 'SAS', slug: 'mute', gadget: 'GC90 Signal Jammer', gadgetDesc: 'دستگاه جمیر پارازیت برای کور کردن درون‌ها و مهار شارژهای نفوذ', primary: 'MP5K / M590A1', sec: 'SMG-11', secGadget: 'C4 Nitro Cell / Bulletproof' },
-      { id: 'jager', name: 'Jäger', side: 'def', speed: 2, armor: 2, org: 'GSG 9', slug: 'jager', gadget: 'Active Defense ADS', gadgetDesc: 'سامانه پدافندی خودکار برای رهگیری و شکار نارنجک‌ها در هوا', primary: '416-C Carbine / M870', sec: 'P12', secGadget: 'Bulletproof Camera / Wire' },
-      { id: 'bandit', name: 'Bandit', side: 'def', speed: 3, armor: 1, org: 'GSG 9', slug: 'bandit', gadget: 'Shock Wire Battery', gadgetDesc: 'باتری‌های برق فشار قوی متصل به دیوارهای تقویت‌شده و سیم خاردار', primary: 'MP7 / M870', sec: 'P12', secGadget: 'C4 Nitro Cell / Barbed Wire' },
-      { id: 'mira', name: 'Mira', side: 'def', speed: 1, armor: 3, org: 'GEO', slug: 'mira', gadget: 'Black Mirror', gadgetDesc: 'آینه‌های یک‌طرفه ضدگلوله روی دیوارهای تقویت‌شده جهت پیش‌شلیک ایمن', primary: 'Vector .45 / ITA12L', sec: 'ITA12S', secGadget: 'C4 Nitro Cell / Proximity' }
+      { id: 'sentry', name: 'Sentry', side: 'def', org: 'Wolfguard', slug: 'sentry', gadget: 'Dual Defensive Rig', primary: 'Commando 9 / M870', sec: 'C75 Auto', speed: 2, armor: 2 },
+      { id: 'skopos', name: 'Skópos', side: 'def', org: 'Keres Legion', slug: 'skopos', gadget: 'Pantheon Twin Shells', primary: 'PCX-33 SMG', sec: 'P229', speed: 2, armor: 2 },
+      { id: 'tubarao', name: 'Tubarão', side: 'def', org: 'Wolfguard', slug: 'tubarao', gadget: 'Zoto Freeze Canister', primary: 'MPX / AR-15.50', sec: 'P226', speed: 2, armor: 2 },
+      { id: 'fenrir', name: 'Fenrir', side: 'def', org: 'Redhammer', slug: 'fenrir', gadget: 'F-NATT Dread Mine', primary: 'MP7 / SASG-12', sec: 'Bailiff 410', speed: 2, armor: 2 },
+      { id: 'solis', name: 'Solis', side: 'def', org: 'Ghosteyes', slug: 'solis', gadget: 'SPEC-IO Sensor', primary: 'P90 / ITA12L', sec: 'SMG-11', speed: 2, armor: 2 },
+      { id: 'azami', name: 'Azami', side: 'def', org: 'Viperstrike', slug: 'azami', gadget: 'Kiba Barrier', primary: '9x19VSN / ACS12', sec: 'D-50', speed: 2, armor: 2 },
+      { id: 'thorn', name: 'Thorn', side: 'def', org: 'Redhammer', slug: 'thorn', gadget: 'Razorbloom Shell', primary: 'UZK50GI / M870', sec: '1911 TACOPS', speed: 2, armor: 2 },
+      { id: 'aruni', name: 'Aruni', side: 'def', org: 'Nighthaven', slug: 'aruni', gadget: 'Surya Laser Gate', primary: 'P10 Roni / Mk 14', sec: 'PRB92', speed: 2, armor: 2 },
+      { id: 'wamai', name: 'Wamai', side: 'def', org: 'Nighthaven', slug: 'wamai', gadget: 'Mag-NET System', primary: 'AUG A2 / MP5K', sec: 'Keratos .357', speed: 2, armor: 2 },
+      { id: 'smoke', name: 'Smoke', side: 'def', org: 'SAS', slug: 'smoke', gadget: 'Remote Gas Grenade', primary: 'M590A1 / FMG-9', sec: 'SMG-11', speed: 2, armor: 2 },
+      { id: 'mute', name: 'Mute', side: 'def', org: 'SAS', slug: 'mute', gadget: 'Signal Jammer', primary: 'MP5K / M590A1', sec: 'SMG-11', speed: 1, armor: 3 },
+      { id: 'jager', name: 'Jäger', side: 'def', org: 'GSG 9', slug: 'jager', gadget: 'ADS Active Defense', primary: '416-C / M870', sec: 'P12', speed: 2, armor: 2 },
+      { id: 'bandit', name: 'Bandit', side: 'def', org: 'GSG 9', slug: 'bandit', gadget: 'Shock Wire', primary: 'MP7 / M870', sec: 'P12', speed: 3, armor: 1 },
+      { id: 'mira', name: 'Mira', side: 'def', org: 'GEO', slug: 'mira', gadget: 'Black Mirror', primary: 'Vector .45 / ITA12L', sec: 'ITA12S', speed: 1, armor: 3 },
+      { id: 'valkyrie', name: 'Valkyrie', side: 'def', org: 'NAVY SEALs', slug: 'valkyrie', gadget: 'Black Eye Cams', primary: 'MPX / SPAS-12', sec: 'D-50', speed: 2, armor: 2 },
+      { id: 'caveira', name: 'Caveira', side: 'def', org: 'BOPE', slug: 'caveira', gadget: 'Silent Step', primary: 'M12 / SPAS-15', sec: 'Luison', speed: 3, armor: 1 },
+      { id: 'lesion', name: 'Lesion', side: 'def', org: 'SDU', slug: 'lesion', gadget: 'Gu Poison Mines', primary: 'T-5 SMG / SIX12', sec: 'Q-929', speed: 2, armor: 2 },
+      { id: 'kaid', name: 'Kaid', side: 'def', org: 'GIGR', slug: 'kaid', gadget: 'Rtila Electroclaw', primary: 'AUG A3 / TCSG12', sec: '.44 Vendetta', speed: 1, armor: 3 },
+      { id: 'mozzie', name: 'Mozzie', side: 'def', org: 'SASR', slug: 'mozzie', gadget: 'Pest Launcher', primary: 'Commando 9 / P10', sec: 'SDP 9mm', speed: 2, armor: 2 },
+      { id: 'denari', name: 'Denari', side: 'def', org: 'Nighthaven', slug: 'azami', gadget: 'Acoustic Trap Matrix', primary: 'MP5K / SPAS-12', sec: 'P226', speed: 2, armor: 2 },
+      { id: 'doc', name: 'Doc', side: 'def', org: 'GIGN', slug: 'doc', gadget: 'Stim Pistol', primary: 'MP5 / P90', sec: 'P9 / Bailiff', speed: 1, armor: 3 },
+      { id: 'rook', name: 'Rook', side: 'def', org: 'GIGN', slug: 'rook', gadget: 'Armor Pack', primary: 'MP5 / P90', sec: 'P9', speed: 1, armor: 3 },
+      { id: 'pulse', name: 'Pulse', side: 'def', org: 'FBI SWAT', slug: 'pulse', gadget: 'Cardiac Sensor', primary: 'UMP45 / M1014', sec: '5.7 USG', speed: 3, armor: 1 },
+      { id: 'castle', name: 'Castle', side: 'def', org: 'FBI SWAT', slug: 'castle', gadget: 'Armor Panel', primary: 'UMP45 / M1014', sec: 'Super Shorty', speed: 2, armor: 2 },
+      { id: 'kapkan', name: 'Kapkan', side: 'def', org: 'Spetsnaz', slug: 'kapkan', gadget: 'Entry Denial Trap', primary: '9x19VSN / SASG-12', sec: 'PMM', speed: 2, armor: 2 },
+      { id: 'tachanka', name: 'Tachanka', side: 'def', org: 'Spetsnaz', slug: 'tachanka', gadget: 'Shumikha Launcher', primary: 'DP27 / 9x19VSN', sec: 'Bearing 9', speed: 1, armor: 3 },
+      { id: 'frost', name: 'Frost', side: 'def', org: 'JTF2', slug: 'frost', gadget: 'Welcome Mat', primary: '9mm C1 / Super 90', sec: 'ITA12S', speed: 2, armor: 2 },
+      { id: 'echo', name: 'Echo', side: 'def', org: 'SAT', slug: 'echo', gadget: 'Yokai Drone', primary: 'MP5SD / SuperNova', sec: 'Bearing 9', speed: 1, armor: 3 },
+      { id: 'ela', name: 'Ela', side: 'def', org: 'GROM', slug: 'ela', gadget: 'Grzmot Mine', primary: 'Scorpion EVO / FO-12', sec: 'RG15', speed: 3, armor: 1 },
+      { id: 'vigil', name: 'Vigil', side: 'def', org: '707th SMB', slug: 'vigil', gadget: 'ERC-7 Disruptor', primary: 'K1A / BOSG.12.2', sec: 'SMG-12', speed: 3, armor: 1 },
+      { id: 'maestro', name: 'Maestro', side: 'def', org: 'GIS', slug: 'maestro', gadget: 'Evil Eye Laser', primary: 'ALDA 5.56 / ACS12', sec: 'Bailiff 410', speed: 1, armor: 3 },
+      { id: 'alibi', name: 'Alibi', side: 'def', org: 'GIS', slug: 'alibi', gadget: 'Prisma Display', primary: 'Mx4 Storm / ACS12', sec: 'Bailiff 410', speed: 3, armor: 1 },
+      { id: 'clash', name: 'Clash', side: 'def', org: 'MPS', slug: 'clash', gadget: 'CCE Taser Shield', primary: 'CCE Shield', sec: 'SPSMG9', speed: 1, armor: 3 },
+      { id: 'warden', name: 'Warden', side: 'def', org: 'Secret Service', slug: 'warden', gadget: 'Glance Smart Glasses', primary: 'MPX / M590A1', sec: 'SMG-12', speed: 1, armor: 3 },
+      { id: 'goyo', name: 'Goyo', side: 'def', org: 'FES', slug: 'goyo', gadget: 'Volcán Canister', primary: 'Vector .45 / TCSG12', sec: 'P229', speed: 2, armor: 2 },
+      { id: 'oryx', name: 'Oryx', side: 'def', org: 'Unaffiliated', slug: 'oryx', gadget: 'Remah Dash', primary: 'T-5 SMG / SPAS-12', sec: 'Bailiff 410', speed: 2, armor: 2 },
+      { id: 'melusi', name: 'Melusi', side: 'def', org: 'ITF', slug: 'melusi', gadget: 'Banshee Defense', primary: 'MP5 / Super 90', sec: 'ITA12S', speed: 1, armor: 3 },
+      { id: 'thunderbird', name: 'Thunderbird', side: 'def', org: 'Star-Net', slug: 'thunderbird', gadget: 'Kóna Station', primary: 'Spear .308 / SPAS-15', sec: 'Bearing 9', speed: 2, armor: 2 }
     ];
 
-    /* =====================================================================
-       4. EXTENSIVE 54 STRAT ROULETTE CHALLENGES
-       ===================================================================== */
-    const ALL_STRATS = [
-      { id: 1, side: 'atk', diff: 'hardcore', title: 'راش ۳۰ ثانیه‌ای همه باهم', desc: 'به محض شروع راند، کل اعضای تیم باید بدون توقف و با دویدن وارد نزدیک‌ترین در سایت بمب شوند!' },
-      { id: 2, side: 'atk', diff: 'veteran', title: 'حمله فقط از بالا و سقف (Top-Down)', desc: 'هیچ مهاجمی حق ورود از طبقه همکف را ندارد. فقط از پشت‌بام و پنجره‌های بالایی وارد شوید.' },
-      { id: 3, side: 'atk', diff: 'recruit', title: 'مه دود متراکم (Ninja Smoke Plant)', desc: 'حداقل ۳ اسموک گرنید باید همزمان در سایت پرتاب شود و پلنت بمب بدون دیده‌شدن کاشته شود.' },
-      { id: 4, side: 'atk', diff: 'veteran', title: 'حمله مخفی فقط با صداخفه‌کن', desc: 'همه افراد موظفند روی هر دو اسلحه خود صداخفه‌کن (Suppressor) ببندند.' },
-      { id: 5, side: 'atk', diff: 'hardcore', title: 'حفظ جان درون‌ها تا ثانیه آخر', desc: 'تمام ۵ درون اولیه باید در فاز آماده‌سازی زنده بمانند. اگر درونی بسوزد آن پلیر فقط با پیستول بازی می‌کند!' },
-      { id: 6, side: 'atk', diff: 'recruit', title: 'فقط شاتگان و سلاح تک‌تیر', desc: 'هیچ سلاح اتوماتیکی مجاز نیست! فقط DMRهای تک‌تیر یا شاتگان‌ها.' },
-      { id: 7, side: 'atk', diff: 'veteran', title: 'فالانژ سپرها (Shield Wall)', desc: 'هر اپراتوری که سپر دارد (مونتین، بلیتز، فیوز) برداشته شود و جلو حرکت کند.' },
-      { id: 8, side: 'atk', diff: 'hardcore', title: 'پلنت سریع زیر ثانیه ۶۰', desc: 'دفوزر باید تا قبل از رسیدن تایمر راند به ۲:۰۰ داخل سایت بمب کاشته شده باشد.' },
-      { id: 9, side: 'atk', diff: 'veteran', title: 'کف‌زدایی با باک و رم', desc: 'تمام کفپوش‌های چوبی بالای سر سایت بمب را باز و پاکسازی کنید.' },
-      { id: 10, side: 'def', diff: 'hardcore', title: 'همه بیرون از سایت (All Roamers)', desc: 'هیچ‌کس نباید داخل سایت بمب بماند! تمام ۵ مدافع باید در طبقات بالا یا دور کمین کنند.' },
-      { id: 11, side: 'def', diff: 'veteran', title: 'قلعه بتنی نفوذناپذیر (Iron Bunker)', desc: 'تمام دیوارها تقویت شود و درها با باریکید بسته شوند. ۵ مدافع تا آخر داخل بمانند.' },
-      { id: 12, side: 'def', diff: 'recruit', title: 'میدان مین و تله‌های مرگبار', desc: 'کاپکان، فراست، تورن و فنریر انتخاب شوند و تمام ورودی‌ها با تله‌های همپوشان پوشش داده شوند.' },
-      { id: 13, side: 'def', diff: 'veteran', title: 'کمین گاز و آتش در ثانیه آخر', desc: 'اسموک و تاچانکا باید تمام کپسول‌های خود را برای ۳۰ ثانیه پایانی نگه دارند.' },
-      { id: 14, side: 'def', diff: 'hardcore', title: 'اسپان‌پیک جمعی در شروع راند', desc: 'به محض اتمام فاز آماده‌سازی، حداقل ۲ مدافع باید پنجره‌ها را بشکنند و به بیرون شلیک کنند.' },
-      { id: 15, side: 'def', diff: 'recruit', title: 'تیم پزشکی داک و روک (Hospital)', desc: 'داک و روک برداشته شوند و همه اعضای تیم باید زره بپوشند و اورهیل شوند.' },
-      { id: 16, side: 'def', diff: 'hardcore', title: 'سکوت مطلق (فقط راه رفتن نشسته)', desc: 'هیچ مدافعی حق دویدن (Sprint) ندارد. کل حرکت در راند باید به صورت نشسته باشد.' },
-      { id: 17, side: 'def', diff: 'veteran', title: 'انفجار جمعی با سی‌فور از زیر', desc: 'پالس و والکری از طبقه زیرین با دیدن پینگ اتکرها روی سقف سی‌فور منفجر کنند.' },
-      { id: 18, side: 'universal', diff: 'hardcore', title: 'شلیک بدون نشانه (Hip-Fire Only)', desc: 'نشانه گرفتن (ADS) اکیدا ممنوع است! تمام شلیک‌ها باید فقط از لگن انجام شود.' },
-      { id: 19, side: 'universal', diff: 'veteran', title: 'حفاظت از رییس جمهور (VIP Escort)', desc: 'یک نفر رییس جمهور است (فقط پیستول). اگر او کشته شود راند باخته است!' },
-      { id: 20, side: 'universal', diff: 'hardcore', title: 'سکوت رادیویی و بدون صدا', desc: 'صدای بازی یا هدست را کاملا قطع کنید و صرفاً با پینگ‌های بصری بازی کنید!' },
-      { id: 21, side: 'universal', diff: 'veteran', title: 'سوئیچ اسلحه با هر کیل', desc: 'با گرفتن هر کیل، بازیکن موظف است بلافاصله به اسلحه دوم خود سوئیچ کند.' },
-      { id: 22, side: 'universal', diff: 'recruit', title: 'تیم سرعت ۳ (Speed Demons)', desc: 'تمام ۵ بازیکن باید اپراتورهای ۳ سرعت بردارند و دائماً در حال چرخش باشند.' },
-      { id: 23, side: 'universal', diff: 'hardcore', title: 'فقط شلیک هدشات (Headshots Only)', desc: 'تیر زدن به تنه و پای دشمن ممنوع است؛ فقط مجاز به شلیک به سر هستید.' },
-      { id: 24, side: 'universal', diff: 'veteran', title: 'پایان با چاقو و نبرد تن به تن', desc: 'حداقل ۲ کیل در این راند باید به صورت ضربه میلی (Melee/چاقو) به پایان برسد.' }
+    /* 4. CURSED, MAPS, DUO, 1V1 & 55 SECRET STRATS DATABASES */
+    const CURSED_SCOPES = ['Iron Sight (مگسک آهنی)', 'Magnified A (زوم بالا)', 'Holo A', 'Red Dot C', 'Reflex B'];
+    const CURSED_MUZZLES = ['Suppressor (صداخفه‌کن)', 'Extended Barrel', 'بدون سرلوله (No Muzzle)', 'Flash Hider'];
+    const CURSED_GRIPS = ['بدون دستگیره (No Grip)', 'Angled Grip', 'Horizontal Grip', 'Vertical Grip'];
+    const CURSED_RULES = [
+      'فقط شلیک از لگن (Hip-fire Only) در کل راند!',
+      'فقط حرکت در حالت نشسته (Crouch Only)!',
+      'استفاده از سلاح اصلی ممنوع، فقط پیستول و گجت!',
+      'بعد از هر ۵ تیر باید خشاب عوض کنی (Reload)!',
+      'تنظیم کردن اسلحه روی حالت تک‌تیر!',
+      'حق استفاده از درون یا دوربین را نداری!',
+      'باید اولین نفر وارد ساختمان شوی یا بیرون بپری!'
     ];
 
-    /* =====================================================================
-       5. LOCALSTORAGE & USER PROFILE STATE
-       ===================================================================== */
-    const RANK_BADGES = ['fa-skull', 'fa-shield-halved', 'fa-crown', 'fa-crosshairs', 'fa-biohazard'];
+    const MAP_DATABASE = [
+      { name: 'CLUBHOUSE', sites: [
+        { site: '2F CCTV / 2F Cash Room', tip: 'باز کردن دیوار بیرونی سی‌سی‌تی‌وی با Ace یا Thermite و کنترل گاراژ کلید پیروزی است.' },
+        { site: '2F Bedroom / 2F Gym', tip: 'کنترل جکوزی و باز کردن دیوارهای مستر بدروم اولویت اول مهاجمان است.' },
+        { site: 'B Church / B Arsenal', tip: 'کنترل آشپزخانه از بالا (Vertical Play) با باک یا رم برای زدن انکورها حیاتی است.' }
+      ]},
+      { name: 'OREGON', sites: [
+        { site: '2F Kids Dorms / 2F Dorms Main', tip: 'کنترل اتاق Attic و پنجره Big Window فشار سنگینی به مدافعان وارد می‌کند.' },
+        { site: 'B Laundry / B Supply', tip: 'باز کردن هچ‌های بالا و فریز کردن دیوار Mira یا Kaid با تچر/ماوریک.' }
+      ]},
+      { name: 'CHALET', sites: [
+        { site: '2F Master Bedroom / 2F Office', tip: 'نگهداری بالکن Solarium و باز کردن دیوار اصلی آفیس.' },
+        { site: 'B Wine Cellar / B Snowmobile', tip: 'باز کردن دیوار اصلی گاراژ برفی و کنترل پله‌های آبی.' }
+      ]},
+      { name: 'KAFE DOSTOEVSKY', sites: [
+        { site: '3F Bar / 3F Cocktail Lounge', tip: 'کنترل پیانو (Cigar Lounge) و دراپ از اسکای‌لایت با دود و فلش.' },
+        { site: '1F Kitchen / 1F Bakery', tip: 'استفاده از Osa یا Nomad برای پوشش پنجره Bakery و باز کردن دیوارهای آشپزخانه.' }
+      ]},
+      { name: 'COASTLINE', sites: [
+        { site: '2F Hookah Lounge / 2F Billiards', tip: 'کنترل بالکن قلیان‌سرا و کاشت دیفیوزر پشت بار با پوشش دود.' },
+        { site: '2F Penthouse / 2F Theater', tip: 'باز کردن دیوار VIP و کنترل پنجره بزرگ پنت‌هاوس.' }
+      ]},
+      { name: 'BANK', sites: [
+        { site: 'B Lockers / B Vault', tip: 'باز کردن هچ‌های لابی و کنترل تونل Server Room با هاردبریچر.' },
+        { site: '2F CEO Office / 2F Lounge', tip: 'ریپل کردن روی پنجره‌های بیرونی و استفاده از Kali یا Osa.' }
+      ]},
+      { name: 'BORDER', sites: [
+        { site: '2F Armory Lockers / 2F Archives', tip: 'باز کردن دیوار اصلی Armory و پاکسازی اتاق CCTV در اولویت است.' },
+        { site: '1F Workshop / 1F Ventilation', tip: 'کنترل کامل طبقه بالا (Armory) و باز کردن کف برای زدن مدافعان.' }
+      ]}
+    ];
 
-    let profileState = {
-      callsign: 'VANGUARD',
-      badgeIcon: 'fa-shield-halved',
-      totalRolls: 0,
-      challengesDone: 0,
-      favorites: []
-    };
+    const DUO_COMBOS = [
+      { side: 'atk', title: 'THE CLASSIC HARD BREACH', op1: 'Thermite', role1: 'تخریب دیوار مستحکم', op2: 'Thatcher', role2: 'خنثی‌سازی برق و جم', plan: 'تچر با پرتاب EMP برق بندیت یا کاید را قطع کرده و ترمایت بلافاصله دیوار اصلی سایت را باز می‌کند.' },
+      { side: 'atk', title: 'GLOBAL HUNTER PROTOCOL', op1: 'Deimos', role1: 'ردیابی زنده هدف', op2: 'Dokkaebi', role2: 'زنگ زدن به موبایل‌ها', plan: 'دوکایبی زنگ موبایل‌ها را فعال می‌کند و دیموس همزمان یکی از رومرها را پینگ زنده کرده و از دو زاویه شکارش می‌کنند.' },
+      { side: 'atk', title: 'BLIND & CLEAR RUSH', op1: 'Ying', role1: 'فلش کاندلا سنگین', op2: 'Finka', role2: 'آدرنالین و بوست تیم', plan: 'ینگ اتاق بمب را پر از فلش کاندلا می‌کند و فینکا آدرنالین را می‌زند تا هر دو با سرعت وارد سایت شوند.' },
+      { side: 'atk', title: 'FLOOR DESTRUCTION DUO', op1: 'Ram', role1: 'تانک تخریب کف', op2: 'Buck', role2: 'شاتگان زیرلوله', plan: 'از طبقه بالای سایت تمام سقف را در کمتر از ۲۰ ثانیه نابود می‌کنند تا هیچ مدافعی جای امن نداشته باشد.' },
+      { side: 'def', title: 'TOXIC SHIELD WALL', op1: 'Clash', role1: 'کندکننده و شیلد برق', op2: 'Smoke', role2: 'گاز سمی کشنده', plan: 'کلش دشمنان را در راهرو قفل و کند می‌کند و اسموک از پشت سر کپسول گاز سمی را دقیقا زیر پای آن‌ها می‌اندازد.' },
+      { side: 'def', title: 'MIRROR DENIAL FORTRESS', op1: 'Mira', role1: 'شیشه دوجداره سیاه', op2: 'Mute', role2: 'جمر ضد درون و بریچ', plan: 'میرا شیشه‌ها را روی دیوارهای کلیدی نصب می‌کند و میوت با جمرها مانع از باز شدن یا هک شدن آن‌ها توسط براوا و توییچ می‌شود.' },
+      { side: 'def', title: 'TRAP & FREEZE COMBO', op1: 'Frost', role1: 'تله خرس مکانیکی', op2: 'Thorn', role2: 'مین تیغ‌دار انفجاری', plan: 'زیر پنجره‌ها تله فراست کاشته می‌شود و کنار آن مین تورن؛ حتی اگر دشمن تله را بزند، انفجار تورن کارش را تمام می‌کند.' },
+      { side: 'def', title: 'BLIND & INTERROGATE', op1: 'Fenrir', role1: 'مین دود بنفش ترس', op2: 'Caveira', role2: 'بازجویی در تاریکی', plan: 'به محض اینکه دشمن وارد محدوده مین فنریر شد و دیدش کور گشت، کویرا با قدم‌های بی‌صدا او را ناک‌داون و بازجویی می‌کند.' }
+    ];
 
-    function loadProfile() {
-      try {
-        const saved = localStorage.getItem('r6_profile_state_v3');
-        if (saved) profileState = { ...profileState, ...JSON.parse(saved) };
-      } catch(e) {}
-      syncProfileUI();
+    const STRAT_CHALLENGES = [
+      { id: 1, side: 'atk', diff: 'HARDCORE', title: 'راش ۳۰ ثانیه‌ای (Blitzkrieg Protocol)', desc: 'تمام مهاجمان موظفند در ۳۰ ثانیه اول راند داخل اتاق بمب باشند! ایستادن بیرون ساختمان ممنوع است.' },
+      { id: 2, side: 'atk', diff: 'RECRUIT', title: 'قطار انسانی (Human Centipede)', desc: 'هر ۵ مهاجم باید در یک خط پشت سر هم و چسبیده به نفر جلویی حرکت کنند. جدا شدن از صف ممنوع!' },
+      { id: 3, side: 'atk', diff: 'VETERAN', title: 'حمله زره‌پوشان (Shield Wall)', desc: 'تمام تیم باید اپراتورهای شیلددار (Montagne, Blitz, Fuze, Osa) بردارند و در کنار هم پیشروی کنند.' },
+      { id: 4, side: 'atk', diff: 'HARDCORE', title: 'عملیات کور (No Drone Allowed)', desc: 'در مرحله Prep Phase و کل راند هیچ‌کس حق نگاه کردن به دوربین یا پرتاب درون را ندارد!' },
+      { id: 5, side: 'atk', diff: 'VETERAN', title: 'تک‌تیراندازان خونسرد (DMR & Sniper Only)', desc: 'همه اعضای تیم فقط مجاز به برداشتن اسلحه‌های تک‌تیر (DMR) یا اسنایپ Kali و Glaz هستند.' },
+      { id: 6, side: 'atk', diff: 'RECRUIT', title: 'فرود از آسمان (Hot Breach Only)', desc: 'ورود از درها ممنوع است! تمام اعضای تیم باید فقط با طناب (Rappel) و پریدن مستقیم از پنجره وارد ساختمان شوند.' },
+      { id: 7, side: 'atk', diff: 'VETERAN', title: 'محافظ رئیس‌جمهور (VIP Protection)', desc: 'نفر دارنده دیفیوزر رئیس‌جمهور است و فقط اجازه استفاده از کلت دارد. ۴ نفر دیگر باید دور او حلقه بزنند.' },
+      { id: 8, side: 'atk', diff: 'HARDCORE', title: 'صلح‌طلب تا پلنت (Pacifist Plant)', desc: 'تا زمانی که بمب (Defuser) روی زمین پلنت نشده، هیچ مهاجمی حق شلیک حتی یک گلوله را ندارد!' },
+      { id: 9, side: 'atk', diff: 'RECRUIT', title: 'انفجار مهیب (Maximum Destruction)', desc: 'باید اپراتورهای تخریب‌گر (Ram, Fuze, Flores, Buck, Sledge) بردارید و قبل از ورود به سایت تمام دیوارهای نرم را منفجر کنید.' },
+      { id: 10, side: 'atk', diff: 'VETERAN', title: 'کماندوهای سایلنت (Zero Noise)', desc: 'روی تمام سلاح‌های اصلی و کمری باید صداخفه‌کن (Suppressor) بسته شود و دویدن (Sprint) ممنوع است.' },
+      { id: 11, side: 'atk', diff: 'RECRUIT', title: 'طوفان ال ام جی (LMG No-Stop)', desc: 'همه باید LMG بردارند؛ به محض دیدن اولین دشمن، دکمه شلیک را نگه دارید تا خشاب ۱۰۰تایی کامل خالی شود!' },
+      { id: 12, side: 'atk', diff: 'HARDCORE', title: 'ورود برعکس (Reverse Entry)', desc: 'هنگام ورود به اتاق بمب، باید پشت به دشمن (عقب‌عقب) وارد شوید و بعد بچرخید!' },
+      { id: 13, side: 'atk', diff: 'VETERAN', title: 'مهمانی فلش و دود (Blindness Meta)', desc: 'همه باید استن/فلش یا اسموک بردارند و کل اتاق بمب را قبل از ورود سفید و مه‌آلود کنند.' },
+      { id: 14, side: 'atk', diff: 'RECRUIT', title: 'تکاوران سال اول (Pathfinders)', desc: 'فقط اپراتورهای سال اول (Ash, Thermite, Sledge, Thatcher, Twitch) مجاز هستند.' },
+      { id: 15, side: 'atk', diff: 'HARDCORE', title: 'خشاب‌گذاری اجباری (Compulsive Reloader)', desc: 'بعد از هر بار شلیک (حتی ۱ تیر)، موظف هستید بلافاصله دکمه Reload را بزنید!' },
+      { id: 16, side: 'atk', diff: 'VETERAN', title: 'پاکسازی عمودی (Floor Is Gone)', desc: 'ابتدا باید به طبقه بالای سایت بروید و کل سقف بالای بمب‌سایت را نابود کنید، سپس اجازه پایین رفتن دارید.' },
+      { id: 17, side: 'atk', diff: 'RECRUIT', title: 'نبرد با کلت (John Wick Mode)', desc: 'استفاده از سلاح اصلی در کل راند ممنوع است؛ فقط کلت کمری و چاقو!' },
+      { id: 18, side: 'atk', diff: 'VETERAN', title: 'ارتش کلون و پهپاد', desc: 'انتخاب Iana, Brava, Twitch, Flores, Zero و جلو فرستادن تمام درون‌ها به صورت همزمان به داخل سایت.' },
+      { id: 19, side: 'atk', diff: 'HARDCORE', title: 'خزیدن مار (Snake Crawl)', desc: 'از لحظه ورود به ساختمان تا پایان راند، فقط در حالت خوابیده (Prone) اجازه حرکت دارید!' },
+      { id: 20, side: 'atk', diff: 'VETERAN', title: 'قرنطینه کامل (Total Lockdown)', desc: 'انتخاب Lion, Dokkaebi, Jackal, Deimos, Gridlock و فعال کردن تمام قابلیت‌ها در یک ثانیه واحد!' },
+      { id: 21, side: 'def', diff: 'RECRUIT', title: 'معماران باز (Open Concept)', desc: 'هیچ دیواری را ری‌اینفورس نکنید! در عوض تمام دیوارهای بین دو بمب‌سایت را با شاتگان کامل باز کنید.' },
+      { id: 22, side: 'def', diff: 'HARDCORE', title: 'رومینگ صددرصدی (Ghost Site)', desc: 'هیچ مدافعی حق ماندن داخل بمب‌سایت را ندارد! همه باید در دورترین نقطه نقشه قایم شوند و پس از پلنت برگردند.' },
+      { id: 23, side: 'def', diff: 'VETERAN', title: 'لاک‌پشت‌های نینجا (Site Bunker)', desc: 'هیچ‌کس حق خروج از اتاق بمب را ندارد. تمام درها را کستل و تله ببندید و داخل سایت بمانید.' },
+      { id: 24, side: 'def', diff: 'HARDCORE', title: 'اسپان‌پیک دسته‌جمعی (Window Peekers)', desc: 'در ثانیه اول شروع راند، هر ۵ مدافع باید از پنجره‌ها یا درهای مختلف به سمت اسپان دشمن شلیک کنند!' },
+      { id: 25, side: 'def', diff: 'RECRUIT', title: 'سرزمین تله‌ها (Minefield)', desc: 'فقط اپراتورهای تله‌گذار (Kapkan, Frost, Lesion, Thorn, Fenrir) بردارید و تمام تله‌ها را روی یک راهرو متمرکز کنید.' },
+      { id: 26, side: 'def', diff: 'VETERAN', title: 'سمفونی شاتگان مدافعان', desc: 'تمام مدافعان موظفند فقط شاتگان و اسلحه کمری بردارند و پشت درها کمین کنند.' },
+      { id: 27, side: 'def', diff: 'HARDCORE', title: 'کف اتاق گدازه است (Floor Is Lava)', desc: 'در داخل بمب‌سایت، تا جای ممکن روی میزها، جعبه‌ها و لبه‌ها بایستید و روی زمین عادی راه نروید.' },
+      { id: 28, side: 'def', diff: 'RECRUIT', title: 'بیمارستان صحرایی (Overheal Squad)', desc: 'انتخاب Doc، Rook و Thunderbird؛ همه باید زره بپوشند و تمام استیم‌ها و هیل‌ها در مرکز اتاق چیده شوند.' },
+      { id: 29, side: 'def', diff: 'VETERAN', title: 'برادران آتش و گاز (Fire & Poison)', desc: 'انتخاب Smoke، Tachanka و Goyo؛ در ۴۰ ثانیه پایانی راند کل ورودی‌های سایت را به آتش و گاز بکشید.' },
+      { id: 30, side: 'def', diff: 'VETERAN', title: 'سایبربولی و دوربین‌ها (Big Brother)', desc: 'انتخاب Valkyrie, Maestro, Echo, Mozzie, Solis؛ تمرکز کامل روی اسپات کردن و اذیت کردن دشمن با شوک دوربین‌ها.' },
+      { id: 31, side: 'def', diff: 'HARDCORE', title: 'مدافعان بی‌گجت (Raw Gunskill)', desc: 'هیچ‌کس حق کاشتن گجت، ری‌اینفورس کردن دیوار یا گذاشتن سیم‌خاردار را ندارد! فقط گان‌پلی خالص.' },
+      { id: 32, side: 'def', diff: 'RECRUIT', title: 'ارتش سه سرعت‌ها (Speed Demons)', desc: 'فقط مدافعان سرعت ۳ (Bandit, Jager, Caveira, Vigil, Alibi, Ela) مجاز هستند.' },
+      { id: 33, side: 'def', diff: 'VETERAN', title: 'تقلب هولوگرامی (Alibi Roulette)', desc: 'یک نفر Alibi بردارد و هولوگرام‌ها را وسط سایت بکارد؛ بقیه مدافعان هم بدون تکون خوردن کنار هولوگرام‌ها بایستند!' },
+      { id: 34, side: 'def', diff: 'HARDCORE', title: 'نگهبانان یک اتاق کوچک', desc: 'هر ۵ مدافع باید داخل یک اتاقک کوچک کنار سایت جمع شوند و تا صدای پلنت بیرون نیایند!' },
+      { id: 35, side: 'def', diff: 'VETERAN', title: 'دیوارهای غیرقابل نفوذ (Anti-Breach)', desc: 'انتخاب Bandit, Kaid, Mute, Tubarao, Mira؛ هیچ دیوار مستحکمی نباید توسط دشمن باز شود.' },
+      { id: 36, side: 'def', diff: 'RECRUIT', title: 'تک‌تیراندازان دفاعی (Slug Shotguns)', desc: 'استفاده از شاتگان‌های اسلاگ و دوربین‌دار (BOSG, TCSG12, ACS12) برای تمام اعضای تیم.' },
+      { id: 37, side: 'def', diff: 'HARDCORE', title: 'عملیات خروج (Outside Hold)', desc: 'به محض شروع راند، حداقل ۲ مدافع باید به بیرون ساختمان بپرند و تا جای ممکن بیرون بجنگند!' },
+      { id: 38, side: 'def', diff: 'VETERAN', title: 'کمین در پله‌ها (Stairway Ambush)', desc: 'تمام ۵ مدافع باید در راه‌پله‌های نقشه مستقر شوند و هیچ‌کس داخل سایت نماند.' },
+      { id: 39, side: 'def', diff: 'RECRUIT', title: 'قلعه آجرهای آزامی (Kiba Castle)', desc: 'انتخاب Azami و Castle؛ ساختن یک هزارتوی عجیب در داخل بمب‌سایت.' },
+      { id: 40, side: 'def', diff: 'VETERAN', title: 'شکارچیان خاموش (Stealth Roamers)', desc: 'انتخاب Caveira, Vigil, Pulse, Solis, Oryx و شکار مهاجمان از پشت سر.' },
+      { id: 41, side: 'all', diff: 'HARDCORE', title: 'شلیک از لگن (Hip-Fire Only)', desc: 'نگه داشتن کلیک راست (ADS / نشانه‌گیری) در کل این راند ممنوع است! فقط شلیک از لگن.' },
+      { id: 42, side: 'all', diff: 'VETERAN', title: 'مگسک آهنی کلاسیک (Iron Sights Only)', desc: 'تمام دوربین‌ها و اسکوپ‌ها را از روی اسلحه باز کنید و فقط با Iron Sight بازی کنید.' },
+      { id: 43, side: 'all', diff: 'HARDCORE', title: 'بدون صدا (Deaf Commando)', desc: 'هدفون خود را بردارید یا صدای بازی را تا پایان این راند روی صفر (Mute) بگذارید!' },
+      { id: 44, side: 'all', diff: 'RECRUIT', title: 'چالش چرخش ۳۶۰ درجه', desc: 'قبل از وارد شدن به هر درگاه یا پنجره، باید یک دور کامل ۳۶۰ درجه دور خودتان بچرخید!' },
+      { id: 45, side: 'all', diff: 'VETERAN', title: 'فقط هدشات یا نایف (One Tap Protocol)', desc: 'اسپری کردن به بدن ممنوع است؛ فقط شلیک تک‌تیر به سر دشمن مجاز است.' },
+      { id: 46, side: 'all', diff: 'RECRUIT', title: 'تعویض با نفر سمت راست', desc: 'هر بازیکنی اپراتور محبوب بازیکن کناری خود را برمی‌دارد.' },
+      { id: 47, side: 'all', diff: 'HARDCORE', title: 'حساسیت فضایی (2x Sensitivity)', desc: 'حساسیت موس یا کنترلر خود را فقط برای این راند ۲ برابر کنید!' },
+      { id: 48, side: 'all', diff: 'VETERAN', title: 'قانون بادیگارد (Buddy System)', desc: 'تیم به دو گروه ۲ نفره تقسیم می‌شود؛ اگر یار زوج شما کشته شد، شما فقط حق استفاده از کلت را دارید.' },
+      { id: 49, side: 'all', diff: 'RECRUIT', title: 'فرمانده سخنگو (Shotcaller Only)', desc: 'فقط یک نفر در تیم حق حرف زدن و کال دادن دارد؛ ۴ نفر دیگر باید در سکوت کامل دستورات او را اجرا کنند.' },
+      { id: 50, side: 'all', diff: 'HARDCORE', title: 'بدون دویدن (Tactical Walk)', desc: 'استفاده از کلید دویدن (Shift / Sprint) در کل راند ممنوع است. فقط قدم زدن آهسته!' },
+      { id: 51, side: 'all', diff: 'VETERAN', title: 'تعویض سلاح پس از هر کیل', desc: 'به محض گرفتن یک کیل با سلاح اصلی، باید به سلاح کمری سوییچ کنید.' },
+      { id: 52, side: 'all', diff: 'RECRUIT', title: 'اپراتورهای تازه نفس (Year 8 & 9 Only)', desc: 'فقط مجاز به انتخاب جدیدترین اپراتورهای بازی (Striker, Sentry, Skopos, Deimos, Ram, Fenrir, Brava, Tubarao) هستید.' },
+      { id: 53, side: 'all', diff: 'HARDCORE', title: 'نبرد گلادیاتور (1 by 1 Engagement)', desc: 'فقط یک نفر اجازه درگیری دارد؛ تا زمانی که نفر اول زنده است، بقیه منتظر می‌مانند!' },
+      { id: 54, side: 'all', diff: 'VETERAN', title: 'خشاب اول را خالی کن!', desc: 'در ثانیه اول راند، یک خشاب کامل از سلاح اصلی خود را به هوا شلیک کنید و با مهمات باقی‌مانده بجنگید.' },
+      { id: 55, side: 'all', diff: 'RECRUIT', title: 'کپی از رندمایزر (Blind Pick)', desc: 'هر اپراتوری که در رندمایزر برایتان افتاد را بدون تغییر هیچ اتچمنتی قفل کنید!' }
+    ];
+
+    /* 5. PROGRESSION 2.0 (RANKS, XP & ALPHA PACK REWARDS) */
+    const SIEGE_RANKS = [
+      { minXp: 0, name: 'COPPER V', icon: 'fa-shield' },
+      { minXp: 100, name: 'BRONZE III', icon: 'fa-shield-halved' },
+      { minXp: 250, name: 'SILVER I', icon: 'fa-medal' },
+      { minXp: 450, name: 'GOLD I', icon: 'fa-award' },
+      { minXp: 700, name: 'PLATINUM II', icon: 'fa-star' },
+      { minXp: 1000, name: 'EMERALD I', icon: 'fa-gem' },
+      { minXp: 1400, name: 'DIAMOND I', icon: 'fa-crown' },
+      { minXp: 2000, name: 'CHAMPION #1', icon: 'fa-trophy' }
+    ];
+
+    const ALPHA_LOOT_POOL = [
+      { type: 'title', name: 'Black Ice Legend', rarity: 'LEGENDARY', color: 'text-amber-400', skinUnlock: 'blackice' },
+      { type: 'title', name: 'Keres Overlord', rarity: 'LEGENDARY', color: 'text-rose-500', skinUnlock: 'keres' },
+      { type: 'title', name: 'Nighthaven Vanguard', rarity: 'EPIC', color: 'text-purple-400', skinUnlock: 'nighthaven' },
+      { type: 'title', name: 'One-Tap Machine', rarity: 'EPIC', color: 'text-cyan-400' },
+      { type: 'title', name: 'Hard Breach Specialist', rarity: 'RARE', color: 'text-blue-400' },
+      { type: 'title', name: 'Silent Interrogation', rarity: 'LEGENDARY', color: 'text-amber-400' },
+      { type: 'title', name: 'Spawnpeek Demon', rarity: 'EPIC', color: 'text-purple-400' }
+    ];
+
+    /* 6. APPLICATION STATE */
+    let bannedOpIds = JSON.parse(localStorage.getItem('r6_banned_ops_v1') || '[]');
+    let userProfile = JSON.parse(localStorage.getItem('r6_profile_v2') || '{"callsign":"OPERATOR","title":"Recruit Operative","xp":30,"rolls":0,"wins":0,"packs":1,"favs":[],"skin":"default"}');
+
+    let currentHub = 'hq';
+    let currentHqMode = 'standard'; // 'standard' | 'cursed' | 'squad'
+    let currentOpsMode = 'strats';  // 'strats' | 'duo' | 'duel'
+    let currentFaction = 'atk';     // 'all' | 'atk' | 'def'
+    let currentStratSide = 'all';
+    let currentDuoSide = 'atk';
+    let currentRolledOp = OPERATORS[0];
+    let currentCursedData = null;
+    let currentStratObj = STRAT_CHALLENGES[0];
+    let currentMapObj = MAP_DATABASE[0];
+    let currentIntroSlide = 1;
+    let shakeEnabled = false;
+
+    /* 7. TOAST NOTIFICATION */
+    function showToast(msg) {
+      let toast = document.getElementById('r6Toast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'r6Toast';
+        toast.className = 'fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-siege-card border border-siege-yellow text-white px-4 py-2 rounded-xl text-xs font-bold shadow-2xl transition-opacity duration-300 pointer-events-none';
+        document.body.appendChild(toast);
+      }
+      toast.innerText = msg;
+      toast.style.opacity = '1';
+      setTimeout(() => { toast.style.opacity = '0'; }, 2400);
+    }
+
+    /* 8. XP, RANK & ALPHA PACK SYSTEM */
+    function addXp(amount) {
+      const oldXp = userProfile.xp || 0;
+      userProfile.xp = oldXp + amount;
+      // Grant 1 Alpha Pack every 200 XP crossed
+      if (Math.floor(userProfile.xp / 200) > Math.floor(oldXp / 200)) {
+        userProfile.packs = (userProfile.packs || 0) + 1;
+        showToast(`🎁 لول‌آپ! یک Alpha Pack جدید جایزه گرفتید!`);
+        triggerHaptic([40, 60, 80]);
+      }
+      saveProfile();
+      updateHeaderProgression();
     }
 
     function saveProfile() {
-      try {
-        localStorage.setItem('r6_profile_state_v3', JSON.stringify(profileState));
-      } catch(e) {}
-      syncProfileUI();
+      localStorage.setItem('r6_profile_v2', JSON.stringify(userProfile));
     }
 
-    function syncProfileUI() {
-      const callsign = (profileState.callsign || 'RECRUIT').toUpperCase();
-      document.getElementById('navCallsign').innerText = callsign;
-      document.getElementById('navRankBadge').innerHTML = `<i class="fa-solid ${profileState.badgeIcon}"></i>`;
-      document.getElementById('inputCallsign').value = callsign;
+    function updateHeaderProgression() {
+      const xp = userProfile.xp || 0;
+      const level = Math.floor(xp / 200) + 1;
+      const progressPercent = Math.min(100, ((xp % 200) / 200) * 100);
 
-      document.getElementById('modalRollsCount').innerText = profileState.totalRolls;
-      document.getElementById('modalWinsCount').innerText = profileState.challengesDone;
-
-      // Render Favorites in modal
-      const favsBox = document.getElementById('modalFavsList');
-      if (profileState.favorites.length === 0) {
-        favsBox.innerHTML = '<span class="text-xs text-slate-500 py-1 px-2">هیچ اپراتوری ستاره‌دار نشده است.</span>';
-      } else {
-        favsBox.innerHTML = profileState.favorites.map(name => `
-          <span class="px-2 py-0.5 rounded bg-siege-surface border border-siege-border text-siege-yellow text-xs font-bold flex items-center gap-1">
-            <i class="fa-solid fa-star text-[10px]"></i> ${name}
-          </span>
-        `).join('');
+      let currentRank = SIEGE_RANKS[0];
+      for (const r of SIEGE_RANKS) {
+        if (xp >= r.minXp) currentRank = r;
       }
 
-      // Render Rank badge picker in modal
-      const rankBox = document.getElementById('rankIconsPicker');
-      rankBox.innerHTML = RANK_BADGES.map(icon => `
-        <button onclick="selectRankBadge('${icon}')" class="p-2.5 rounded-lg border ${profileState.badgeIcon === icon ? 'border-siege-yellow bg-siege-yellow/20 text-siege-yellow' : 'border-siege-border bg-siege-dark text-slate-400'} flex items-center justify-center text-sm transition active:scale-95">
-          <i class="fa-solid ${icon}"></i>
-        </button>
+      document.getElementById('headerCallsignText').innerText = userProfile.callsign || 'OPERATOR';
+      document.getElementById('headerTitleText').innerText = userProfile.title || 'Recruit Operative';
+      document.getElementById('headerRankTitleBadge').innerText = currentRank.name;
+      document.getElementById('headerRankMiniIcon').className = `fa-solid ${currentRank.icon}`;
+      document.getElementById('xpLevelBadge').innerText = `LVL ${level}`;
+      document.getElementById('xpProgressBar').style.width = `${progressPercent}%`;
+      document.getElementById('xpCounterText').innerText = `${xp % 200} / 200 XP`;
+      document.getElementById('headerPackCount').innerText = userProfile.packs || 0;
+
+      // Profile Modal sync
+      document.getElementById('profileRankName').innerText = currentRank.name;
+      document.getElementById('profileXpText').innerText = `TOTAL XP: ${xp} (LVL ${level})`;
+      document.getElementById('statTotalRolls').innerText = userProfile.rolls || 0;
+      document.getElementById('statChallengesWon').innerText = userProfile.wins || 0;
+      document.getElementById('statFavCount').innerText = (userProfile.favs || []).length;
+      document.getElementById('modalPackCount').innerText = `${userProfile.packs || 0} PACKS`;
+    }
+
+    /* 9. DYNAMIC THEME ENGINE */
+    function setSkinTheme(skinName) {
+      userProfile.skin = skinName;
+      document.body.setAttribute('data-skin', skinName);
+      saveProfile();
+      playTone(620, 'sine', 0.06);
+      showToast(`تم ظاهری روی ${skinName.toUpperCase()} تنظیم شد.`);
+    }
+
+    function setFaction(fac) {
+      currentFaction = fac;
+      if (fac === 'atk' || fac === 'def') {
+        document.body.setAttribute('data-faction', fac);
+      } else {
+        document.body.setAttribute('data-faction', 'atk');
+      }
+
+      ['all', 'atk', 'def'].forEach(f => {
+        const btn = document.getElementById(`facBtn-${f}`);
+        if (f === fac) {
+          btn.className = f === 'def'
+            ? 'py-1.5 rounded-lg text-[11px] font-bold bg-siege-orange/20 text-siege-orange border border-siege-orange/50 transition'
+            : 'py-1.5 rounded-lg text-[11px] font-bold bg-siege-cyan/20 text-siege-cyan border border-siege-cyan/50 transition';
+        } else {
+          btn.className = 'py-1.5 rounded-lg text-[11px] font-bold text-slate-400 hover:text-white transition';
+        }
+      });
+
+      triggerHaptic(12);
+      triggerHqRoll();
+    }
+
+    /* 10. BENTO COMMAND CENTER HUB SWITCHING */
+    function switchHub(hubId) {
+      currentHub = hubId;
+      ['hq', 'ops', 'tools'].forEach(h => {
+        document.getElementById(`hub-${h}`).classList.toggle('hidden', h !== hubId);
+
+        const dBtn = document.getElementById(`hub-btn-${h}`);
+        if (dBtn) {
+          dBtn.className = h === hubId
+            ? 'px-4 py-1.5 rounded-xl font-bold text-xs transition bg-siege-yellow text-black shadow-md shadow-siege-yellow/20 flex items-center gap-2'
+            : 'px-4 py-1.5 rounded-xl font-bold text-xs transition text-slate-300 hover:bg-siege-surface border border-transparent flex items-center gap-2';
+        }
+
+        const mBtn = document.getElementById(`mhub-${h}`);
+        if (mBtn) {
+          mBtn.className = h === hubId
+            ? 'flex flex-col items-center gap-0.5 text-siege-yellow text-[10px] font-bold py-1 px-3'
+            : 'flex flex-col items-center gap-0.5 text-slate-400 text-[10px] font-bold py-1 px-3';
+        }
+      });
+      triggerHaptic(10);
+      playTone(540, 'sine', 0.04);
+    }
+
+    function setHqMode(mode) {
+      currentHqMode = mode;
+      ['standard', 'cursed', 'squad'].forEach(m => {
+        const btn = document.getElementById(`hqMode-${m}`);
+        btn.className = m === mode
+          ? 'py-1.5 rounded-lg text-xs font-bold bg-siege-yellow text-black transition flex items-center justify-center gap-1.5'
+          : 'py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5';
+      });
+
+      const isSquad = mode === 'squad';
+      document.getElementById('hqSingleCardWrap').classList.toggle('hidden', isSquad);
+      document.getElementById('hqSquadWrap').classList.toggle('hidden', !isSquad);
+
+      const isCursed = mode === 'cursed';
+      document.getElementById('cardModeTag').classList.toggle('hidden', !isCursed);
+      document.getElementById('cursedPrimaryAttachments').classList.toggle('hidden', !isCursed);
+      document.getElementById('cursedRuleBox').classList.toggle('hidden', !isCursed);
+      document.getElementById('standardHintBox').classList.toggle('hidden', isCursed);
+
+      document.getElementById('hqRollBtnText').innerText =
+        mode === 'squad' ? 'چینش تصادفی اسکواد ۵ نفره (+10 XP)' :
+        mode === 'cursed' ? 'قرعه‌کشی لوداوت نفرین‌شده (+10 XP)' :
+        'انتخاب تصادفی اپراتور (+10 XP)';
+
+      triggerHqRoll();
+    }
+
+    function setOpsMode(mode) {
+      currentOpsMode = mode;
+      ['strats', 'duo', 'duel'].forEach(m => {
+        const btn = document.getElementById(`opsMode-${m}`);
+        btn.className = m === mode
+          ? 'py-1.5 rounded-lg text-xs font-bold bg-siege-yellow text-black transition'
+          : 'py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition';
+      });
+
+      document.getElementById('opsStratsView').classList.toggle('hidden', mode !== 'strats');
+      document.getElementById('opsDuoView').classList.toggle('hidden', mode !== 'duo');
+      document.getElementById('opsDuelView').classList.toggle('hidden', mode !== 'duel');
+      playTone(560, 'sine', 0.04);
+    }
+
+    /* 11. 3D CARD FLIP, LASER SCAN & OPERATOR ROLL ENGINE */
+    function getRandomItem(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+    function triggerHqRoll() {
+      if (currentHqMode === 'squad') {
+        rollFullSquad();
+        return;
+      }
+
+      let pool = OPERATORS.filter(o => !bannedOpIds.includes(o.id));
+      if (currentFaction !== 'all') {
+        pool = pool.filter(o => o.side === currentFaction);
+      }
+      if (!pool.length) {
+        showToast('تمام اپراتورهای این بخش در لیست بن قفل شده‌اند!');
+        return;
+      }
+
+      const card = document.getElementById('operatorMainCard');
+      card.classList.remove('card-flipping', 'scanning', 'glitch-active');
+      void card.offsetWidth; // Force reflow
+      card.classList.add('scanning', 'card-flipping');
+      if (currentHqMode === 'cursed') card.classList.add('glitch-active');
+
+      let ticks = 0;
+      const rollTimer = setInterval(() => {
+        const tempOp = getRandomItem(pool);
+        document.getElementById('cardOpName').innerText = tempOp.name;
+        playTone(320 + ticks * 35, 'triangle', 0.025);
+        triggerHaptic(8);
+        ticks++;
+
+        if (ticks >= 8) {
+          clearInterval(rollTimer);
+          currentRolledOp = getRandomItem(pool);
+          currentCursedData = {
+            op: currentRolledOp,
+            scope: getRandomItem(CURSED_SCOPES),
+            muzzle: getRandomItem(CURSED_MUZZLES),
+            grip: getRandomItem(CURSED_GRIPS),
+            laser: Math.random() > 0.5 ? 'Laser On' : 'بدون لیزر',
+            rule: getRandomItem(CURSED_RULES)
+          };
+          renderMainOperatorCard(currentRolledOp);
+          userProfile.rolls = (userProfile.rolls || 0) + 1;
+          addXp(10);
+          triggerHaptic([25, 40]);
+          playTone(760, 'sine', 0.12);
+        }
+      }, 45);
+    }
+
+    function renderMainOperatorCard(op) {
+      document.body.setAttribute('data-faction', op.side);
+
+      document.getElementById('cardOpName').innerText = op.name;
+      document.getElementById('cardOrgName').innerText = `${op.org} • ${op.side === 'atk' ? 'ATTACK SQUAD' : 'DEFENSE SQUAD'}`;
+      document.getElementById('cardGadgetName').innerText = op.gadget;
+      document.getElementById('cardSpeedArmor').innerText = `SPD ${op.speed} • ARM ${op.armor}`;
+      document.getElementById('cardPrimaryWeapon').innerText = op.primary;
+      document.getElementById('cardSecWeapon').innerText = op.sec;
+
+      const iconUrl = getOperatorIconUrl(op.slug);
+      const iconEl = document.getElementById('cardOpIcon');
+      const fbEl = document.getElementById('cardOpFallback');
+      iconEl.style.display = 'block';
+      fbEl.style.display = 'none';
+      fbEl.innerText = op.name.substring(0, 2).toUpperCase();
+      iconEl.src = iconUrl;
+
+      // Watermark Portrait / Vector Background
+      const wm = document.getElementById('cardWatermarkImg');
+      wm.style.display = 'block';
+      wm.src = iconUrl;
+
+      const sideBadge = document.getElementById('cardSideBadge');
+      const badgeBox = document.getElementById('cardBadgeBox');
+      if (op.side === 'atk') {
+        sideBadge.className = 'px-2.5 py-0.5 text-[10px] font-tactical font-black rounded uppercase border bg-siege-cyan/20 border-siege-cyan text-siege-cyan';
+        sideBadge.innerText = 'ATTACKER';
+        badgeBox.className = 'w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-siege-dark border-2 border-siege-cyan flex items-center justify-center p-2 shrink-0 shadow-xl relative overflow-hidden';
+      } else {
+        sideBadge.className = 'px-2.5 py-0.5 text-[10px] font-tactical font-black rounded uppercase border bg-siege-orange/20 border-siege-orange text-siege-orange';
+        sideBadge.innerText = 'DEFENDER';
+        badgeBox.className = 'w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-siege-dark border-2 border-siege-orange flex items-center justify-center p-2 shrink-0 shadow-xl relative overflow-hidden';
+      }
+
+      if (currentCursedData) {
+        document.getElementById('attScope').innerText = currentCursedData.scope;
+        document.getElementById('attMuzzle').innerText = currentCursedData.muzzle;
+        document.getElementById('attGrip').innerText = currentCursedData.grip;
+        document.getElementById('attLaser').innerText = currentCursedData.laser;
+        document.getElementById('cursedRuleText').innerText = currentCursedData.rule;
+      }
+
+      updateFavStarIcon();
+    }
+
+    function toggleFavoriteCurrent() {
+      if (!currentRolledOp) return;
+      userProfile.favs = userProfile.favs || [];
+      const idx = userProfile.favs.indexOf(currentRolledOp.id);
+      if (idx > -1) {
+        userProfile.favs.splice(idx, 1);
+        showToast(`${currentRolledOp.name} از علاقه‌مندی‌ها حذف شد.`);
+      } else {
+        userProfile.favs.push(currentRolledOp.id);
+        showToast(`⭐ ${currentRolledOp.name} به لیست علاقه‌مندی‌ها اضافه شد!`);
+      }
+      saveProfile();
+      updateFavStarIcon();
+      updateHeaderProgression();
+      triggerHaptic(20);
+      playTone(680, 'sine', 0.06);
+    }
+
+    function updateFavStarIcon() {
+      const isFav = (userProfile.favs || []).includes(currentRolledOp.id);
+      document.getElementById('cardFavIcon').className = isFav
+        ? 'fa-solid fa-star text-sm text-siege-yellow'
+        : 'fa-regular fa-star text-sm text-slate-400';
+    }
+
+    /* 12. 5-MAN SQUAD GENERATOR */
+    function rollFullSquad() {
+      const side = currentFaction === 'def' ? 'def' : 'atk';
+      const pool = OPERATORS.filter(o => o.side === side && !bannedOpIds.includes(o.id));
+      if (pool.length < 5) {
+        showToast('حداقل ۵ اپراتور باز در این جناح نیاز است!');
+        return;
+      }
+      const picked = [...pool].sort(() => 0.5 - Math.random()).slice(0, 5);
+      const roles = side === 'atk'
+        ? ['ENTRY FRAG', 'HARD BREACH', 'SUPPORT', 'INTEL / FLANK', 'FLEX']
+        : ['ANCHOR', 'ROAMER', 'TRAPPER', 'WALL DENIAL', 'INTEL'];
+
+      document.getElementById('squadGridContainer').innerHTML = picked.map((op, i) => `
+        <div class="bg-siege-card dynamic-border border rounded-xl p-2.5 flex sm:flex-col items-center justify-between sm:justify-center gap-2.5 text-center clip-corner">
+          <div class="flex sm:flex-col items-center gap-2.5">
+            <div class="w-11 h-11 rounded-lg bg-siege-dark border border-siege-border p-1 shrink-0 flex items-center justify-center">
+              <img src="${getOperatorIconUrl(op.slug)}" alt="${op.name}" class="w-full h-full object-contain" onerror="this.style.display='none'">
+            </div>
+            <div class="text-right sm:text-center">
+              <div class="text-[9px] font-mono text-siege-yellow">${roles[i]}</div>
+              <div class="font-tactical font-black text-sm text-white uppercase">${op.name}</div>
+              <div class="text-[10px] text-slate-400 truncate max-w-[120px]">${op.primary}</div>
+            </div>
+          </div>
+          <span class="px-2 py-0.5 rounded bg-siege-dark border border-siege-border text-[9px] font-mono text-slate-300">SPD ${op.speed}</span>
+        </div>
       `).join('');
+
+      userProfile.rolls = (userProfile.rolls || 0) + 1;
+      addXp(10);
+      triggerHaptic([15, 30]);
+      playTone(700, 'sine', 0.08);
     }
 
-    function selectRankBadge(icon) {
-      profileState.badgeIcon = icon;
-      playTone(620, 'triangle', 0.05);
-      syncProfileUI();
+    /* 13. TOUCH SWIPE GESTURES (TINDER-STYLE SWIPE & SHAKE TO ROLL) */
+    (function initTouchGestures() {
+      const card = document.getElementById('operatorMainCard');
+      let startX = 0, startY = 0;
+
+      card.addEventListener('touchstart', (e) => {
+        startX = e.changedTouches[0].screenX;
+        startY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      card.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].screenX - startX;
+        const dy = e.changedTouches[0].screenY - startY;
+
+        if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy)) {
+          // Swipe Left or Right -> Roll Next Operator
+          triggerHqRoll();
+        } else if (dy < -65 && Math.abs(dy) > Math.abs(dx)) {
+          // Swipe Up -> Favorite Operator
+          toggleFavoriteCurrent();
+        }
+      }, { passive: true });
+    })();
+
+    function toggleShakeSensor() {
+      if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+        DeviceMotionEvent.requestPermission().then(state => {
+          if (state === 'granted') activateShakeListener();
+        }).catch(() => showToast('دسترسی به سنسور حرکتی رد شد.'));
+      } else {
+        activateShakeListener();
+      }
     }
 
-    function saveUserProfile() {
-      const input = document.getElementById('inputCallsign').value.trim();
-      if (input) profileState.callsign = input;
-      saveProfile();
-      playTone(750, 'sine', 0.1);
-      closeProfileModal();
+    function activateShakeListener() {
+      shakeEnabled = !shakeEnabled;
+      const btn = document.getElementById('shakeBtn');
+      btn.className = shakeEnabled
+        ? 'w-8 h-8 rounded-lg border border-siege-yellow bg-siege-yellow/20 text-xs flex items-center justify-center text-siege-yellow transition'
+        : 'w-8 h-8 rounded-lg border border-siege-border bg-siege-card text-xs flex items-center justify-center text-slate-400 transition';
+      showToast(shakeEnabled ? '📳 قابلیت تکان دادن گوشی (Shake to Roll) فعال شد!' : 'سنسور تکان دادن گوشی غیرفعال شد.');
     }
 
-    function resetStats() {
-      profileState.totalRolls = 0;
-      profileState.challengesDone = 0;
-      saveProfile();
-      playTone(350, 'sawtooth', 0.1);
-    }
-
-    /* Modal open/close handlers */
-    function openProfileModal() {
-      syncProfileUI();
-      document.getElementById('profileModal').classList.remove('hidden-modal');
-      playTone(550, 'sine', 0.05);
-    }
-
-    function closeProfileModal() {
-      document.getElementById('profileModal').classList.add('hidden-modal');
-      playTone(400, 'sine', 0.05);
-    }
-
-    // Backdrop click dismiss
-    document.getElementById('profileModal').addEventListener('click', (e) => {
-      if (e.target === document.getElementById('profileModal')) closeProfileModal();
+    let lastShakeTime = 0;
+    window.addEventListener('devicemotion', (e) => {
+      if (!shakeEnabled) return;
+      const acc = e.accelerationIncludingGravity;
+      if (!acc) return;
+      const totalForce = Math.abs(acc.x) + Math.abs(acc.y) + Math.abs(acc.z);
+      const now = Date.now();
+      if (totalForce > 34 && now - lastShakeTime > 1200) {
+        lastShakeTime = now;
+        if (currentHub === 'hq') triggerHqRoll();
+        else if (currentHub === 'ops') rollRandomStrat();
+        else rollMapAndSite();
+      }
     });
 
-    /* =====================================================================
-       6. ONBOARDING SLIDE CAROUSEL MODAL
-       ===================================================================== */
-    let currentSlideIndex = 0;
-    const TOTAL_SLIDES = 3;
+    /* 14. OPERATIONS HUB (55 STRATS, DUO, 1V1) */
+    function setStratSide(side) {
+      currentStratSide = side;
+      ['all', 'atk', 'def'].forEach(s => {
+        const btn = document.getElementById(`stratSide${s.charAt(0).toUpperCase() + s.slice(1)}`);
+        btn.className = s === side
+          ? 'py-1 rounded-lg text-[11px] font-bold bg-siege-yellow/20 text-siege-yellow border border-siege-yellow/40'
+          : 'py-1 rounded-lg text-[11px] font-bold text-slate-400';
+      });
+      rollRandomStrat();
+    }
 
-    function openIntroModal() {
-      currentSlideIndex = 0;
-      updateSlideDisplay();
-      document.getElementById('introModal').classList.remove('hidden-modal');
+    function rollRandomStrat() {
+      let pool = STRAT_CHALLENGES;
+      if (currentStratSide !== 'all') {
+        pool = STRAT_CHALLENGES.filter(c => c.side === currentStratSide || c.side === 'all');
+      }
+      const card = document.getElementById('stratCard3D');
+      card.classList.remove('scanning', 'card-flipping');
+      void card.offsetWidth;
+      card.classList.add('scanning', 'card-flipping');
+
+      currentStratObj = getRandomItem(pool);
+      document.getElementById('stratCounterCode').innerText = `OPERATION CODE: #STRAT-${String(currentStratObj.id).padStart(2, '0')} / 55`;
+      document.getElementById('stratTitleText').innerText = currentStratObj.title;
+      document.getElementById('stratDescText').innerText = currentStratObj.desc;
+      document.getElementById('stratDiffBadge').innerText = currentStratObj.diff;
+      document.getElementById('stratSideTag').innerText =
+        currentStratObj.side === 'atk' ? 'ATTACKERS ONLY' :
+        currentStratObj.side === 'def' ? 'DEFENDERS ONLY' : 'UNIVERSAL SQUAD';
+
+      addXp(10);
+      triggerHaptic(15);
+      playTone(640, 'triangle', 0.07);
+    }
+
+    function completeCurrentStrat() {
+      userProfile.wins = (userProfile.wins || 0) + 1;
+      if (userProfile.wins % 5 === 0) {
+        userProfile.packs = (userProfile.packs || 0) + 1;
+        showToast('🏆 ۵ چالش تکمیل شد! ۱ عدد Alpha Pack جایزه گرفتید!');
+      } else {
+        showToast('🎖️ پیروزی ثبت شد! +100 XP دریافت کردید.');
+      }
+      addXp(100);
+      triggerHaptic([30, 50, 40]);
+      [523, 659, 784, 1046].forEach((f, idx) => setTimeout(() => playTone(f, 'sine', 0.11), idx * 85));
+    }
+
+    function setDuoSide(side) {
+      currentDuoSide = side;
+      document.getElementById('duoSideAtk').className = side === 'atk' ? 'px-3 py-1 rounded text-xs font-bold bg-siege-cyan text-black' : 'px-3 py-1 rounded text-xs font-bold text-slate-400';
+      document.getElementById('duoSideDef').className = side === 'def' ? 'px-3 py-1 rounded text-xs font-bold bg-siege-orange text-black' : 'px-3 py-1 rounded text-xs font-bold text-slate-400';
+      rollDuoCombo();
+    }
+
+    function rollDuoCombo() {
+      const pool = DUO_COMBOS.filter(c => c.side === currentDuoSide);
+      const combo = getRandomItem(pool);
+      document.getElementById('duoTitle').innerText = combo.title;
+      document.getElementById('duoOp1Name').innerText = combo.op1.toUpperCase();
+      document.getElementById('duoOp1Role').innerText = combo.role1;
+      document.getElementById('duoOp2Name').innerText = combo.op2.toUpperCase();
+      document.getElementById('duoOp2Role').innerText = combo.role2;
+      document.getElementById('duoPlanText').innerText = combo.plan;
+
+      const op1 = OPERATORS.find(o => o.name.toLowerCase() === combo.op1.toLowerCase());
+      const op2 = OPERATORS.find(o => o.name.toLowerCase() === combo.op2.toLowerCase());
+      if (op1) document.getElementById('duoOp1Img').src = getOperatorIconUrl(op1.slug);
+      if (op2) document.getElementById('duoOp2Img').src = getOperatorIconUrl(op2.slug);
+
+      addXp(10);
+      playTone(610, 'sine', 0.07);
+    }
+
+    const DUEL_WEAPONS = ['فقط کلت کمری با سایلنسر', 'فقط شاتگان بدون نشانه‌گیری', 'فقط DMR تک‌تیر با Iron Sight', 'فقط نایف و گجت'];
+    const DUEL_MOVES = ['حرکت دائم در حالت نشسته', 'بدون اجازه دویدن (No Sprint)', 'فقط داخل اتاق اصلی سایت'];
+    const DUEL_GLOBALS = ['فقط هدشات مجاز است!', 'ممنوعیت هدشات؛ فقط شلیک به بدن!', 'بازی با صدای قطع‌شده (Mute)!'];
+
+    function rollDuelMatch() {
+      const active = OPERATORS.filter(o => !bannedOpIds.includes(o.id));
+      if (active.length < 2) return;
+      const p1 = getRandomItem(active);
+      const p2 = getRandomItem(active.filter(o => o.id !== p1.id));
+
+      document.getElementById('duelP1Op').innerText = p1.name.toUpperCase();
+      document.getElementById('duelP1Weapon').innerText = getRandomItem(DUEL_WEAPONS);
+      document.getElementById('duelP1Move').innerText = getRandomItem(DUEL_MOVES);
+
+      document.getElementById('duelP2Op').innerText = p2.name.toUpperCase();
+      document.getElementById('duelP2Weapon').innerText = getRandomItem(DUEL_WEAPONS);
+      document.getElementById('duelP2Move').innerText = getRandomItem(DUEL_MOVES);
+      document.getElementById('duelGlobalRule').innerText = getRandomItem(DUEL_GLOBALS);
+
+      addXp(10);
+      playTone(720, 'triangle', 0.09);
+    }
+
+    /* 15. TACTICAL TOOLS (MAP ROULETTE & BOMB TIMER) */
+    function rollMapAndSite() {
+      currentMapObj = getRandomItem(MAP_DATABASE);
+      document.getElementById('mapNameDisplay').innerText = currentMapObj.name;
+      rollOnlySite();
+    }
+
+    function rollOnlySite() {
+      const s = getRandomItem(currentMapObj.sites);
+      document.getElementById('mapSiteDisplay').innerText = s.site;
+      document.getElementById('mapTacticalTip').innerText = `توصیه تاکتیکی: ${s.tip}`;
+      document.getElementById('mapFloorDisplay').innerText = s.site.split('/')[0].trim();
+      playTone(630, 'triangle', 0.06);
+    }
+
+    let timerDuration = 180, timerRemaining = 180, timerInterval = null, isTimerRunning = false;
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60).toString().padStart(2, '0');
+      const s = (sec % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    function setTimerPreset(sec, label) {
+      resetTimer();
+      timerDuration = sec;
+      timerRemaining = sec;
+      document.getElementById('timerSubText').innerText = label;
+      document.getElementById('bigTimerDisplay').innerText = formatTime(sec);
       playTone(500, 'sine', 0.05);
     }
 
+    function startDefuseCountdown(sec = 7) {
+      setTimerPreset(sec, 'DEFUSER COUNTDOWN (7s)');
+      startStopTimer();
+    }
+
+    function startStopTimer() {
+      const btn = document.getElementById('timerControlBtn');
+      const badge = document.getElementById('timerStatusBadge');
+      if (isTimerRunning) {
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        btn.innerHTML = '<i class="fa-solid fa-play"></i><span>ادامه تایمر</span>';
+        badge.innerText = 'PAUSED';
+      } else {
+        if (timerRemaining <= 0) timerRemaining = timerDuration;
+        isTimerRunning = true;
+        btn.innerHTML = '<i class="fa-solid fa-pause"></i><span>توقف تایمر</span>';
+        badge.innerText = 'ACTIVE';
+        timerInterval = setInterval(() => {
+          timerRemaining--;
+          document.getElementById('bigTimerDisplay').innerText = formatTime(timerRemaining);
+          if (timerRemaining <= 10 && timerRemaining > 0) {
+            playTone(880, 'square', 0.04);
+            triggerHaptic(25);
+          } else if (timerRemaining <= 0) {
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            badge.innerText = 'DETONATED';
+            triggerHaptic([80, 50, 120]);
+            [920, 700, 920, 680].forEach((f, idx) => setTimeout(() => playTone(f, 'sawtooth', 0.14), idx * 110));
+          }
+        }, 1000);
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      isTimerRunning = false;
+      timerRemaining = timerDuration;
+      document.getElementById('bigTimerDisplay').innerText = formatTime(timerRemaining);
+      document.getElementById('timerControlBtn').innerHTML = '<i class="fa-solid fa-play"></i><span>شروع تایمر</span>';
+      document.getElementById('timerStatusBadge').innerText = 'READY';
+    }
+
+    /* 16. ALPHA PACK ZIPPER SIMULATOR */
+    function openAlphaModal() {
+      document.getElementById('modalPackCount').innerText = `${userProfile.packs || 0} PACKS`;
+      document.getElementById('alphaZipperSlider').value = 0;
+      document.getElementById('alphaRewardTitle').innerText = 'ALPHA PACK READY';
+      document.getElementById('alphaRewardTitle').className = 'font-tactical font-black text-sm text-white uppercase tracking-wider';
+      document.getElementById('alphaRewardSub').innerText = 'زیپ زیر را تا انتها بکشید تا جایزه باز شود!';
+      document.getElementById('alphaModal').classList.remove('hidden-modal');
+    }
+    function closeAlphaModal() {
+      document.getElementById('alphaModal').classList.add('hidden-modal');
+    }
+
+    function handleZipperPull(val) {
+      const v = parseInt(val, 10);
+      if (v % 15 === 0) {
+        playTone(300 + v * 5, 'sawtooth', 0.02);
+        triggerHaptic(10);
+      }
+      if (v >= 96) {
+        document.getElementById('alphaZipperSlider').value = 0;
+        if ((userProfile.packs || 0) <= 0) {
+          showToast('موجودی آلفا پک شما تمام شده! چالش ببرید یا رول بزنید.');
+          return;
+        }
+        userProfile.packs--;
+        const reward = getRandomItem(ALPHA_LOOT_POOL);
+        userProfile.title = reward.name;
+        if (reward.skinUnlock) {
+          setSkinTheme(reward.skinUnlock);
+        }
+        saveProfile();
+        updateHeaderProgression();
+
+        const titleEl = document.getElementById('alphaRewardTitle');
+        titleEl.innerText = `★ ${reward.name} (${reward.rarity}) ★`;
+        titleEl.className = `font-tactical font-black text-base uppercase ${reward.color}`;
+        document.getElementById('alphaRewardSub').innerText = 'تایتل جدید روی پروفایل شما نصب شد!';
+        triggerHaptic([50, 70, 120]);
+        [587, 784, 987, 1174].forEach((f, i) => setTimeout(() => playTone(f, 'sine', 0.14), i * 90));
+      }
+    }
+
+    /* 17. PROFILE, BAN & SHARE MODALS */
+    function openProfileModal() {
+      document.getElementById('callsignInput').value = userProfile.callsign || 'OPERATOR';
+      updateHeaderProgression();
+      const favBox = document.getElementById('profileFavsContainer');
+      if (!userProfile.favs || !userProfile.favs.length) {
+        favBox.innerHTML = '<span class="text-slate-500 text-[11px]">هنوز اپراتوری ستاره‌دار نشده است.</span>';
+      } else {
+        favBox.innerHTML = userProfile.favs.map(id => {
+          const op = OPERATORS.find(o => o.id === id);
+          if (!op) return '';
+          return `<span class="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-siege-dark border border-siege-border text-white text-[11px] font-bold">
+            <img src="${getOperatorIconUrl(op.slug)}" class="w-3.5 h-3.5 object-contain">
+            <span class="text-siege-yellow">★</span><span>${op.name}</span>
+          </span>`;
+        }).join('');
+      }
+      document.getElementById('profileModal').classList.remove('hidden-modal');
+    }
+    function closeProfileModal() { document.getElementById('profileModal').classList.add('hidden-modal'); }
+
+    function saveCallsign() {
+      userProfile.callsign = document.getElementById('callsignInput').value.trim().toUpperCase() || 'OPERATOR';
+      saveProfile();
+      updateHeaderProgression();
+      showToast('کال‌ساین ذخیره شد!');
+    }
+
+    function resetProfileStats() {
+      userProfile = { callsign: 'OPERATOR', title: 'Recruit Operative', xp: 0, rolls: 0, wins: 0, packs: 1, favs: [], skin: 'default' };
+      saveProfile();
+      setSkinTheme('default');
+      updateHeaderProgression();
+      closeProfileModal();
+    }
+
+    function openBanModal() {
+      renderBanChecklist();
+      document.getElementById('banModal').classList.remove('hidden-modal');
+    }
+    function closeBanModal() {
+      document.getElementById('banModal').classList.add('hidden-modal');
+      localStorage.setItem('r6_banned_ops_v1', JSON.stringify(bannedOpIds));
+      document.getElementById('bannedCountBadge').innerText = bannedOpIds.length;
+    }
+
+    function renderBanChecklist() {
+      const atk = OPERATORS.filter(o => o.side === 'atk');
+      const def = OPERATORS.filter(o => o.side === 'def');
+      const makeGrid = (title, arr, clr) => `
+        <div class="text-xs font-bold ${clr} mb-1.5 font-tactical">${title}</div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
+          ${arr.map(op => {
+            const banned = bannedOpIds.includes(op.id);
+            return `<label class="flex items-center gap-2 p-2 rounded-lg bg-siege-dark border ${banned ? 'border-siege-red/40 opacity-50' : 'border-siege-border'} cursor-pointer text-xs">
+              <input type="checkbox" ${banned ? '' : 'checked'} onchange="toggleOpBan('${op.id}')" class="accent-yellow-400">
+              <span class="font-tactical font-bold uppercase truncate ${banned ? 'line-through text-slate-500' : 'text-white'}">${op.name}</span>
+            </label>`;
+          }).join('')}
+        </div>`;
+      document.getElementById('opsChecklistContainer').innerHTML =
+        makeGrid('ATTACKERS', atk, 'text-siege-cyan') + '<div class="pt-2">' + makeGrid('DEFENDERS', def, 'text-siege-orange') + '</div>';
+      document.getElementById('activeOpsStats').innerText = `ACTIVE: ${OPERATORS.length - bannedOpIds.length} / ${OPERATORS.length}`;
+    }
+
+    function toggleOpBan(id) {
+      const idx = bannedOpIds.indexOf(id);
+      if (idx > -1) bannedOpIds.splice(idx, 1);
+      else bannedOpIds.push(id);
+      renderBanChecklist();
+    }
+
+    function toggleAllOps(enable) {
+      bannedOpIds = enable ? [] : OPERATORS.map(o => o.id);
+      renderBanChecklist();
+    }
+
+    function exportCurrentCard() {
+      document.getElementById('shareModal').classList.remove('hidden-modal');
+      const canvas = document.getElementById('dossierCanvas');
+      const ctx = canvas.getContext('2d');
+      const op = currentRolledOp;
+
+      ctx.fillStyle = '#06090f';
+      ctx.fillRect(0, 0, 500, 600);
+      ctx.strokeStyle = '#F8AA00';
+      ctx.lineWidth = 6;
+      ctx.strokeRect(12, 12, 476, 576);
+
+      ctx.fillStyle = '#F8AA00';
+      ctx.font = '900 22px sans-serif';
+      ctx.fillText('R6 COMMAND CENTER DOSSIER', 30, 50);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 40px sans-serif';
+      ctx.fillText(op.name.toUpperCase(), 30, 110);
+
+      ctx.fillStyle = op.side === 'atk' ? '#00E5FF' : '#FF6B00';
+      ctx.font = 'bold 15px sans-serif';
+      ctx.fillText(`${op.side.toUpperCase()} • ${op.org} • CALLSIGN: ${userProfile.callsign}`, 30, 140);
+
+      ctx.fillStyle = '#0b121e';
+      ctx.fillRect(30, 165, 440, 260);
+      ctx.strokeStyle = '#1e2d47';
+      ctx.strokeRect(30, 165, 440, 260);
+
+      ctx.fillStyle = '#F8AA00';
+      ctx.font = 'bold 16px sans-serif';
+      ctx.fillText('Primary: ' + op.primary, 48, 205);
+      ctx.fillStyle = '#e2e8f0';
+      ctx.font = '14px sans-serif';
+      ctx.fillText('Secondary: ' + op.sec, 48, 240);
+      ctx.fillText('Gadget: ' + op.gadget, 48, 275);
+      if (currentCursedData) {
+        ctx.fillText('Scope: ' + currentCursedData.scope, 48, 315);
+        ctx.fillText('Muzzle: ' + currentCursedData.muzzle, 48, 345);
+        ctx.fillStyle = '#FF2A4D';
+        ctx.fillText('Rule: ' + currentCursedData.rule, 48, 390);
+      }
+
+      ctx.fillStyle = '#64748b';
+      ctx.font = '12px sans-serif';
+      ctx.fillText('GENERATED BY R6 COMMAND CENTER 2.0', 30, 555);
+    }
+
+    function closeShareModal() { document.getElementById('shareModal').classList.add('hidden-modal'); }
+    function downloadDossierImage() {
+      const link = document.createElement('a');
+      link.download = `R6_${currentRolledOp.name}.png`;
+      link.href = document.getElementById('dossierCanvas').toDataURL('image/png');
+      link.click();
+    }
+
+    /* 18. ONBOARDING SLIDER */
+    function openIntroModal() {
+      currentIntroSlide = 1;
+      renderIntroSlide();
+      document.getElementById('introModal').classList.remove('hidden-modal');
+    }
     function closeIntroModal() {
       document.getElementById('introModal').classList.add('hidden-modal');
-      try { localStorage.setItem('r6_intro_viewed_v3', 'yes'); } catch(e) {}
-      playTone(420, 'sine', 0.05);
+      localStorage.setItem('r6_intro_seen_v5', '1');
     }
-
-    function updateSlideDisplay() {
-      for (let i = 0; i < TOTAL_SLIDES; i++) {
-        const slide = document.getElementById(`introSlide-${i}`);
-        if (slide) slide.classList.toggle('hidden', i !== currentSlideIndex);
-      }
-      const dots = document.getElementById('introDots').children;
-      for (let i = 0; i < dots.length; i++) {
-        dots[i].className = (i === currentSlideIndex)
-          ? 'w-4 h-2 rounded-full bg-siege-yellow transition-all'
-          : 'w-2 h-2 rounded-full bg-slate-700 transition-all';
-      }
-      document.getElementById('introPrevBtn').disabled = currentSlideIndex === 0;
-      document.getElementById('introNextBtn').innerText = currentSlideIndex === TOTAL_SLIDES - 1 ? 'شروع' : 'بعدی';
+    function renderIntroSlide() {
+      [1, 2, 3].forEach(n => {
+        document.getElementById(`introSlide${n}`).classList.toggle('hidden', n !== currentIntroSlide);
+        document.getElementById(`introDot${n}`).className = n === currentIntroSlide
+          ? 'w-5 h-1.5 rounded-full bg-siege-yellow transition-all'
+          : 'w-1.5 h-1.5 rounded-full bg-slate-600 transition-all';
+      });
+      document.getElementById('introNextBtn').innerText = currentIntroSlide === 3 ? 'ورود به مرکز فرماندهی!' : 'اسلاید بعدی';
     }
-
-    function nextSlide() {
-      if (currentSlideIndex < TOTAL_SLIDES - 1) {
-        currentSlideIndex++;
-        updateSlideDisplay();
-        playTone(580, 'triangle', 0.04);
+    function nextIntroSlide() {
+      if (currentIntroSlide < 3) {
+        currentIntroSlide++;
+        renderIntroSlide();
       } else {
         closeIntroModal();
       }
     }
 
-    function prevSlide() {
-      if (currentSlideIndex > 0) {
-        currentSlideIndex--;
-        updateSlideDisplay();
-        playTone(480, 'triangle', 0.04);
-      }
-    }
-
-    document.getElementById('introModal').addEventListener('click', (e) => {
-      if (e.target === document.getElementById('introModal')) closeIntroModal();
-    });
-
-    /* =====================================================================
-       7. NAVIGATION & MODE SWITCHER
-       ===================================================================== */
-    let activeMode = 'solo';
-    let currentSideFilter = 'all';
-    let currentRolledOp = null;
-
-    function switchMode(mode) {
-      activeMode = mode;
-      playTone(500, 'sine', 0.04);
-
-      // Desktop tabs sync
-      document.querySelectorAll('.mode-tab').forEach(tab => {
-        tab.className = 'mode-tab px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2 border border-transparent text-slate-400 hover:text-white hover:bg-slate-800/50 transition font-persian';
-      });
-      const activeTab = document.getElementById(`tab-${mode}`);
-      if (activeTab) {
-        activeTab.className = 'mode-tab active px-3.5 py-1.5 rounded-lg font-bold text-xs flex items-center gap-2 border bg-siege-yellow text-black border-siege-yellow font-persian';
-      }
-
-      // Mobile bottom nav sync
-      document.querySelectorAll('.m-nav-btn').forEach(btn => {
-        btn.className = 'm-nav-btn flex flex-col items-center justify-center text-slate-400 hover:text-white transition';
-      });
-      const mBtn = document.getElementById(`m-nav-${mode}`);
-      if (mBtn) {
-        mBtn.className = 'm-nav-btn active flex flex-col items-center justify-center text-siege-yellow transition';
-      }
-
-      // Views sync
-      document.querySelectorAll('.mode-view').forEach(view => view.classList.add('hidden'));
-      const activeView = document.getElementById(`view-${mode}`);
-      if (activeView) activeView.classList.remove('hidden');
-    }
-
-    function setSideFilter(side) {
-      currentSideFilter = side;
-      playTone(540, 'triangle', 0.04);
-      document.querySelectorAll('.filter-side-btn').forEach(b => {
-        b.className = 'filter-side-btn py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition';
-      });
-      document.getElementById(`sideBtn-${side}`).className = 'filter-side-btn py-2 rounded-lg text-xs font-bold bg-siege-surface text-white transition';
-    }
-
-    /* =====================================================================
-       8. SOLO OPERATOR ROLLER
-       ===================================================================== */
-    function rollSoloOperator() {
-      const pool = OPERATORS.filter(op => currentSideFilter === 'all' || op.side === currentSideFilter);
-      if (!pool.length) return;
-
-      const rollBtn = document.getElementById('mainRollBtn');
-      rollBtn.disabled = true;
-
-      let count = 0;
-      const interval = setInterval(() => {
-        const rand = pool[Math.floor(Math.random() * pool.length)];
-        document.getElementById('opCodename').innerText = rand.name;
-        playTone(380 + count * 25, 'triangle', 0.03);
-        count++;
-
-        if (count >= 12) {
-          clearInterval(interval);
-          const finalOp = pool[Math.floor(Math.random() * pool.length)];
-          currentRolledOp = finalOp;
-          displaySoloOp(finalOp);
-          profileState.totalRolls++;
-          saveProfile();
-          playTone(650, 'sine', 0.12);
-          rollBtn.disabled = false;
-        }
-      }, 50);
-    }
-
-    function displaySoloOp(op) {
-      document.getElementById('opCodename').innerText = op.name;
-      document.getElementById('opOrgBadge').innerText = op.org;
-      
-      const badge = document.getElementById('opSideBadge');
-      if (op.side === 'atk') {
-        badge.innerText = 'ATTACKER';
-        badge.className = 'px-2.5 py-0.5 text-[11px] font-tactical font-bold uppercase rounded-md tracking-wider border bg-siege-cyan/15 border-siege-cyan text-siege-cyan';
-      } else {
-        badge.innerText = 'DEFENDER';
-        badge.className = 'px-2.5 py-0.5 text-[11px] font-tactical font-bold uppercase rounded-md tracking-wider border bg-siege-orange/15 border-siege-orange text-siege-orange';
-      }
-
-      const img = document.getElementById('opBadgeImg');
-      const fallback = document.getElementById('opIconFallback');
-      img.style.display = 'block';
-      fallback.style.display = 'none';
-      img.src = `${CDN_ICONS}${op.slug}.svg`;
-      fallback.innerText = op.name;
-
-      document.getElementById('opGadgetName').innerText = op.gadget;
-      document.getElementById('opGadgetDesc').innerText = op.gadgetDesc;
-      document.getElementById('opSpeedDisplay').innerText = `${op.speed} Speed`;
-      document.getElementById('opArmorDisplay').innerText = `${op.armor} Health`;
-      document.getElementById('opPrimaryWep').innerText = op.primary;
-      document.getElementById('opSecondaryWep').innerText = op.sec;
-      document.getElementById('opSecGadget').innerText = op.secGadget;
-
-      updateFavIcon();
-    }
-
-    function toggleFavCurrentOp() {
-      if (!currentRolledOp) return;
-      const idx = profileState.favorites.indexOf(currentRolledOp.name);
-      if (idx > -1) {
-        profileState.favorites.splice(idx, 1);
-      } else {
-        profileState.favorites.push(currentRolledOp.name);
-      }
-      saveProfile();
-      updateFavIcon();
-      playTone(720, 'sine', 0.08);
-    }
-
-    function updateFavIcon() {
-      const isFav = currentRolledOp && profileState.favorites.includes(currentRolledOp.name);
-      const icon = document.getElementById('favStarIcon');
-      if (isFav) {
-        icon.className = 'fa-solid fa-star text-siege-yellow';
-      } else {
-        icon.className = 'fa-regular fa-star text-slate-400';
-      }
-    }
-
-    /* =====================================================================
-       9. 5-MAN SQUAD GENERATOR
-       ===================================================================== */
-    function generateSquad(side) {
-      const pool = OPERATORS.filter(op => op.side === side);
-      const shuffled = [...pool].sort(() => 0.5 - Math.random()).slice(0, 5);
-      const container = document.getElementById('squadContainer');
-      container.innerHTML = '';
-
-      shuffled.forEach((op, idx) => {
-        const item = document.createElement('div');
-        item.className = 'bg-siege-card p-3 rounded-xl border border-siege-border flex items-center justify-between text-xs';
-        item.innerHTML = `
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-lg bg-siege-dark border border-siege-border flex items-center justify-center p-1 font-tactical font-black text-siege-yellow">
-              <img src="${CDN_ICONS}${op.slug}.svg" alt="${op.name}" onerror="this.outerHTML='0${idx+1}'" class="w-full h-full object-contain">
-            </div>
-            <div>
-              <div class="font-bold text-white text-sm uppercase font-tactical">${op.name}</div>
-              <div class="text-[11px] text-slate-400">${op.gadget}</div>
-            </div>
-          </div>
-          <span class="px-2 py-1 rounded bg-siege-dark border border-siege-border text-slate-300 font-mono text-[10px]">
-            ${op.speed} SPD / ${op.armor} HP
-          </span>
-        `;
-        container.appendChild(item);
-      });
-
-      profileState.totalRolls += 5;
-      saveProfile();
-      playTone(600, 'sine', 0.1);
-    }
-
-    /* =====================================================================
-       10. STRAT ROULETTE ENGINE
-       ===================================================================== */
-    let currentStrat = ALL_STRATS[0];
-
-    function rollRandomStrat() {
-      currentStrat = ALL_STRATS[Math.floor(Math.random() * ALL_STRATS.length)];
-      displayStrat(currentStrat);
-      playTone(640, 'triangle', 0.05);
-    }
-
-    function displayStrat(strat) {
-      document.getElementById('stratSideBadge').innerText = `${strat.side.toUpperCase()} CHALLENGE`;
-      document.getElementById('stratDiffBadge').innerText = strat.diff.toUpperCase();
-      document.getElementById('stratTitle').innerText = strat.title;
-      document.getElementById('stratDesc').innerText = strat.desc;
-    }
-
-    function markChallengeComplete() {
-      profileState.challengesDone++;
-      saveProfile();
-      playTone(800, 'sine', 0.15);
-      rollRandomStrat();
-    }
-
-    function renderStratsList() {
-      const container = document.getElementById('stratsList');
-      container.innerHTML = ALL_STRATS.map(s => `
-        <div onclick="selectStrat(${s.id})" class="p-2.5 rounded-lg bg-siege-dark border border-siege-border hover:border-siege-yellow/60 transition cursor-pointer text-xs">
-          <div class="flex justify-between items-center mb-1">
-            <span class="font-bold text-white">${s.title}</span>
-            <span class="text-[9px] px-1.5 py-0.2 rounded bg-siege-surface uppercase text-siege-yellow">${s.diff}</span>
-          </div>
-          <p class="text-[11px] text-slate-400 line-clamp-1">${s.desc}</p>
-        </div>
-      `).join('');
-    }
-
-    function selectStrat(id) {
-      const found = ALL_STRATS.find(s => s.id === id);
-      if (found) {
-        currentStrat = found;
-        displayStrat(found);
-        playTone(550, 'sine', 0.04);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }
-
-    /* =====================================================================
-       11. MOBILE PWA BANNER & PROMPT
-       ===================================================================== */
-    let deferredInstallPrompt = null;
-
-    function checkMobilePwaBanner() {
-      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth < 768;
-      const dismissed = sessionStorage.getItem('r6_pwa_dismissed');
-      if (isMobile && !dismissed) {
-        document.getElementById('mobilePwaBanner').classList.remove('hidden');
-      }
-    }
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredInstallPrompt = e;
-      checkMobilePwaBanner();
-    });
-
-    function triggerPwaInstall() {
-      if (deferredInstallPrompt) {
-        deferredInstallPrompt.prompt();
-        deferredInstallPrompt.userChoice.then(() => {
-          dismissPwaBanner();
-          deferredInstallPrompt = null;
-        });
-      } else {
-        alert("در آیفون: دکمه Share (پایین صفحه) را لمس کرده و گزینه 'Add to Home Screen' را انتخاب کنید.");
-      }
-    }
-
-    function dismissPwaBanner() {
-      document.getElementById('mobilePwaBanner').classList.add('hidden');
-      sessionStorage.setItem('r6_pwa_dismissed', 'yes');
-    }
-
-    /* =====================================================================
-       12. INITIALIZATION
-       ===================================================================== */
+    /* 19. INITIALIZE */
     window.addEventListener('DOMContentLoaded', () => {
-      loadProfile();
-      renderStratsList();
-      displayStrat(ALL_STRATS[0]);
-      generateSquad('atk');
+      if (userProfile.skin) document.body.setAttribute('data-skin', userProfile.skin);
+      document.getElementById('bannedCountBadge').innerText = bannedOpIds.length;
+      updateHeaderProgression();
+      triggerHqRoll();
+      rollRandomStrat();
+      rollDuoCombo();
+      rollDuelMatch();
+      rollMapAndSite();
 
-      // Initialize default operator (Ash)
-      const initialOp = OPERATORS.find(o => o.id === 'ash') || OPERATORS[0];
-      currentRolledOp = initialOp;
-      displaySoloOp(initialOp);
-
-      // Check first-time intro modal
-      try {
-        if (!localStorage.getItem('r6_intro_viewed_v3')) {
-          setTimeout(() => openIntroModal(), 400);
-        }
-      } catch(e) {}
-
-      // Mobile PWA check
-      checkMobilePwaBanner();
+      if (!localStorage.getItem('r6_intro_seen_v5')) {
+        setTimeout(() => openIntroModal(), 450);
+      }
     });
   </script>
 </body>
