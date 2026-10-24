@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#0B0D0F">
-  <meta name="app-version" content="1.8.2">
+  <meta name="app-version" content="1.8.3">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -1011,6 +1011,7 @@
       <div id="opsDuoView" class="hidden flex-1 flex flex-col gap-3 min-h-0 overflow-y-auto no-scrollbar">
         <div class="tactical-feature-panel rounded-2xl p-3 space-y-3">
           <div class="flex items-center justify-between gap-2"><div><div class="text-[10px] tracking-[.2em] font-mono text-siege-cyan">DUO SYNERGY INTELLIGENCE</div><h3 class="text-sm font-black text-white">ترکیب دونفره‌ی تاکتیکی</h3></div><span id="duoStrengthBadge" class="tactical-pill">READY</span></div>
+          <div class="flex justify-end"><button type="button" onclick="exportCurrentCard()" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border border-siege-yellow/45 bg-siege-yellow/10 px-3 py-2 text-xs font-black text-siege-yellow transition hover:bg-siege-yellow hover:text-black active:scale-[.98]" title="ساخت پوستر از ترکیب دو اپراتور"><i class="fa-solid fa-camera-retro"></i><span>ساخت پوستر ترکیب دو اپراتور</span></button></div>
           <div class="flex items-center justify-between gap-2">
             <div class="flex gap-1 bg-siege-dark p-1 rounded-lg border border-siege-border"><button onclick="setDuoSide('atk')" id="duoSideAtk" class="px-3 py-1.5 rounded text-xs font-bold bg-siege-cyan text-black">مهاجمان (ATK)</button><button onclick="setDuoSide('def')" id="duoSideDef" class="px-3 py-1.5 rounded text-xs font-bold text-slate-400">مدافعان (DEF)</button></div>
             <span id="duoTitle" class="font-tactical font-black text-[10px] sm:text-xs text-siege-yellow text-left">THE BREACH MASTERS</span>
@@ -1031,6 +1032,7 @@
       <div id="opsDuelView" class="hidden flex-1 flex flex-col gap-3 min-h-0 overflow-y-auto no-scrollbar">
         <div class="tactical-feature-panel rounded-2xl p-3 space-y-3">
           <div class="flex items-center justify-between gap-2"><div><div class="text-[10px] tracking-[.2em] font-mono text-siege-red">DUEL ARENA // 1V1</div><h3 class="text-sm font-black text-white">رقابت رو‌در‌رو</h3></div><span id="duelModeBadge" class="tactical-pill duel-pill">RANDOM SCENARIO</span></div>
+          <div class="flex justify-end"><button type="button" onclick="exportCurrentCard()" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border border-siege-red/45 bg-siege-red/10 px-3 py-2 text-xs font-black text-red-200 transition hover:bg-siege-red hover:text-white active:scale-[.98]" title="ساخت پوستر از سناریوی دوئل"><i class="fa-solid fa-camera-retro"></i><span>ساخت پوستر دوئل</span></button></div>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5" role="group" aria-label="حالت دوئل"><button type="button" data-duel-mode="pure" onclick="setDuelMode('pure')" class="duel-mode-btn active">🎯 گان‌پلی خالص</button><button type="button" data-duel-mode="gadget" onclick="setDuelMode('gadget')" class="duel-mode-btn">🧰 برتری گجت</button><button type="button" data-duel-mode="objective" onclick="setDuelMode('objective')" class="duel-mode-btn">📍 کنترل هدف</button><button type="button" data-duel-mode="random" onclick="setDuelMode('random')" class="duel-mode-btn">🎲 سناریوی تصادفی</button></div>
           <div class="grid grid-cols-[minmax(0,1fr)_36px_minmax(0,1fr)] gap-2 items-stretch">
             <article class="duel-operator-card duel-blue"><div class="duel-portrait"><img id="duelP1Img" src="" alt="Player 1 operator" loading="lazy" onerror="this.style.opacity='1';this.style.filter='none';this.closest('.tactical-portrait,.duel-portrait')?.classList.add('portrait-load-failed')"></div><div class="text-[9px] font-mono text-siege-cyan mt-2">PLAYER 01</div><strong id="duelP1Op" class="block text-sm font-tactical text-white mt-1">BUCK</strong><div class="duel-detail"><span>قانون سلاح</span><b id="duelP1Weapon">در انتظار شروع</b></div><div class="duel-detail"><span>محدودیت حرکت</span><b id="duelP1Move">—</b></div><div class="duel-detail"><span>سرعت / زره</span><b id="duelP1Stats">—</b></div></article>
