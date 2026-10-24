@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#0B0D0F">
-  <meta name="app-version" content="1.7.1">
+  <meta name="app-version" content="1.8.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -626,7 +626,7 @@
       #opsDuelView button:focus-visible,#hub-ops .duel-quick-access:focus-visible{outline-offset:3px}
       @media(prefers-reduced-motion:reduce){body.app-entry-ready header,body.app-entry-ready main>section:not(.hidden),body.app-entry-ready main>section:not(.hidden)>*,main>section.hub-motion-enter,#operatorMainCard.operator-reveal,#cardBadgeBox.operator-frame-reveal,.tactical-portrait.portrait-reveal,.duel-portrait.portrait-reveal,#dossierCanvas.poster-reveal{animation:none!important;filter:none!important;transform:none!important}#hub-ops .duel-quick-access,#opsMode-duel{transition:none!important}}
 
-      /* v1.6.0 — HQ / Operations / Maps & Timer visual pass */
+      /* v1.6.0 — HQ / Operations / Maps visual pass */
 #hub-hq{gap:1rem!important}#hub-hq>div:first-child{gap:.65rem!important}
 #hub-hq>div:first-child>div{background:rgba(25,29,33,.76)!important;border-color:rgba(232,233,229,.12)!important;box-shadow:inset 0 1px rgba(255,255,255,.025)}
 #hqSingleCardWrap{perspective:1200px;padding:2px}
@@ -658,11 +658,11 @@
 @keyframes mapResultIn{from{opacity:.3;transform:translateY(7px);filter:blur(2px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
 #mapSiteDisplay{background:rgba(214,240,74,.075)!important;border-color:rgba(214,240,74,.32)!important;color:var(--noir-signal)!important;box-shadow:inset 0 0 24px rgba(214,240,74,.025);max-width:100%;white-space:normal}
 #mapTacticalTip{max-width:34rem;margin:.8rem auto 0}#mapFloorDisplay{color:var(--noir-bone)!important;border-color:rgba(232,233,229,.16)!important}
-#bigTimerDisplay{font-variant-numeric:tabular-nums;font-feature-settings:"tnum";letter-spacing:.055em!important;line-height:1.08;color:var(--noir-bone)!important;text-shadow:0 0 32px rgba(214,240,74,.10),0 8px 35px rgba(0,0,0,.7)!important;transition:color 220ms ease,text-shadow 220ms ease,transform 180ms ease;padding:.12em 0}
-#bigTimerDisplay.timer-warning{color:#D94A45!important;text-shadow:0 0 26px rgba(217,74,69,.22)!important}
-#timerStatusBadge{transition:color 200ms ease,border-color 200ms ease,background-color 200ms ease}#timerControlBtn{min-height:44px;box-shadow:0 8px 22px rgba(214,240,74,.08)}
+
+
+
 #hub-tools button{transition:border-color 220ms ease,background-color 220ms ease,color 220ms ease,transform 180ms ease!important}
-@media(max-width:639.98px){#hub-tools>div>.bg-siege-card{min-height:290px;padding:1rem!important}.tactical-portrait,.duel-portrait{min-height:84px}#bigTimerDisplay{font-size:clamp(3rem,14vw,4rem)}#hub-hq #operatorMainCard{padding:1rem!important}}
+@media(max-width:639.98px){#hub-tools>div>.bg-siege-card{min-height:290px;padding:1rem!important}.tactical-portrait,.duel-portrait{min-height:84px}#hub-hq #operatorMainCard{padding:1rem!important}}
 @media(prefers-reduced-motion:reduce){#cardWatermarkImg,.tactical-portrait img,.duel-portrait img,.duel-stat-left,.duel-stat-right{transition:none!important}}
 
     </style>
@@ -1045,67 +1045,54 @@
     </section>
 
     <!-- =========================================================================
-         HUB 3: TACTICAL TOOLS (Combined Map & Site Roulette + Bomb Defuse Timer)
+         HUB 3: MAP INTELLIGENCE (Ranked map + bomb-site roulette)
          ========================================================================= -->
-    <section id="hub-tools" class="hidden flex flex-col justify-between h-full gap-3">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1 min-h-0">
-        <!-- Map & Site Roulette Panel -->
-        <div class="bg-siege-card dynamic-border border rounded-2xl p-4 clip-corner flex flex-col justify-between">
-          <div class="flex items-center justify-between text-xs">
-            <span class="font-mono font-bold text-siege-yellow"><i class="fa-solid fa-map-location-dot ml-1"></i>انتخاب تصادفی نقشه و محل بمب</span>
-            <span id="mapFloorDisplay" class="px-2 py-0.5 rounded bg-siege-dark border border-siege-border text-[10px] text-slate-300">2nd Floor</span>
+    <section id="hub-tools" class="hidden flex flex-col gap-3">
+      <div class="bg-siege-card dynamic-border border rounded-2xl p-4 sm:p-6 clip-corner flex flex-col gap-4">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <div class="font-mono font-bold text-siege-yellow text-xs"><i class="fa-solid fa-map-location-dot ml-1"></i> MAP INTELLIGENCE // Y11S3.2</div>
+            <h2 class="text-xl sm:text-2xl font-black text-white mt-1">انتخاب نقشه و سایت بمب</h2>
+            <p class="text-[11px] text-slate-400 mt-1">فهرست نقشه‌های Ranked فعلی؛ انتخاب دستی یا قرعه‌کشی تصادفی.</p>
           </div>
+          <span id="mapCountBadge" class="px-2.5 py-1 rounded-lg bg-siege-dark border border-siege-border text-[10px] font-mono text-siege-yellow shrink-0">15 MAPS</span>
+        </div>
 
-          <div class="my-auto py-2 text-center space-y-1.5">
-            <h2 id="mapNameDisplay" class="text-2xl sm:text-3xl font-black font-tactical text-white uppercase tracking-wider">CLUBHOUSE</h2>
-            <div id="mapSiteDisplay" class="text-sm font-tactical font-bold text-siege-cyan bg-siege-dark py-1.5 px-3 rounded-lg border border-siege-border inline-block">
-              2F CCTV / 2F Cash Room
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <label class="block min-w-0">
+            <span class="block text-[10px] font-bold text-slate-400 mb-1.5">نقشه</span>
+            <select id="mapSelect" onchange="selectMapByName(this.value)" class="w-full min-w-0 rounded-xl bg-siege-dark border border-siege-border px-3 py-3 text-sm text-white focus:border-siege-yellow outline-none">
+            </select>
+          </label>
+          <label class="block min-w-0">
+            <span class="block text-[10px] font-bold text-slate-400 mb-1.5">سایت بمب / محل هدف</span>
+            <select id="siteSelect" onchange="selectSiteByIndex(this.value)" class="w-full min-w-0 rounded-xl bg-siege-dark border border-siege-border px-3 py-3 text-sm text-white focus:border-siege-yellow outline-none">
+            </select>
+          </label>
+        </div>
+
+        <div class="rounded-2xl border border-siege-border bg-siege-dark/70 p-4 sm:p-6 text-center relative overflow-hidden">
+          <div class="absolute inset-0 pointer-events-none opacity-40" style="background-image:linear-gradient(rgba(214,240,74,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(214,240,74,.045) 1px,transparent 1px);background-size:24px 24px"></div>
+          <div class="relative">
+            <div class="flex items-center justify-center gap-2 mb-3">
+              <span id="mapFloorDisplay" class="px-2.5 py-1 rounded bg-siege-card border border-siege-border text-[10px] font-mono text-slate-300">2F</span>
+              <span id="mapSiteIndexBadge" class="px-2.5 py-1 rounded bg-siege-card border border-siege-border text-[10px] font-mono text-slate-400">SITE 01</span>
             </div>
-            <p id="mapTacticalTip" class="text-[11px] text-slate-400 leading-relaxed px-2">
-              توصیه تاکتیکی: باز کردن دیوار بیرونی سی‌سی‌تی‌وی با Ace یا Thermite کلید پیروزی است.
-            </p>
-          </div>
-
-          <div class="flex gap-2 pt-2">
-            <button onclick="rollMapAndSite()" class="flex-1 py-2.5 rounded-xl bg-siege-yellow text-black font-bold text-xs active:scale-95 transition">
-              انتخاب نقشه و محل بمب
-            </button>
-            <button onclick="rollOnlySite()" class="px-3 py-2.5 rounded-xl bg-siege-surface border border-siege-border text-xs font-bold text-white active:scale-95 transition">
-              تغییر سایت
-            </button>
+            <h2 id="mapNameDisplay" class="text-2xl sm:text-4xl font-black font-tactical text-white uppercase tracking-wider">CLUBHOUSE</h2>
+            <div id="mapSiteDisplay" class="text-sm sm:text-base font-tactical font-bold text-siege-yellow bg-siege-card py-2 px-3 rounded-xl border border-siege-border inline-block mt-3 max-w-full">B Church / B Arsenal</div>
+            <p id="mapTacticalTip" class="text-xs sm:text-sm text-slate-300 leading-relaxed mt-4 max-w-2xl mx-auto">نکته‌ی تاکتیکی برای سایت انتخاب‌شده نمایش داده می‌شود.</p>
           </div>
         </div>
 
-        <!-- Bomb Defuser & Round Timer Panel -->
-        <div class="bg-siege-card dynamic-border border rounded-2xl p-4 clip-corner flex flex-col justify-between text-center">
-          <div class="flex items-center justify-between text-xs">
-            <span class="font-mono font-bold text-slate-300"><i class="fa-solid fa-stopwatch ml-1 text-siege-red"></i>تایمر راند و خنثی‌سازی</span>
-            <span id="timerStatusBadge" title="وضعیت تایمر" class="px-2 py-0.5 rounded font-mono text-[10px] bg-siege-dark border border-siege-border text-siege-cyan">آماده</span>
-          </div>
-
-          <div class="my-auto py-2">
-            <div id="bigTimerDisplay" class="font-tactical font-black text-5xl sm:text-6xl tracking-widest text-white drop-shadow-[0_0_15px_rgba(248,170,0,0.3)]">
-              03:00
-            </div>
-            <div id="timerSubText" class="text-[10px] font-mono text-slate-400 mt-1">زمان راند معمولی (بازی رنک‌دار)</div>
-          </div>
-
-          <div class="space-y-2">
-            <div class="grid grid-cols-3 gap-1.5 text-[11px] font-bold">
-              <button onclick="setTimerPreset(180, 'RANKED ROUND (3:00)')" class="py-1.5 rounded-lg bg-siege-dark border border-siege-border hover:border-siege-yellow text-slate-300">۳:۰۰ راند</button>
-              <button onclick="setTimerPreset(45, 'DEFUSER PLANTED (0:45)')" class="py-1.5 rounded-lg bg-siege-dark border border-siege-border hover:border-siege-yellow text-slate-300">۰:۴۵ پس از کاشت دیفیوزر</button>
-              <button onclick="startDefuseCountdown(7)" class="py-1.5 rounded-lg bg-siege-red/20 border border-siege-red text-siege-red hover:bg-siege-red hover:text-black transition">۷ ثانیه برای خنثی‌سازی</button>
-            </div>
-            <div class="flex gap-2">
-              <button onclick="startStopTimer()" id="timerControlBtn" class="flex-1 py-2.5 rounded-xl bg-siege-yellow text-black font-bold text-xs flex items-center justify-center gap-1.5 active:scale-95 transition">
-                <i class="fa-solid fa-play"></i><span>شروع تایمر</span>
-              </button>
-              <button onclick="resetTimer()" class="w-10 rounded-xl bg-siege-dark border border-siege-border text-slate-400 hover:text-white flex items-center justify-center active:scale-95">
-                <i class="fa-solid fa-rotate-left"></i>
-              </button>
-            </div>
-          </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <button type="button" onclick="rollMapAndSite()" class="w-full py-3.5 rounded-xl bg-siege-yellow text-black font-black text-sm active:scale-[.99] transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-dice"></i> انتخاب تصادفی نقشه و سایت
+          </button>
+          <button type="button" onclick="rollOnlySite()" class="w-full py-3.5 rounded-xl bg-siege-dark border border-siege-border text-white font-bold text-sm hover:border-siege-yellow active:scale-[.99] transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-shuffle"></i> سایت دیگر از همین نقشه
+          </button>
         </div>
+        <p id="mapDatasetStatus" class="text-[10px] text-slate-500 text-center">فهرست سایت‌ها در حال آماده‌سازی است.</p>
       </div>
     </section>
 
@@ -1127,8 +1114,8 @@
       <span>عملیات و چالش</span>
     </button>
     <button onclick="switchHub('tools')" id="mhub-tools" class="flex flex-col items-center gap-0.5 text-slate-400 text-[10px] font-bold py-1 px-3">
-      <i class="fa-solid fa-stopwatch text-base"></i>
-      <span>نقشه و تایمر</span>
+      <i class="fa-solid fa-map-location-dot text-base"></i>
+      <span>نقشه‌ها</span>
     </button>
     <button onclick="openProfileModal()" class="flex flex-col items-center gap-0.5 text-slate-400 text-[10px] font-bold py-1 px-3">
       <i class="fa-solid fa-user-astronaut text-base"></i>
@@ -1580,35 +1567,336 @@
     ];
 
     const MAP_DATABASE = [
-      { name: 'CLUBHOUSE', sites: [
-        { site: '2F CCTV / 2F Cash Room', tip: 'باز کردن دیوار بیرونی سی‌سی‌تی‌وی با Ace یا Thermite و کنترل گاراژ کلید پیروزی است.' },
-        { site: '2F Bedroom / 2F Gym', tip: 'کنترل جکوزی و باز کردن دیوارهای مستر بدروم اولویت اول مهاجمان است.' },
-        { site: 'B Church / B Arsenal', tip: 'کنترل آشپزخانه از بالا (Vertical Play) با باک یا رم برای زدن انکورها حیاتی است.' }
-      ]},
-      { name: 'OREGON', sites: [
-        { site: '2F Kids Dorms / 2F Dorms Main', tip: 'کنترل اتاق Attic و پنجره Big Window فشار سنگینی به مدافعان وارد می‌کند.' },
-        { site: 'B Laundry / B Supply', tip: 'باز کردن هچ‌های بالا و فریز کردن دیوار Mira یا Kaid با تچر/ماوریک.' }
-      ]},
-      { name: 'CHALET', sites: [
-        { site: '2F Master Bedroom / 2F Office', tip: 'نگهداری بالکن Solarium و باز کردن دیوار اصلی آفیس.' },
-        { site: 'B Wine Cellar / B Snowmobile', tip: 'باز کردن دیوار اصلی گاراژ برفی و کنترل پله‌های آبی.' }
-      ]},
-      { name: 'KAFE DOSTOEVSKY', sites: [
-        { site: '3F Bar / 3F Cocktail Lounge', tip: 'کنترل پیانو (Cigar Lounge) و دراپ از اسکای‌لایت با دود و فلش.' },
-        { site: '1F Kitchen / 1F Bakery', tip: 'استفاده از Osa یا Nomad برای پوشش پنجره Bakery و باز کردن دیوارهای آشپزخانه.' }
-      ]},
-      { name: 'COASTLINE', sites: [
-        { site: '2F Hookah Lounge / 2F Billiards', tip: 'کنترل بالکن قلیان‌سرا و کاشت دیفیوزر پشت بار با پوشش دود.' },
-        { site: '2F Penthouse / 2F Theater', tip: 'باز کردن دیوار VIP و کنترل پنجره بزرگ پنت‌هاوس.' }
-      ]},
-      { name: 'BANK', sites: [
-        { site: 'B Lockers / B Vault', tip: 'باز کردن هچ‌های لابی و کنترل تونل Server Room با هاردبریچر.' },
-        { site: '2F CEO Office / 2F Lounge', tip: 'ریپل کردن روی پنجره‌های بیرونی و استفاده از Kali یا Osa.' }
-      ]},
-      { name: 'BORDER', sites: [
-        { site: '2F Armory Lockers / 2F Archives', tip: 'باز کردن دیوار اصلی Armory و پاکسازی اتاق CCTV در اولویت است.' },
-        { site: '1F Workshop / 1F Ventilation', tip: 'کنترل کامل طبقه بالا (Armory) و باز کردن کف برای زدن مدافعان.' }
-      ]}
+      {
+        "name": "BANK",
+        "sites": [
+          {
+            "site": "2F Executive Lounge / 2F CEO Office",
+            "floor": "2F",
+            "tip": "کنترل زاویه‌های اصلی و بازی عمودی از طبقه‌ی بالا را هماهنگ کنید؛ هاردبریچ را با ابزار ضدبریچ مدافعان تطبیق دهید."
+          },
+          {
+            "site": "1F Staff Room / 1F Open Area",
+            "floor": "1F",
+            "tip": "کنترل زاویه‌های اصلی و بازی عمودی از طبقه‌ی بالا را هماهنگ کنید؛ هاردبریچ را با ابزار ضدبریچ مدافعان تطبیق دهید."
+          },
+          {
+            "site": "B Lockers / B CCTV Room",
+            "floor": "B",
+            "tip": "کنترل زاویه‌های اصلی و بازی عمودی از طبقه‌ی بالا را هماهنگ کنید؛ هاردبریچ را با ابزار ضدبریچ مدافعان تطبیق دهید."
+          }
+        ]
+      },
+      {
+        "name": "BORDER",
+        "sites": [
+          {
+            "site": "2F Armory Lockers / 2F Archives",
+            "floor": "2F",
+            "tip": "CCTV، Armory و پله‌ی شرقی نقاط کلیدی‌اند؛ در سایت‌های طبقه‌ی اول، کنترل طبقه‌ی بالا را از دست ندهید."
+          },
+          {
+            "site": "1F Bathroom / 1F Tellers",
+            "floor": "1F",
+            "tip": "CCTV، Armory و پله‌ی شرقی نقاط کلیدی‌اند؛ در سایت‌های طبقه‌ی اول، کنترل طبقه‌ی بالا را از دست ندهید."
+          },
+          {
+            "site": "1F Ventilation Room / 1F Workshop",
+            "floor": "1F",
+            "tip": "CCTV، Armory و پله‌ی شرقی نقاط کلیدی‌اند؛ در سایت‌های طبقه‌ی اول، کنترل طبقه‌ی بالا را از دست ندهید."
+          }
+        ]
+      },
+      {
+        "name": "CALYPSO CASINO",
+        "sites": [
+          {
+            "site": "2F Cigar Room / 2F Pool",
+            "floor": "2F",
+            "tip": "مسیرهای پله و ورودی‌های بیرونی را بررسی کنید و پیش از اجرای نهایی، دو زاویه‌ی ورود را هماهنگ کنید."
+          },
+          {
+            "site": "1F Bar / 1F Betting",
+            "floor": "1F",
+            "tip": "مسیرهای پله و ورودی‌های بیرونی را بررسی کنید و پیش از اجرای نهایی، دو زاویه‌ی ورود را هماهنگ کنید."
+          },
+          {
+            "site": "1F Blackjack / 1F Poker",
+            "floor": "1F",
+            "tip": "مسیرهای پله و ورودی‌های بیرونی را بررسی کنید و پیش از اجرای نهایی، دو زاویه‌ی ورود را هماهنگ کنید."
+          },
+          {
+            "site": "B CCTV / B Vault Checkpoint",
+            "floor": "B",
+            "tip": "مسیرهای پله و ورودی‌های بیرونی را بررسی کنید و پیش از اجرای نهایی، دو زاویه‌ی ورود را هماهنگ کنید."
+          }
+        ]
+      },
+      {
+        "name": "CHALET",
+        "sites": [
+          {
+            "site": "2F Master Bedroom / 2F Office",
+            "floor": "2F",
+            "tip": "ورودی‌های بیرونی و پله‌های Blue/Main را کنترل کنید؛ برای سایت‌های پایین‌تر از بازی عمودی کمک بگیرید."
+          },
+          {
+            "site": "1F Bar / 1F Gaming Room",
+            "floor": "1F",
+            "tip": "ورودی‌های بیرونی و پله‌های Blue/Main را کنترل کنید؛ برای سایت‌های پایین‌تر از بازی عمودی کمک بگیرید."
+          },
+          {
+            "site": "1F Kitchen / 1F Dining Room",
+            "floor": "1F",
+            "tip": "ورودی‌های بیرونی و پله‌های Blue/Main را کنترل کنید؛ برای سایت‌های پایین‌تر از بازی عمودی کمک بگیرید."
+          },
+          {
+            "site": "B Wine Cellar / B Snowmobile Garage",
+            "floor": "B",
+            "tip": "ورودی‌های بیرونی و پله‌های Blue/Main را کنترل کنید؛ برای سایت‌های پایین‌تر از بازی عمودی کمک بگیرید."
+          }
+        ]
+      },
+      {
+        "name": "CLUBHOUSE",
+        "sites": [
+          {
+            "site": "2F CCTV Room / 2F Cash Room",
+            "floor": "2F",
+            "tip": "در CCTV/Cash دیوار بیرونی و Rafters مهم‌اند؛ در Church/Arsenal مسیرهای Dirt و Blue را هماهنگ پوشش دهید."
+          },
+          {
+            "site": "2F Bedroom / 2F Gym",
+            "floor": "2F",
+            "tip": "در CCTV/Cash دیوار بیرونی و Rafters مهم‌اند؛ در Church/Arsenal مسیرهای Dirt و Blue را هماهنگ پوشش دهید."
+          },
+          {
+            "site": "B Church / B Arsenal Room",
+            "floor": "B",
+            "tip": "در CCTV/Cash دیوار بیرونی و Rafters مهم‌اند؛ در Church/Arsenal مسیرهای Dirt و Blue را هماهنگ پوشش دهید."
+          }
+        ]
+      },
+      {
+        "name": "COASTLINE",
+        "sites": [
+          {
+            "site": "2F Hookah Lounge / 2F Billiards Room",
+            "floor": "2F",
+            "tip": "بالکن‌ها و دیوار VIP را بررسی کنید؛ دود و فلش برای اجرای هماهنگ روی سایت مفیدند."
+          },
+          {
+            "site": "2F Penthouse / 2F Theater",
+            "floor": "2F",
+            "tip": "بالکن‌ها و دیوار VIP را بررسی کنید؛ دود و فلش برای اجرای هماهنگ روی سایت مفیدند."
+          },
+          {
+            "site": "1F Kitchen / 1F Service Entrance",
+            "floor": "1F",
+            "tip": "بالکن‌ها و دیوار VIP را بررسی کنید؛ دود و فلش برای اجرای هماهنگ روی سایت مفیدند."
+          }
+        ]
+      },
+      {
+        "name": "CONSULATE",
+        "sites": [
+          {
+            "site": "2F Consul Office / 2F Meeting Room",
+            "floor": "2F",
+            "tip": "Yellow و Visa stairs و دیوار Garage مسیرهای مهم‌اند؛ مراقب فشار عمودی از Admin باشید."
+          },
+          {
+            "site": "1F Press Room / 1F Lobby",
+            "floor": "1F",
+            "tip": "Yellow و Visa stairs و دیوار Garage مسیرهای مهم‌اند؛ مراقب فشار عمودی از Admin باشید."
+          },
+          {
+            "site": "B Garage / B Cafeteria",
+            "floor": "B",
+            "tip": "Yellow و Visa stairs و دیوار Garage مسیرهای مهم‌اند؛ مراقب فشار عمودی از Admin باشید."
+          }
+        ]
+      },
+      {
+        "name": "FORTRESS",
+        "sites": [
+          {
+            "site": "2F Bathroom / 2F Commander's Office",
+            "floor": "2F",
+            "tip": "Old Tower، New Tower و پله‌ها را برای کنترل فضا بررسی کنید؛ برای دفاع، عقب‌نشینی لایه‌ای بهتر از ماندن ثابت است."
+          },
+          {
+            "site": "2F Dormitory / 2F Games Room",
+            "floor": "2F",
+            "tip": "Old Tower، New Tower و پله‌ها را برای کنترل فضا بررسی کنید؛ برای دفاع، عقب‌نشینی لایه‌ای بهتر از ماندن ثابت است."
+          },
+          {
+            "site": "1F Hammam / 1F Sitting Room",
+            "floor": "1F",
+            "tip": "Old Tower، New Tower و پله‌ها را برای کنترل فضا بررسی کنید؛ برای دفاع، عقب‌نشینی لایه‌ای بهتر از ماندن ثابت است."
+          },
+          {
+            "site": "1F Waiting Room / 1F Cafeteria",
+            "floor": "1F",
+            "tip": "Old Tower، New Tower و پله‌ها را برای کنترل فضا بررسی کنید؛ برای دفاع، عقب‌نشینی لایه‌ای بهتر از ماندن ثابت است."
+          }
+        ]
+      },
+      {
+        "name": "KAFE DOSTOYEVSKY",
+        "sites": [
+          {
+            "site": "3F Bar / 3F Cocktail Lounge",
+            "floor": "3F",
+            "tip": "پله‌های White/Brown و کنترل Cigar/Piano روی اجرای هر سایت اثر دارند؛ از بازی عمودی غافل نشوید."
+          },
+          {
+            "site": "2F Fireplace / 2F Mining Room",
+            "floor": "2F",
+            "tip": "پله‌های White/Brown و کنترل Cigar/Piano روی اجرای هر سایت اثر دارند؛ از بازی عمودی غافل نشوید."
+          },
+          {
+            "site": "1F Kitchen / 1F Bakery",
+            "floor": "1F",
+            "tip": "پله‌های White/Brown و کنترل Cigar/Piano روی اجرای هر سایت اثر دارند؛ از بازی عمودی غافل نشوید."
+          }
+        ]
+      },
+      {
+        "name": "KANAL",
+        "sites": [
+          {
+            "site": "2F Server Room / 2F Radar Room",
+            "floor": "2F",
+            "tip": "کنترل پل‌ها و اتصال دو ساختمان حیاتی است؛ مسیرهای پله و هچ‌های بالایی را پیش از ورود بررسی کنید."
+          },
+          {
+            "site": "1F Security Room / 1F Map Room",
+            "floor": "1F",
+            "tip": "کنترل پل‌ها و اتصال دو ساختمان حیاتی است؛ مسیرهای پله و هچ‌های بالایی را پیش از ورود بررسی کنید."
+          },
+          {
+            "site": "B Kayaks / B Supply Room",
+            "floor": "B",
+            "tip": "کنترل پل‌ها و اتصال دو ساختمان حیاتی است؛ مسیرهای پله و هچ‌های بالایی را پیش از ورود بررسی کنید."
+          }
+        ]
+      },
+      {
+        "name": "LAIR",
+        "sites": [
+          {
+            "site": "2F Master Office / 2F R6 Room",
+            "floor": "2F",
+            "tip": "کنترل Operations و مسیرهای Rocket/Bridge را حفظ کنید؛ سایت‌های پایین‌تر به کنترل طبقه‌ی بالا وابسته‌اند."
+          },
+          {
+            "site": "1F Bunks / 1F Briefing",
+            "floor": "1F",
+            "tip": "کنترل Operations و مسیرهای Rocket/Bridge را حفظ کنید؛ سایت‌های پایین‌تر به کنترل طبقه‌ی بالا وابسته‌اند."
+          },
+          {
+            "site": "B Lab Support / B Lab",
+            "floor": "B",
+            "tip": "کنترل Operations و مسیرهای Rocket/Bridge را حفظ کنید؛ سایت‌های پایین‌تر به کنترل طبقه‌ی بالا وابسته‌اند."
+          }
+        ]
+      },
+      {
+        "name": "NIGHTHAVEN LABS",
+        "sites": [
+          {
+            "site": "2F Command Center / 2F Servers",
+            "floor": "2F",
+            "tip": "دیوارهای IT و Rafters را کنترل کنید؛ هچ‌ها و مسیرهای Exo/Cargo برای سایت‌های پایین‌تر مهم‌اند."
+          },
+          {
+            "site": "1F Kitchen / 1F Cafeteria",
+            "floor": "1F",
+            "tip": "دیوارهای IT و Rafters را کنترل کنید؛ هچ‌ها و مسیرهای Exo/Cargo برای سایت‌های پایین‌تر مهم‌اند."
+          },
+          {
+            "site": "1F Storage / 1F Control Room",
+            "floor": "1F",
+            "tip": "دیوارهای IT و Rafters را کنترل کنید؛ هچ‌ها و مسیرهای Exo/Cargo برای سایت‌های پایین‌تر مهم‌اند."
+          },
+          {
+            "site": "B Assembly / B Tank",
+            "floor": "B",
+            "tip": "دیوارهای IT و Rafters را کنترل کنید؛ هچ‌ها و مسیرهای Exo/Cargo برای سایت‌های پایین‌تر مهم‌اند."
+          }
+        ]
+      },
+      {
+        "name": "OREGON",
+        "sites": [
+          {
+            "site": "2F Kids' Dorms / 2F Dorms Main Hall",
+            "floor": "2F",
+            "tip": "Attic و Big Window برای سایت بالایی کلیدی‌اند؛ هچ‌ها و کنترل طبقه‌ی بالا را با تیم هماهنگ کنید."
+          },
+          {
+            "site": "1F Meeting Hall / 1F Kitchen",
+            "floor": "1F",
+            "tip": "Attic و Big Window برای سایت بالایی کلیدی‌اند؛ هچ‌ها و کنترل طبقه‌ی بالا را با تیم هماهنگ کنید."
+          },
+          {
+            "site": "1F Kitchen / 1F Dining Hall",
+            "floor": "1F",
+            "tip": "Attic و Big Window برای سایت بالایی کلیدی‌اند؛ هچ‌ها و کنترل طبقه‌ی بالا را با تیم هماهنگ کنید."
+          },
+          {
+            "site": "B Laundry Room / B Supply Room",
+            "floor": "B",
+            "tip": "Attic و Big Window برای سایت بالایی کلیدی‌اند؛ هچ‌ها و کنترل طبقه‌ی بالا را با تیم هماهنگ کنید."
+          }
+        ]
+      },
+      {
+        "name": "OUTBACK",
+        "sites": [
+          {
+            "site": "2F Laundry / 2F Piano Room",
+            "floor": "2F",
+            "tip": "Shark، Games و راهروهای اطراف را پاک‌سازی کنید؛ از پنجره‌ها و فشار عمودی مراقب باشید."
+          },
+          {
+            "site": "2F Party Room / 2F Office",
+            "floor": "2F",
+            "tip": "Shark، Games و راهروهای اطراف را پاک‌سازی کنید؛ از پنجره‌ها و فشار عمودی مراقب باشید."
+          },
+          {
+            "site": "1F Green Bedroom / 1F Red Bedroom",
+            "floor": "1F",
+            "tip": "Shark، Games و راهروهای اطراف را پاک‌سازی کنید؛ از پنجره‌ها و فشار عمودی مراقب باشید."
+          }
+        ]
+      },
+      {
+        "name": "VILLA",
+        "sites": [
+          {
+            "site": "2F Aviator Room / 2F Games Room",
+            "floor": "2F",
+            "tip": "Aviator/Games و Trophy/Statuary به کنترل بالکن و راهروها وابسته‌اند؛ سایت زیرزمین Art Storage/Old Office جایگزین سایت قدیمی Living Room/Library شده است؛ مسیرهای جدید Garage و هچ‌ها را بررسی کنید."
+          },
+          {
+            "site": "2F Trophy Room / 2F Statuary Room",
+            "floor": "2F",
+            "tip": "Aviator/Games و Trophy/Statuary به کنترل بالکن و راهروها وابسته‌اند؛ چیدمان سایت Living Room/Library را با نسخه‌ی فعلی بازی تطبیق دهید."
+          },
+          {
+            "site": "1F Dining Room / 1F Kitchen",
+            "floor": "1F",
+            "tip": "Aviator/Games و Trophy/Statuary به کنترل بالکن و راهروها وابسته‌اند؛ چیدمان سایت Living Room/Library را با نسخه‌ی فعلی بازی تطبیق دهید."
+          },
+          {
+            "site": "B Art Storage / B Old Office",
+            "floor": "B",
+            "tip": "Aviator/Games و Trophy/Statuary به کنترل بالکن و راهروها وابسته‌اند؛ چیدمان سایت Living Room/Library را با نسخه‌ی فعلی بازی تطبیق دهید."
+          }
+        ]
+      }
     ];
 
     const DUO_COMBOS = [
@@ -1864,6 +2152,7 @@
     let currentSquadList = OPERATORS.slice(0, 5);
     let currentStratObj = STRAT_CHALLENGES[0];
     let currentMapObj = MAP_DATABASE[0];
+    let currentMapSiteObj = currentMapObj && currentMapObj.sites ? currentMapObj.sites[0] : null;
     let currentIntroSlide = 1;
     let deferredInstallPrompt = null;
     let installWasCompleted = false;
@@ -2592,73 +2881,85 @@
       playTone(630, 'triangle', 0.06);
     }
 
-    let timerDuration = 180, timerRemaining = 180, timerInterval = null, isTimerRunning = false;
-    let timerEndAt = null, lastTimerBeepSecond = null;
-
-    function formatTime(sec) {
-      const m = Math.floor(sec / 60).toString().padStart(2, '0');
-      const s = (sec % 60).toString().padStart(2, '0');
-      return `${m}:${s}`;
+    function escapeMapOption(value) {
+      return String(value == null ? '' : value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
     }
 
-    function setTimerPreset(sec, label) {
-      resetTimer();
-      timerDuration = Math.max(1, Math.floor(Number(sec) || 1));
-      timerRemaining = timerDuration;
-      document.getElementById('timerSubText').innerText = label.replace('RANKED ROUND (3:00)', 'زمان راند رنک‌دار (۳:۰۰)').replace('DEFUSER PLANTED (0:45)', 'زمان پس از کاشت دیفیوزر (۰:۴۵)');
-      document.getElementById('bigTimerDisplay').innerText = formatTime(timerRemaining);
-      playTone(500, 'sine', 0.05);
-    }
-
-    function startDefuseCountdown(sec = 7) {
-      const duration = Math.max(1, Math.floor(Number(sec) || 7));
-      setTimerPreset(duration, `شمارش معکوس خنثی‌سازی (${duration} ثانیه)`);
-      startStopTimer();
-    }
-
-    function updateTimerTick() {
-      if (!isTimerRunning || timerEndAt === null) return;
-      const msLeft = Math.max(0, timerEndAt - Date.now());
-      const next = Math.ceil(msLeft / 1000);
-      if (next !== timerRemaining) {
-        timerRemaining = next;
-        const timerDisplay = document.getElementById('bigTimerDisplay');
-        timerDisplay.innerText = formatTime(timerRemaining);
-        timerDisplay.classList.toggle('timer-warning', next <= 10 && next > 0);
-        if (next <= 10 && next > 0 && next !== lastTimerBeepSecond) {
-          lastTimerBeepSecond = next; playTone(880, 'square', 0.04); triggerHaptic(25);
-        }
+    function syncMapControls() {
+      const mapSelect = document.getElementById('mapSelect');
+      const siteSelect = document.getElementById('siteSelect');
+      if (!currentMapObj || !Array.isArray(currentMapObj.sites) || !currentMapObj.sites.length) return;
+      if (mapSelect) {
+        mapSelect.innerHTML = MAP_DATABASE.map(map => '<option value="' + escapeMapOption(map.name) + '">' + escapeMapOption(map.name) + '</option>').join('');
+        mapSelect.value = currentMapObj.name;
       }
-      if (msLeft <= 0) {
-        clearInterval(timerInterval); timerInterval = null; timerEndAt = null; isTimerRunning = false; timerRemaining = 0;
-        document.getElementById('bigTimerDisplay').innerText = formatTime(0);
-        document.getElementById('timerStatusBadge').innerText = 'پایان زمان';
-        document.getElementById('timerControlBtn').innerHTML = '<i class="fa-solid fa-play"></i><span>شروع تایمر</span>';
-        triggerHaptic([80, 50, 120]);
-        [920, 700, 920, 680].forEach((f, idx) => setTimeout(() => playTone(f, 'sawtooth', 0.14), idx * 110));
+      if (siteSelect) {
+        siteSelect.innerHTML = currentMapObj.sites.map((site, index) => '<option value="' + index + '">' + escapeMapOption(site.site) + '</option>').join('');
+        siteSelect.value = String(Math.max(0, currentMapObj.sites.indexOf(currentMapSiteObj)));
       }
+      const count = document.getElementById('mapCountBadge');
+      if (count) count.textContent = MAP_DATABASE.length + ' MAPS';
+      const status = document.getElementById('mapDatasetStatus');
+      if (status) status.textContent = MAP_DATABASE.length + ' نقشه‌ی Ranked • ' + MAP_DATABASE.reduce((n, map) => n + map.sites.length, 0) + ' سایت بمب ثبت‌شده';
     }
 
-    function startStopTimer() {
-      const btn = document.getElementById('timerControlBtn'), badge = document.getElementById('timerStatusBadge');
-      if (isTimerRunning) {
-        updateTimerTick(); clearInterval(timerInterval); timerInterval = null;
-        if (isTimerRunning) { timerEndAt = null; isTimerRunning = false; btn.innerHTML = '<i class="fa-solid fa-play"></i><span>ادامه تایمر</span>'; badge.innerText = 'متوقف'; }
-      } else {
-        if (timerRemaining <= 0) timerRemaining = timerDuration;
-        timerEndAt = Date.now() + timerRemaining * 1000; lastTimerBeepSecond = null; isTimerRunning = true;
-        btn.innerHTML = '<i class="fa-solid fa-pause"></i><span>توقف تایمر</span>'; badge.innerText = 'در حال اجرا';
-        updateTimerTick(); timerInterval = setInterval(updateTimerTick, 200);
-      }
+    function renderCurrentMapSite(animate = true) {
+      if (!currentMapObj || !Array.isArray(currentMapObj.sites) || !currentMapObj.sites.length) return;
+      if (!currentMapSiteObj || !currentMapObj.sites.includes(currentMapSiteObj)) currentMapSiteObj = currentMapObj.sites[0];
+      const mapTitle = document.getElementById('mapNameDisplay');
+      const siteEl = document.getElementById('mapSiteDisplay');
+      const tipEl = document.getElementById('mapTacticalTip');
+      const floorEl = document.getElementById('mapFloorDisplay');
+      const indexEl = document.getElementById('mapSiteIndexBadge');
+      if (mapTitle) mapTitle.textContent = currentMapObj.name;
+      if (siteEl) siteEl.textContent = currentMapSiteObj.site;
+      if (tipEl) tipEl.textContent = 'توصیه تاکتیکی: ' + currentMapSiteObj.tip;
+      if (floorEl) floorEl.textContent = currentMapSiteObj.floor || '—';
+      if (indexEl) indexEl.textContent = 'SITE ' + String(currentMapObj.sites.indexOf(currentMapSiteObj) + 1).padStart(2, '0');
+      if (animate) [mapTitle, siteEl, tipEl].filter(Boolean).forEach(el => {
+        el.classList.remove('map-result-update');
+        void el.offsetWidth;
+        el.classList.add('map-result-update');
+      });
+      syncMapControls();
     }
 
-    function resetTimer() {
-      clearInterval(timerInterval); timerInterval = null; timerEndAt = null; isTimerRunning = false;
-      timerRemaining = timerDuration; lastTimerBeepSecond = null;
-      document.getElementById('bigTimerDisplay').innerText = formatTime(timerRemaining);
-      document.getElementById('bigTimerDisplay').classList.remove('timer-warning');
-      document.getElementById('timerControlBtn').innerHTML = '<i class="fa-solid fa-play"></i><span>شروع تایمر</span>';
-      document.getElementById('timerStatusBadge').innerText = 'آماده';
+    function selectMapByName(name) {
+      const next = MAP_DATABASE.find(map => map.name === name);
+      if (!next) return;
+      currentMapObj = next;
+      currentMapSiteObj = next.sites[0] || null;
+      renderCurrentMapSite();
+      playTone(560, 'sine', 0.04);
+    }
+
+    function selectSiteByIndex(value) {
+      const index = Number(value);
+      if (!Number.isInteger(index) || index < 0 || index >= currentMapObj.sites.length) return;
+      currentMapSiteObj = currentMapObj.sites[index];
+      renderCurrentMapSite();
+      playTone(630, 'triangle', 0.05);
+    }
+
+    function rollMapAndSite() {
+      if (!Array.isArray(MAP_DATABASE) || !MAP_DATABASE.length) return;
+      currentMapObj = getRandomItem(MAP_DATABASE);
+      currentMapSiteObj = getRandomItem(currentMapObj.sites);
+      renderCurrentMapSite();
+      playTone(630, 'triangle', 0.06);
+    }
+
+    function rollOnlySite() {
+      if (!currentMapObj || !Array.isArray(currentMapObj.sites) || !currentMapObj.sites.length) return;
+      const options = currentMapObj.sites.filter(site => site !== currentMapSiteObj);
+      currentMapSiteObj = getRandomItem(options.length ? options : currentMapObj.sites);
+      renderCurrentMapSite();
+      playTone(630, 'triangle', 0.06);
     }
 
     /* 16. ALPHA PACK ZIPPER SIMULATOR */
@@ -2828,24 +3129,38 @@
       if (currentHub === 'ops') {
         if (currentOpsMode === 'duo') {
           const combo = currentDuoCombo;
-          if (!combo) return { title: 'DUO SYNERGY', subtitle: 'ترکیب دونفره‌ی تاکتیکی', accent: '#00E5FF', suffix: 'DUO', operators: [], lines: ['هنوز ترکیبی ساخته نشده است. به بخش ترکیب دونفره برگرد و «پیدا کردن ترکیب» را بزن.'] };
+          if (!combo) {
+            const sideLabel = currentDuoSide === 'atk' ? 'مهاجمان' : 'مدافعان';
+            const styleLabel = ({any:'همه‌ی سبک‌ها',breach:'تخریب دیوار',intel:'اطلاعات',control:'کنترل'})[currentDuoStyle] || currentDuoStyle;
+            return { title: 'DUO SYNERGY', subtitle: 'ترکیب دونفره‌ی تاکتیکی • ' + sideLabel, accent: '#D6F04A', suffix: 'DUO_' + currentDuoSide + '_' + currentDuoStyle, operators: [], lines: ['فیلتر جناح: ' + sideLabel, 'فیلتر سبک: ' + styleLabel, currentDuoSearch ? 'جست‌وجو: ' + currentDuoSearch : 'بدون فیلتر جست‌وجو', 'هنوز ترکیبی ساخته نشده است؛ دکمه‌ی «پیدا کردن ترکیب» را بزن.'] };
+          }
           const a = OPERATORS.find(o => o.name.toLowerCase() === combo.op1.toLowerCase());
           const b = OPERATORS.find(o => o.name.toLowerCase() === combo.op2.toLowerCase());
-          return { title: combo.title || 'DUO SYNERGY', subtitle: combo.side === 'atk' ? 'ATTACKER SYNERGY • ترکیب مهاجمان' : 'DEFENDER SYNERGY • ترکیب مدافعان', accent: combo.side === 'atk' ? '#00E5FF' : '#FF6B00', suffix: 'DUO_' + combo.op1 + '_' + combo.op2, operators: [a,b].filter(Boolean), lines: [combo.op1 + ' — ' + combo.role1, combo.op2 + ' — ' + combo.role2, 'برنامه‌ی اجرا: ' + combo.plan] };
+          const sideLabel = currentDuoSide === 'atk' ? 'مهاجمان' : 'مدافعان';
+          const styleLabel = ({any:'همه‌ی سبک‌ها',breach:'تخریب دیوار',intel:'اطلاعات',control:'کنترل'})[currentDuoStyle] || currentDuoStyle;
+          const searchLabel = currentDuoSearch ? 'جست‌وجو: ' + currentDuoSearch : 'بدون فیلتر جست‌وجو';
+          return { title: combo.title || 'DUO SYNERGY', subtitle: (combo.side === 'atk' ? 'ATTACKER SYNERGY' : 'DEFENDER SYNERGY') + ' • ' + styleLabel, accent: combo.side === 'atk' ? '#D6F04A' : '#D94A45', suffix: 'DUO_' + currentDuoSide + '_' + currentDuoStyle + '_' + combo.op1 + '_' + combo.op2, operators: [a,b].filter(Boolean), lines: ['فیلتر جناح: ' + sideLabel, 'فیلتر سبک: ' + styleLabel, searchLabel, combo.op1 + ' — ' + combo.role1, combo.op2 + ' — ' + combo.role2, 'برنامه‌ی اجرا: ' + combo.plan] };
         }
         if (currentOpsMode === 'duel') {
           const match = currentDuelMatch;
-          if (!match) return { title: 'DUEL ARENA', subtitle: 'رقابت رو‌در‌رو', accent: '#FF6B00', suffix: 'DUEL', operators: [], lines: ['هنوز دوئلی ساخته نشده است. به بخش Duel Arena برگرد و «شروع دوئل جدید» را بزن.'] };
-          return { title: match.p1.name + ' VS ' + match.p2.name, subtitle: 'DUEL ARENA • ' + (DUEL_MODE_LABELS[match.mode] || 'TACTICAL MATCH'), accent: '#FF6B00', suffix: 'DUEL_' + match.p1.name + '_' + match.p2.name, operators: [match.p1,match.p2], lines: [match.p1.name + ': ' + match.rules.w1 + ' • ' + match.rules.m1, match.p2.name + ': ' + match.rules.w2 + ' • ' + match.rules.m2, 'قانون مشترک: ' + match.rules.global, document.getElementById('duelVerdict')?.innerText || 'برنده‌ی قطعی صرفاً از روی آمار پایه تعیین نمی‌شود.'] };
+          if (!match) {
+            const selectedMode = document.querySelector('#opsDuelView .duel-mode-btn.active')?.innerText?.trim() || 'حالت پیش‌فرض';
+            return { title: 'DUEL ARENA', subtitle: 'رقابت رو‌در‌رو • ' + selectedMode, accent: '#D94A45', suffix: 'DUEL_' + selectedMode, operators: [], lines: ['حالت انتخاب‌شده: ' + selectedMode, 'هنوز دوئلی ساخته نشده است؛ «شروع دوئل جدید» را بزن.', duelTournament?.champion ? 'قهرمان تورنمنت: ' + duelTournament.champion.name : duelTournament ? 'تورنمنت فعال: ' + duelTournament.size + ' اپراتور' : 'تورنمنت هنوز شروع نشده'] };
+          }
+          const selectedMode = document.querySelector('#opsDuelView .duel-mode-btn.active')?.innerText?.trim() || DUEL_MODE_LABELS[match.mode] || 'سناریوی تاکتیکی';
+          const tournamentLabel = duelTournament?.champion ? 'قهرمان تورنمنت: ' + duelTournament.champion.name : duelTournament ? 'تورنمنت فعال: ' + duelTournament.size + ' اپراتور' : 'تورنمنت هنوز شروع نشده';
+          return { title: match.p1.name + ' VS ' + match.p2.name, subtitle: 'DUEL ARENA • ' + selectedMode, accent: '#D94A45', suffix: 'DUEL_' + match.mode + '_' + match.p1.name + '_' + match.p2.name, operators: [match.p1,match.p2], lines: ['حالت انتخاب‌شده: ' + selectedMode, match.p1.name + ': ' + match.rules.w1 + ' • ' + match.rules.m1, match.p2.name + ': ' + match.rules.w2 + ' • ' + match.rules.m2, 'قانون مشترک: ' + match.rules.global, document.getElementById('duelVerdict')?.innerText || 'برنده‌ی قطعی صرفاً از روی آمار پایه تعیین نمی‌شود.', tournamentLabel] };
         }
         const challenge = currentStratObj || {};
-        return { title: challenge.title || 'TACTICAL CHALLENGE', subtitle: 'CHALLENGE BRIEFING • چالش تاکتیکی', accent: '#F8AA00', suffix: 'CHALLENGE', operators: [], lines: [challenge.desc || 'چالش تاکتیکی فعلی', 'جناح: ' + (currentStratSide === 'atk' ? 'مهاجمان' : currentStratSide === 'def' ? 'مدافعان' : 'همه'), 'نقشه‌ی پیشنهادی: ' + (currentMapObj?.name || 'تصادفی'), document.getElementById('stratChallengeText')?.innerText || 'این پوستر از چالش انتخاب‌شده ساخته شده است.'] };
+        const challengeFilter = currentStratSide === 'atk' ? 'ویژه‌ی حمله' : currentStratSide === 'def' ? 'ویژه‌ی دفاع' : 'همه‌ی چالش‌ها';
+        return { title: challenge.title || 'TACTICAL CHALLENGE', subtitle: 'CHALLENGE BRIEFING • ' + challengeFilter, accent: '#D6F04A', suffix: 'CHALLENGE_' + currentStratSide + '_' + (challenge.title || 'CURRENT'), operators: [], lines: ['فیلتر فعال: ' + challengeFilter, challenge.desc || 'چالش تاکتیکی فعلی', 'نقشه‌ی پیشنهادی: ' + (currentMapObj?.name || 'تصادفی'), document.getElementById('stratCounterCode')?.innerText || '', document.getElementById('stratDescText')?.innerText || 'چالش انتخاب‌شده'] };
       }
       if (currentHub === 'tools') {
-        const mapName = document.getElementById('mapNameDisplay')?.innerText || currentMapObj?.name || 'TACTICAL MAP';
-        const site = document.getElementById('mapSiteDisplay')?.innerText || currentMapObj?.sites?.[0]?.site || '';
-        const floor = document.getElementById('mapFloorDisplay')?.innerText || '';
-        return { title: mapName, subtitle: 'MAP & SITE BRIEFING • نقشه و محل بمب', accent: '#00E5FF', suffix: 'MAP_' + mapName, operators: [], lines: ['محل هدف: ' + site, 'طبقه: ' + floor, 'توصیه‌ی تاکتیکی: ' + (document.getElementById('mapTacticalTip')?.innerText || ''), 'وضعیت تایمر: ' + (document.getElementById('timerStatusBadge')?.innerText || 'آماده'), 'زمان فعلی: ' + (document.getElementById('bigTimerDisplay')?.innerText || '03:00'), document.getElementById('timerSubText')?.innerText || 'تایمر راند'] };
+        const mapName = currentMapObj?.name || document.getElementById('mapNameDisplay')?.innerText || 'TACTICAL MAP';
+        const site = currentMapSiteObj?.site || document.getElementById('mapSiteDisplay')?.innerText || '';
+        const floor = currentMapSiteObj?.floor || document.getElementById('mapFloorDisplay')?.innerText || '';
+        const siteIndex = currentMapObj?.sites?.indexOf(currentMapSiteObj) ?? -1;
+        return { title: mapName, subtitle: 'MAP INTELLIGENCE • نقشه و محل بمب', accent: '#D6F04A', suffix: 'MAP_' + mapName + '_SITE_' + (siteIndex + 1), operators: [], lines: ['سایت انتخاب‌شده: ' + site, 'طبقه: ' + floor, 'شماره سایت: ' + (siteIndex + 1) + ' از ' + (currentMapObj?.sites?.length || 0), 'توصیه‌ی تاکتیکی: ' + (currentMapSiteObj?.tip || document.getElementById('mapTacticalTip')?.innerText || ''), 'استخر نقشه: Ranked Y11S3.2'] };
       }
       return null;
     }
@@ -3296,6 +3611,7 @@
       // Render initial state cleanly WITHOUT awarding XP or auto-rolling on tab switches
       renderMainOperatorCard(currentRolledOp);
       renderSquadGrid(currentSquadList, 'atk');
+      renderCurrentMapSite(false);
       setHqConfirmButtonState(true);
 
       let introSeen = false;
