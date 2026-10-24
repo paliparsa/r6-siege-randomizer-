@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#06090e">
-  <meta name="app-version" content="1.2.0">
+  <meta name="app-version" content="1.3.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -264,6 +264,30 @@
     @keyframes squadSweep{to{transform:translateX(-120%)}}
     @media(prefers-reduced-motion:reduce){.squad-operator-card,.squad-operator-card::before{animation:none!important;transition:none!important}}
     @media(max-width:639.98px){#squadGridContainer{grid-template-columns:1fr!important}.squad-operator-card{min-height:112px}}
+
+    /* v1.3.0 — Duo Synergy and Duel Arena */
+    .tactical-feature-panel{background:linear-gradient(135deg,rgba(13,20,32,.98),rgba(7,12,20,.98));border:1px solid rgba(148,163,184,.16);box-shadow:0 12px 35px rgba(0,0,0,.15)}
+    .tactical-pill{font:700 9px ui-monospace,monospace;letter-spacing:.1em;padding:5px 8px;border:1px solid rgba(56,189,248,.35);color:#67d9ff;background:rgba(56,189,248,.08);border-radius:999px;white-space:nowrap}
+    .duel-pill{border-color:rgba(248,113,113,.35);color:#fca5a5;background:rgba(248,113,113,.08)}
+    .tactical-operator-card,.duel-operator-card{min-width:0;position:relative;overflow:hidden;border:1px solid rgba(148,163,184,.18);background:linear-gradient(160deg,rgba(17,27,42,.98),rgba(5,9,15,.98));border-radius:14px;padding:10px;animation:tacticalReveal .45s ease both}
+    .tactical-portrait,.duel-portrait{height:100px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:radial-gradient(circle at 50% 35%,rgba(56,189,248,.17),transparent 70%),#060a11;border:1px solid rgba(148,163,184,.13);padding:7px}
+    .tactical-portrait img,.duel-portrait img{height:100%;width:100%;object-fit:contain}
+    .duo-link-core{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.3);color:#67d9ff;box-shadow:0 0 22px rgba(56,189,248,.1)}
+    .duo-style-btn,.duel-mode-btn{border:1px solid rgba(148,163,184,.17);background:rgba(3,7,12,.55);color:#aab5c5;border-radius:8px;padding:9px 5px;font-size:10px;font-weight:700;transition:all .18s}
+    .duo-style-btn.active,.duel-mode-btn.active{border-color:rgba(56,189,248,.55);background:rgba(56,189,248,.1);color:#67d9ff}
+    .duel-blue{border-color:rgba(56,189,248,.35)}.duel-orange{border-color:rgba(251,146,60,.35)}
+    .duel-versus{align-self:center;text-align:center;font:900 18px ui-monospace,monospace;color:#f87171;text-shadow:0 0 20px rgba(248,113,113,.3)}
+    .duel-detail{display:flex;flex-direction:column;gap:3px;margin-top:9px;padding-top:7px;border-top:1px solid rgba(148,163,184,.12);font-size:10px;min-width:0}
+    .duel-detail span{color:#8491a5}.duel-detail b{color:#e2e8f0;font-weight:600;overflow-wrap:anywhere}
+    .duel-stat-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) minmax(0,1fr);gap:8px;align-items:center;font-size:10px}
+    .duel-stat-track{height:5px;background:#172235;border-radius:9px;overflow:hidden;display:flex}.duel-stat-track span{height:100%;display:block}
+    .duel-stat-left{background:#38bdf8}.duel-stat-right{background:#fb923c}
+    .duel-match-card{border:1px solid rgba(148,163,184,.17);background:rgba(3,7,12,.55);border-radius:10px;padding:10px;min-width:0}
+    .duel-match-card button{margin-top:8px;width:100%;border:1px solid rgba(148,163,184,.2);border-radius:7px;padding:7px 5px;font-size:10px;font-weight:700;color:#e2e8f0;background:#111c2b}
+    .duel-match-card button:disabled{opacity:.55;cursor:default}.duel-round-title{font:700 10px ui-monospace,monospace;letter-spacing:.12em;color:#facc15}
+    @keyframes tacticalReveal{from{opacity:0;transform:translateY(9px) scale(.985);filter:blur(2px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+    @media(prefers-reduced-motion:reduce){.tactical-operator-card,.duel-operator-card{animation:none!important;transition:none!important}}
+    @media(max-width:420px){.tactical-portrait,.duel-portrait{height:78px}.tactical-operator-card,.duel-operator-card{padding:8px}.duel-versus{font-size:14px}.duel-detail{font-size:9px}}
 
     /* Alpha Pack Foil Glow */
     .alpha-pack-bag {
@@ -715,86 +739,38 @@
       </div>
 
       <!-- 2B. DUO SYNERGY VIEW -->
-      <div id="opsDuoView" class="hidden flex-1 flex flex-col justify-between gap-2.5 min-h-0">
-        <div class="bg-siege-card dynamic-border border rounded-2xl p-4 clip-corner flex-1 flex flex-col justify-between">
-          <div class="flex items-center justify-between">
-            <div class="flex gap-1 bg-siege-dark p-1 rounded-lg border border-siege-border">
-              <button onclick="setDuoSide('atk')" id="duoSideAtk" class="px-3 py-1 rounded text-xs font-bold bg-siege-cyan text-black">مهاجمان (ATK)</button>
-              <button onclick="setDuoSide('def')" id="duoSideDef" class="px-3 py-1 rounded text-xs font-bold text-slate-400">مدافعان (DEF)</button>
-            </div>
-            <span id="duoTitle" class="font-tactical font-black text-sm text-siege-yellow">THE BREACH MASTERS</span>
+      <div id="opsDuoView" class="hidden flex-1 flex flex-col gap-3 min-h-0 overflow-y-auto no-scrollbar">
+        <div class="tactical-feature-panel rounded-2xl p-3 space-y-3">
+          <div class="flex items-center justify-between gap-2"><div><div class="text-[10px] tracking-[.2em] font-mono text-siege-cyan">DUO SYNERGY INTELLIGENCE</div><h3 class="text-sm font-black text-white">ترکیب دونفره‌ی تاکتیکی</h3></div><span id="duoStrengthBadge" class="tactical-pill">READY</span></div>
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex gap-1 bg-siege-dark p-1 rounded-lg border border-siege-border"><button onclick="setDuoSide('atk')" id="duoSideAtk" class="px-3 py-1.5 rounded text-xs font-bold bg-siege-cyan text-black">مهاجمان (ATK)</button><button onclick="setDuoSide('def')" id="duoSideDef" class="px-3 py-1.5 rounded text-xs font-bold text-slate-400">مدافعان (DEF)</button></div>
+            <span id="duoTitle" class="font-tactical font-black text-[10px] sm:text-xs text-siege-yellow text-left">THE BREACH MASTERS</span>
           </div>
-
-          <div class="grid grid-cols-2 gap-3 my-auto py-2">
-            <div class="bg-siege-dark p-3 rounded-xl border border-siege-border text-center space-y-1.5">
-              <div class="w-14 h-14 mx-auto rounded-lg bg-siege-card border border-siege-border p-1 flex items-center justify-center">
-                <img id="duoOp1Img" src="" alt="Op 1" class="w-full h-full object-contain">
-              </div>
-              <strong id="duoOp1Name" class="text-sm sm:text-base font-tactical text-white block">THERMITE</strong>
-              <span id="duoOp1Role" class="text-[11px] text-siege-yellow block">متخصص باز کردن دیوار تقویت‌شده</span>
-            </div>
-
-            <div class="bg-siege-dark p-3 rounded-xl border border-siege-border text-center space-y-1.5">
-              <div class="w-14 h-14 mx-auto rounded-lg bg-siege-card border border-siege-border p-1 flex items-center justify-center">
-                <img id="duoOp2Img" src="" alt="Op 2" class="w-full h-full object-contain">
-              </div>
-              <strong id="duoOp2Name" class="text-sm sm:text-base font-tactical text-white block">THATCHER</strong>
-              <span id="duoOp2Role" class="text-[11px] text-siege-cyan block">از کارانداز تجهیزات الکترونیکی</span>
-            </div>
+          <div class="grid grid-cols-[minmax(0,1fr)_32px_minmax(0,1fr)] gap-2 items-center">
+            <article id="duoCard1" class="tactical-operator-card rounded-xl p-3 text-center"><div class="tactical-portrait"><img id="duoOp1Img" src="" alt="Operator 1" loading="lazy" onerror="this.style.opacity='.15'"></div><div class="text-[9px] tracking-widest text-siege-cyan mt-2">OPERATOR 01</div><strong id="duoOp1Name" class="text-sm font-tactical text-white block mt-1">THERMITE</strong><span id="duoOp1Role" class="text-[10px] text-slate-300 block mt-1">متخصص باز کردن دیوار تقویت‌شده</span></article>
+            <div class="duo-link-core" aria-hidden="true"><i class="fa-solid fa-link"></i></div>
+            <article id="duoCard2" class="tactical-operator-card rounded-xl p-3 text-center"><div class="tactical-portrait"><img id="duoOp2Img" src="" alt="Operator 2" loading="lazy" onerror="this.style.opacity='.15'"></div><div class="text-[9px] tracking-widest text-siege-orange mt-2">OPERATOR 02</div><strong id="duoOp2Name" class="text-sm font-tactical text-white block mt-1">THATCHER</strong><span id="duoOp2Role" class="text-[10px] text-slate-300 block mt-1">از کارانداز تجهیزات الکترونیکی</span></article>
           </div>
-
-          <div class="bg-siege-dark/90 p-3 rounded-xl border border-siege-border text-xs text-slate-300">
-            <span class="font-bold text-siege-yellow ml-1"><i class="fa-solid fa-diagram-project"></i> چطور اجراش کنیم؟</span>
-            <span id="duoPlanText">تچر با EMP برق دیوار را قطع کرده و ترمایت بلافاصله دیوار اصلی سایت را باز می‌کند.</span>
-          </div>
-        </div>
-
-        <div class="flex gap-2 shrink-0">
-          <button onclick="rollDuoCombo()" class="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-siege-yellow to-siege-orange text-black font-tactical font-black text-xs sm:text-sm uppercase flex items-center justify-center gap-2 active:scale-95 transition">
-            <i class="fa-solid fa-user-plus"></i>
-            <span>پیشنهاد ترکیب دو اپراتور</span>
-          </button>
-          <button onclick="confirmDuoXp()" id="duoConfirmXpBtn" disabled class="px-4 py-3.5 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 disabled:opacity-50 disabled:pointer-events-none">
-            <i class="fa-solid fa-check-double"></i>
-            <span>ثبت ترکیب و دریافت امتیاز (+20 XP)</span>
-          </button>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5" role="group" aria-label="سبک ترکیب"><button type="button" data-duo-style="any" onclick="setDuoStyle('any')" class="duo-style-btn active">🎲 همه‌ی ترکیب‌ها</button><button type="button" data-duo-style="breach" onclick="setDuoStyle('breach')" class="duo-style-btn">💥 Breach</button><button type="button" data-duo-style="intel" onclick="setDuoStyle('intel')" class="duo-style-btn">📡 Intel</button><button type="button" data-duo-style="control" onclick="setDuoStyle('control')" class="duo-style-btn">🛡️ Control</button></div>
+          <div class="rounded-xl border border-siege-border bg-siege-dark/80 p-3"><div class="flex items-center justify-between gap-2 mb-1"><span class="text-[10px] font-bold text-siege-yellow"><i class="fa-solid fa-diagram-project ml-1"></i>سناریوی اجرا</span><span id="duoStrengthText" class="text-[9px] text-siege-cyan">SYNERGY ANALYSIS</span></div><p id="duoPlanText" class="text-xs text-slate-300 leading-relaxed">یک ترکیب انتخاب کن تا برنامه‌ی اجرایی و نقاط قوت آن نمایش داده شود.</p><div id="duoAnalysisTags" class="flex flex-wrap gap-1.5 mt-2"></div></div>
+          <div class="flex gap-2"><button onclick="rollDuoCombo()" class="flex-1 py-3 rounded-xl bg-gradient-to-r from-siege-yellow to-siege-orange text-black font-tactical font-black text-xs flex items-center justify-center gap-2 active:scale-95 transition"><i class="fa-solid fa-radar"></i><span>پیدا کردن ترکیب</span></button><button onclick="shareDuoCombo()" class="px-4 py-3 rounded-xl bg-siege-dark border border-siege-border text-slate-200 text-xs font-bold" aria-label="اشتراک‌گذاری ترکیب"><i class="fa-solid fa-share-nodes ml-1"></i>اشتراک</button><button onclick="confirmDuoXp()" id="duoConfirmXpBtn" disabled class="px-3 py-3 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs disabled:opacity-40" aria-label="ثبت ترکیب و دریافت XP"><i class="fa-solid fa-check-double"></i></button></div>
         </div>
       </div>
 
       <!-- 2C. 1V1 CUSTOM DUEL VIEW -->
-      <div id="opsDuelView" class="hidden flex-1 flex flex-col justify-between gap-2.5 min-h-0">
-        <div class="bg-siege-card dynamic-border border rounded-2xl p-4 clip-corner flex-1 flex flex-col justify-between">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 my-auto text-xs">
-            <div class="bg-siege-dark p-3 rounded-xl border border-siege-cyan/40 space-y-1.5">
-              <div class="font-tactical font-black text-siege-cyan text-sm">PLAYER 1 (مهاجم)</div>
-              <div>اپراتور: <strong id="duelP1Op" class="text-white font-tactical text-sm">BUCK</strong></div>
-              <div>سلاح: <span id="duelP1Weapon" class="text-siege-yellow">فقط کلت کمری</span></div>
-              <div>حرکت: <span id="duelP1Move" class="text-slate-400">بدون دویدن</span></div>
-            </div>
-            <div class="bg-siege-dark p-3 rounded-xl border border-siege-orange/40 space-y-1.5">
-              <div class="font-tactical font-black text-siege-orange text-sm">PLAYER 2 (مدافع)</div>
-              <div>اپراتور: <strong id="duelP2Op" class="text-white font-tactical text-sm">FROST</strong></div>
-              <div>سلاح: <span id="duelP2Weapon" class="text-siege-yellow">شاتگان تک‌تیر</span></div>
-              <div>حرکت: <span id="duelP2Move" class="text-slate-400">فقط داخل سایت بمب</span></div>
-            </div>
+      <div id="opsDuelView" class="hidden flex-1 flex flex-col gap-3 min-h-0 overflow-y-auto no-scrollbar">
+        <div class="tactical-feature-panel rounded-2xl p-3 space-y-3">
+          <div class="flex items-center justify-between gap-2"><div><div class="text-[10px] tracking-[.2em] font-mono text-siege-red">DUEL ARENA // 1V1</div><h3 class="text-sm font-black text-white">رقابت رو‌در‌رو</h3></div><span id="duelModeBadge" class="tactical-pill duel-pill">RANDOM SCENARIO</span></div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5" role="group" aria-label="حالت دوئل"><button type="button" data-duel-mode="pure" onclick="setDuelMode('pure')" class="duel-mode-btn active">🎯 گان‌پلی خالص</button><button type="button" data-duel-mode="gadget" onclick="setDuelMode('gadget')" class="duel-mode-btn">🧰 برتری گجت</button><button type="button" data-duel-mode="objective" onclick="setDuelMode('objective')" class="duel-mode-btn">📍 کنترل هدف</button><button type="button" data-duel-mode="random" onclick="setDuelMode('random')" class="duel-mode-btn">🎲 سناریوی تصادفی</button></div>
+          <div class="grid grid-cols-[minmax(0,1fr)_36px_minmax(0,1fr)] gap-2 items-stretch">
+            <article class="duel-operator-card duel-blue"><div class="duel-portrait"><img id="duelP1Img" src="" alt="Player 1 operator" loading="lazy" onerror="this.style.opacity='.15'"></div><div class="text-[9px] font-mono text-siege-cyan mt-2">PLAYER 01</div><strong id="duelP1Op" class="block text-sm font-tactical text-white mt-1">BUCK</strong><div class="duel-detail"><span>قانون سلاح</span><b id="duelP1Weapon">در انتظار شروع</b></div><div class="duel-detail"><span>محدودیت حرکت</span><b id="duelP1Move">—</b></div><div class="duel-detail"><span>سرعت / زره</span><b id="duelP1Stats">—</b></div></article>
+            <div class="duel-versus">VS</div>
+            <article class="duel-operator-card duel-orange"><div class="duel-portrait"><img id="duelP2Img" src="" alt="Player 2 operator" loading="lazy" onerror="this.style.opacity='.15'"></div><div class="text-[9px] font-mono text-siege-orange mt-2">PLAYER 02</div><strong id="duelP2Op" class="block text-sm font-tactical text-white mt-1">FROST</strong><div class="duel-detail"><span>قانون سلاح</span><b id="duelP2Weapon">در انتظار شروع</b></div><div class="duel-detail"><span>محدودیت حرکت</span><b id="duelP2Move">—</b></div><div class="duel-detail"><span>سرعت / زره</span><b id="duelP2Stats">—</b></div></article>
           </div>
-
-          <div class="bg-siege-dark/90 p-3 rounded-xl border border-siege-border text-xs text-center">
-            <span class="text-slate-400 block mb-0.5">قانون سراسری این دوئل:</span>
-            <strong id="duelGlobalRule" class="text-siege-yellow text-sm">فقط هدشات یا نایف مجاز است!</strong>
-          </div>
+          <div class="rounded-xl border border-siege-border bg-siege-dark/80 p-3"><div class="text-[10px] font-bold text-siege-yellow mb-1">قانون مشترک</div><p id="duelGlobalRule" class="text-xs text-slate-200 leading-relaxed">برای ساخت دوئل، حالت دلخواه را انتخاب کن.</p><div class="mt-3"><div class="flex items-center justify-between text-[10px] mb-1"><span class="text-slate-400">مقایسه‌ی ویژگی‌های پایه</span><span class="text-slate-500">اطلاعات اپراتور</span></div><div id="duelStatComparison" class="space-y-2"></div></div><div id="duelVerdict" class="text-xs text-slate-300 leading-relaxed border-t border-siege-border mt-3 pt-3">نتیجه‌ی تاکتیکی پس از ساخت سناریو نمایش داده می‌شود؛ برنده‌ی قطعی از روی آمار پایه تعیین نمی‌شود.</div></div>
+          <div class="flex gap-2"><button onclick="rollDuelMatch()" class="flex-1 py-3 rounded-xl bg-gradient-to-r from-siege-red to-siege-orange text-white font-tactical font-black text-xs flex items-center justify-center gap-2 active:scale-95 transition"><i class="fa-solid fa-bolt"></i><span>شروع دوئل جدید</span></button><button onclick="shareDuelMatch()" class="px-4 py-3 rounded-xl bg-siege-dark border border-siege-border text-slate-200 text-xs font-bold"><i class="fa-solid fa-share-nodes ml-1"></i>اشتراک</button><button onclick="confirmDuelXp()" id="duelConfirmXpBtn" disabled class="px-3 py-3 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs disabled:opacity-40" aria-label="ثبت دوئل و دریافت XP"><i class="fa-solid fa-check-double"></i></button></div>
         </div>
-
-        <div class="flex gap-2 shrink-0">
-          <button onclick="rollDuelMatch()" class="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-siege-red to-siege-orange text-white font-tactical font-black text-xs sm:text-sm uppercase flex items-center justify-center gap-2 active:scale-95 transition">
-            <i class="fa-solid fa-swords"></i>
-            <span>ساخت قوانین تصادفی رقابت</span>
-          </button>
-          <button onclick="confirmDuelXp()" id="duelConfirmXpBtn" disabled class="px-4 py-3.5 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 disabled:opacity-50 disabled:pointer-events-none">
-            <i class="fa-solid fa-check-double"></i>
-            <span>ثبت رقابت و دریافت امتیاز (+20 XP)</span>
-          </button>
-        </div>
+        <div class="tactical-feature-panel rounded-2xl p-3 space-y-3"><div class="flex items-center justify-between gap-2"><div><div class="text-[10px] tracking-[.2em] font-mono text-siege-yellow">CHAMPIONSHIP MODE</div><h3 class="text-sm font-black text-white">تورنمنت حذفی اپراتورها</h3></div><i class="fa-solid fa-trophy text-siege-yellow text-lg"></i></div><p class="text-[10px] text-slate-400">برنده‌ی هر مسابقه را انتخاب کن تا مرحله‌ی بعدی ساخته شود؛ تورنمنت صرفاً برای سرگرمی است.</p><div class="flex gap-2 items-center"><select id="duelTournamentSize" class="flex-1 rounded-lg bg-siege-dark border border-siege-border text-white text-xs p-2.5"><option value="8">۸ اپراتور</option><option value="16">۱۶ اپراتور</option></select><button onclick="startDuelTournament()" class="px-4 py-2.5 rounded-lg bg-siege-yellow text-black text-xs font-black">شروع تورنمنت</button><button onclick="shareDuelTournament()" id="duelTournamentShare" class="px-3 py-2.5 rounded-lg bg-siege-dark border border-siege-border text-slate-300 text-xs" disabled aria-label="اشتراک نتیجه تورنمنت"><i class="fa-solid fa-share-nodes"></i></button></div><div id="duelTournamentBoard" class="space-y-3"><div class="text-xs text-slate-500 text-center py-3">تورنمنت هنوز شروع نشده است.</div></div></div>
       </div>
     </section>
 
@@ -1973,94 +1949,176 @@
       [523, 659, 784, 1046].forEach((f, idx) => setTimeout(() => playTone(f, 'sine', 0.11), idx * 85));
     }
 
+    /* 14. OPERATIONS HUB — Duo Synergy Intelligence + Duel Arena */
+    let currentDuoStyle = 'any';
+    let currentDuoCombo = null;
+    let currentDuelMode = 'pure';
+    let currentDuelMatch = null;
+    let duelTournament = null;
     function setDuoSide(side) {
-      currentDuoSide = side;
-      document.getElementById('duoSideAtk').className = side === 'atk' ? 'px-3 py-1 rounded text-xs font-bold bg-siege-cyan text-black' : 'px-3 py-1 rounded text-xs font-bold text-slate-400';
-      document.getElementById('duoSideDef').className = side === 'def' ? 'px-3 py-1 rounded text-xs font-bold bg-siege-orange text-black' : 'px-3 py-1 rounded text-xs font-bold text-slate-400';
-      playTone(520, 'sine', 0.04);
-      showToast('تیم حمله/دفاع تغییر کرد؛ برای دیدن ترکیب تازه، دکمه‌ی پیشنهاد ترکیب را بزن.');
+      if (side !== 'atk' && side !== 'def') return;
+      currentDuoSide=side;
+      document.getElementById('duoSideAtk').className=side==='atk'?'px-3 py-1.5 rounded text-xs font-bold bg-siege-cyan text-black':'px-3 py-1.5 rounded text-xs font-bold text-slate-400';
+      document.getElementById('duoSideDef').className=side==='def'?'px-3 py-1.5 rounded text-xs font-bold bg-siege-orange text-black':'px-3 py-1.5 rounded text-xs font-bold text-slate-400';
+      if(currentDuoCombo) rollDuoCombo(); else showToast('جناح تغییر کرد؛ برای نمایش ترکیب، دکمه‌ی پیدا کردن ترکیب را بزن.');
     }
-
+    function setDuoStyle(style) {
+      if(!['any','breach','intel','control'].includes(style)) return;
+      currentDuoStyle=style;
+      document.querySelectorAll('.duo-style-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.duoStyle===style));
+      if(currentDuoCombo) rollDuoCombo();
+    }
+    function duoCategory(combo) {
+      const t=[combo.title,combo.role1,combo.role2,combo.plan,combo.op1,combo.op2].join(' ').toLowerCase();
+      if(/breach|thermite|thatcher|wall|emp|maverick|hibana|ace/.test(t)) return 'breach';
+      if(/intel|drone|camera|scan|dokkaebi|deimos|pulse|tracker|recon|sensor|zero|lion/.test(t)) return 'intel';
+      if(/trap|control|anchor|shield|denial|smoke|clash|frost|thorn|mute|mira|fortress|defend/.test(t)) return 'control';
+      return 'any';
+    }
+    function duoFilteredPool() {
+      let pool=DUO_COMBOS.filter(c=>c.side===currentDuoSide);
+      if(currentDuoStyle!=='any') {const filtered=pool.filter(c=>duoCategory(c)===currentDuoStyle);if(filtered.length)pool=filtered;}
+      if(currentDuoCombo&&pool.length>1) {const withoutCurrent=pool.filter(c=>c!==currentDuoCombo);if(withoutCurrent.length)pool=withoutCurrent;}
+      return pool;
+    }
+    function renderDuoAnalysis(combo) {
+      const category=duoCategory(combo);
+      const categoryLabel={breach:'BREACH & SUPPORT',intel:'INTEL & HUNT',control:'CONTROL & DENIAL',any:'TACTICAL PAIR'}[category];
+      const a=OPERATORS.find(o=>o.name.toLowerCase()===combo.op1.toLowerCase());
+      const b=OPERATORS.find(o=>o.name.toLowerCase()===combo.op2.toLowerCase());
+      const tags=[categoryLabel,combo.side==='atk'?'ATTACK':'DEFENSE'];
+      if(a&&b&&a.gadget&&b.gadget&&a.gadget.toLowerCase()!==b.gadget.toLowerCase())tags.push('DISTINCT GADGETS');
+      const tagsEl=document.getElementById('duoAnalysisTags');
+      if(tagsEl)tagsEl.innerHTML=tags.map(t=>'<span class="tactical-pill">'+t+'</span>').join('');
+      const badge=document.getElementById('duoStrengthBadge');if(badge)badge.textContent=category==='any'?'SITUATIONAL':'SYNERGY';
+      const strength=document.getElementById('duoStrengthText');if(strength)strength.textContent=categoryLabel;
+      const card1=document.getElementById('duoCard1'),card2=document.getElementById('duoCard2');
+      if(card1)card1.style.animation='none';if(card2)card2.style.animation='none';
+      requestAnimationFrame(()=>{if(card1)card1.style.animation='';if(card2)card2.style.animation='';});
+    }
     function rollDuoCombo() {
-      const pool = DUO_COMBOS.filter(c => c.side === currentDuoSide);
-      const combo = getRandomItem(pool);
-      document.getElementById('duoTitle').innerText = combo.title;
-      document.getElementById('duoOp1Name').innerText = combo.op1.toUpperCase();
-      document.getElementById('duoOp1Role').innerText = combo.role1;
-      document.getElementById('duoOp2Name').innerText = combo.op2.toUpperCase();
-      document.getElementById('duoOp2Role').innerText = combo.role2;
-      document.getElementById('duoPlanText').innerText = combo.plan;
-
-      const op1 = OPERATORS.find(o => o.name.toLowerCase() === combo.op1.toLowerCase());
-      const op2 = OPERATORS.find(o => o.name.toLowerCase() === combo.op2.toLowerCase());
-      if (op1) document.getElementById('duoOp1Img').src = getOperatorIconUrl(op1.slug);
-      if (op2) document.getElementById('duoOp2Img').src = getOperatorIconUrl(op2.slug);
-
-      duoRollCanClaimXp = true;
-      const btn = document.getElementById('duoConfirmXpBtn');
-      btn.disabled = false;
-      btn.className = 'px-4 py-3.5 rounded-xl bg-siege-cyan/20 border-2 border-siege-cyan text-siege-cyan hover:bg-siege-cyan hover:text-black font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95';
-
-      playTone(610, 'sine', 0.07);
+      const pool=duoFilteredPool();
+      if(!pool.length){showToast('برای این فیلتر هنوز ترکیبی ثبت نشده است.');return;}
+      const combo=getRandomItem(pool);currentDuoCombo=combo;
+      document.getElementById('duoTitle').innerText=combo.title;
+      document.getElementById('duoOp1Name').innerText=combo.op1.toUpperCase();
+      document.getElementById('duoOp1Role').innerText=combo.role1;
+      document.getElementById('duoOp2Name').innerText=combo.op2.toUpperCase();
+      document.getElementById('duoOp2Role').innerText=combo.role2;
+      document.getElementById('duoPlanText').innerText=combo.plan;
+      const op1=OPERATORS.find(o=>o.name.toLowerCase()===combo.op1.toLowerCase());
+      const op2=OPERATORS.find(o=>o.name.toLowerCase()===combo.op2.toLowerCase());
+      const img1=document.getElementById('duoOp1Img'),img2=document.getElementById('duoOp2Img');
+      img1.src=op1?getOperatorIconUrl(op1.slug):'';img2.src=op2?getOperatorIconUrl(op2.slug):'';
+      img1.alt=combo.op1;img2.alt=combo.op2;
+      renderDuoAnalysis(combo);
+      duoRollCanClaimXp=true;
+      const btn=document.getElementById('duoConfirmXpBtn');btn.disabled=false;
+      btn.className='px-3 py-3 rounded-xl bg-siege-cyan/20 border border-siege-cyan text-siege-cyan font-bold text-xs';
+      playTone(610,'sine',.07);
     }
-
+    async function shareTextPayload(title,textValue) {
+      try {
+        if(navigator.share){await navigator.share({title:title,text:textValue});return;}
+      } catch(err) { if(err&&err.name==='AbortError')return; }
+      try { if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(textValue);showToast('متن برای اشتراک‌گذاری کپی شد.');return;} } catch(err) {}
+      const area=document.createElement('textarea');area.value=textValue;area.setAttribute('readonly','');area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();
+      try {const ok=document.execCommand('copy');showToast(ok?'متن برای اشتراک‌گذاری کپی شد.':'امکان کپی خودکار نبود؛ متن را دستی کپی کن.');}catch(err){showToast('امکان کپی خودکار نبود؛ متن را دستی کپی کن.');}finally{area.remove();}
+    }
+    function shareDuoCombo() {
+      if(!currentDuoCombo){showToast('اول یک ترکیب بساز.');return;}
+      const c=currentDuoCombo;shareTextPayload('R6 Duo Synergy',c.title+'\n'+c.op1+' + '+c.op2+'\n'+c.role1+' / '+c.role2+'\n'+c.plan+'\nGenerated by R6 Command Center Pro');
+    }
     function confirmDuoXp() {
-      if (!duoRollCanClaimXp) return;
-      duoRollCanClaimXp = false;
-      if (!claimDailyXp('duo', 20)) {
-        const btn = document.getElementById('duoConfirmXpBtn');
-        btn.disabled = true; btn.innerText = 'سهمیه‌ی امتیاز تمام شد'; return;
-      }
-      userProfile.rolls = (userProfile.rolls || 0) + 1;
-      saveProfile();
-      const btn = document.getElementById('duoConfirmXpBtn');
-      btn.disabled = true;
-      btn.className = 'px-4 py-3.5 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs flex items-center justify-center gap-1.5 opacity-50 pointer-events-none';
-      showToast('✅ کمبوی ۲ نفره ثبت شد (+20 XP)!');
-      playTone(840, 'sine', 0.1);
+      if(!duoRollCanClaimXp)return;duoRollCanClaimXp=false;
+      if(!claimDailyXp('duo',20)){const btn=document.getElementById('duoConfirmXpBtn');btn.disabled=true;btn.innerText='سهمیه تمام شد';return;}
+      userProfile.rolls=(userProfile.rolls||0)+1;saveProfile();
+      const btn=document.getElementById('duoConfirmXpBtn');btn.disabled=true;btn.className='px-3 py-3 rounded-xl bg-siege-surface border border-siege-border text-slate-500 text-xs opacity-50';
+      showToast('ترکیب ثبت شد؛ ۲۰ XP دریافت کردی!');playTone(840,'sine',.1);
     }
-
-    const DUEL_WEAPONS = ['فقط کلت کمری با سایلنسر', 'فقط شاتگان بدون نشانه‌گیری', 'فقط DMR تک‌تیر با Iron Sight', 'فقط نایف و گجت'];
-    const DUEL_MOVES = ['حرکت دائم در حالت نشسته', 'بدون اجازه دویدن (No Sprint)', 'فقط داخل اتاق اصلی سایت'];
-    const DUEL_GLOBALS = ['فقط هدشات مجاز است!', 'ممنوعیت هدشات؛ فقط شلیک به بدن!', 'بازی با صدای قطع‌شده (Mute)!'];
-
+    const DUEL_WEAPONS=['فقط کلت کمری','فقط شاتگان بدون نشانه‌گیری','فقط DMR تک‌تیر با Iron Sight','فقط نایف و گجت'];
+    const DUEL_MOVES=['حرکت دائم در حالت نشسته','بدون اجازه دویدن (No Sprint)','فقط داخل اتاق اصلی سایت'];
+    const DUEL_GLOBALS=['فقط هدشات مجاز است!','ممنوعیت هدشات؛ فقط شلیک به بدن!','راند با قوانین صدای معمولی؛ بدون محدودیت اضافه'];
+    const DUEL_MODE_LABELS={pure:'PURE 1V1',gadget:'GADGET ADVANTAGE',objective:'OBJECTIVE CONTROL',random:'RANDOM SCENARIO'};
+    function setDuelMode(mode) {
+      if(!DUEL_MODE_LABELS[mode])return;currentDuelMode=mode;
+      document.querySelectorAll('.duel-mode-btn').forEach(btn=>btn.classList.toggle('active',btn.dataset.duelMode===mode));
+      const badge=document.getElementById('duelModeBadge');if(badge)badge.textContent=DUEL_MODE_LABELS[mode];
+      if(currentDuelMatch)rollDuelMatch();
+    }
+    function duelPick(pool,fallback){return getRandomItem(pool.length?pool:fallback);}
+    function renderDuelStats(p1,p2) {
+      const rows=[['سرعت',Number(p1.speed)||1,Number(p2.speed)||1],['زره',Number(p1.armor)||1,Number(p2.armor)||1]];
+      const target=document.getElementById('duelStatComparison');
+      target.innerHTML=rows.map(([label,a,b])=>{const max=Math.max(3,a,b),left=Math.round(a/max*100),right=Math.round(b/max*100);return '<div class="duel-stat-row"><span class="text-left text-siege-cyan font-bold">'+a+'/3</span><div><div class="flex justify-between mb-1 text-slate-400"><span>'+label+'</span><span>'+b+'/3</span></div><div class="duel-stat-track"><span class="duel-stat-left" style="width:'+left+'%"></span><span class="duel-stat-right" style="width:'+right+'%"></span></div></div><span class="text-right text-siege-orange font-bold">'+b+'/3</span></div>';}).join('');
+    }
+    function duelRulesForMode(p1,p2,mode) {
+      if(mode==='pure')return {w1:'سلاح اصلی یا کمری',w2:'سلاح اصلی یا کمری',m1:'حرکت عادی',m2:'حرکت عادی',global:'Gunskill خالص؛ بدون استفاده از گجت‌های فعال برای آسیب‌رسانی.'};
+      if(mode==='gadget')return {w1:'سلاح دلخواه',w2:'سلاح دلخواه',m1:'استفاده از گجت مجاز',m2:'استفاده از گجت مجاز',global:'گجت‌ها در تصمیم‌گیری مهم‌اند؛ قوانین بازی و قابلیت واقعی هر اپراتور را رعایت کنید.'};
+      if(mode==='objective')return {w1:'سلاح دلخواه',w2:'سلاح دلخواه',m1:'حمله به نقطه‌ی هدف',m2:'دفاع از نقطه‌ی هدف',global:'برنده بر اساس کنترل هدف و اجرای سناریو تعیین می‌شود، نه صرفاً سرعت یا زره.'};
+      return {w1:getRandomItem(DUEL_WEAPONS),w2:getRandomItem(DUEL_WEAPONS),m1:getRandomItem(DUEL_MOVES),m2:getRandomItem(DUEL_MOVES),global:getRandomItem(DUEL_GLOBALS)};
+    }
     function rollDuelMatch() {
-      const active = OPERATORS.filter(o => !bannedOpIds.includes(o.id));
-      if (active.length < 2) return;
-      const p1 = getRandomItem(active);
-      const p2 = getRandomItem(active.filter(o => o.id !== p1.id));
-
-      document.getElementById('duelP1Op').innerText = p1.name.toUpperCase();
-      document.getElementById('duelP1Weapon').innerText = getRandomItem(DUEL_WEAPONS);
-      document.getElementById('duelP1Move').innerText = getRandomItem(DUEL_MOVES);
-
-      document.getElementById('duelP2Op').innerText = p2.name.toUpperCase();
-      document.getElementById('duelP2Weapon').innerText = getRandomItem(DUEL_WEAPONS);
-      document.getElementById('duelP2Move').innerText = getRandomItem(DUEL_MOVES);
-      document.getElementById('duelGlobalRule').innerText = getRandomItem(DUEL_GLOBALS);
-
-      duelRollCanClaimXp = true;
-      const btn = document.getElementById('duelConfirmXpBtn');
-      btn.disabled = false;
-      btn.className = 'px-4 py-3.5 rounded-xl bg-siege-cyan/20 border-2 border-siege-cyan text-siege-cyan hover:bg-siege-cyan hover:text-black font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95';
-
-      playTone(720, 'triangle', 0.09);
+      const active=OPERATORS.filter(o=>!bannedOpIds.includes(o.id));if(active.length<2){showToast('برای دوئل حداقل دو اپراتور آزاد لازم است.');return;}
+      const p1=getRandomItem(active),p2=getRandomItem(active.filter(o=>o.id!==p1.id));
+      const rules=duelRulesForMode(p1,p2,currentDuelMode);currentDuelMatch={p1,p2,rules,mode:currentDuelMode};
+      document.getElementById('duelP1Op').innerText=p1.name.toUpperCase();document.getElementById('duelP2Op').innerText=p2.name.toUpperCase();
+      document.getElementById('duelP1Weapon').innerText=rules.w1;document.getElementById('duelP2Weapon').innerText=rules.w2;
+      document.getElementById('duelP1Move').innerText=rules.m1;document.getElementById('duelP2Move').innerText=rules.m2;
+      document.getElementById('duelP1Stats').innerText=(p1.speed||'—')+' SPD / '+(p1.armor||'—')+' ARM';document.getElementById('duelP2Stats').innerText=(p2.speed||'—')+' SPD / '+(p2.armor||'—')+' ARM';
+      document.getElementById('duelP1Img').src=getOperatorIconUrl(p1.slug);document.getElementById('duelP2Img').src=getOperatorIconUrl(p2.slug);
+      document.getElementById('duelP1Img').alt=p1.name;document.getElementById('duelP2Img').alt=p2.name;
+      document.getElementById('duelGlobalRule').innerText=rules.global;renderDuelStats(p1,p2);
+      const verdict=document.getElementById('duelVerdict');
+      const speedDiff=(Number(p1.speed)||0)-(Number(p2.speed)||0),armorDiff=(Number(p1.armor)||0)-(Number(p2.armor)||0);
+      let line='برتری قطعی قابل تعیین نیست؛ نقشه، سلاح انتخابی، گجت و مهارت بازیکن نتیجه را تغییر می‌دهند.';
+      if(currentDuelMode==='objective')line='سناریو محور است: مهاجم باید هدف را اجرا کند و مدافع باید زمان و مسیر را کنترل کند.';
+      else if(currentDuelMode==='gadget')line='مقایسه‌ی گجت‌محور: قابلیت‌ها را در سناریوی واقعی بسنجید؛ آمار پایه به‌تنهایی تعیین‌کننده نیست.';
+      else if(speedDiff||armorDiff)line='تفاوت پایه: '+(speedDiff?'سرعت '+(speedDiff>0?p1.name:p2.name)+' بالاتر است. ':'')+(armorDiff?'زره '+(armorDiff>0?p1.name:p2.name)+' بالاتر است. ':'')+'این تفاوت به معنی برنده‌ی قطعی نیست.';
+      verdict.innerText=line;
+      duelRollCanClaimXp=true;const btn=document.getElementById('duelConfirmXpBtn');btn.disabled=false;btn.className='px-3 py-3 rounded-xl bg-siege-cyan/20 border border-siege-cyan text-siege-cyan text-xs';
+      playTone(720,'triangle',.09);
     }
-
+    function shareDuelMatch() {
+      if(!currentDuelMatch){showToast('اول یک دوئل بساز.');return;}
+      const m=currentDuelMatch;shareTextPayload('R6 Duel Arena',m.p1.name+' VS '+m.p2.name+'\nMode: '+DUEL_MODE_LABELS[m.mode]+'\n'+m.rules.global+'\n'+m.p1.name+': '+m.rules.w1+' / '+m.rules.m1+'\n'+m.p2.name+': '+m.rules.w2+' / '+m.rules.m2+'\nNo guaranteed winner — skill and map matter.');
+    }
     function confirmDuelXp() {
-      if (!duelRollCanClaimXp) return;
-      duelRollCanClaimXp = false;
-      if (!claimDailyXp('duel', 20)) {
-        const btn = document.getElementById('duelConfirmXpBtn');
-        btn.disabled = true; btn.innerText = 'سهمیه‌ی امتیاز تمام شد'; return;
+      if(!duelRollCanClaimXp)return;duelRollCanClaimXp=false;
+      if(!claimDailyXp('duel',20)){const btn=document.getElementById('duelConfirmXpBtn');btn.disabled=true;btn.innerText='سهمیه تمام شد';return;}
+      userProfile.rolls=(userProfile.rolls||0)+1;saveProfile();const btn=document.getElementById('duelConfirmXpBtn');btn.disabled=true;btn.className='px-3 py-3 rounded-xl bg-siege-surface border border-siege-border text-slate-500 text-xs opacity-50';
+      showToast('دوئل ثبت شد؛ ۲۰ XP دریافت کردی!');playTone(840,'sine',.1);
+    }
+    function startDuelTournament() {
+      const size=Number(document.getElementById('duelTournamentSize').value)===16?16:8;
+      const active=OPERATORS.filter(o=>!bannedOpIds.includes(o.id));
+      if(active.length<size){showToast('تعداد اپراتورهای آزاد برای این تورنمنت کافی نیست.');return;}
+      const entrants=[...active].sort(()=>Math.random()-.5).slice(0,size);
+      duelTournament={round:1,rounds:[entrants.map((op,i)=>({a:op,b:entrants[i+1],winner:null})).filter((m,i)=>i%2===0)],champion:null,size};
+      duelTournament.rounds[0]=[];
+      for(let i=0;i<entrants.length;i+=2)duelTournament.rounds[0].push({a:entrants[i],b:entrants[i+1],winner:null});
+      renderDuelTournament();const share=document.getElementById('duelTournamentShare');share.disabled=true;
+    }
+    function renderDuelTournament() {
+      const board=document.getElementById('duelTournamentBoard');if(!duelTournament){board.innerHTML='<div class="text-xs text-slate-500 text-center py-3">تورنمنت هنوز شروع نشده است.</div>';return;}
+      const t=duelTournament,round=t.rounds[t.round-1]||[];
+      if(t.champion){board.innerHTML='<div class="rounded-xl border border-siege-yellow/40 bg-siege-yellow/5 p-4 text-center"><i class="fa-solid fa-trophy text-2xl text-siege-yellow"></i><div class="text-[9px] tracking-widest text-siege-yellow mt-2">TOURNAMENT CHAMPION</div><div class="text-xl font-black text-white mt-1">'+t.champion.name+'</div></div>';document.getElementById('duelTournamentShare').disabled=false;return;}
+      const names=['ROUND OF '+t.size,'QUARTER-FINALS','SEMI-FINALS','GRAND FINAL'];const title= t.size===8?['QUARTER-FINALS','SEMI-FINALS','GRAND FINAL'][t.round-1]:['ROUND OF 16','QUARTER-FINALS','SEMI-FINALS','GRAND FINAL'][t.round-1];
+      board.innerHTML='<div class="duel-round-title mb-2">'+title+'</div><div class="grid grid-cols-1 sm:grid-cols-2 gap-2">'+round.map((m,i)=>'<div class="duel-match-card"><div class="text-[9px] text-slate-500 mb-2">MATCH '+(i+1)+'</div><div class="text-xs font-bold text-white">'+m.a.name+'</div><div class="text-[9px] text-siege-red font-mono my-1">VS</div><div class="text-xs font-bold text-white">'+m.b.name+'</div>'+(m.winner?'<div class="text-[10px] text-siege-yellow mt-2">برنده: '+m.winner.name+'</div>':'<button type="button" onclick="advanceDuelTournament('+i+',0)">برد '+m.a.name+'</button><button type="button" onclick="advanceDuelTournament('+i+',1)">برد '+m.b.name+'</button>')+'</div>').join('')+'</div>';
+    }
+    function advanceDuelTournament(matchIndex,sideIndex) {
+      const t=duelTournament;if(!t)return;const round=t.rounds[t.round-1],match=round&&round[matchIndex];if(!match||match.winner)return;
+      match.winner=sideIndex===0?match.a:match.b;
+      if(round.every(m=>m.winner)){
+        const winners=round.map(m=>m.winner);
+        if(winners.length===1){t.champion=winners[0];}
+        else{t.round++;const next=[];for(let i=0;i<winners.length;i+=2)next.push({a:winners[i],b:winners[i+1],winner:null});t.rounds.push(next);}
       }
-      userProfile.rolls = (userProfile.rolls || 0) + 1;
-      saveProfile();
-      const btn = document.getElementById('duelConfirmXpBtn');
-      btn.disabled = true;
-      btn.className = 'px-4 py-3.5 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs flex items-center justify-center gap-1.5 opacity-50 pointer-events-none';
-      showToast('✅ رقابت ثبت شد؛ ۲۰ امتیاز تجربه دریافت کردی!');
-      playTone(840, 'sine', 0.1);
+      renderDuelTournament();
+    }
+    function shareDuelTournament() {
+      if(!duelTournament||!duelTournament.champion){showToast('اول تورنمنت را تا تعیین قهرمان کامل کن.');return;}
+      shareTextPayload('R6 Operator Tournament','Champion: '+duelTournament.champion.name+'\n'+duelTournament.size+'-operator elimination tournament\nR6 Command Center Pro');
     }
 
     /* 15. TACTICAL TOOLS (MAP ROULETTE & BOMB TIMER) */
