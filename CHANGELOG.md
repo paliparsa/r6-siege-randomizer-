@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.9.1 — 2026-10-24
+
+### Fixed
+- Duel matchups now always pair one attacker against one defender; two attackers or two defenders can no longer be drawn against each other.
+- Rebuilt the duel cards around each operator's real gadget and listed weapons instead of arbitrary player-specific weapon/movement restrictions.
+- Removed speed/armor stat comparisons and all speed-based verdict logic from the duel UI.
+- Added concise explanations for each duel mode, clear win conditions, and a random challenge drawn from the same tactical-challenge database.
+- Removed the challenge count from the Tactical Challenges tab title.
+- Bumped app version to 1.9.1 and Service Worker cache to r6-cache-v22.
+
+### Validation
+- Source checks cover attack-vs-defense selection, shared mode descriptions, challenge-database reuse, and removal of speed controls/comparisons.
+
 ## 1.9.0 — 2026-10-24
 
 ### Added
