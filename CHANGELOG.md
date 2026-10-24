@@ -14,7 +14,6 @@
 ### Validation
 - Source-level checks verify version/cache alignment, design tokens, reduced-motion rules, and preservation of existing functional entry points. Browser/device visual regression testing remains to be completed.
 
-# Changelog
 
 ## 1.4.2 — 2026-10-24
 
@@ -71,7 +70,6 @@
 - Source checks verify UI targets, handlers, XP flows, version/cache, and tournament progression logic.
 - Browser/device visual testing and live deployment health have not been verified.
 
-# Changelog
 
 ## 1.2.0 — 2026-10-24
 
