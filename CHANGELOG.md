@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.4.0 — 2026-10-24
+
+### Added
+- Expanded Duo Synergy from 8 entries to a 120+ curated-pair target across Attack and Defense, using operators in the app roster and gadget-aware tactical guidance.
+- Added Duo search across operator names, gadget roles, combo titles, and execution plans, plus live matching-count feedback.
+- Added procedural tactical UI sound effects across buttons and interactive controls, with the existing global sound mute respected.
+- Improved operator portrait clarity in Duo Synergy and Duel Arena with full-opacity, higher-contrast rendering and subtle contrast lighting.
+
+### Improved
+- Kept sound generation procedural in-browser; no copyrighted Rainbow Six audio files are bundled or represented as official game recordings.
+- Bumped app version to 1.4.0 and Service Worker cache to `r6-cache-v10`.
+
+### Validation
+- Source-level validation is performed before merge; live browser/device audio, portrait CDN availability, and deployment health must still be verified in a real browser.
+
 ## 1.3.0 — 2026-10-24
 
 ### Added
