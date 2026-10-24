@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.3.0 — 2026-10-24
+
+### Added
+- Rebuilt Duo Synergy with cinematic operator cards, attack/defense filtering, synergy categories, execution plan, analysis tags, and native-share/copy fallback.
+- Added Duel Arena modes for pure 1v1, gadget advantage, objective control, and random scenarios, with operator portraits, speed/armor comparison, transparent verdicts, and sharing.
+- Added playable 8/16-operator single-elimination tournament where users advance winners manually and share the champion.
+- Added responsive tactical styling and reduced-motion support.
+
+### Improved
+- Kept existing daily XP claiming behavior and banned-operator exclusion for duels/tournament entrants.
+- Avoided claiming a definitive duel winner from speed/armor alone; analysis explicitly accounts for player skill and scenario.
+- Bumped app version to 1.3.0 and Service Worker cache to `r6-cache-v9`.
+
+### Validation
+- Source checks verify UI targets, handlers, XP flows, version/cache, and tournament progression logic.
+- Browser/device visual testing and live deployment health have not been verified.
+
+# Changelog
+
 ## 1.2.0 — 2026-10-24
 
 ### Added
