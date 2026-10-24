@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#0B0D0F">
-  <meta name="app-version" content="1.8.3">
+  <meta name="app-version" content="1.9.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -970,7 +970,7 @@
       <!-- 2A. 55 SECRET STRATS CARD -->
       <div id="opsStratsView" class="flex-1 flex flex-col justify-between gap-2.5 min-h-0">
         <div class="grid grid-cols-3 gap-1.5 bg-siege-card/70 p-1 rounded-xl border border-siege-border shrink-0">
-          <button onclick="setStratSide('all')" id="stratSideAll" class="py-1 rounded-lg text-[11px] font-bold bg-siege-yellow/20 text-siege-yellow border border-siege-yellow/40">همه (55)</button>
+          <button onclick="setStratSide('all')" id="stratSideAll" class="py-1 rounded-lg text-[11px] font-bold bg-siege-yellow/20 text-siege-yellow border border-siege-yellow/40">همه (110)</button>
           <button onclick="setStratSide('atk')" id="stratSideAtk" class="py-1 rounded-lg text-[11px] font-bold text-slate-400">ویژه حمله</button>
           <button onclick="setStratSide('def')" id="stratSideDef" class="py-1 rounded-lg text-[11px] font-bold text-slate-400">ویژه دفاع</button>
         </div>
@@ -986,7 +986,7 @@
           </div>
 
           <div class="my-auto py-2 space-y-2">
-            <div class="text-[11px] font-mono text-slate-400" id="stratCounterCode">چالش ۰۱ از ۵۵</div>
+            <div class="text-[11px] font-mono text-slate-400" id="stratCounterCode">چالش ۰۱ از ۱۱۰</div>
             <h2 id="stratTitleText" class="text-xl sm:text-2xl font-black text-white leading-snug">راش ۳۰ ثانیه‌ای (Blitzkrieg)</h2>
             <p id="stratDescText" class="text-xs sm:text-sm text-slate-300 leading-relaxed bg-siege-dark/90 p-3.5 rounded-xl border border-siege-border">
               تمام مهاجمان موظفند در ۳۰ ثانیه اول راند داخل اتاق بمب باشند! ایستادن بیرون ساختمان ممنوع است.
@@ -2082,7 +2082,62 @@
       { id: 52, side: 'all', diff: 'RECRUIT', title: 'اپراتورهای تازه نفس (Year 8 & 9 Only)', desc: 'فقط مجاز به انتخاب جدیدترین اپراتورهای بازی (Striker, Sentry, Skopos, Deimos, Ram, Fenrir, Brava, Tubarao) هستید.' },
       { id: 53, side: 'all', diff: 'HARDCORE', title: 'نبرد گلادیاتور (1 by 1 Engagement)', desc: 'فقط یک نفر اجازه درگیری دارد؛ تا زمانی که نفر اول زنده است، بقیه منتظر می‌مانند!' },
       { id: 54, side: 'all', diff: 'VETERAN', title: 'خشاب اول را خالی کن!', desc: 'در ثانیه اول راند، یک خشاب کامل از سلاح اصلی خود را به هوا شلیک کنید و با مهمات باقی‌مانده بجنگید.' },
-      { id: 55, side: 'all', diff: 'RECRUIT', title: 'کپی از رندمایزر (Blind Pick)', desc: 'هر اپراتوری که در رندمایزر برایتان افتاد را بدون تغییر هیچ اتچمنتی قفل کنید!' }
+      { id: 55, side: 'all', diff: 'RECRUIT', title: 'کپی از رندمایزر (Blind Pick)', desc: 'هر اپراتوری که در رندمایزر برایتان افتاد را بدون تغییر هیچ اتچمنتی قفل کنید!' },
+      { id: 56, side: 'atk', diff: 'RECRUIT', title: 'تپانچه‌زن‌های بی‌رحم', desc: 'فقط سلاح کمری؛ سلاح اصلی فقط برای شکستن مانع یا گجت.' },
+      { id: 57, side: 'atk', diff: 'VETERAN', title: 'شاتگان و شارژ', desc: 'همه شاتگان بردارند و هماهنگ وارد شوند؛ از فاصله دور درگیر نشوید.' },
+      { id: 58, side: 'atk', diff: 'RECRUIT', title: 'هیپ‌فایر قهرمانانه', desc: 'ADS ممنوع؛ فقط شلیک از لگن و جابه‌جایی هوشمندانه.' },
+      { id: 59, side: 'atk', diff: 'HARDCORE', title: 'تک‌تیر، تک‌امید', desc: 'اگر سلاح حالت شلیک تکی دارد، فقط همان حالت مجاز است.' },
+      { id: 60, side: 'atk', diff: 'VETERAN', title: 'تیم بدون پهپاد', desc: 'پس از پایان Prep Phase دیگر از درون استفاده نکنید.' },
+      { id: 61, side: 'atk', diff: 'RECRUIT', title: 'پادشاه چاقو', desc: 'در فاصله امن نزدیک، تلاش برای melee امتیاز دارد؛ در خطر فوری دفاع کنید.' },
+      { id: 62, side: 'atk', diff: 'VETERAN', title: 'دیفیوزر VIP', desc: 'حامل دیفیوزر باید محافظت شود و تا جای ممکن از درگیری مستقیم دور بماند.' },
+      { id: 63, side: 'atk', diff: 'HARDCORE', title: 'پلنت در سکوت', desc: 'از لحظه شروع پلنت تا پایان آن، سکوت رادیویی؛ فقط پینگ.' },
+      { id: 64, side: 'atk', diff: 'RECRUIT', title: 'پینگ‌محور', desc: 'کال صوتی موقعیت ممنوع؛ برای اطلاعات از پینگ استفاده کنید.' },
+      { id: 65, side: 'atk', diff: 'VETERAN', title: 'دو نفر جلو، سه نفر پشتیبان', desc: 'دو نفر ورود را انجام دهند و بقیه از زاویه امن پوشش دهند.' },
+      { id: 66, side: 'atk', diff: 'RECRUIT', title: 'همه با یک کلاس سلاح', desc: 'قبل راند یک کلاس سلاح انتخاب کنید و همه همان را بردارند.' },
+      { id: 67, side: 'atk', diff: 'VETERAN', title: 'جشن تخریب', desc: 'پیش از ورود، مسیرهای نرم را برای ساخت زاویه باز کنید.' },
+      { id: 68, side: 'atk', diff: 'HARDCORE', title: 'فقط یک خشاب', desc: 'خشاب را مدیریت کنید؛ ریلود فقط پس از خالی شدن خشاب.' },
+      { id: 69, side: 'atk', diff: 'RECRUIT', title: 'پشت‌به‌پشت', desc: 'هیچ‌کس تنها نرود؛ اگر یار عقب ماند، گروه توقف کند.' },
+      { id: 70, side: 'atk', diff: 'VETERAN', title: 'ورود از مسیر جایگزین', desc: 'از مسیر بدیهی وارد نشوید؛ مسیر جایگزین امن پیدا کنید.' },
+      { id: 71, side: 'atk', diff: 'RECRUIT', title: 'اسکواد پینگ', desc: 'از پینگ‌های کوتاه و دقیق استفاده کنید، نه اسپم.' },
+      { id: 72, side: 'atk', diff: 'HARDCORE', title: 'بدون ریلود وسط درگیری', desc: 'وسط درگیری ریلود نکنید؛ ابتدا به کاور بروید یا هماهنگ کنید.' },
+      { id: 73, side: 'atk', diff: 'VETERAN', title: 'گجت قبل از گلوله', desc: 'پیش از اولین درگیری، از گجت مفید برای اطلاعات یا کنترل استفاده کنید.' },
+      { id: 74, side: 'atk', diff: 'RECRUIT', title: 'راش با ترمز دستی', desc: 'با اولین پینگ دشمن پشت کاور توقف کنید و با فرمان لیدر ادامه دهید.' },
+      { id: 75, side: 'atk', diff: 'VETERAN', title: 'اسکورت قهرمان', desc: 'یک لیدر مسیر را تعیین کند؛ بقیه او را پوشش دهند و بی‌دلیل جلو نزنند.' },
+      { id: 76, side: 'def', diff: 'RECRUIT', title: 'باشگاه شاتگان', desc: 'در صورت داشتن انتخاب مناسب، شاتگان بردارید و مسیرهای نزدیک را پوشش دهید.' },
+      { id: 77, side: 'def', diff: 'VETERAN', title: 'تقویت حداقلی', desc: 'فقط دیوارهای حیاتی را تقویت کنید و مسیر چرخش را باز نگه دارید.' },
+      { id: 78, side: 'def', diff: 'HARDCORE', title: 'نگهبانان گجت', desc: 'هر بازیکن مسئول مراقبت از یک گجت یا مسیر باشد.' },
+      { id: 79, side: 'def', diff: 'RECRUIT', title: 'گشتِ خمیده', desc: 'در چرخش‌های امن crouch حرکت کنید؛ برای شوخی جان ندهید.' },
+      { id: 80, side: 'def', diff: 'VETERAN', title: 'تله‌خانه', desc: 'تله‌ها را در مسیرهای محتمل بگذارید و محل‌شان را به هم‌تیمی‌ها بگویید.' },
+      { id: 81, side: 'def', diff: 'RECRUIT', title: 'هم‌خانه‌های سایت', desc: 'در شروع یک محدوده نزدیک سایت انتخاب کنید و بی‌دلیل پراکنده نشوید.' },
+      { id: 82, side: 'def', diff: 'HARDCORE', title: 'بدون دوربین پس از آماده‌سازی', desc: 'پس از Prep Phase دوربین مدافعان ممنوع؛ فقط اطلاعات زنده هم‌تیمی‌ها.' },
+      { id: 83, side: 'def', diff: 'VETERAN', title: 'تعویض نگهبان', desc: 'وقتی کسی موقعیت را ترک می‌کند، نفر دیگری زاویه‌اش را پوشش دهد.' },
+      { id: 84, side: 'def', diff: 'RECRUIT', title: 'آژیر خطر انسانی', desc: 'اولین نفر که دشمن را می‌بیند کال کوتاه بدهد؛ از تکرار بی‌فایده پرهیز کنید.' },
+      { id: 85, side: 'def', diff: 'HARDCORE', title: 'بدون تعقیب تک‌نفره', desc: 'تنهایی دنبال دشمن نروید؛ با یار حرکت کنید یا سایت را نگه دارید.' },
+      { id: 86, side: 'def', diff: 'VETERAN', title: 'قلعه هوشمند', desc: 'از ابزار دفاعی برای کندکردن مسیر استفاده کنید؛ مسیر چرخش را نبندید.' },
+      { id: 87, side: 'def', diff: 'RECRUIT', title: 'نگهبانان کلت', desc: 'درگیری فقط با سلاح کمری؛ گجت‌ها آزادند.' },
+      { id: 88, side: 'def', diff: 'VETERAN', title: 'دفاع لایه‌ای', desc: 'لایه نزدیک سایت، پشتیبان و مسیر چرخش مشخص کنید.' },
+      { id: 89, side: 'def', diff: 'HARDCORE', title: 'آماده‌سازی بی‌سروصدا', desc: 'در Prep Phase محل دقیق اپراتورها را بلند اعلام نکنید.' },
+      { id: 90, side: 'def', diff: 'RECRUIT', title: 'شکارچی پهپاد', desc: 'پهپاد را فقط وقتی امن است از بین ببرید؛ موقعیت را بی‌دلیل رها نکنید.' },
+      { id: 91, side: 'def', diff: 'VETERAN', title: 'تله و پوشش', desc: 'تله‌ها را با زاویه هم‌تیمی پوشش دهید تا امکان trade وجود داشته باشد.' },
+      { id: 92, side: 'def', diff: 'RECRUIT', title: 'چرخش فقط با اطلاعات', desc: 'بدون نشانه فشار، بی‌دلیل از محدوده مسئولیت خارج نشوید.' },
+      { id: 93, side: 'def', diff: 'HARDCORE', title: 'بدون شلیک عجولانه', desc: 'با شنیدن صدا کورکورانه شلیک نکنید؛ زاویه امن بگیرید.' },
+      { id: 94, side: 'def', diff: 'VETERAN', title: 'تیم ضدراش', desc: 'مسیر اصلی و جایگزین را جداگانه پوشش دهید؛ زاویه‌ها را هماهنگ کنید.' },
+      { id: 95, side: 'def', diff: 'RECRUIT', title: 'آخرین نفر سایت', desc: 'یک نفر نگهبان سایت باشد؛ بقیه مسیر برگشت را حفظ کنند.' },
+      { id: 96, side: 'all', diff: 'RECRUIT', title: 'چرخش و شلیک', desc: 'پیش از درگیری امن یک چرخش کامل انجام دهید؛ در خطر این قانون لغو است.' },
+      { id: 97, side: 'all', diff: 'VETERAN', title: 'انضباط خشاب', desc: 'تعداد تیرها را مدیریت کنید و وسط زاویه بی‌موقع ریلود نکنید.' },
+      { id: 98, side: 'all', diff: 'RECRUIT', title: 'داخل ساختمان بدون دویدن', desc: 'داخل ساختمان sprint نکنید؛ صدا و حرکت آرام اولویت دارد.' },
+      { id: 99, side: 'all', diff: 'HARDCORE', title: 'فقط صدای بازی', desc: 'کال‌ها کوتاه باشند و از صدای قدم و گجت برای تشخیص موقعیت استفاده کنید.' },
+      { id: 100, side: 'all', diff: 'VETERAN', title: 'یار آینه‌ای', desc: 'یک یار مشخص انتخاب کنید و حرکت‌ها را هماهنگ دنبال کنید.' },
+      { id: 101, side: 'all', diff: 'RECRUIT', title: 'انتخاب تصادفی و تعهد', desc: 'اپراتور رندوم را قبول کنید؛ بعد از انتخاب تعویض ممنوع.' },
+      { id: 102, side: 'all', diff: 'HARDCORE', title: 'اول گجت، بعد گلوله', desc: 'در اولین برخورد از گجت برای اطلاعات یا کنترل استفاده کنید، مگر خطر فوری.' },
+      { id: 103, side: 'all', diff: 'VETERAN', title: 'کال‌اوت تک‌واژه‌ای', desc: 'برای این راند کال‌ها را به واژه‌های توافقی کوتاه محدود کنید.' },
+      { id: 104, side: 'all', diff: 'RECRUIT', title: 'مسابقه پینگ', desc: 'پیش از کال صوتی موقعیت دشمن، اول پینگ بزنید؛ پینگ را اسپم نکنید.' },
+      { id: 105, side: 'all', diff: 'VETERAN', title: 'ممنوعیت انتخاب همیشگی', desc: 'اپراتور محبوب همیشگی‌تان ممنوع؛ یک انتخاب متفاوت بردارید.' },
+      { id: 106, side: 'all', diff: 'HARDCORE', title: 'شلیک کنترل‌شده', desc: 'اسپری طولانی ممنوع؛ شلیک‌ها کوتاه و کنترل‌شده باشند.' },
+      { id: 107, side: 'all', diff: 'RECRUIT', title: 'اسکواد تم‌دار', desc: 'یک تم مثل اپراتورهای تله‌گذار یا اطلاعاتی انتخاب کنید و هماهنگ بازی کنید.' },
+      { id: 108, side: 'all', diff: 'VETERAN', title: 'کیل و جابه‌جایی', desc: 'بعد از کیل، اگر امن است موقعیت را عوض کنید تا قابل پیش‌بینی نباشید.' },
+      { id: 109, side: 'all', diff: 'RECRUIT', title: 'کاپیتان یک‌راندی', desc: 'یک نفر مسیر کلی را پیشنهاد دهد؛ اطلاعات مهم همه آزاد است.' },
+      { id: 110, side: 'all', diff: 'HARDCORE', title: 'گجت دوستان ممنوع‌الهدف', desc: 'گجت هم‌تیمی را خراب نکنید و پیش از تخریب مانع مراقب ابزار دوستان باشید.' }
     ];
 
     /* 5. PROGRESSION 2.0 (RANKS, XP & ALPHA PACK REWARDS) */
@@ -2641,7 +2696,7 @@
       card.classList.add('scanning', 'card-flipping');
 
       currentStratObj = getRandomItem(pool);
-      document.getElementById('stratCounterCode').innerText = `چالش ${String(currentStratObj.id).padStart(2, '0')} از ۵۵`;
+      document.getElementById('stratCounterCode').innerText = `چالش ${String(currentStratObj.id).padStart(2, '0')} از ${STRAT_CHALLENGES.length}`;
       document.getElementById('stratTitleText').innerText = currentStratObj.title;
       document.getElementById('stratDescText').innerText = currentStratObj.desc;
       document.getElementById('stratDiffBadge').innerText = ({ VETERAN: 'سخت', HARD: 'سخت', MEDIUM: 'متوسط', EASY: 'آسان' })[currentStratObj.diff] || currentStratObj.diff;
