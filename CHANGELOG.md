@@ -12,7 +12,6 @@
 ### Validation
 - Source-level checks cover the version/cache bump, key HQ/Operations/Tools selectors, timer styling hooks, and reduced-motion handling. Browser/device visual regression testing remains outstanding.
 
-# Changelog
 
 ## 1.5.0 — 2026-10-24
 
