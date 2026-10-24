@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.4.2 — 2026-10-24
+
+### Added
+- Made the poster generator available from a persistent floating action on every main hub, including Operators, Operations, and Maps/Timer.
+- Added context-aware poster rendering for Duo Synergy, Duel Arena, tactical challenges, map/site briefing, and timer status, including operator portraits where relevant.
+- Kept the existing detailed solo, cursed-loadout, and five-operator squad posters in the Operators hub.
+- Updated poster filenames to use the current view's context and bumped the app version to 1.4.2 / Service Worker cache to `r6-cache-v12`.
+
+### Validation
+- Source-level checks cover all hub routes and poster export/download/share suffix handling. Live browser, image CDN, and share-sheet testing remains to be confirmed.
+
+
 ## 1.4.1 — 2026-10-24
 
 ### Fixed
