@@ -9,7 +9,7 @@
   <!-- PWA & Dynamic Favicon -->
   <link rel="icon" id="dynamicFavicon" type="image/svg+xml">
   <link rel="apple-touch-icon" id="dynamicAppleIcon">
-  <link rel="manifest" id="dynamicManifest">
+  <link rel="manifest" id="dynamicManifest" href="./manifest.json">
 
   <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -971,7 +971,7 @@
       theme_color: "#06090f",
       icons: [{ src: R6_ICON_URI, sizes: "512x512", type: "image/svg+xml" }]
     };
-    document.getElementById('dynamicManifest').href = URL.createObjectURL(new Blob([JSON.stringify(pwaManifest)], { type: 'application/json' }));
+    document.getElementById('dynamicManifest').href = './manifest.json';
 
     /* 2. HAPTIC FEEDBACK & PROCEDURAL AUDIO ENGINE */
     let audioCtx = null;
@@ -1230,8 +1230,31 @@
     ];
 
     /* 6. APPLICATION STATE */
-    let bannedOpIds = JSON.parse(localStorage.getItem('r6_banned_ops_v1') || '[]');
-    let userProfile = JSON.parse(localStorage.getItem('r6_profile_v2') || '{"callsign":"OPERATOR","title":"Recruit Operative","xp":30,"rolls":0,"wins":0,"packs":1,"favs":[],"skin":"default"}');
+    const DEFAULT_PROFILE = { callsign: 'OPERATOR', title: 'Recruit Operative', xp: 30, rolls: 0, wins: 0, packs: 1, favs: [], skin: 'default' };
+    function readLocalJson(key, fallback) {
+      try { const raw = window.localStorage.getItem(key); return raw === null ? fallback : JSON.parse(raw); }
+      catch (error) { console.warn(`Unable to read local data for ${key}.`, error); return fallback; }
+    }
+    function safeWriteLocal(key, value) {
+      try { window.localStorage.setItem(key, JSON.stringify(value)); return true; }
+      catch (error) { console.warn(`Unable to save local data for ${key}.`, error); return false; }
+    }
+    function normalizeProfile(value) {
+      const source = value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+      const p = { ...DEFAULT_PROFILE, ...source };
+      p.callsign = typeof p.callsign === 'string' ? p.callsign.slice(0, 24) : DEFAULT_PROFILE.callsign;
+      p.title = typeof p.title === 'string' ? p.title.slice(0, 64) : DEFAULT_PROFILE.title;
+      p.xp = Number.isFinite(p.xp) && p.xp >= 0 ? Math.floor(p.xp) : DEFAULT_PROFILE.xp;
+      p.rolls = Number.isFinite(p.rolls) && p.rolls >= 0 ? Math.floor(p.rolls) : 0;
+      p.wins = Number.isFinite(p.wins) && p.wins >= 0 ? Math.floor(p.wins) : 0;
+      p.packs = Number.isFinite(p.packs) && p.packs >= 0 ? Math.floor(p.packs) : DEFAULT_PROFILE.packs;
+      p.favs = Array.isArray(p.favs) ? [...new Set(p.favs.filter(id => OPERATORS.some(op => op.id === id)))] : [];
+      p.skin = ['default', 'atk', 'def', 'blackice', 'keres', 'nighthaven'].includes(p.skin) ? p.skin : 'default';
+      return p;
+    }
+    const storedBans = readLocalJson('r6_banned_ops_v1', []);
+    let bannedOpIds = Array.isArray(storedBans) ? [...new Set(storedBans.filter(id => OPERATORS.some(op => op.id === id)))] : [];
+    let userProfile = normalizeProfile(readLocalJson('r6_profile_v2', DEFAULT_PROFILE));
 
     let currentHub = 'hq';
     let currentHqMode = 'standard'; // 'standard' | 'cursed' | 'squad'
@@ -1278,8 +1301,9 @@
 
     /* 8. XP, RANK & ALPHA PACK SYSTEM */
     function addXp(amount) {
+      if (!Number.isFinite(amount) || amount <= 0) return;
       const oldXp = userProfile.xp || 0;
-      userProfile.xp = oldXp + amount;
+      userProfile.xp = oldXp + Math.floor(amount);
       if (Math.floor(userProfile.xp / 200) > Math.floor(oldXp / 200)) {
         userProfile.packs = (userProfile.packs || 0) + 1;
         showToast(`🎁 لول‌آپ! یک Alpha Pack جدید جایزه گرفتید!`);
@@ -1290,7 +1314,29 @@
     }
 
     function saveProfile() {
-      localStorage.setItem('r6_profile_v2', JSON.stringify(userProfile));
+      const saved = safeWriteLocal('r6_profile_v2', userProfile);
+      if (!saved) showToast('ذخیره‌سازی مرورگر در دسترس نیست؛ تغییرات ممکن است ماندگار نشوند.');
+      return saved;
+    }
+
+    // Browser-side limits deter repetitive XP farming; they are not tamper-proof without a server.
+    const DAILY_XP_LIMITS = { hq: 10, duo: 3, duel: 3, strat: 5 };
+    function claimDailyXp(mode, amount) {
+      const today = new Date().toISOString().slice(0, 10);
+      const raw = readLocalJson('r6_xp_claims_v1', {});
+      const data = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
+      const entry = data[mode] && data[mode].date === today ? data[mode] : { date: today, count: 0 };
+      if (entry.count >= (DAILY_XP_LIMITS[mode] || 0)) {
+        showToast('سهمیه‌ی روزانه‌ی XP این بخش تکمیل شده؛ فردا دوباره امتحان کن.');
+        return false;
+      }
+      data[mode] = { date: today, count: entry.count + 1 };
+      if (!safeWriteLocal('r6_xp_claims_v1', data)) {
+        showToast('ثبت امتیاز ممکن نشد؛ فضای ذخیره‌سازی مرورگر را بررسی کن.');
+        return false;
+      }
+      addXp(amount);
+      return true;
     }
 
     function updateHeaderProgression() {
@@ -1442,8 +1488,13 @@
 
     function confirmHqSelection() {
       if (!hqRollCanClaimXp) return;
+      if (!claimDailyXp('hq', 15)) {
+        setHqConfirmButtonState(false);
+        document.getElementById('hqConfirmBtnText').innerText = 'سهمیه XP تکمیل شد';
+        return;
+      }
       userProfile.rolls = (userProfile.rolls || 0) + 1;
-      addXp(15);
+      saveProfile();
       setHqConfirmButtonState(false);
       triggerHaptic([20, 45, 30]);
       [587, 880].forEach((f, i) => setTimeout(() => playTone(f, 'sine', 0.1), i * 80));
@@ -1713,14 +1764,13 @@
       cBtn.className = 'w-full py-2.5 px-4 rounded-xl bg-siege-surface border border-siege-border text-slate-400 font-bold text-xs flex items-center justify-center gap-2 opacity-60';
       document.getElementById('stratCompleteBtnText').innerText = 'پیروزی ثبت شد ✓ (چالش بعدی را رول کنید)';
 
+      const xpAwarded = claimDailyXp('strat', 100);
       userProfile.wins = (userProfile.wins || 0) + 1;
       if (userProfile.wins % 5 === 0) {
         userProfile.packs = (userProfile.packs || 0) + 1;
-        showToast('🏆 ۵ چالش تکمیل شد! ۱ عدد Alpha Pack جایزه گرفتید!');
-      } else {
-        showToast('🎖️ پیروزی ثبت شد! +100 XP دریافت کردید.');
-      }
-      addXp(100);
+        showToast(xpAwarded ? '🏆 ۵ چالش تکمیل شد! Alpha Pack و +100 XP گرفتی!' : '🏆 ۵ چالش تکمیل شد! ۱ عدد Alpha Pack جایزه گرفتی!');
+      } else if (xpAwarded) showToast('🎖️ پیروزی ثبت شد! +100 XP دریافت کردی.');
+      saveProfile();
       triggerHaptic([30, 50, 40]);
       [523, 659, 784, 1046].forEach((f, idx) => setTimeout(() => playTone(f, 'sine', 0.11), idx * 85));
     }
@@ -1759,8 +1809,12 @@
     function confirmDuoXp() {
       if (!duoRollCanClaimXp) return;
       duoRollCanClaimXp = false;
+      if (!claimDailyXp('duo', 20)) {
+        const btn = document.getElementById('duoConfirmXpBtn');
+        btn.disabled = true; btn.innerText = 'سهمیه XP تکمیل شد'; return;
+      }
       userProfile.rolls = (userProfile.rolls || 0) + 1;
-      addXp(20);
+      saveProfile();
       const btn = document.getElementById('duoConfirmXpBtn');
       btn.disabled = true;
       btn.className = 'px-4 py-3.5 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs flex items-center justify-center gap-1.5 opacity-50 pointer-events-none';
@@ -1798,8 +1852,12 @@
     function confirmDuelXp() {
       if (!duelRollCanClaimXp) return;
       duelRollCanClaimXp = false;
+      if (!claimDailyXp('duel', 20)) {
+        const btn = document.getElementById('duelConfirmXpBtn');
+        btn.disabled = true; btn.innerText = 'سهمیه XP تکمیل شد'; return;
+      }
       userProfile.rolls = (userProfile.rolls || 0) + 1;
-      addXp(20);
+      saveProfile();
       const btn = document.getElementById('duelConfirmXpBtn');
       btn.disabled = true;
       btn.className = 'px-4 py-3.5 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs flex items-center justify-center gap-1.5 opacity-50 pointer-events-none';
@@ -1823,6 +1881,7 @@
     }
 
     let timerDuration = 180, timerRemaining = 180, timerInterval = null, isTimerRunning = false;
+    let timerEndAt = null, lastTimerBeepSecond = null;
 
     function formatTime(sec) {
       const m = Math.floor(sec / 60).toString().padStart(2, '0');
@@ -1832,52 +1891,56 @@
 
     function setTimerPreset(sec, label) {
       resetTimer();
-      timerDuration = sec;
-      timerRemaining = sec;
+      timerDuration = Math.max(1, Math.floor(Number(sec) || 1));
+      timerRemaining = timerDuration;
       document.getElementById('timerSubText').innerText = label;
-      document.getElementById('bigTimerDisplay').innerText = formatTime(sec);
+      document.getElementById('bigTimerDisplay').innerText = formatTime(timerRemaining);
       playTone(500, 'sine', 0.05);
     }
 
     function startDefuseCountdown(sec = 7) {
-      setTimerPreset(sec, 'DEFUSER COUNTDOWN (7s)');
+      const duration = Math.max(1, Math.floor(Number(sec) || 7));
+      setTimerPreset(duration, `DEFUSER COUNTDOWN (${duration}s)`);
       startStopTimer();
     }
 
+    function updateTimerTick() {
+      if (!isTimerRunning || timerEndAt === null) return;
+      const msLeft = Math.max(0, timerEndAt - Date.now());
+      const next = Math.ceil(msLeft / 1000);
+      if (next !== timerRemaining) {
+        timerRemaining = next;
+        document.getElementById('bigTimerDisplay').innerText = formatTime(timerRemaining);
+        if (next <= 10 && next > 0 && next !== lastTimerBeepSecond) {
+          lastTimerBeepSecond = next; playTone(880, 'square', 0.04); triggerHaptic(25);
+        }
+      }
+      if (msLeft <= 0) {
+        clearInterval(timerInterval); timerInterval = null; timerEndAt = null; isTimerRunning = false; timerRemaining = 0;
+        document.getElementById('bigTimerDisplay').innerText = formatTime(0);
+        document.getElementById('timerStatusBadge').innerText = 'DETONATED';
+        document.getElementById('timerControlBtn').innerHTML = '<i class="fa-solid fa-play"></i><span>شروع تایمر</span>';
+        triggerHaptic([80, 50, 120]);
+        [920, 700, 920, 680].forEach((f, idx) => setTimeout(() => playTone(f, 'sawtooth', 0.14), idx * 110));
+      }
+    }
+
     function startStopTimer() {
-      const btn = document.getElementById('timerControlBtn');
-      const badge = document.getElementById('timerStatusBadge');
+      const btn = document.getElementById('timerControlBtn'), badge = document.getElementById('timerStatusBadge');
       if (isTimerRunning) {
-        clearInterval(timerInterval);
-        isTimerRunning = false;
-        btn.innerHTML = '<i class="fa-solid fa-play"></i><span>ادامه تایمر</span>';
-        badge.innerText = 'PAUSED';
+        updateTimerTick(); clearInterval(timerInterval); timerInterval = null;
+        if (isTimerRunning) { timerEndAt = null; isTimerRunning = false; btn.innerHTML = '<i class="fa-solid fa-play"></i><span>ادامه تایمر</span>'; badge.innerText = 'PAUSED'; }
       } else {
         if (timerRemaining <= 0) timerRemaining = timerDuration;
-        isTimerRunning = true;
-        btn.innerHTML = '<i class="fa-solid fa-pause"></i><span>توقف تایمر</span>';
-        badge.innerText = 'ACTIVE';
-        timerInterval = setInterval(() => {
-          timerRemaining--;
-          document.getElementById('bigTimerDisplay').innerText = formatTime(timerRemaining);
-          if (timerRemaining <= 10 && timerRemaining > 0) {
-            playTone(880, 'square', 0.04);
-            triggerHaptic(25);
-          } else if (timerRemaining <= 0) {
-            clearInterval(timerInterval);
-            isTimerRunning = false;
-            badge.innerText = 'DETONATED';
-            triggerHaptic([80, 50, 120]);
-            [920, 700, 920, 680].forEach((f, idx) => setTimeout(() => playTone(f, 'sawtooth', 0.14), idx * 110));
-          }
-        }, 1000);
+        timerEndAt = Date.now() + timerRemaining * 1000; lastTimerBeepSecond = null; isTimerRunning = true;
+        btn.innerHTML = '<i class="fa-solid fa-pause"></i><span>توقف تایمر</span>'; badge.innerText = 'ACTIVE';
+        updateTimerTick(); timerInterval = setInterval(updateTimerTick, 200);
       }
     }
 
     function resetTimer() {
-      clearInterval(timerInterval);
-      isTimerRunning = false;
-      timerRemaining = timerDuration;
+      clearInterval(timerInterval); timerInterval = null; timerEndAt = null; isTimerRunning = false;
+      timerRemaining = timerDuration; lastTimerBeepSecond = null;
       document.getElementById('bigTimerDisplay').innerText = formatTime(timerRemaining);
       document.getElementById('timerControlBtn').innerHTML = '<i class="fa-solid fa-play"></i><span>شروع تایمر</span>';
       document.getElementById('timerStatusBadge').innerText = 'READY';
@@ -2273,24 +2336,28 @@
       showToast('📥 پوستر با کیفیت بالا دانلود شد!');
     }
 
+    function canvasToBlob(canvas) {
+      return new Promise((resolve, reject) => {
+        try { canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('Canvas export returned no image.')), 'image/png'); }
+        catch (error) { reject(error); }
+      });
+    }
     async function shareDossierNative() {
       const canvas = document.getElementById('dossierCanvas');
       try {
-        canvas.toBlob(async (blob) => {
-          if (!blob) return downloadDossierImage();
-          const file = new File([blob], `R6_${currentRolledOp.name}.png`, { type: 'image/png' });
-          if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            await navigator.share({
-              title: 'R6 Command Center Dossier',
-              text: `لوداوت تاکتیکی من در R6 Command Center: ${currentRolledOp.name}`,
-              files: [file]
-            });
-          } else {
-            downloadDossierImage();
+        const blob = await canvasToBlob(canvas);
+        const suffix = currentHqMode === 'squad' ? 'SQUAD' : currentRolledOp.name;
+        const file = new File([blob], `R6_${suffix}.png`, { type: 'image/png' });
+        if (typeof navigator.share === 'function' && navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({ title: 'R6 Command Center Dossier', text: `لوداوت تاکتیکی من در R6 Command Center: ${suffix}`, files: [file] });
+          } catch (error) {
+            if (error && error.name === 'AbortError') return;
+            console.warn('Native sharing failed; falling back to download.', error); downloadDossierImage();
           }
-        }, 'image/png');
-      } catch (e) {
-        downloadDossierImage();
+        } else downloadDossierImage();
+      } catch (error) {
+        console.warn('Could not export dossier image; falling back to download.', error); downloadDossierImage();
       }
     }
 
@@ -2302,7 +2369,7 @@
     }
     function closeIntroModal() {
       document.getElementById('introModal').classList.add('hidden-modal');
-      localStorage.setItem('r6_intro_seen_v5', '1');
+      try { window.localStorage.setItem('r6_intro_seen_v5', '1'); } catch (error) { console.warn('Unable to persist onboarding state.', error); }
     }
     function renderIntroSlide() {
       [1, 2, 3].forEach(n => {
@@ -2324,6 +2391,9 @@
 
     /* 19. INITIALIZE (NO AUTO-XP ON LOAD) */
     window.addEventListener('DOMContentLoaded', () => {
+      if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+        navigator.serviceWorker.register('./sw.js').catch(error => console.warn('Service worker registration failed.', error));
+      }
       if (userProfile.skin) document.body.setAttribute('data-skin', userProfile.skin);
       document.getElementById('bannedCountBadge').innerText = bannedOpIds.length;
       updateHeaderProgression();
@@ -2333,7 +2403,9 @@
       renderSquadGrid(currentSquadList, 'atk');
       setHqConfirmButtonState(true);
 
-      if (!localStorage.getItem('r6_intro_seen_v5')) {
+      let introSeen = false;
+      try { introSeen = window.localStorage.getItem('r6_intro_seen_v5') === '1'; } catch (error) { console.warn('Unable to read onboarding state.', error); }
+      if (!introSeen) {
         setTimeout(() => openIntroModal(), 450);
       }
     });
