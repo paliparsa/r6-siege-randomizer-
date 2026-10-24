@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#06090e">
-  <meta name="app-version" content="1.1.1">
+  <meta name="app-version" content="1.1.2">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -2131,12 +2131,16 @@
       const def = OPERATORS.filter(o => o.side === 'def');
       const makeGrid = (title, arr, clr) => `
         <div class="text-xs font-bold ${clr} mb-1.5 font-tactical">${title}</div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
+        <div class="grid grid-cols-3 sm:grid-cols-4 gap-2">
           ${arr.map(op => {
             const banned = bannedOpIds.includes(op.id);
-            return `<label class="flex items-center gap-2 p-2 rounded-lg bg-siege-dark border ${banned ? 'border-siege-red/40 opacity-50' : 'border-siege-border'} cursor-pointer text-xs">
-              <input type="checkbox" ${banned ? '' : 'checked'} onchange="toggleOpBan('${op.id}')" class="accent-yellow-400">
-              <span class="font-tactical font-bold uppercase truncate ${banned ? 'line-through text-slate-500' : 'text-white'}">${op.name}</span>
+            return `<label title="${op.name}" class="relative aspect-square min-h-[96px] flex flex-col items-center justify-center gap-1.5 p-2 rounded-xl bg-siege-dark border ${banned ? 'border-siege-red/40 opacity-50' : 'border-siege-border hover:border-siege-yellow/70'} cursor-pointer text-center transition-colors">
+              <input aria-label="فعال یا غیرفعال کردن ${op.name}" type="checkbox" ${banned ? '' : 'checked'} onchange="toggleOpBan('${op.id}')" class="absolute top-2 right-2 accent-yellow-400">
+              <div class="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-lg bg-siege-card border border-siege-border/70 p-1.5">
+                <img src="${getOperatorIconUrl(op.slug)}" alt="${op.name}" loading="lazy" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <span aria-hidden="true" class="hidden w-full h-full items-center justify-center font-tactical font-black text-lg text-siege-yellow">${op.name.slice(0, 1)}</span>
+              </div>
+              <span class="font-tactical font-bold uppercase text-[10px] leading-tight truncate max-w-full ${banned ? 'line-through text-slate-500' : 'text-white'}">${op.name}</span>
             </label>`;
           }).join('')}
         </div>`;
