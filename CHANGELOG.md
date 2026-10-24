@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.1.5 — 2026-10-24
+
+### Improved
+- Reworked command-header spacing and visual hierarchy to reduce crowding, especially on mobile.
+- Added safe-area top padding so the header stays below the iPhone notch/Dynamic Island in standalone web-app mode.
+- Updated onboarding to reappear for this release and added a web-app install action on its final slide.
+- Added a persistent, dismissible install notification card with native install prompting where supported and browser/Safari instructions as fallback.
+
+### Maintenance
+- Bumped app version metadata to 1.1.5.
+- Bumped the Service Worker cache to `r6-cache-v7`.
+
+### Validation
+- Checked onboarding/install hooks, safe-area styles, and version/cache markers in source.
+
+
 ## 1.1.4 — 2026-10-24
 
 ### Added
