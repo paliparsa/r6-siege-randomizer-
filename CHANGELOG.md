@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.6.0 — 2026-10-24
+
+### Visual redesign
+- Refined HQ into a cinematic operator dossier with a larger framed identity mark, restrained watermark treatment, cleaner command strips, and squad-card polish.
+- Unified Operations subviews with mission-file surfaces, calmer hierarchy, coordinated operator portrait hover motion, and smoother duel stat transitions.
+- Reworked Maps & Timer panels with coordinate-grid texture, stronger map/site hierarchy, and a more precise tabular timer display.
+- Added restrained warning-state styling hooks for the timer and kept motion responsive to reduced-motion preferences while preserving existing interactions and functionality.
+- Bumped app version to 1.6.0 and Service Worker cache to r6-cache-v14.
+
+### Validation
+- Source-level checks cover the version/cache bump, key HQ/Operations/Tools selectors, timer styling hooks, and reduced-motion handling. Browser/device visual regression testing remains outstanding.
+
+
 ## 1.5.0 — 2026-10-24
 
 ### Design

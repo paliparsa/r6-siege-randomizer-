@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#0B0D0F">
-  <meta name="app-version" content="1.5.0">
+  <meta name="app-version" content="1.6.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -530,6 +530,46 @@
         body { background-size: 100% 100%, 100% 100%, 28px 28px, 28px 28px; }
         main > section:not(.hidden) { animation-duration: 420ms; }
       }
+
+
+/* v1.6.0 — HQ / Operations / Maps & Timer visual pass */
+#hub-hq{gap:1rem!important}#hub-hq>div:first-child{gap:.65rem!important}
+#hub-hq>div:first-child>div{background:rgba(25,29,33,.76)!important;border-color:rgba(232,233,229,.12)!important;box-shadow:inset 0 1px rgba(255,255,255,.025)}
+#hqSingleCardWrap{perspective:1200px;padding:2px}
+#operatorMainCard{border-color:rgba(232,233,229,.15)!important;background:radial-gradient(ellipse at 82% 36%,rgba(214,240,74,.075),transparent 38%),linear-gradient(145deg,rgba(25,29,33,.98),rgba(11,13,15,.99))!important;box-shadow:0 24px 65px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.045)!important;isolation:isolate}
+#operatorMainCard::after{content:"OPERATOR DOSSIER";position:absolute;right:16px;bottom:12px;color:rgba(232,233,229,.20);font:700 8px/1 ui-monospace,monospace;letter-spacing:.22em;pointer-events:none;z-index:1}
+#cardWatermarkImg{opacity:.14!important;filter:grayscale(1) contrast(1.15)!important;-webkit-mask-image:linear-gradient(90deg,transparent 8%,#000 100%);mask-image:linear-gradient(90deg,transparent 8%,#000 100%);transform:scale(1.06);transition:opacity 420ms ease,transform 700ms cubic-bezier(.2,.7,.2,1)!important}
+#operatorMainCard:hover #cardWatermarkImg{opacity:.22!important;transform:scale(1.1)}
+#cardBadgeBox{width:clamp(5.5rem,17vw,8rem)!important;height:clamp(5.5rem,17vw,8rem)!important;border:1px solid rgba(214,240,74,.55)!important;border-radius:1.15rem!important;background:radial-gradient(circle at 50% 38%,rgba(214,240,74,.13),transparent 68%),#0B0D0F!important;box-shadow:0 0 0 5px rgba(214,240,74,.035),0 12px 34px rgba(0,0,0,.42)!important}
+#cardOpName{letter-spacing:-.035em;text-shadow:0 5px 24px rgba(0,0,0,.6)}#cardSideBadge,#cardSpeedArmor,#cardModeTag{backdrop-filter:blur(10px)}#hqSingleCardWrap .laser-scanline{opacity:.5}
+#hqSquadWrap{gap:.9rem!important}.squad-operator-card{background:linear-gradient(135deg,rgba(25,29,33,.98),rgba(11,13,15,.96))!important}.squad-op-portrait{border-radius:12px!important}
+#hub-hq button[id^="hqMode-"],#hub-hq button[id^="facBtn-"]{min-height:38px;transition:background-color 220ms ease,color 220ms ease,border-color 220ms ease,transform 220ms ease!important}
+#hub-hq button[id^="hqMode-"]:hover,#hub-hq button[id^="facBtn-"]:hover{border-color:rgba(214,240,74,.25)}
+#hub-ops{gap:1rem!important}#hub-ops>div:first-child{background:rgba(25,29,33,.72)!important;border:1px solid rgba(232,233,229,.10);border-radius:14px;padding:4px}
+#hub-ops>div:first-child button{min-height:38px;transition:all 220ms ease!important}#opsStratsView,#opsDuoView,#opsDuelView{gap:1rem!important}
+.tactical-feature-panel,#opsDuoView>.rounded-2xl,#opsDuelView>.rounded-2xl{position:relative;overflow:hidden}
+.tactical-feature-panel::before,#opsDuoView>.rounded-2xl::before,#opsDuelView>.rounded-2xl::before{content:"";position:absolute;top:0;left:14px;right:14px;height:1px;background:linear-gradient(90deg,transparent,rgba(214,240,74,.36),transparent);pointer-events:none}
+.tactical-operator-card,.duel-operator-card{background:linear-gradient(155deg,rgba(25,29,33,.98),rgba(11,13,15,.98))!important;border-color:rgba(232,233,229,.13)!important;transition:transform 260ms cubic-bezier(.2,.7,.2,1),border-color 260ms ease,box-shadow 260ms ease!important}
+.tactical-portrait,.duel-portrait{min-height:112px;border-radius:10px!important;overflow:hidden;background:radial-gradient(ellipse at 50% 25%,rgba(214,240,74,.10),transparent 65%),#0B0D0F!important}
+.tactical-portrait img,.duel-portrait img{transition:transform 480ms cubic-bezier(.2,.7,.2,1),filter 360ms ease;transform-origin:center bottom}
+@media(hover:hover){.tactical-operator-card:hover,.duel-operator-card:hover{transform:translateY(-3px)}.tactical-operator-card:hover .tactical-portrait img,.duel-operator-card:hover .duel-portrait img{transform:scale(1.055);filter:contrast(1.05) saturate(.9)}}
+.duel-blue{border-top:2px solid rgba(214,240,74,.48)!important}.duel-orange{border-top:2px solid rgba(217,74,69,.68)!important}
+.duel-versus{align-self:center;font:900 11px/1 ui-monospace,monospace;color:var(--noir-bone);letter-spacing:.12em}
+.duel-stat-track{background:rgba(232,233,229,.08)!important;border-radius:999px;overflow:hidden}.duel-stat-left,.duel-stat-right{transition:width 420ms cubic-bezier(.2,.7,.2,1)!important}
+.duel-detail{border-bottom:1px solid rgba(232,233,229,.075);padding:6px 0}
+#hub-tools{gap:1rem!important}#hub-tools>div>.bg-siege-card{position:relative;isolation:isolate;overflow:hidden;border-color:rgba(232,233,229,.14)!important;background:radial-gradient(ellipse at 50% 0%,rgba(214,240,74,.07),transparent 54%),linear-gradient(150deg,rgba(25,29,33,.97),rgba(11,13,15,.99))!important;box-shadow:0 18px 46px rgba(0,0,0,.25),inset 0 1px rgba(255,255,255,.035);min-height:310px}
+#hub-tools>div>.bg-siege-card::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5;background-image:linear-gradient(rgba(232,233,229,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(232,233,229,.035) 1px,transparent 1px);background-size:24px 24px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 82%);mask-image:linear-gradient(180deg,#000,transparent 82%)}
+#mapNameDisplay{letter-spacing:.04em;text-shadow:0 8px 32px rgba(0,0,0,.6)}
+.map-result-update{animation:mapResultIn 420ms cubic-bezier(.2,.7,.2,1) both}
+@keyframes mapResultIn{from{opacity:.3;transform:translateY(7px);filter:blur(2px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+#mapSiteDisplay{background:rgba(214,240,74,.075)!important;border-color:rgba(214,240,74,.32)!important;color:var(--noir-signal)!important;box-shadow:inset 0 0 24px rgba(214,240,74,.025);max-width:100%;white-space:normal}
+#mapTacticalTip{max-width:34rem;margin:.8rem auto 0}#mapFloorDisplay{color:var(--noir-bone)!important;border-color:rgba(232,233,229,.16)!important}
+#bigTimerDisplay{font-variant-numeric:tabular-nums;font-feature-settings:"tnum";letter-spacing:.055em!important;line-height:1.08;color:var(--noir-bone)!important;text-shadow:0 0 32px rgba(214,240,74,.10),0 8px 35px rgba(0,0,0,.7)!important;transition:color 220ms ease,text-shadow 220ms ease,transform 180ms ease;padding:.12em 0}
+#bigTimerDisplay.timer-warning{color:#D94A45!important;text-shadow:0 0 26px rgba(217,74,69,.22)!important}
+#timerStatusBadge{transition:color 200ms ease,border-color 200ms ease,background-color 200ms ease}#timerControlBtn{min-height:44px;box-shadow:0 8px 22px rgba(214,240,74,.08)}
+#hub-tools button{transition:border-color 220ms ease,background-color 220ms ease,color 220ms ease,transform 180ms ease!important}
+@media(max-width:639.98px){#hub-tools>div>.bg-siege-card{min-height:290px;padding:1rem!important}.tactical-portrait,.duel-portrait{min-height:84px}#bigTimerDisplay{font-size:clamp(3rem,14vw,4rem)}#hub-hq #operatorMainCard{padding:1rem!important}}
+@media(prefers-reduced-motion:reduce){#cardWatermarkImg,.tactical-portrait img,.duel-portrait img,.duel-stat-left,.duel-stat-right{transition:none!important}}
 
     </style>
 </head>
@@ -2416,14 +2456,25 @@
     /* 15. TACTICAL TOOLS (MAP ROULETTE & BOMB TIMER) */
     function rollMapAndSite() {
       currentMapObj = getRandomItem(MAP_DATABASE);
-      document.getElementById('mapNameDisplay').innerText = currentMapObj.name;
+      const mapTitle = document.getElementById('mapNameDisplay');
+      mapTitle.innerText = currentMapObj.name;
+      mapTitle.classList.remove('map-result-update');
+      void mapTitle.offsetWidth;
+      mapTitle.classList.add('map-result-update');
       rollOnlySite();
     }
 
     function rollOnlySite() {
       const s = getRandomItem(currentMapObj.sites);
-      document.getElementById('mapSiteDisplay').innerText = s.site;
-      document.getElementById('mapTacticalTip').innerText = `توصیه تاکتیکی: ${s.tip}`;
+      const siteEl = document.getElementById('mapSiteDisplay');
+      const tipEl = document.getElementById('mapTacticalTip');
+      siteEl.innerText = s.site;
+      tipEl.innerText = `توصیه تاکتیکی: ${s.tip}`;
+      [siteEl, tipEl].forEach(el => {
+        el.classList.remove('map-result-update');
+        void el.offsetWidth;
+        el.classList.add('map-result-update');
+      });
       document.getElementById('mapFloorDisplay').innerText = s.site.split('/')[0].trim();
       playTone(630, 'triangle', 0.06);
     }
@@ -2458,7 +2509,9 @@
       const next = Math.ceil(msLeft / 1000);
       if (next !== timerRemaining) {
         timerRemaining = next;
-        document.getElementById('bigTimerDisplay').innerText = formatTime(timerRemaining);
+        const timerDisplay = document.getElementById('bigTimerDisplay');
+        timerDisplay.innerText = formatTime(timerRemaining);
+        timerDisplay.classList.toggle('timer-warning', next <= 10 && next > 0);
         if (next <= 10 && next > 0 && next !== lastTimerBeepSecond) {
           lastTimerBeepSecond = next; playTone(880, 'square', 0.04); triggerHaptic(25);
         }
@@ -2490,6 +2543,7 @@
       clearInterval(timerInterval); timerInterval = null; timerEndAt = null; isTimerRunning = false;
       timerRemaining = timerDuration; lastTimerBeepSecond = null;
       document.getElementById('bigTimerDisplay').innerText = formatTime(timerRemaining);
+      document.getElementById('bigTimerDisplay').classList.remove('timer-warning');
       document.getElementById('timerControlBtn').innerHTML = '<i class="fa-solid fa-play"></i><span>شروع تایمر</span>';
       document.getElementById('timerStatusBadge').innerText = 'آماده';
     }
