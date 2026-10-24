@@ -27,7 +27,7 @@ self.addEventListener('fetch', event => {
     }).catch(() => caches.match(request).then(cached => {
       if (cached) return cached;
       if (request.mode === 'navigate') return caches.match('./index.html');
-      return undefined;
+      return new Response('Offline: resource is not cached.', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
     }))
   );
 });
