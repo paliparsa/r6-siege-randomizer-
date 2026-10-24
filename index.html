@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#0B0D0F">
-  <meta name="app-version" content="1.7.0">
+  <meta name="app-version" content="1.7.1">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -532,6 +532,73 @@
       }
 
 
+
+      
+      /* v1.7.1 — Prevent clipped controls and reports in tall panels */
+      main {
+        justify-content: flex-start !important;
+        min-height: 0;
+        overflow-y: auto !important;
+        overscroll-behavior-y: contain;
+      }
+      #hub-hq, #hub-ops, #hub-tools {
+        height: auto !important;
+        min-height: 100%;
+        justify-content: flex-start !important;
+        overflow: visible !important;
+      }
+      #hub-hq { gap: 12px !important; }
+      #hub-ops { gap: 12px !important; }
+      #hub-tools { gap: 12px !important; }
+      #hub-ops > div:first-child, #hub-ops > .duel-quick-access {
+        flex-shrink: 0 !important;
+      }
+      #opsStratsView, #opsDuoView, #opsDuelView {
+        flex: 0 0 auto !important;
+        min-height: max-content !important;
+        overflow: visible !important;
+      }
+      #opsDuelView > *, #opsDuoView > *, #opsStratsView > * {
+        flex-shrink: 0 !important;
+      }
+      #opsDuelView .tactical-feature-panel, #opsDuoView .tactical-feature-panel,
+      #opsStratsView .tactical-feature-panel {
+        flex-shrink: 0 !important;
+        min-height: max-content;
+        overflow: visible !important;
+      }
+      #opsDuelView .duel-operator-card, #opsDuelView .duel-versus {
+        min-width: 0;
+      }
+      #opsDuelView .duel-detail {
+        overflow-wrap: anywhere;
+      }
+      #hqSquadWrap {
+        flex: 0 0 auto !important;
+        min-height: max-content !important;
+        justify-content: flex-start !important;
+        overflow: visible !important;
+      }
+      #hqSquadWrap > *, #squadIntelReport, #squadGridContainer {
+        flex-shrink: 0 !important;
+      }
+      #squadIntelReport {
+        min-height: max-content !important;
+        overflow: visible !important;
+        scroll-margin-block: 12px;
+      }
+      #squadCoverageList, #squadTacticalNote {
+        overflow-wrap: anywhere;
+      }
+      @media (max-width: 639.98px) {
+        #hub-hq, #hub-ops, #hub-tools { height: auto !important; min-height: 100%; }
+        #opsDuelView .tactical-feature-panel, #opsDuoView .tactical-feature-panel {
+          padding: 12px !important;
+        }
+        #opsDuelView .duel-operator-card { padding: 8px; }
+        #opsDuelView .duel-detail { font-size: 10px; }
+        #squadIntelReport { padding: 12px !important; }
+      }
 
       /* v1.7.0 — Unified motion language */
       :root { --motion-fast:180ms; --motion-normal:240ms; --motion-enter:820ms; --motion-ease:cubic-bezier(.2,.75,.25,1); }
