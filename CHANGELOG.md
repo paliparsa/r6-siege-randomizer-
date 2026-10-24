@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.5.0 — 2026-10-24
+
+### Design
+- Reworked the visual identity into a Tactical Noir system using Obsidian (#0B0D0F), Graphite (#191D21), Bone (#E8E9E5), Signal (#D6F04A), and Alert (#D94A45).
+- Refined the background with a restrained tactical grid and topographic contour texture.
+- Unified the default interface accent across headers, navigation, operator cards, operations panels, selection controls, install surfaces, and the floating poster action.
+- Added consistent hover, pressed, keyboard-focus, panel-entry, scanline, and modal-backdrop treatments.
+- Improved scrollbar styling and added a global reduced-motion accommodation.
+- Preserved existing app features, navigation, game-specific faction/duel cues, poster generation, and core behavior.
+- Bumped the app version to 1.5.0 and Service Worker cache to r6-cache-v13.
+
+### Validation
+- Source-level checks verify version/cache alignment, design tokens, reduced-motion rules, and preservation of existing functional entry points. Browser/device visual regression testing remains to be completed.
+
+
 ## 1.4.2 — 2026-10-24
 
 ### Added
@@ -55,7 +70,6 @@
 - Source checks verify UI targets, handlers, XP flows, version/cache, and tournament progression logic.
 - Browser/device visual testing and live deployment health have not been verified.
 
-# Changelog
 
 ## 1.2.0 — 2026-10-24
 
