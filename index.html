@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#06090e">
+  <meta name="app-version" content="1.1.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -292,7 +293,7 @@
         <div class="flex-1 h-1.5 bg-siege-surface rounded-full overflow-hidden border border-siege-border/70">
           <div id="xpProgressBar" class="h-full bg-gradient-to-r from-siege-cyan via-siege-yellow to-siege-orange transition-all duration-500" style="width: 15%"></div>
         </div>
-        <span id="xpCounterText" class="text-slate-400 shrink-0">0 / 200 XP</span>
+        <span id="xpCounterText" class="text-slate-400 shrink-0" title="XP یعنی امتیاز تجربه؛ هر ۲۰۰ امتیاز یک سطح پیشرفت">0 / 200 XP</span>
       </div>
     </div>
   </header>
@@ -303,21 +304,21 @@
       <div class="flex items-center gap-2">
         <button onclick="switchHub('hq')" id="hub-btn-hq" class="px-4 py-1.5 rounded-xl font-bold text-xs transition bg-siege-yellow text-black shadow-md shadow-siege-yellow/20 flex items-center gap-2">
           <i class="fa-solid fa-crosshairs"></i>
-          <span>۱. مقر اپراتور و لوداوت (Operators HQ)</span>
+          <span>۱. انتخاب اپراتور و تجهیزات</span>
         </button>
         <button onclick="switchHub('ops')" id="hub-btn-ops" class="px-4 py-1.5 rounded-xl font-bold text-xs transition text-slate-300 hover:bg-siege-surface border border-transparent flex items-center gap-2">
           <i class="fa-solid fa-bullseye"></i>
-          <span>۲. عملیات و چالش‌ها (Operations)</span>
+          <span>۲. چالش‌ها و ترکیب‌های تیمی</span>
         </button>
         <button onclick="switchHub('tools')" id="hub-btn-tools" class="px-4 py-1.5 rounded-xl font-bold text-xs transition text-slate-300 hover:bg-siege-surface border border-transparent flex items-center gap-2">
           <i class="fa-solid fa-map-location-dot"></i>
-          <span>۳. نقشه و تایمر بمب (Tactical Tools)</span>
+          <span>۳. ابزارهای نقشه و زمان</span>
         </button>
       </div>
 
       <!-- Theme Switcher Quick Pill -->
       <div class="flex items-center gap-1 bg-siege-card px-2 py-1 rounded-xl border border-siege-border text-[11px]">
-        <span class="text-slate-400 pl-1">تم:</span>
+        <span class="text-slate-400 pl-1" title="ظاهر و رنگ‌بندی برنامه">ظاهر:</span>
         <button onclick="setSkinTheme('default')" class="px-2 py-0.5 rounded hover:text-white text-siege-yellow font-bold">Siege</button>
         <button onclick="setSkinTheme('blackice')" class="px-2 py-0.5 rounded hover:text-white text-sky-400 font-bold">Black Ice</button>
         <button onclick="setSkinTheme('keres')" class="px-2 py-0.5 rounded hover:text-white text-rose-500 font-bold">Keres</button>
@@ -338,13 +339,13 @@
         <!-- Sub-mode Switcher -->
         <div class="grid grid-cols-3 gap-1 bg-siege-card p-1 rounded-xl border border-siege-border flex-1">
           <button onclick="setHqMode('standard')" id="hqMode-standard" class="py-1.5 rounded-lg text-xs font-bold bg-siege-yellow text-black transition flex items-center justify-center gap-1.5">
-            <i class="fa-solid fa-user-shield"></i><span>استاندارد (تکی)</span>
+            <i class="fa-solid fa-user-shield"></i><span>انتخاب عادی</span>
           </button>
           <button onclick="setHqMode('cursed')" id="hqMode-cursed" class="py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5">
-            <i class="fa-solid fa-skull-crossbones"></i><span>نفرین‌شده (Cursed)</span>
+            <i class="fa-solid fa-skull-crossbones"></i><span>تجهیزات با محدودیت</span>
           </button>
           <button onclick="setHqMode('squad')" id="hqMode-squad" class="py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5">
-            <i class="fa-solid fa-users"></i><span>اسکواد ۵ نفره</span>
+            <i class="fa-solid fa-users"></i><span>ترکیب تیم ۵ نفره</span>
           </button>
         </div>
 
@@ -354,10 +355,10 @@
             همه
           </button>
           <button onclick="setFaction('atk')" id="facBtn-atk" class="py-1.5 rounded-lg text-[11px] font-bold bg-siege-cyan/20 text-siege-cyan border border-siege-cyan/50 transition">
-            <i class="fa-solid fa-crosshairs mr-1"></i>ATTACK
+            <i class="fa-solid fa-crosshairs mr-1"></i>حمله (ATK)
           </button>
           <button onclick="setFaction('def')" id="facBtn-def" class="py-1.5 rounded-lg text-[11px] font-bold text-slate-400 hover:text-siege-orange transition">
-            <i class="fa-solid fa-shield mr-1"></i>DEFEND
+            <i class="fa-solid fa-shield mr-1"></i>دفاع (DEF)
           </button>
         </div>
       </div>
@@ -374,14 +375,14 @@
           <!-- Top Bar: Side, Speed/Armor, Favorite & Share -->
           <div class="flex items-center justify-between z-10">
             <div class="flex items-center gap-1.5">
-              <span id="cardSideBadge" class="px-2.5 py-0.5 text-[10px] font-tactical font-black rounded uppercase border bg-siege-cyan/20 border-siege-cyan text-siege-cyan">
+              <span id="cardSideBadge" title="نقش اپراتور: مهاجم یا مدافع" class="px-2.5 py-0.5 text-[10px] font-tactical font-black rounded uppercase border bg-siege-cyan/20 border-siege-cyan text-siege-cyan">
                 ATTACKER
               </span>
-              <span id="cardSpeedArmor" class="px-2 py-0.5 rounded text-[10px] font-mono bg-siege-dark/90 border border-siege-border text-slate-300">
+              <span id="cardSpeedArmor" title="SPD = سرعت اپراتور؛ ARM = میزان زره و مقاومت" class="px-2 py-0.5 rounded text-[10px] font-mono bg-siege-dark/90 border border-siege-border text-slate-300">
                 SPD 3 • ARM 1
               </span>
               <span id="cardModeTag" class="hidden px-2 py-0.5 rounded text-[10px] font-tactical font-black bg-siege-red/20 border border-siege-red text-siege-red">
-                CURSED MODE
+                محدودیت ویژه
               </span>
             </div>
 
@@ -407,7 +408,7 @@
               <h2 id="cardOpName" class="text-3xl sm:text-4xl font-black font-tactical text-white uppercase tracking-tight truncate">ASH</h2>
               <div class="inline-flex items-center gap-1.5 mt-1 px-2.5 py-0.5 rounded-lg bg-siege-dark/90 border border-siege-border text-xs text-siege-yellow font-bold">
                 <i class="fa-solid fa-microchip"></i>
-                <span id="cardGadgetName">Breaching Round</span>
+                <span id="cardGadgetName" title="ابزار ویژه‌ی اپراتور">Breaching Round</span>
               </div>
             </div>
           </div>
@@ -437,8 +438,8 @@
                 <span id="cursedRuleText">فقط شلیک از لگن (Hip-Fire)!</span>
               </div>
               <div id="standardHintBox" class="text-[10px] text-slate-400 flex items-center justify-between pt-0.5">
-                <span><i class="fa-solid fa-hand-pointer ml-1 text-siege-cyan"></i>سوایپ چپ/راست: رول مجدد</span>
-                <span>سوایپ بالا: ★ ستاره</span>
+                <span><i class="fa-solid fa-hand-pointer ml-1 text-siege-cyan"></i>کشیدن به چپ/راست: انتخاب جدید</span>
+                <span>کشیدن به بالا: افزودن به علاقه‌مندی‌ها</span>
               </div>
             </div>
           </div>
@@ -448,10 +449,10 @@
       <!-- 1B. 5-MAN SQUAD GENERATOR VIEW -->
       <div id="hqSquadWrap" class="hidden flex-1 flex flex-col justify-between min-h-0 gap-2">
         <div class="flex items-center justify-between bg-siege-card/80 px-3 py-1.5 rounded-xl border border-siege-border shrink-0">
-          <span class="text-xs font-bold text-slate-300"><i class="fa-solid fa-users text-siege-yellow ml-1.5"></i>ترکیب ۵ نفره اسکواد</span>
+          <span class="text-xs font-bold text-slate-300"><i class="fa-solid fa-users text-siege-yellow ml-1.5"></i>ترکیب تیم ۵ نفره</span>
           <button onclick="exportCurrentCard()" class="px-2.5 py-1 rounded-lg bg-siege-dark border border-siege-border hover:border-siege-yellow text-siege-yellow text-[11px] font-bold flex items-center gap-1.5 transition active:scale-95">
             <i class="fa-solid fa-camera-retro"></i>
-            <span>پوستر اسکواد ۵ نفره</span>
+            <span>ساخت پوستر ترکیب تیم</span>
           </button>
         </div>
         <div id="squadGridContainer" class="grid grid-cols-1 sm:grid-cols-5 gap-2 overflow-y-auto no-scrollbar py-1 my-auto">
@@ -480,13 +481,13 @@
       <!-- Sub-navigation for Operations -->
       <div class="grid grid-cols-3 gap-1 bg-siege-card p-1 rounded-xl border border-siege-border shrink-0">
         <button onclick="setOpsMode('strats')" id="opsMode-strats" class="py-1.5 rounded-lg text-xs font-bold bg-siege-yellow text-black transition">
-          <i class="fa-solid fa-user-secret ml-1"></i>۵۵ چالش مخفی
+          <i class="fa-solid fa-user-secret ml-1"></i>۵۵ چالش تاکتیکی
         </button>
         <button onclick="setOpsMode('duo')" id="opsMode-duo" class="py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition">
-          <i class="fa-solid fa-user-group ml-1"></i>کمبو ۲ نفره (Duo)
+          <i class="fa-solid fa-user-group ml-1"></i>ترکیب دو اپراتور
         </button>
         <button onclick="setOpsMode('duel')" id="opsMode-duel" class="py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition">
-          <i class="fa-solid fa-swords ml-1"></i>دوئل تن‌به‌تن (1v1)
+          <i class="fa-solid fa-swords ml-1"></i>رقابت دونفره (1v1)
         </button>
       </div>
 
@@ -502,14 +503,14 @@
           <div class="laser-scanline"></div>
           <div class="flex items-center justify-between border-b border-siege-border pb-2.5">
             <div class="flex items-center gap-1.5">
-              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-siege-red/20 text-siege-red border border-siege-red/40">TOP SECRET</span>
-              <span id="stratSideTag" class="px-2 py-0.5 rounded text-[10px] font-mono bg-siege-dark text-siege-cyan border border-siege-border">UNIVERSAL</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-siege-red/20 text-siege-red border border-siege-red/40">چالش ویژه</span>
+              <span id="stratSideTag" class="px-2 py-0.5 rounded text-[10px] font-mono bg-siege-dark text-siege-cyan border border-siege-border">همه‌ی تیم‌ها</span>
             </div>
-            <span id="stratDiffBadge" class="px-2.5 py-0.5 rounded text-[10px] font-tactical font-black uppercase bg-siege-yellow/20 text-siege-yellow border border-siege-yellow/40">VETERAN</span>
+            <span id="stratDiffBadge" class="px-2.5 py-0.5 rounded text-[10px] font-tactical font-black uppercase bg-siege-yellow/20 text-siege-yellow border border-siege-yellow/40">سخت</span>
           </div>
 
           <div class="my-auto py-2 space-y-2">
-            <div class="text-[11px] font-mono text-slate-400" id="stratCounterCode">OPERATION CODE: #STRAT-01 / 55</div>
+            <div class="text-[11px] font-mono text-slate-400" id="stratCounterCode">چالش ۰۱ از ۵۵</div>
             <h2 id="stratTitleText" class="text-xl sm:text-2xl font-black text-white leading-snug">راش ۳۰ ثانیه‌ای (Blitzkrieg)</h2>
             <p id="stratDescText" class="text-xs sm:text-sm text-slate-300 leading-relaxed bg-siege-dark/90 p-3.5 rounded-xl border border-siege-border">
               تمام مهاجمان موظفند در ۳۰ ثانیه اول راند داخل اتاق بمب باشند! ایستادن بیرون ساختمان ممنوع است.
@@ -519,14 +520,14 @@
           <div class="flex items-center gap-2 pt-2">
             <button onclick="completeCurrentStrat()" id="stratCompleteBtn" class="w-full py-2.5 px-4 rounded-xl bg-siege-cyan/15 border border-siege-cyan hover:bg-siege-cyan hover:text-black text-siege-cyan font-bold text-xs transition flex items-center justify-center gap-2 active:scale-95">
               <i class="fa-solid fa-trophy"></i>
-              <span id="stratCompleteBtnText">ثبت پیروزی در این چالش (+100 XP و پیشرفت آلفا پک)</span>
+              <span id="stratCompleteBtnText">ثبت انجام چالش و دریافت امتیاز (+100 XP)</span>
             </button>
           </div>
         </div>
 
         <button onclick="rollRandomStrat()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-siege-yellow to-siege-orange text-black font-tactical font-black text-sm uppercase flex items-center justify-center gap-2 shadow-lg shrink-0 active:scale-95 transition">
           <i class="fa-solid fa-dice"></i>
-          <span>رول چالش مخفی بعدی</span>
+          <span>نمایش چالش تصادفی بعدی</span>
         </button>
       </div>
 
@@ -547,7 +548,7 @@
                 <img id="duoOp1Img" src="" alt="Op 1" class="w-full h-full object-contain">
               </div>
               <strong id="duoOp1Name" class="text-sm sm:text-base font-tactical text-white block">THERMITE</strong>
-              <span id="duoOp1Role" class="text-[11px] text-siege-yellow block">هاردبریچر اصلی</span>
+              <span id="duoOp1Role" class="text-[11px] text-siege-yellow block">متخصص باز کردن دیوار تقویت‌شده</span>
             </div>
 
             <div class="bg-siege-dark p-3 rounded-xl border border-siege-border text-center space-y-1.5">
@@ -555,12 +556,12 @@
                 <img id="duoOp2Img" src="" alt="Op 2" class="w-full h-full object-contain">
               </div>
               <strong id="duoOp2Name" class="text-sm sm:text-base font-tactical text-white block">THATCHER</strong>
-              <span id="duoOp2Role" class="text-[11px] text-siege-cyan block">خنثی‌کننده گجت برق</span>
+              <span id="duoOp2Role" class="text-[11px] text-siege-cyan block">از کارانداز تجهیزات الکترونیکی</span>
             </div>
           </div>
 
           <div class="bg-siege-dark/90 p-3 rounded-xl border border-siege-border text-xs text-slate-300">
-            <span class="font-bold text-siege-yellow ml-1"><i class="fa-solid fa-diagram-project"></i> تاکتیک اجرا:</span>
+            <span class="font-bold text-siege-yellow ml-1"><i class="fa-solid fa-diagram-project"></i> چطور اجراش کنیم؟</span>
             <span id="duoPlanText">تچر با EMP برق دیوار را قطع کرده و ترمایت بلافاصله دیوار اصلی سایت را باز می‌کند.</span>
           </div>
         </div>
@@ -568,11 +569,11 @@
         <div class="flex gap-2 shrink-0">
           <button onclick="rollDuoCombo()" class="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-siege-yellow to-siege-orange text-black font-tactical font-black text-xs sm:text-sm uppercase flex items-center justify-center gap-2 active:scale-95 transition">
             <i class="fa-solid fa-user-plus"></i>
-            <span>رول کمبوی ۲ نفره جدید</span>
+            <span>پیشنهاد ترکیب دو اپراتور</span>
           </button>
           <button onclick="confirmDuoXp()" id="duoConfirmXpBtn" disabled class="px-4 py-3.5 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 disabled:opacity-50 disabled:pointer-events-none">
             <i class="fa-solid fa-check-double"></i>
-            <span>ثبت کمبو (+20 XP)</span>
+            <span>ثبت ترکیب و دریافت امتیاز (+20 XP)</span>
           </button>
         </div>
       </div>
@@ -604,11 +605,11 @@
         <div class="flex gap-2 shrink-0">
           <button onclick="rollDuelMatch()" class="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-siege-red to-siege-orange text-white font-tactical font-black text-xs sm:text-sm uppercase flex items-center justify-center gap-2 active:scale-95 transition">
             <i class="fa-solid fa-swords"></i>
-            <span>رول قوانین دوئل 1v1</span>
+            <span>ساخت قوانین تصادفی رقابت</span>
           </button>
           <button onclick="confirmDuelXp()" id="duelConfirmXpBtn" disabled class="px-4 py-3.5 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 disabled:opacity-50 disabled:pointer-events-none">
             <i class="fa-solid fa-check-double"></i>
-            <span>ثبت دوئل (+20 XP)</span>
+            <span>ثبت رقابت و دریافت امتیاز (+20 XP)</span>
           </button>
         </div>
       </div>
@@ -622,7 +623,7 @@
         <!-- Map & Site Roulette Panel -->
         <div class="bg-siege-card dynamic-border border rounded-2xl p-4 clip-corner flex flex-col justify-between">
           <div class="flex items-center justify-between text-xs">
-            <span class="font-mono font-bold text-siege-yellow"><i class="fa-solid fa-map-location-dot ml-1"></i>MAP & SITE ROULETTE</span>
+            <span class="font-mono font-bold text-siege-yellow"><i class="fa-solid fa-map-location-dot ml-1"></i>انتخاب تصادفی نقشه و محل بمب</span>
             <span id="mapFloorDisplay" class="px-2 py-0.5 rounded bg-siege-dark border border-siege-border text-[10px] text-slate-300">2nd Floor</span>
           </div>
 
@@ -638,7 +639,7 @@
 
           <div class="flex gap-2 pt-2">
             <button onclick="rollMapAndSite()" class="flex-1 py-2.5 rounded-xl bg-siege-yellow text-black font-bold text-xs active:scale-95 transition">
-              <i class="fa-solid fa-shuffle ml-1"></i>رول نقشه و سایت
+              انتخاب نقشه و محل بمب
             </button>
             <button onclick="rollOnlySite()" class="px-3 py-2.5 rounded-xl bg-siege-surface border border-siege-border text-xs font-bold text-white active:scale-95 transition">
               تغییر سایت
@@ -649,22 +650,22 @@
         <!-- Bomb Defuser & Round Timer Panel -->
         <div class="bg-siege-card dynamic-border border rounded-2xl p-4 clip-corner flex flex-col justify-between text-center">
           <div class="flex items-center justify-between text-xs">
-            <span class="font-mono font-bold text-slate-300"><i class="fa-solid fa-stopwatch ml-1 text-siege-red"></i>DEFUSER TIMER</span>
-            <span id="timerStatusBadge" class="px-2 py-0.5 rounded font-mono text-[10px] bg-siege-dark border border-siege-border text-siege-cyan">READY</span>
+            <span class="font-mono font-bold text-slate-300"><i class="fa-solid fa-stopwatch ml-1 text-siege-red"></i>تایمر راند و خنثی‌سازی</span>
+            <span id="timerStatusBadge" title="وضعیت تایمر" class="px-2 py-0.5 rounded font-mono text-[10px] bg-siege-dark border border-siege-border text-siege-cyan">آماده</span>
           </div>
 
           <div class="my-auto py-2">
             <div id="bigTimerDisplay" class="font-tactical font-black text-5xl sm:text-6xl tracking-widest text-white drop-shadow-[0_0_15px_rgba(248,170,0,0.3)]">
               03:00
             </div>
-            <div id="timerSubText" class="text-[10px] font-mono text-slate-400 mt-1">STANDARD RANKED ROUND</div>
+            <div id="timerSubText" class="text-[10px] font-mono text-slate-400 mt-1">زمان راند معمولی (بازی رنک‌دار)</div>
           </div>
 
           <div class="space-y-2">
             <div class="grid grid-cols-3 gap-1.5 text-[11px] font-bold">
               <button onclick="setTimerPreset(180, 'RANKED ROUND (3:00)')" class="py-1.5 rounded-lg bg-siege-dark border border-siege-border hover:border-siege-yellow text-slate-300">۳:۰۰ راند</button>
-              <button onclick="setTimerPreset(45, 'DEFUSER PLANTED (0:45)')" class="py-1.5 rounded-lg bg-siege-dark border border-siege-border hover:border-siege-yellow text-slate-300">۰:۴۵ پلنت</button>
-              <button onclick="startDefuseCountdown(7)" class="py-1.5 rounded-lg bg-siege-red/20 border border-siege-red text-siege-red hover:bg-siege-red hover:text-black transition">۷s خنثی</button>
+              <button onclick="setTimerPreset(45, 'DEFUSER PLANTED (0:45)')" class="py-1.5 rounded-lg bg-siege-dark border border-siege-border hover:border-siege-yellow text-slate-300">۰:۴۵ پس از کاشت دیفیوزر</button>
+              <button onclick="startDefuseCountdown(7)" class="py-1.5 rounded-lg bg-siege-red/20 border border-siege-red text-siege-red hover:bg-siege-red hover:text-black transition">۷ ثانیه برای خنثی‌سازی</button>
             </div>
             <div class="flex gap-2">
               <button onclick="startStopTimer()" id="timerControlBtn" class="flex-1 py-2.5 rounded-xl bg-siege-yellow text-black font-bold text-xs flex items-center justify-center gap-1.5 active:scale-95 transition">
@@ -685,7 +686,7 @@
   <nav class="sm:hidden bg-siege-dark/95 backdrop-blur-md border-t border-siege-border px-2 py-1.5 flex items-center justify-around z-40 shrink-0" style="padding-bottom: calc(6px + var(--safe-bottom));">
     <button onclick="switchHub('hq')" id="mhub-hq" class="flex flex-col items-center gap-0.5 text-siege-yellow text-[10px] font-bold py-1 px-3">
       <i class="fa-solid fa-crosshairs text-base"></i>
-      <span>اپراتور HQ</span>
+      <span>اپراتورها</span>
     </button>
     <button onclick="switchHub('ops')" id="mhub-ops" class="flex flex-col items-center gap-0.5 text-slate-400 text-[10px] font-bold py-1 px-3">
       <i class="fa-solid fa-bullseye text-base"></i>
@@ -693,7 +694,7 @@
     </button>
     <button onclick="switchHub('tools')" id="mhub-tools" class="flex flex-col items-center gap-0.5 text-slate-400 text-[10px] font-bold py-1 px-3">
       <i class="fa-solid fa-stopwatch text-base"></i>
-      <span>مپ و تایمر</span>
+      <span>نقشه و تایمر</span>
     </button>
     <button onclick="openProfileModal()" class="flex flex-col items-center gap-0.5 text-slate-400 text-[10px] font-bold py-1 px-3">
       <i class="fa-solid fa-user-astronaut text-base"></i>
@@ -706,7 +707,7 @@
     <div class="bg-siege-card border border-siege-yellow rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl clip-corner flex flex-col">
       <div class="p-3.5 bg-siege-dark border-b border-siege-border flex items-center justify-between">
         <span class="text-xs font-bold text-siege-yellow flex items-center gap-1.5">
-          <i class="fa-solid fa-box-open"></i> شبیه‌ساز باز کردن ALPHA PACK
+          <i class="fa-solid fa-box-open"></i> شبیه‌ساز باز کردن آلفا پک
         </span>
         <button onclick="closeAlphaModal()" class="w-7 h-7 rounded bg-siege-surface text-slate-400 hover:text-white flex items-center justify-center">
           <i class="fa-solid fa-xmark text-xs"></i>
@@ -724,7 +725,7 @@
           <div class="w-16 h-16 rounded-2xl bg-siege-yellow/20 border border-siege-yellow text-siege-yellow font-tactical font-black text-4xl flex items-center justify-center shadow-lg mb-2">
             6
           </div>
-          <div id="alphaRewardTitle" class="font-tactical font-black text-sm text-white uppercase tracking-wider">ALPHA PACK READY</div>
+          <div id="alphaRewardTitle" class="font-tactical font-black text-sm text-white uppercase tracking-wider">آلفا پک آماده‌ی باز شدن</div>
           <div id="alphaRewardSub" class="text-[11px] text-slate-400 mt-1">زیپ زیر را بکشید تا جایزه باز شود!</div>
         </div>
 
@@ -747,7 +748,7 @@
       <div class="p-3.5 bg-siege-dark border-b border-siege-border flex items-center justify-between">
         <div class="flex items-center gap-2">
           <i class="fa-solid fa-id-badge text-siege-yellow"></i>
-          <h3 class="font-bold text-white text-xs sm:text-sm">پروفایل، رنک و موتور تم</h3>
+          <h3 class="font-bold text-white text-xs sm:text-sm">پروفایل، سطح و ظاهر برنامه</h3>
         </div>
         <button onclick="closeProfileModal()" class="w-7 h-7 rounded bg-siege-surface text-slate-400 hover:text-white flex items-center justify-center">
           <i class="fa-solid fa-xmark text-xs"></i>
@@ -758,7 +759,7 @@
         <!-- Rank & XP Banner -->
         <div class="bg-siege-dark p-3.5 rounded-xl border border-siege-border flex items-center justify-between">
           <div>
-            <div class="text-[10px] text-slate-400">رنک فعلی شما در سیج:</div>
+            <div class="text-[10px] text-slate-400">رتبه‌ی پیشرفت شما در این برنامه:</div>
             <div id="profileRankName" class="text-lg font-black font-tactical text-siege-yellow">GOLD I</div>
             <div id="profileXpText" class="text-[11px] font-mono text-siege-cyan">TOTAL XP: 0</div>
           </div>
@@ -769,7 +770,7 @@
 
         <!-- Callsign Input -->
         <div class="space-y-1.5">
-          <label class="text-slate-400 block font-bold">کال‌ساین نظامی (نام شما):</label>
+          <label class="text-slate-400 block font-bold">نام نمایشی شما:</label>
           <div class="flex gap-2">
             <input type="text" id="callsignInput" maxlength="18" placeholder="VANGUARD_01" class="flex-1 bg-siege-dark border border-siege-border focus:border-siege-yellow rounded-xl px-3 py-2 text-white font-tactical font-bold outline-none uppercase">
             <button onclick="saveCallsign()" class="px-4 py-2 bg-siege-yellow text-black font-bold rounded-xl active:scale-95">ذخیره</button>
@@ -778,7 +779,7 @@
 
         <!-- Theme Selector (Skin Engine) -->
         <div class="space-y-1.5">
-          <label class="text-slate-400 block font-bold">انتخاب تم ویژه سایت (Dynamic Skin):</label>
+          <label class="text-slate-400 block font-bold">انتخاب ظاهر برنامه:</label>
           <div class="grid grid-cols-2 gap-2">
             <button onclick="setSkinTheme('default')" class="p-2.5 rounded-xl bg-siege-dark border border-siege-border hover:border-siege-yellow text-right flex items-center justify-between">
               <span class="font-bold text-white">Default Tactical</span>
@@ -803,15 +804,15 @@
         <div class="grid grid-cols-3 gap-2 text-center">
           <div class="bg-siege-dark p-2.5 rounded-xl border border-siege-border">
             <div id="statTotalRolls" class="text-lg font-black font-tactical text-siege-yellow">0</div>
-            <div class="text-[10px] text-slate-400">رول‌های ثبت‌شده</div>
+            <div class="text-[10px] text-slate-400">انتخاب‌های ثبت‌شده</div>
           </div>
           <div class="bg-siege-dark p-2.5 rounded-xl border border-siege-border">
             <div id="statChallengesWon" class="text-lg font-black font-tactical text-siege-red">0</div>
-            <div class="text-[10px] text-slate-400">چالش‌های برده</div>
+            <div class="text-[10px] text-slate-400">چالش‌های تکمیل‌شده</div>
           </div>
           <div class="bg-siege-dark p-2.5 rounded-xl border border-siege-border">
             <div id="statFavCount" class="text-lg font-black font-tactical text-siege-cyan">0</div>
-            <div class="text-[10px] text-slate-400">ستاره‌دارها</div>
+            <div class="text-[10px] text-slate-400">علاقه‌مندی‌ها</div>
           </div>
         </div>
 
@@ -839,7 +840,7 @@
       <div class="p-3.5 bg-siege-dark border-b border-siege-border flex items-center justify-between">
         <div class="flex items-center gap-2">
           <i class="fa-solid fa-ban text-siege-red"></i>
-          <h3 class="font-bold text-white text-xs sm:text-sm">مدیریت اپراتورهای بن‌شده و قفل</h3>
+          <h3 class="font-bold text-white text-xs sm:text-sm">مدیریت اپراتورهای قابل انتخاب</h3>
         </div>
         <button onclick="closeBanModal()" class="w-7 h-7 rounded bg-siege-surface text-slate-400 hover:text-white flex items-center justify-center">
           <i class="fa-solid fa-xmark text-xs"></i>
@@ -847,7 +848,7 @@
       </div>
 
       <div class="p-3 border-b border-siege-border/60 bg-siege-dark/60 flex items-center justify-between text-xs">
-        <span class="text-slate-400">اپراتورهای بدون تیک از قرعه‌کشی حذف می‌شوند:</span>
+        <span class="text-slate-400">اپراتورهای انتخاب‌نشده در انتخاب تصادفی نمایش داده نمی‌شوند:</span>
         <div class="flex gap-2">
           <button onclick="toggleAllOps(true)" class="text-siege-yellow hover:underline">انتخاب همه</button>
           <button onclick="toggleAllOps(false)" class="text-slate-400 hover:underline">حذف همه</button>
@@ -868,7 +869,7 @@
     <div class="bg-siege-card border-2 border-siege-yellow rounded-2xl w-full max-w-md overflow-hidden shadow-2xl flex flex-col clip-corner">
       <div class="p-3 bg-siege-dark border-b border-siege-border flex items-center justify-between">
         <span class="text-xs font-tactical font-black text-white flex items-center gap-1.5">
-          <i class="fa-solid fa-id-card text-siege-yellow"></i> R6 TACTICAL DOSSIER POSTER
+          <i class="fa-solid fa-id-card text-siege-yellow"></i> پوستر پروفایل R6
         </span>
         <button onclick="closeShareModal()" class="w-7 h-7 rounded bg-siege-surface text-slate-400 hover:text-white flex items-center justify-center">
           <i class="fa-solid fa-xmark text-xs"></i>
@@ -1327,7 +1328,7 @@
       const data = raw && typeof raw === 'object' && !Array.isArray(raw) ? raw : {};
       const entry = data[mode] && data[mode].date === today ? data[mode] : { date: today, count: 0 };
       if (entry.count >= (DAILY_XP_LIMITS[mode] || 0)) {
-        showToast('سهمیه‌ی روزانه‌ی XP این بخش تکمیل شده؛ فردا دوباره امتحان کن.');
+        showToast('سهمیه‌ی روزانه‌ی امتیاز تجربه در این بخش تمام شده؛ فردا دوباره امتحان کن.');
         return false;
       }
       data[mode] = { date: today, count: entry.count + 1 };
@@ -1360,11 +1361,11 @@
 
       // Profile Modal sync
       document.getElementById('profileRankName').innerText = currentRank.name;
-      document.getElementById('profileXpText').innerText = `TOTAL XP: ${xp} (LVL ${level})`;
+      document.getElementById('profileXpText').innerText = `مجموع امتیاز تجربه: ${xp} (سطح ${level})`;
       document.getElementById('statTotalRolls').innerText = userProfile.rolls || 0;
       document.getElementById('statChallengesWon').innerText = userProfile.wins || 0;
       document.getElementById('statFavCount').innerText = (userProfile.favs || []).length;
-      document.getElementById('modalPackCount').innerText = `${userProfile.packs || 0} PACKS`;
+      document.getElementById('modalPackCount').innerText = `${userProfile.packs || 0} آلفا پک`;
     }
 
     /* 9. DYNAMIC THEME ENGINE */
@@ -1446,9 +1447,9 @@
       document.getElementById('standardHintBox').classList.toggle('hidden', isCursed);
 
       document.getElementById('hqRollBtnText').innerText =
-        mode === 'squad' ? 'رول اسکواد ۵ نفره جدید' :
-        mode === 'cursed' ? 'رول لوداوت نفرین‌شده جدید' :
-        'رول تصادفی اپراتور جدید';
+        mode === 'squad' ? 'ساخت ترکیب تصادفی ۵ نفره' :
+        mode === 'cursed' ? 'انتخاب تجهیزات با محدودیت' :
+        'انتخاب اپراتور تصادفی';
 
       playTone(550, 'sine', 0.04);
     }
@@ -1478,7 +1479,7 @@
       if (enabled) {
         btn.disabled = false;
         btn.className = 'px-4 sm:px-6 py-3.5 rounded-xl bg-siege-cyan/20 border-2 border-siege-cyan text-siege-cyan hover:bg-siege-cyan hover:text-black font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition active:scale-95 shadow-lg shadow-siege-cyan/20';
-        txt.innerText = 'ثبت انتخاب (+15 XP)';
+        txt.innerText = 'ثبت انتخاب و دریافت امتیاز (+15 XP)';
       } else {
         btn.disabled = true;
         btn.className = 'px-4 sm:px-6 py-3.5 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition opacity-50 pointer-events-none';
@@ -1490,7 +1491,7 @@
       if (!hqRollCanClaimXp) return;
       if (!claimDailyXp('hq', 15)) {
         setHqConfirmButtonState(false);
-        document.getElementById('hqConfirmBtnText').innerText = 'سهمیه XP تکمیل شد';
+        document.getElementById('hqConfirmBtnText').innerText = 'سهمیه‌ی امتیاز تمام شد';
         return;
       }
       userProfile.rolls = (userProfile.rolls || 0) + 1;
@@ -1555,7 +1556,7 @@
       document.getElementById('cardOpName').innerText = op.name;
       document.getElementById('cardOrgName').innerText = `${op.org} • ${op.side === 'atk' ? 'ATTACK SQUAD' : 'DEFENSE SQUAD'}`;
       document.getElementById('cardGadgetName').innerText = op.gadget;
-      document.getElementById('cardSpeedArmor').innerText = `SPD ${op.speed} • ARM ${op.armor}`;
+      document.getElementById('cardSpeedArmor').innerText = `سرعت ${op.speed} • زره ${op.armor}`;
       document.getElementById('cardPrimaryWeapon').innerText = op.primary;
       document.getElementById('cardSecWeapon').innerText = op.sec;
 
@@ -1575,11 +1576,11 @@
       const badgeBox = document.getElementById('cardBadgeBox');
       if (op.side === 'atk') {
         sideBadge.className = 'px-2.5 py-0.5 text-[10px] font-tactical font-black rounded uppercase border bg-siege-cyan/20 border-siege-cyan text-siege-cyan';
-        sideBadge.innerText = 'ATTACKER';
+        sideBadge.innerText = 'مهاجم';
         badgeBox.className = 'w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-siege-dark border-2 border-siege-cyan flex items-center justify-center p-2 shrink-0 shadow-xl relative overflow-hidden';
       } else {
         sideBadge.className = 'px-2.5 py-0.5 text-[10px] font-tactical font-black rounded uppercase border bg-siege-orange/20 border-siege-orange text-siege-orange';
-        sideBadge.innerText = 'DEFENDER';
+        sideBadge.innerText = 'مدافع';
         badgeBox.className = 'w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-siege-dark border-2 border-siege-orange flex items-center justify-center p-2 shrink-0 shadow-xl relative overflow-hidden';
       }
 
@@ -1736,13 +1737,13 @@
       card.classList.add('scanning', 'card-flipping');
 
       currentStratObj = getRandomItem(pool);
-      document.getElementById('stratCounterCode').innerText = `OPERATION CODE: #STRAT-${String(currentStratObj.id).padStart(2, '0')} / 55`;
+      document.getElementById('stratCounterCode').innerText = `چالش ${String(currentStratObj.id).padStart(2, '0')} از ۵۵`;
       document.getElementById('stratTitleText').innerText = currentStratObj.title;
       document.getElementById('stratDescText').innerText = currentStratObj.desc;
-      document.getElementById('stratDiffBadge').innerText = currentStratObj.diff;
+      document.getElementById('stratDiffBadge').innerText = ({ VETERAN: 'سخت', HARD: 'سخت', MEDIUM: 'متوسط', EASY: 'آسان' })[currentStratObj.diff] || currentStratObj.diff;
       document.getElementById('stratSideTag').innerText =
-        currentStratObj.side === 'atk' ? 'ATTACKERS ONLY' :
-        currentStratObj.side === 'def' ? 'DEFENDERS ONLY' : 'UNIVERSAL SQUAD';
+        currentStratObj.side === 'atk' ? 'ویژه‌ی مهاجمان' :
+        currentStratObj.side === 'def' ? 'ویژه‌ی مدافعان' : 'مناسب همه‌ی تیم‌ها';
 
       stratRollCanClaimXp = true;
       const cBtn = document.getElementById('stratCompleteBtn');
@@ -1762,14 +1763,14 @@
       stratRollCanClaimXp = false;
       const cBtn = document.getElementById('stratCompleteBtn');
       cBtn.className = 'w-full py-2.5 px-4 rounded-xl bg-siege-surface border border-siege-border text-slate-400 font-bold text-xs flex items-center justify-center gap-2 opacity-60';
-      document.getElementById('stratCompleteBtnText').innerText = 'پیروزی ثبت شد ✓ (چالش بعدی را رول کنید)';
+      document.getElementById('stratCompleteBtnText').innerText = 'چالش ثبت شد ✓ (چالش بعدی را نمایش بده)';
 
       const xpAwarded = claimDailyXp('strat', 100);
       userProfile.wins = (userProfile.wins || 0) + 1;
       if (xpAwarded && userProfile.wins % 5 === 0) {
         userProfile.packs = (userProfile.packs || 0) + 1;
-        showToast('🏆 ۵ چالش تکمیل شد! Alpha Pack و +100 XP گرفتی!');
-      } else if (xpAwarded) showToast('🎖️ پیروزی ثبت شد! +100 XP دریافت کردی.');
+        showToast('🏆 پنج چالش تکمیل شد! یک آلفا پک و ۱۰۰ امتیاز تجربه گرفتی!');
+      } else if (xpAwarded) showToast('🎖️ چالش ثبت شد! ۱۰۰ امتیاز تجربه دریافت کردی.');
       saveProfile();
       triggerHaptic([30, 50, 40]);
       [523, 659, 784, 1046].forEach((f, idx) => setTimeout(() => playTone(f, 'sine', 0.11), idx * 85));
@@ -1780,7 +1781,7 @@
       document.getElementById('duoSideAtk').className = side === 'atk' ? 'px-3 py-1 rounded text-xs font-bold bg-siege-cyan text-black' : 'px-3 py-1 rounded text-xs font-bold text-slate-400';
       document.getElementById('duoSideDef').className = side === 'def' ? 'px-3 py-1 rounded text-xs font-bold bg-siege-orange text-black' : 'px-3 py-1 rounded text-xs font-bold text-slate-400';
       playTone(520, 'sine', 0.04);
-      showToast('جناح کمبو تغییر کرد؛ دکمه رول کمبو را بزنید.');
+      showToast('تیم حمله/دفاع تغییر کرد؛ برای دیدن ترکیب تازه، دکمه‌ی پیشنهاد ترکیب را بزن.');
     }
 
     function rollDuoCombo() {
@@ -1811,7 +1812,7 @@
       duoRollCanClaimXp = false;
       if (!claimDailyXp('duo', 20)) {
         const btn = document.getElementById('duoConfirmXpBtn');
-        btn.disabled = true; btn.innerText = 'سهمیه XP تکمیل شد'; return;
+        btn.disabled = true; btn.innerText = 'سهمیه‌ی امتیاز تمام شد'; return;
       }
       userProfile.rolls = (userProfile.rolls || 0) + 1;
       saveProfile();
@@ -1854,14 +1855,14 @@
       duelRollCanClaimXp = false;
       if (!claimDailyXp('duel', 20)) {
         const btn = document.getElementById('duelConfirmXpBtn');
-        btn.disabled = true; btn.innerText = 'سهمیه XP تکمیل شد'; return;
+        btn.disabled = true; btn.innerText = 'سهمیه‌ی امتیاز تمام شد'; return;
       }
       userProfile.rolls = (userProfile.rolls || 0) + 1;
       saveProfile();
       const btn = document.getElementById('duelConfirmXpBtn');
       btn.disabled = true;
       btn.className = 'px-4 py-3.5 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs flex items-center justify-center gap-1.5 opacity-50 pointer-events-none';
-      showToast('✅ دوئل ثبت شد (+20 XP)!');
+      showToast('✅ رقابت ثبت شد؛ ۲۰ امتیاز تجربه دریافت کردی!');
       playTone(840, 'sine', 0.1);
     }
 
@@ -1893,14 +1894,14 @@
       resetTimer();
       timerDuration = Math.max(1, Math.floor(Number(sec) || 1));
       timerRemaining = timerDuration;
-      document.getElementById('timerSubText').innerText = label;
+      document.getElementById('timerSubText').innerText = label.replace('RANKED ROUND (3:00)', 'زمان راند رنک‌دار (۳:۰۰)').replace('DEFUSER PLANTED (0:45)', 'زمان پس از کاشت دیفیوزر (۰:۴۵)');
       document.getElementById('bigTimerDisplay').innerText = formatTime(timerRemaining);
       playTone(500, 'sine', 0.05);
     }
 
     function startDefuseCountdown(sec = 7) {
       const duration = Math.max(1, Math.floor(Number(sec) || 7));
-      setTimerPreset(duration, `DEFUSER COUNTDOWN (${duration}s)`);
+      setTimerPreset(duration, `شمارش معکوس خنثی‌سازی (${duration} ثانیه)`);
       startStopTimer();
     }
 
@@ -1918,7 +1919,7 @@
       if (msLeft <= 0) {
         clearInterval(timerInterval); timerInterval = null; timerEndAt = null; isTimerRunning = false; timerRemaining = 0;
         document.getElementById('bigTimerDisplay').innerText = formatTime(0);
-        document.getElementById('timerStatusBadge').innerText = 'DETONATED';
+        document.getElementById('timerStatusBadge').innerText = 'پایان زمان';
         document.getElementById('timerControlBtn').innerHTML = '<i class="fa-solid fa-play"></i><span>شروع تایمر</span>';
         triggerHaptic([80, 50, 120]);
         [920, 700, 920, 680].forEach((f, idx) => setTimeout(() => playTone(f, 'sawtooth', 0.14), idx * 110));
@@ -1929,11 +1930,11 @@
       const btn = document.getElementById('timerControlBtn'), badge = document.getElementById('timerStatusBadge');
       if (isTimerRunning) {
         updateTimerTick(); clearInterval(timerInterval); timerInterval = null;
-        if (isTimerRunning) { timerEndAt = null; isTimerRunning = false; btn.innerHTML = '<i class="fa-solid fa-play"></i><span>ادامه تایمر</span>'; badge.innerText = 'PAUSED'; }
+        if (isTimerRunning) { timerEndAt = null; isTimerRunning = false; btn.innerHTML = '<i class="fa-solid fa-play"></i><span>ادامه تایمر</span>'; badge.innerText = 'متوقف'; }
       } else {
         if (timerRemaining <= 0) timerRemaining = timerDuration;
         timerEndAt = Date.now() + timerRemaining * 1000; lastTimerBeepSecond = null; isTimerRunning = true;
-        btn.innerHTML = '<i class="fa-solid fa-pause"></i><span>توقف تایمر</span>'; badge.innerText = 'ACTIVE';
+        btn.innerHTML = '<i class="fa-solid fa-pause"></i><span>توقف تایمر</span>'; badge.innerText = 'در حال اجرا';
         updateTimerTick(); timerInterval = setInterval(updateTimerTick, 200);
       }
     }
@@ -1943,14 +1944,14 @@
       timerRemaining = timerDuration; lastTimerBeepSecond = null;
       document.getElementById('bigTimerDisplay').innerText = formatTime(timerRemaining);
       document.getElementById('timerControlBtn').innerHTML = '<i class="fa-solid fa-play"></i><span>شروع تایمر</span>';
-      document.getElementById('timerStatusBadge').innerText = 'READY';
+      document.getElementById('timerStatusBadge').innerText = 'آماده';
     }
 
     /* 16. ALPHA PACK ZIPPER SIMULATOR */
     function openAlphaModal() {
       document.getElementById('modalPackCount').innerText = `${userProfile.packs || 0} PACKS`;
       document.getElementById('alphaZipperSlider').value = 0;
-      document.getElementById('alphaRewardTitle').innerText = 'ALPHA PACK READY';
+      document.getElementById('alphaRewardTitle').innerText = 'آلفا پک آماده‌ی باز شدن';
       document.getElementById('alphaRewardTitle').className = 'font-tactical font-black text-sm text-white uppercase tracking-wider';
       document.getElementById('alphaRewardSub').innerText = 'زیپ زیر را تا انتها بکشید تا جایزه باز شود!';
       document.getElementById('alphaModal').classList.remove('hidden-modal');
@@ -2169,7 +2170,7 @@
       ctx.fillText(`CALLSIGN: ${userProfile.callsign || 'OPERATOR'}   •   RANK: ${rankObj.name}`, 200, 166);
 
       // Mode Tag Pill on Header Right
-      const modeLabel = currentHqMode === 'squad' ? '5-MAN SQUAD' : currentHqMode === 'cursed' ? 'CURSED PROTOCOL' : 'SOLO LOADOUT';
+      const modeLabel = currentHqMode === 'squad' ? 'TEAM OF 5' : currentHqMode === 'cursed' ? 'SPECIAL RULES' : 'SOLO OPERATOR';
       drawRoundedRect(ctx, W - 340, 110, 230, 52, 12, 'rgba(248, 170, 0, 0.15)', goldColor, 2);
       ctx.textAlign = 'center';
       ctx.fillStyle = goldColor;
@@ -2180,13 +2181,13 @@
       if (currentHqMode === 'squad') {
         const side = currentFaction === 'def' ? 'def' : 'atk';
         const roles = side === 'atk'
-          ? ['ENTRY FRAG', 'HARD BREACH', 'SUPPORT', 'INTEL / FLANK', 'FLEX']
-          : ['ANCHOR', 'ROAMER', 'TRAPPER', 'WALL DENIAL', 'INTEL'];
+          ? ['ورود و درگیری', 'باز کردن دیوار', 'پشتیبانی', 'اطلاعات و پوشش', 'نقش منعطف']
+          : ['دفاع از سایت', 'گشت‌زنی بیرون سایت', 'تله‌گذاری', 'جلوگیری از باز شدن دیوار', 'جمع‌آوری اطلاعات'];
 
         ctx.textAlign = 'center';
         ctx.fillStyle = '#ffffff';
         ctx.font = '900 42px "Chakra Petch", sans-serif';
-        ctx.fillText(`${side === 'atk' ? 'ATTACK' : 'DEFENSE'} 5-MAN SQUAD LINEUP`, W / 2, 265);
+        ctx.fillText(`${side === 'atk' ? 'ATTACK' : 'DEFENSE'} TEAM LINEUP (5)`, W / 2, 265);
 
         let startY = 310;
         for (let i = 0; i < currentSquadList.length; i++) {
