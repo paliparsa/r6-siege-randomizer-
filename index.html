@@ -2031,7 +2031,7 @@
     }
     function closeBanModal() {
       document.getElementById('banModal').classList.add('hidden-modal');
-      localStorage.setItem('r6_banned_ops_v1', JSON.stringify(bannedOpIds));
+      if (!safeWriteLocal('r6_banned_ops_v1', bannedOpIds)) showToast('ذخیره‌ی فهرست بن‌ها ممکن نشد.');
       document.getElementById('bannedCountBadge').innerText = bannedOpIds.length;
     }
 
