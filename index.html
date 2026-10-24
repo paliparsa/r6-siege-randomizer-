@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#0B0D0F">
-  <meta name="app-version" content="1.8.1">
+  <meta name="app-version" content="1.8.2">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -400,9 +400,9 @@
 
   
       /* Global contextual poster action — available from every hub */
-      #globalPosterButton { position: fixed; right: max(14px, env(safe-area-inset-right)); bottom: calc(76px + var(--safe-bottom, 0px)); z-index: 35; }
+      #globalPosterButton { position: fixed !important; display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; right: max(14px, env(safe-area-inset-right)); bottom: calc(88px + var(--safe-bottom, 0px)); z-index: 49 !important; }
       @media (min-width: 640px) { #globalPosterButton { bottom: 18px; } }
-      @media (max-width: 380px) { #globalPosterButton { right: 10px; bottom: calc(72px + var(--safe-bottom, 0px)); } }
+      @media (max-width: 380px) { #globalPosterButton { right: 10px; bottom: calc(82px + var(--safe-bottom, 0px)); } }
 
 
       /* v1.5.0 — Tactical Noir visual system; visual-only, preserves app behavior */
@@ -754,7 +754,7 @@
         </button>
         <button onclick="switchHub('tools')" id="hub-btn-tools" class="px-4 py-1.5 rounded-xl font-bold text-xs transition text-slate-300 hover:bg-siege-surface border border-transparent flex items-center gap-2">
           <i class="fa-solid fa-map-location-dot"></i>
-          <span>۳. ابزارهای نقشه و زمان</span>
+          <span>۳. نقشه و سایت</span>
         </button>
       </div>
 
@@ -1115,7 +1115,7 @@
     </button>
     <button onclick="switchHub('tools')" id="mhub-tools" class="flex flex-col items-center gap-0.5 text-slate-400 text-[10px] font-bold py-1 px-3">
       <i class="fa-solid fa-map-location-dot text-base"></i>
-      <span>نقشه‌ها</span>
+      <span>نقشه و سایت</span>
     </button>
     <button onclick="openProfileModal()" class="flex flex-col items-center gap-0.5 text-slate-400 text-[10px] font-bold py-1 px-3">
       <i class="fa-solid fa-user-astronaut text-base"></i>
