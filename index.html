@@ -2901,16 +2901,25 @@
       playTone(630, 'triangle', 0.06);
     }
 
+    function escapeMapOption(value) {
+      return String(value == null ? '' : value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
     function syncMapControls() {
       const mapSelect = document.getElementById('mapSelect');
       const siteSelect = document.getElementById('siteSelect');
       if (!currentMapObj || !Array.isArray(currentMapObj.sites) || !currentMapObj.sites.length) return;
       if (mapSelect) {
-        mapSelect.innerHTML = MAP_DATABASE.map(map => '<option value="' + escapeHtml(map.name) + '">' + escapeHtml(map.name) + '</option>').join('');
+        mapSelect.innerHTML = MAP_DATABASE.map(map => '<option value="' + escapeMapOption(map.name) + '">' + escapeMapOption(map.name) + '</option>').join('');
         mapSelect.value = currentMapObj.name;
       }
       if (siteSelect) {
-        siteSelect.innerHTML = currentMapObj.sites.map((site, index) => '<option value="' + index + '">' + escapeHtml(site.site) + '</option>').join('');
+        siteSelect.innerHTML = currentMapObj.sites.map((site, index) => '<option value="' + index + '">' + escapeMapOption(site.site) + '</option>').join('');
         siteSelect.value = String(Math.max(0, currentMapObj.sites.indexOf(currentMapSiteObj)));
       }
       const count = document.getElementById('mapCountBadge');
@@ -3140,7 +3149,11 @@
       if (currentHub === 'ops') {
         if (currentOpsMode === 'duo') {
           const combo = currentDuoCombo;
-          if (!combo) return { title: 'DUO SYNERGY', subtitle: 'ترکیب دونفره‌ی تاکتیکی', accent: '#00E5FF', suffix: 'DUO', operators: [], lines: ['هنوز ترکیبی ساخته نشده است. به بخش ترکیب دونفره برگرد و «پیدا کردن ترکیب» را بزن.'] };
+          if (!combo) {
+            const sideLabel = currentDuoSide === 'atk' ? 'مهاجمان' : 'مدافعان';
+            const styleLabel = ({any:'همه‌ی سبک‌ها',breach:'تخریب دیوار',intel:'اطلاعات',control:'کنترل'})[currentDuoStyle] || currentDuoStyle;
+            return { title: 'DUO SYNERGY', subtitle: 'ترکیب دونفره‌ی تاکتیکی • ' + sideLabel, accent: '#D6F04A', suffix: 'DUO_' + currentDuoSide + '_' + currentDuoStyle, operators: [], lines: ['فیلتر جناح: ' + sideLabel, 'فیلتر سبک: ' + styleLabel, currentDuoSearch ? 'جست‌وجو: ' + currentDuoSearch : 'بدون فیلتر جست‌وجو', 'هنوز ترکیبی ساخته نشده است؛ دکمه‌ی «پیدا کردن ترکیب» را بزن.'] };
+          }
           const a = OPERATORS.find(o => o.name.toLowerCase() === combo.op1.toLowerCase());
           const b = OPERATORS.find(o => o.name.toLowerCase() === combo.op2.toLowerCase());
           const sideLabel = currentDuoSide === 'atk' ? 'مهاجمان' : 'مدافعان';
@@ -3150,7 +3163,10 @@
         }
         if (currentOpsMode === 'duel') {
           const match = currentDuelMatch;
-          if (!match) return { title: 'DUEL ARENA', subtitle: 'رقابت رو‌در‌رو', accent: '#FF6B00', suffix: 'DUEL', operators: [], lines: ['هنوز دوئلی ساخته نشده است. به بخش Duel Arena برگرد و «شروع دوئل جدید» را بزن.'] };
+          if (!match) {
+            const selectedMode = document.querySelector('#opsDuelView .duel-mode-btn.active')?.innerText?.trim() || 'حالت پیش‌فرض';
+            return { title: 'DUEL ARENA', subtitle: 'رقابت رو‌در‌رو • ' + selectedMode, accent: '#D94A45', suffix: 'DUEL_' + selectedMode, operators: [], lines: ['حالت انتخاب‌شده: ' + selectedMode, 'هنوز دوئلی ساخته نشده است؛ «شروع دوئل جدید» را بزن.', duelTournament?.champion ? 'قهرمان تورنمنت: ' + duelTournament.champion.name : duelTournament ? 'تورنمنت فعال: ' + duelTournament.size + ' اپراتور' : 'تورنمنت هنوز شروع نشده'] };
+          }
           const selectedMode = document.querySelector('#opsDuelView .duel-mode-btn.active')?.innerText?.trim() || DUEL_MODE_LABELS[match.mode] || 'سناریوی تاکتیکی';
           const tournamentLabel = duelTournament?.champion ? 'قهرمان تورنمنت: ' + duelTournament.champion.name : duelTournament ? 'تورنمنت فعال: ' + duelTournament.size + ' اپراتور' : 'تورنمنت هنوز شروع نشده';
           return { title: match.p1.name + ' VS ' + match.p2.name, subtitle: 'DUEL ARENA • ' + selectedMode, accent: '#D94A45', suffix: 'DUEL_' + match.mode + '_' + match.p1.name + '_' + match.p2.name, operators: [match.p1,match.p2], lines: ['حالت انتخاب‌شده: ' + selectedMode, match.p1.name + ': ' + match.rules.w1 + ' • ' + match.rules.m1, match.p2.name + ': ' + match.rules.w2 + ' • ' + match.rules.m2, 'قانون مشترک: ' + match.rules.global, document.getElementById('duelVerdict')?.innerText || 'برنده‌ی قطعی صرفاً از روی آمار پایه تعیین نمی‌شود.', tournamentLabel] };
