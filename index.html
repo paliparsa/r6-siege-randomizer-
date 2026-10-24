@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#06090e">
-  <meta name="app-version" content="1.1.0">
+  <meta name="app-version" content="1.1.1">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -223,6 +223,93 @@
       0% { transform: translateX(-40%) translateY(-40%); }
       100% { transform: translateX(40%) translateY(40%); }
     }
+  
+    
+    /* Mobile scrolling: use the document as the scroll container instead of trapping
+       touch scrolling inside a fixed-height app viewport. */
+    @media (max-width: 639.98px) {
+      html,
+      body {
+        height: auto;
+        min-height: 100%;
+        width: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      body {
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+
+      body > header {
+        flex: 0 0 auto;
+      }
+
+      main {
+        flex: 1 0 auto;
+        min-height: 0;
+        height: auto;
+        overflow: visible !important;
+        overscroll-behavior-y: auto;
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+      }
+
+      main > section:not(.hidden) {
+        height: auto !important;
+        min-height: 0;
+        justify-content: flex-start;
+        gap: 1rem;
+      }
+
+      main > section:not(.hidden) > * {
+        flex-shrink: 0;
+      }
+
+      #hub-hq #hqSingleCardWrap {
+        flex: 0 0 auto;
+        min-height: 260px;
+      }
+
+      #hub-hq #operatorMainCard {
+        min-height: 260px;
+        max-height: none;
+      }
+
+      body > nav[class~="sm:hidden"] {
+        position: sticky;
+        bottom: 0;
+        flex: 0 0 auto;
+        z-index: 40;
+        padding-bottom: calc(6px + var(--safe-bottom));
+        padding-top: 6px;
+        background-color: rgba(6, 9, 15, 0.96);
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+      }
+
+      .modal-backdrop:not(.hidden-modal) {
+        overflow-x: hidden;
+        overflow-y: auto;
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: max(12px, env(safe-area-inset-top));
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-y: contain;
+      }
+
+      .modal-backdrop:not(.hidden-modal) > :first-child {
+        max-height: calc(100dvh - max(24px, env(safe-area-inset-top) + env(safe-area-inset-bottom)));
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior-y: contain;
+        margin-block: auto;
+      }
+    }
+
   </style>
 </head>
 <body data-faction="atk" data-skin="default" class="antialiased selection:bg-siege-yellow selection:text-black">
