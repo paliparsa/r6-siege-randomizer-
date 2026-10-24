@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.4.1 — 2026-10-24
+
+### Fixed
+- Fixed Duo Synergy crashing when filtering or generating a combination by initializing the search query state before the filter is first evaluated.
+- Bumped app version to 1.4.1 and Service Worker cache to `r6-cache-v11` so installed clients refresh the fix.
+
+### Validation
+- Source-level checks confirm the Duo search state is declared once and before use, and the roll/filter handlers still reference the expected controls.
+- Browser/device runtime testing remains to be confirmed.
+
+
 ## 1.4.0 — 2026-10-24
 
 ### Added
