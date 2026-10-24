@@ -333,7 +333,7 @@
          HUB 1: OPERATORS HQ (Standard Solo / Cursed Loadout / 5-Man Squad)
          ========================================================================= -->
     <section id="hub-hq" class="flex flex-col justify-between h-full gap-2.5">
-      <!-- Top Mode Switcher + Faction Selector -->
+      <!-- Top Mode Switcher + Faction Selector (Does NOT auto-roll on switch) -->
       <div class="flex flex-col sm:flex-row gap-2 shrink-0">
         <!-- Sub-mode Switcher -->
         <div class="grid grid-cols-3 gap-1 bg-siege-card p-1 rounded-xl border border-siege-border flex-1">
@@ -386,9 +386,9 @@
             </div>
 
             <div class="flex items-center gap-1.5">
-              <button onclick="exportCurrentCard()" class="px-2.5 py-1 rounded-lg bg-siege-dark border border-siege-border hover:border-siege-yellow text-slate-300 hover:text-siege-yellow text-[11px] font-bold flex items-center gap-1 transition active:scale-95" title="خروجی پوستر دیسکورد">
-                <i class="fa-solid fa-share-nodes"></i>
-                <span class="hidden sm:inline">پوستر دیسکورد</span>
+              <button onclick="exportCurrentCard()" class="px-2.5 py-1 rounded-lg bg-siege-dark border border-siege-border hover:border-siege-yellow text-slate-300 hover:text-siege-yellow text-[11px] font-bold flex items-center gap-1.5 transition active:scale-95" title="خروجی پوستر دیسکورد و استوری">
+                <i class="fa-solid fa-camera-retro text-siege-yellow"></i>
+                <span>ساخت پوستر</span>
               </button>
               <button onclick="toggleFavoriteCurrent()" class="w-8 h-8 rounded-lg bg-siege-dark border border-siege-border text-slate-400 hover:text-siege-yellow flex items-center justify-center transition active:scale-95" title="افزودن به علاقه‌مندی‌ها (یا کشیدن کارت به بالا)">
                 <i class="fa-regular fa-star text-sm" id="cardFavIcon"></i>
@@ -446,17 +446,29 @@
       </div>
 
       <!-- 1B. 5-MAN SQUAD GENERATOR VIEW -->
-      <div id="hqSquadWrap" class="hidden flex-1 flex flex-col justify-center min-h-0">
-        <div id="squadGridContainer" class="grid grid-cols-1 sm:grid-cols-5 gap-2 overflow-y-auto no-scrollbar py-1">
+      <div id="hqSquadWrap" class="hidden flex-1 flex flex-col justify-between min-h-0 gap-2">
+        <div class="flex items-center justify-between bg-siege-card/80 px-3 py-1.5 rounded-xl border border-siege-border shrink-0">
+          <span class="text-xs font-bold text-slate-300"><i class="fa-solid fa-users text-siege-yellow ml-1.5"></i>ترکیب ۵ نفره اسکواد</span>
+          <button onclick="exportCurrentCard()" class="px-2.5 py-1 rounded-lg bg-siege-dark border border-siege-border hover:border-siege-yellow text-siege-yellow text-[11px] font-bold flex items-center gap-1.5 transition active:scale-95">
+            <i class="fa-solid fa-camera-retro"></i>
+            <span>پوستر اسکواد ۵ نفره</span>
+          </button>
+        </div>
+        <div id="squadGridContainer" class="grid grid-cols-1 sm:grid-cols-5 gap-2 overflow-y-auto no-scrollbar py-1 my-auto">
           <!-- Populated by JS -->
         </div>
       </div>
 
-      <!-- Bottom Roll Action Button -->
-      <div class="shrink-0">
-        <button onclick="triggerHqRoll()" id="hqRollBtn" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-siege-yellow to-siege-orange text-black font-tactical font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-siege-yellow/25 active:scale-95 transition">
+      <!-- Bottom Roll & Confirm XP Action Buttons -->
+      <div class="shrink-0 flex gap-2">
+        <button onclick="triggerHqRoll()" id="hqRollBtn" class="flex-1 py-3.5 px-4 rounded-xl bg-gradient-to-r from-siege-yellow to-siege-orange text-black font-tactical font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-siege-yellow/25 active:scale-95 transition">
           <i class="fa-solid fa-dice-d20 text-base"></i>
-          <span id="hqRollBtnText">انتخاب تصادفی اپراتور (+10 XP)</span>
+          <span id="hqRollBtnText">رول تصادفی اپراتور</span>
+        </button>
+
+        <button onclick="confirmHqSelection()" id="hqConfirmXpBtn" disabled class="px-4 sm:px-6 py-3.5 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition active:scale-95 disabled:opacity-50 disabled:pointer-events-none">
+          <i class="fa-solid fa-check-double"></i>
+          <span id="hqConfirmBtnText">ثبت و دریافت (+15 XP)</span>
         </button>
       </div>
     </section>
@@ -505,16 +517,16 @@
           </div>
 
           <div class="flex items-center gap-2 pt-2">
-            <button onclick="completeCurrentStrat()" class="w-full py-2.5 px-4 rounded-xl bg-siege-cyan/15 border border-siege-cyan hover:bg-siege-cyan hover:text-black text-siege-cyan font-bold text-xs transition flex items-center justify-center gap-2 active:scale-95">
+            <button onclick="completeCurrentStrat()" id="stratCompleteBtn" class="w-full py-2.5 px-4 rounded-xl bg-siege-cyan/15 border border-siege-cyan hover:bg-siege-cyan hover:text-black text-siege-cyan font-bold text-xs transition flex items-center justify-center gap-2 active:scale-95">
               <i class="fa-solid fa-trophy"></i>
-              <span>ثبت پیروزی در این چالش (+100 XP و پیشرفت آلفا پک)</span>
+              <span id="stratCompleteBtnText">ثبت پیروزی در این چالش (+100 XP و پیشرفت آلفا پک)</span>
             </button>
           </div>
         </div>
 
         <button onclick="rollRandomStrat()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-siege-yellow to-siege-orange text-black font-tactical font-black text-sm uppercase flex items-center justify-center gap-2 shadow-lg shrink-0 active:scale-95 transition">
           <i class="fa-solid fa-dice"></i>
-          <span>دریافت چالش مخفی بعدی (+10 XP)</span>
+          <span>رول چالش مخفی بعدی</span>
         </button>
       </div>
 
@@ -553,10 +565,16 @@
           </div>
         </div>
 
-        <button onclick="rollDuoCombo()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-siege-yellow to-siege-orange text-black font-tactical font-black text-sm uppercase flex items-center justify-center gap-2 shrink-0 active:scale-95 transition">
-          <i class="fa-solid fa-user-plus"></i>
-          <span>پیشنهاد کمبوی ۲ نفره بعدی (+10 XP)</span>
-        </button>
+        <div class="flex gap-2 shrink-0">
+          <button onclick="rollDuoCombo()" class="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-siege-yellow to-siege-orange text-black font-tactical font-black text-xs sm:text-sm uppercase flex items-center justify-center gap-2 active:scale-95 transition">
+            <i class="fa-solid fa-user-plus"></i>
+            <span>رول کمبوی ۲ نفره جدید</span>
+          </button>
+          <button onclick="confirmDuoXp()" id="duoConfirmXpBtn" disabled class="px-4 py-3.5 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 disabled:opacity-50 disabled:pointer-events-none">
+            <i class="fa-solid fa-check-double"></i>
+            <span>ثبت کمبو (+20 XP)</span>
+          </button>
+        </div>
       </div>
 
       <!-- 2C. 1V1 CUSTOM DUEL VIEW -->
@@ -583,10 +601,16 @@
           </div>
         </div>
 
-        <button onclick="rollDuelMatch()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-siege-red to-siege-orange text-white font-tactical font-black text-sm uppercase flex items-center justify-center gap-2 shrink-0 active:scale-95 transition">
-          <i class="fa-solid fa-swords"></i>
-          <span>قرعه‌کشی قوانین دوئل 1v1 جدید (+10 XP)</span>
-        </button>
+        <div class="flex gap-2 shrink-0">
+          <button onclick="rollDuelMatch()" class="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-siege-red to-siege-orange text-white font-tactical font-black text-xs sm:text-sm uppercase flex items-center justify-center gap-2 active:scale-95 transition">
+            <i class="fa-solid fa-swords"></i>
+            <span>رول قوانین دوئل 1v1</span>
+          </button>
+          <button onclick="confirmDuelXp()" id="duelConfirmXpBtn" disabled class="px-4 py-3.5 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 disabled:opacity-50 disabled:pointer-events-none">
+            <i class="fa-solid fa-check-double"></i>
+            <span>ثبت دوئل (+20 XP)</span>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -711,7 +735,7 @@
         </div>
 
         <p class="text-[10px] text-slate-500">
-          به ازای هر ۵ پیروزی در چالش‌ها یا هر ۱۰۰ XP یک آلفا پک دریافت می‌کنید (حاوی تایتل‌های لجندری و تم‌های ویژه).
+          به ازای هر ۵ پیروزی در چالش‌ها یا هر ۲۰۰ XP یک آلفا پک دریافت می‌کنید (حاوی تایتل‌های لجندری و تم‌های ویژه).
         </p>
       </div>
     </div>
@@ -779,7 +803,7 @@
         <div class="grid grid-cols-3 gap-2 text-center">
           <div class="bg-siege-dark p-2.5 rounded-xl border border-siege-border">
             <div id="statTotalRolls" class="text-lg font-black font-tactical text-siege-yellow">0</div>
-            <div class="text-[10px] text-slate-400">کل رول‌ها</div>
+            <div class="text-[10px] text-slate-400">رول‌های ثبت‌شده</div>
           </div>
           <div class="bg-siege-dark p-2.5 rounded-xl border border-siege-border">
             <div id="statChallengesWon" class="text-lg font-black font-tactical text-siege-red">0</div>
@@ -839,25 +863,33 @@
     </div>
   </div>
 
-  <!-- ================= SHAREABLE DOSSIER CARD MODAL ================= -->
+  <!-- ================= SHAREABLE DOSSIER CARD MODAL (HIGH-RES CANVAS) ================= -->
   <div id="shareModal" class="modal-backdrop hidden-modal fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-3">
-    <div class="bg-siege-card border-2 border-siege-yellow rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl flex flex-col clip-corner">
+    <div class="bg-siege-card border-2 border-siege-yellow rounded-2xl w-full max-w-md overflow-hidden shadow-2xl flex flex-col clip-corner">
       <div class="p-3 bg-siege-dark border-b border-siege-border flex items-center justify-between">
         <span class="text-xs font-tactical font-black text-white flex items-center gap-1.5">
-          <i class="fa-solid fa-id-card text-siege-yellow"></i> TACTICAL SQUAD POSTER
+          <i class="fa-solid fa-id-card text-siege-yellow"></i> R6 TACTICAL DOSSIER POSTER
         </span>
-        <button onclick="closeShareModal()" class="w-6 h-6 rounded text-slate-400 hover:text-white flex items-center justify-center">
+        <button onclick="closeShareModal()" class="w-7 h-7 rounded bg-siege-surface text-slate-400 hover:text-white flex items-center justify-center">
           <i class="fa-solid fa-xmark text-xs"></i>
         </button>
       </div>
+
       <div class="p-4 space-y-3 text-center">
-        <div class="bg-black p-2 rounded-xl border border-siege-border flex items-center justify-center overflow-hidden">
-          <canvas id="dossierCanvas" width="500" height="600" class="w-full h-auto rounded-lg"></canvas>
+        <div class="bg-siege-dark p-2 rounded-xl border border-siege-border flex items-center justify-center overflow-hidden shadow-inner">
+          <canvas id="dossierCanvas" width="1080" height="1350" class="w-full max-h-[62dvh] w-auto rounded-lg object-contain"></canvas>
         </div>
-        <button onclick="downloadDossierImage()" class="w-full py-2.5 rounded-lg bg-siege-yellow text-black font-tactical font-black text-xs uppercase flex items-center justify-center gap-1.5 active:scale-95 shadow">
-          <i class="fa-solid fa-download"></i>
-          <span>دانلود پوستر دیسکورد (PNG)</span>
-        </button>
+
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="shareDossierNative()" class="py-2.5 px-3 rounded-xl bg-siege-surface border border-siege-cyan/50 hover:border-siege-cyan text-siege-cyan font-bold text-xs flex items-center justify-center gap-1.5 active:scale-95 transition">
+            <i class="fa-solid fa-share-nodes"></i>
+            <span>اشتراک‌گذاری مستقیم</span>
+          </button>
+          <button onclick="downloadDossierImage()" class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-siege-yellow to-siege-orange text-black font-bold text-xs flex items-center justify-center gap-1.5 active:scale-95 shadow transition">
+            <i class="fa-solid fa-download"></i>
+            <span>دانلود پوستر (PNG)</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -879,9 +911,9 @@
           <div class="w-14 h-14 rounded-2xl bg-siege-cyan/15 border border-siege-cyan text-siege-cyan flex items-center justify-center mx-auto text-2xl">
             <i class="fa-solid fa-layer-group"></i>
           </div>
-          <h3 class="text-base font-black text-white">داشبورد فرماندهی یکپارچه + ژست حرکتی</h3>
+          <h3 class="text-base font-black text-white">کنترل دستی رول + ثبت انتخاب برای XP</h3>
           <p class="text-xs text-slate-400 leading-relaxed">
-            کارت اپراتور را به چپ/راست بکشید (Swipe) یا گوشی را تکان دهید (Shake) تا با انیمیشن اسکن لیزری و سه‌بعدی رول شود! کشیدن کارت به بالا اپراتور را ستاره‌دار می‌کند.
+            جابه‌جایی بین تب‌ها و مودها دیگر خودکار رول نمی‌کند! هر زمان آماده بودید دکمه رول را بزنید و پس از پسندیدن اپراتور یا اسکواد، دکمه **«ثبت و دریافت XP»** را بزنید.
           </p>
         </div>
 
@@ -891,17 +923,17 @@
           </div>
           <h3 class="text-base font-black text-white">رنک واقعی، XP و باز کردن Alpha Pack</h3>
           <p class="text-xs text-slate-400 leading-relaxed">
-            با هر رول (+10 XP) و هر پیروزی در ۵۵ چالش مخفی (+100 XP) از Copper V تا Champion رنک‌آپ کنید و زیپ آلفا پک‌ها را برای باز کردن تایتل‌ها و تم Black Ice بکشید!
+            با ثبت هر لوداوت (+15 XP) و هر پیروزی در ۵۵ چالش مخفی (+100 XP) از Copper V تا Champion رنک‌آپ کنید و زیپ آلفا پک‌ها را برای باز کردن تایتل‌ها و تم Black Ice بکشید!
           </p>
         </div>
 
         <div id="introSlide3" class="hidden space-y-2">
           <div class="w-14 h-14 rounded-2xl bg-siege-orange/15 border border-siege-orange text-siege-orange flex items-center justify-center mx-auto text-2xl">
-            <i class="fa-solid fa-stopwatch"></i>
+            <i class="fa-solid fa-camera-retro"></i>
           </div>
-          <h3 class="text-base font-black text-white">تم داینامیک + ابزار کامل مچ</h3>
+          <h3 class="text-base font-black text-white">پوستر گرافیگی HD برای دیسکورد و استوری</h3>
           <p class="text-xs text-slate-400 leading-relaxed">
-            کمبوهای ۲ نفره، دوئل 1v1، مپ رولت و تایمر بوق بمب همگی در دسترس شمایند. همچنین می‌توانید برنامه را روی صفحه اصلی موبایل نصب (PWA) کنید.
+            با زدن دکمه **«ساخت پوستر»**، یک کارت گرافیکی باکیفیت شامل آیکون اپراتور، لوداوت، قوانین نفرین‌شده یا ترکیب اسکواد ۵ نفره تحویل بگیرید و مستقیم به اشتراک بگذارید.
           </p>
         </div>
 
@@ -1207,12 +1239,27 @@
     let currentFaction = 'atk';     // 'all' | 'atk' | 'def'
     let currentStratSide = 'all';
     let currentDuoSide = 'atk';
-    let currentRolledOp = OPERATORS[0];
-    let currentCursedData = null;
+
+    let currentRolledOp = OPERATORS[9]; // Ash default
+    let currentCursedData = {
+      op: currentRolledOp,
+      scope: CURSED_SCOPES[0],
+      muzzle: CURSED_MUZZLES[0],
+      grip: CURSED_GRIPS[0],
+      laser: 'Laser On',
+      rule: CURSED_RULES[0]
+    };
+    let currentSquadList = OPERATORS.slice(0, 5);
     let currentStratObj = STRAT_CHALLENGES[0];
     let currentMapObj = MAP_DATABASE[0];
     let currentIntroSlide = 1;
     let shakeEnabled = false;
+
+    // Pending XP Claim States (Only claimable AFTER user clicks Roll, and only ONCE per roll)
+    let hqRollCanClaimXp = false;
+    let stratRollCanClaimXp = true;
+    let duoRollCanClaimXp = false;
+    let duelRollCanClaimXp = false;
 
     /* 7. TOAST NOTIFICATION */
     function showToast(msg) {
@@ -1220,19 +1267,19 @@
       if (!toast) {
         toast = document.createElement('div');
         toast.id = 'r6Toast';
-        toast.className = 'fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-siege-card border border-siege-yellow text-white px-4 py-2 rounded-xl text-xs font-bold shadow-2xl transition-opacity duration-300 pointer-events-none';
+        toast.className = 'fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-siege-card border border-siege-yellow text-white px-4 py-2 rounded-xl text-xs font-bold shadow-2xl transition-opacity duration-300 pointer-events-none text-center max-w-[90vw]';
         document.body.appendChild(toast);
       }
       toast.innerText = msg;
       toast.style.opacity = '1';
-      setTimeout(() => { toast.style.opacity = '0'; }, 2400);
+      clearTimeout(toast._hideTimer);
+      toast._hideTimer = setTimeout(() => { toast.style.opacity = '0'; }, 2400);
     }
 
     /* 8. XP, RANK & ALPHA PACK SYSTEM */
     function addXp(amount) {
       const oldXp = userProfile.xp || 0;
       userProfile.xp = oldXp + amount;
-      // Grant 1 Alpha Pack every 200 XP crossed
       if (Math.floor(userProfile.xp / 200) > Math.floor(oldXp / 200)) {
         userProfile.packs = (userProfile.packs || 0) + 1;
         showToast(`🎁 لول‌آپ! یک Alpha Pack جدید جایزه گرفتید!`);
@@ -1283,6 +1330,7 @@
       showToast(`تم ظاهری روی ${skinName.toUpperCase()} تنظیم شد.`);
     }
 
+    // Switching Faction NO LONGER auto-rolls; user decides when to click Roll
     function setFaction(fac) {
       currentFaction = fac;
       if (fac === 'atk' || fac === 'def') {
@@ -1302,11 +1350,12 @@
         }
       });
 
-      triggerHaptic(12);
-      triggerHqRoll();
+      triggerHaptic(10);
+      playTone(520, 'sine', 0.04);
+      showToast(`فیلتر جناح تغییر کرد؛ برای قرعه‌کشی دکمه رول را بزنید.`);
     }
 
-    /* 10. BENTO COMMAND CENTER HUB SWITCHING */
+    /* 10. BENTO COMMAND CENTER HUB SWITCHING (NO AUTO-ROLL ON SWITCH) */
     function switchHub(hubId) {
       currentHub = hubId;
       ['hq', 'ops', 'tools'].forEach(h => {
@@ -1330,6 +1379,7 @@
       playTone(540, 'sine', 0.04);
     }
 
+    // Switching HQ Mode NO LONGER triggers automatic roll!
     function setHqMode(mode) {
       currentHqMode = mode;
       ['standard', 'cursed', 'squad'].forEach(m => {
@@ -1350,11 +1400,11 @@
       document.getElementById('standardHintBox').classList.toggle('hidden', isCursed);
 
       document.getElementById('hqRollBtnText').innerText =
-        mode === 'squad' ? 'چینش تصادفی اسکواد ۵ نفره (+10 XP)' :
-        mode === 'cursed' ? 'قرعه‌کشی لوداوت نفرین‌شده (+10 XP)' :
-        'انتخاب تصادفی اپراتور (+10 XP)';
+        mode === 'squad' ? 'رول اسکواد ۵ نفره جدید' :
+        mode === 'cursed' ? 'رول لوداوت نفرین‌شده جدید' :
+        'رول تصادفی اپراتور جدید';
 
-      triggerHqRoll();
+      playTone(550, 'sine', 0.04);
     }
 
     function setOpsMode(mode) {
@@ -1372,8 +1422,33 @@
       playTone(560, 'sine', 0.04);
     }
 
-    /* 11. 3D CARD FLIP, LASER SCAN & OPERATOR ROLL ENGINE */
+    /* 11. 3D CARD FLIP, LASER SCAN & MANUAL XP CONFIRMATION */
     function getRandomItem(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+    function setHqConfirmButtonState(enabled) {
+      hqRollCanClaimXp = enabled;
+      const btn = document.getElementById('hqConfirmXpBtn');
+      const txt = document.getElementById('hqConfirmBtnText');
+      if (enabled) {
+        btn.disabled = false;
+        btn.className = 'px-4 sm:px-6 py-3.5 rounded-xl bg-siege-cyan/20 border-2 border-siege-cyan text-siege-cyan hover:bg-siege-cyan hover:text-black font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition active:scale-95 shadow-lg shadow-siege-cyan/20';
+        txt.innerText = 'ثبت انتخاب (+15 XP)';
+      } else {
+        btn.disabled = true;
+        btn.className = 'px-4 sm:px-6 py-3.5 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition opacity-50 pointer-events-none';
+        txt.innerText = 'ثبت شد ✓';
+      }
+    }
+
+    function confirmHqSelection() {
+      if (!hqRollCanClaimXp) return;
+      userProfile.rolls = (userProfile.rolls || 0) + 1;
+      addXp(15);
+      setHqConfirmButtonState(false);
+      triggerHaptic([20, 45, 30]);
+      [587, 880].forEach((f, i) => setTimeout(() => playTone(f, 'sine', 0.1), i * 80));
+      showToast('✅ انتخاب شما ثبت شد و +15 XP دریافت کردید!');
+    }
 
     function triggerHqRoll() {
       if (currentHqMode === 'squad') {
@@ -1392,7 +1467,7 @@
 
       const card = document.getElementById('operatorMainCard');
       card.classList.remove('card-flipping', 'scanning', 'glitch-active');
-      void card.offsetWidth; // Force reflow
+      void card.offsetWidth;
       card.classList.add('scanning', 'card-flipping');
       if (currentHqMode === 'cursed') card.classList.add('glitch-active');
 
@@ -1416,8 +1491,7 @@
             rule: getRandomItem(CURSED_RULES)
           };
           renderMainOperatorCard(currentRolledOp);
-          userProfile.rolls = (userProfile.rolls || 0) + 1;
-          addXp(10);
+          setHqConfirmButtonState(true);
           triggerHaptic([25, 40]);
           playTone(760, 'sine', 0.12);
         }
@@ -1442,7 +1516,6 @@
       fbEl.innerText = op.name.substring(0, 2).toUpperCase();
       iconEl.src = iconUrl;
 
-      // Watermark Portrait / Vector Background
       const wm = document.getElementById('cardWatermarkImg');
       wm.style.display = 'block';
       wm.src = iconUrl;
@@ -1496,14 +1569,7 @@
     }
 
     /* 12. 5-MAN SQUAD GENERATOR */
-    function rollFullSquad() {
-      const side = currentFaction === 'def' ? 'def' : 'atk';
-      const pool = OPERATORS.filter(o => o.side === side && !bannedOpIds.includes(o.id));
-      if (pool.length < 5) {
-        showToast('حداقل ۵ اپراتور باز در این جناح نیاز است!');
-        return;
-      }
-      const picked = [...pool].sort(() => 0.5 - Math.random()).slice(0, 5);
+    function renderSquadGrid(picked, side) {
       const roles = side === 'atk'
         ? ['ENTRY FRAG', 'HARD BREACH', 'SUPPORT', 'INTEL / FLANK', 'FLEX']
         : ['ANCHOR', 'ROAMER', 'TRAPPER', 'WALL DENIAL', 'INTEL'];
@@ -1523,9 +1589,18 @@
           <span class="px-2 py-0.5 rounded bg-siege-dark border border-siege-border text-[9px] font-mono text-slate-300">SPD ${op.speed}</span>
         </div>
       `).join('');
+    }
 
-      userProfile.rolls = (userProfile.rolls || 0) + 1;
-      addXp(10);
+    function rollFullSquad() {
+      const side = currentFaction === 'def' ? 'def' : 'atk';
+      const pool = OPERATORS.filter(o => o.side === side && !bannedOpIds.includes(o.id));
+      if (pool.length < 5) {
+        showToast('حداقل ۵ اپراتور باز در این جناح نیاز است!');
+        return;
+      }
+      currentSquadList = [...pool].sort(() => 0.5 - Math.random()).slice(0, 5);
+      renderSquadGrid(currentSquadList, side);
+      setHqConfirmButtonState(true);
       triggerHaptic([15, 30]);
       playTone(700, 'sine', 0.08);
     }
@@ -1545,10 +1620,8 @@
         const dy = e.changedTouches[0].screenY - startY;
 
         if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy)) {
-          // Swipe Left or Right -> Roll Next Operator
           triggerHqRoll();
         } else if (dy < -65 && Math.abs(dy) > Math.abs(dx)) {
-          // Swipe Up -> Favorite Operator
           toggleFavoriteCurrent();
         }
       }, { passive: true });
@@ -1588,7 +1661,7 @@
       }
     });
 
-    /* 14. OPERATIONS HUB (55 STRATS, DUO, 1V1) */
+    /* 14. OPERATIONS HUB (55 STRATS, DUO, 1V1) - NO AUTO-ROLL ON FILTER SWITCH */
     function setStratSide(side) {
       currentStratSide = side;
       ['all', 'atk', 'def'].forEach(s => {
@@ -1597,7 +1670,8 @@
           ? 'py-1 rounded-lg text-[11px] font-bold bg-siege-yellow/20 text-siege-yellow border border-siege-yellow/40'
           : 'py-1 rounded-lg text-[11px] font-bold text-slate-400';
       });
-      rollRandomStrat();
+      playTone(520, 'sine', 0.04);
+      showToast('دسته چالش تغییر کرد؛ دکمه رول چالش را بزنید.');
     }
 
     function rollRandomStrat() {
@@ -1619,12 +1693,26 @@
         currentStratObj.side === 'atk' ? 'ATTACKERS ONLY' :
         currentStratObj.side === 'def' ? 'DEFENDERS ONLY' : 'UNIVERSAL SQUAD';
 
-      addXp(10);
+      stratRollCanClaimXp = true;
+      const cBtn = document.getElementById('stratCompleteBtn');
+      cBtn.disabled = false;
+      cBtn.className = 'w-full py-2.5 px-4 rounded-xl bg-siege-cyan/15 border border-siege-cyan hover:bg-siege-cyan hover:text-black text-siege-cyan font-bold text-xs transition flex items-center justify-center gap-2 active:scale-95';
+      document.getElementById('stratCompleteBtnText').innerText = 'ثبت پیروزی در این چالش (+100 XP و پیشرفت آلفا پک)';
+
       triggerHaptic(15);
       playTone(640, 'triangle', 0.07);
     }
 
     function completeCurrentStrat() {
+      if (!stratRollCanClaimXp) {
+        showToast('امتیاز این چالش قبلاً ثبت شده؛ چالش بعدی را رول کنید!');
+        return;
+      }
+      stratRollCanClaimXp = false;
+      const cBtn = document.getElementById('stratCompleteBtn');
+      cBtn.className = 'w-full py-2.5 px-4 rounded-xl bg-siege-surface border border-siege-border text-slate-400 font-bold text-xs flex items-center justify-center gap-2 opacity-60';
+      document.getElementById('stratCompleteBtnText').innerText = 'پیروزی ثبت شد ✓ (چالش بعدی را رول کنید)';
+
       userProfile.wins = (userProfile.wins || 0) + 1;
       if (userProfile.wins % 5 === 0) {
         userProfile.packs = (userProfile.packs || 0) + 1;
@@ -1641,7 +1729,8 @@
       currentDuoSide = side;
       document.getElementById('duoSideAtk').className = side === 'atk' ? 'px-3 py-1 rounded text-xs font-bold bg-siege-cyan text-black' : 'px-3 py-1 rounded text-xs font-bold text-slate-400';
       document.getElementById('duoSideDef').className = side === 'def' ? 'px-3 py-1 rounded text-xs font-bold bg-siege-orange text-black' : 'px-3 py-1 rounded text-xs font-bold text-slate-400';
-      rollDuoCombo();
+      playTone(520, 'sine', 0.04);
+      showToast('جناح کمبو تغییر کرد؛ دکمه رول کمبو را بزنید.');
     }
 
     function rollDuoCombo() {
@@ -1659,8 +1748,24 @@
       if (op1) document.getElementById('duoOp1Img').src = getOperatorIconUrl(op1.slug);
       if (op2) document.getElementById('duoOp2Img').src = getOperatorIconUrl(op2.slug);
 
-      addXp(10);
+      duoRollCanClaimXp = true;
+      const btn = document.getElementById('duoConfirmXpBtn');
+      btn.disabled = false;
+      btn.className = 'px-4 py-3.5 rounded-xl bg-siege-cyan/20 border-2 border-siege-cyan text-siege-cyan hover:bg-siege-cyan hover:text-black font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95';
+
       playTone(610, 'sine', 0.07);
+    }
+
+    function confirmDuoXp() {
+      if (!duoRollCanClaimXp) return;
+      duoRollCanClaimXp = false;
+      userProfile.rolls = (userProfile.rolls || 0) + 1;
+      addXp(20);
+      const btn = document.getElementById('duoConfirmXpBtn');
+      btn.disabled = true;
+      btn.className = 'px-4 py-3.5 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs flex items-center justify-center gap-1.5 opacity-50 pointer-events-none';
+      showToast('✅ کمبوی ۲ نفره ثبت شد (+20 XP)!');
+      playTone(840, 'sine', 0.1);
     }
 
     const DUEL_WEAPONS = ['فقط کلت کمری با سایلنسر', 'فقط شاتگان بدون نشانه‌گیری', 'فقط DMR تک‌تیر با Iron Sight', 'فقط نایف و گجت'];
@@ -1682,8 +1787,24 @@
       document.getElementById('duelP2Move').innerText = getRandomItem(DUEL_MOVES);
       document.getElementById('duelGlobalRule').innerText = getRandomItem(DUEL_GLOBALS);
 
-      addXp(10);
+      duelRollCanClaimXp = true;
+      const btn = document.getElementById('duelConfirmXpBtn');
+      btn.disabled = false;
+      btn.className = 'px-4 py-3.5 rounded-xl bg-siege-cyan/20 border-2 border-siege-cyan text-siege-cyan hover:bg-siege-cyan hover:text-black font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95';
+
       playTone(720, 'triangle', 0.09);
+    }
+
+    function confirmDuelXp() {
+      if (!duelRollCanClaimXp) return;
+      duelRollCanClaimXp = false;
+      userProfile.rolls = (userProfile.rolls || 0) + 1;
+      addXp(20);
+      const btn = document.getElementById('duelConfirmXpBtn');
+      btn.disabled = true;
+      btn.className = 'px-4 py-3.5 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs flex items-center justify-center gap-1.5 opacity-50 pointer-events-none';
+      showToast('✅ دوئل ثبت شد (+20 XP)!');
+      playTone(840, 'sine', 0.1);
     }
 
     /* 15. TACTICAL TOOLS (MAP ROULETTE & BOMB TIMER) */
@@ -1784,7 +1905,7 @@
       if (v >= 96) {
         document.getElementById('alphaZipperSlider').value = 0;
         if ((userProfile.packs || 0) <= 0) {
-          showToast('موجودی آلفا پک شما تمام شده! چالش ببرید یا رول بزنید.');
+          showToast('موجودی آلفا پک شما تمام شده! چالش ببرید یا XP بگیرید.');
           return;
         }
         userProfile.packs--;
@@ -1805,7 +1926,7 @@
       }
     }
 
-    /* 17. PROFILE, BAN & SHARE MODALS */
+    /* 17. PROFILE, BAN & REDESIGNED HIGH-RES DOSSIER POSTER GENERATOR */
     function openProfileModal() {
       document.getElementById('callsignInput').value = userProfile.callsign || 'OPERATOR';
       updateHeaderProgression();
@@ -1882,60 +2003,295 @@
       renderBanChecklist();
     }
 
-    function exportCurrentCard() {
+    // Canvas Rounded Rect Helper
+    function drawRoundedRect(ctx, x, y, w, h, r, fill, stroke, strokeW = 2) {
+      ctx.beginPath();
+      ctx.roundRect(x, y, w, h, r);
+      if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+      if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = strokeW; ctx.stroke(); }
+    }
+
+    // Text Wrapping Helper for Persian/English Canvas
+    function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let line = '';
+      let currY = y;
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+          ctx.fillText(line.trim(), x, currY);
+          line = words[n] + ' ';
+          currY += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line.trim(), x, currY);
+    }
+
+    function loadCrossOriginImage(url) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = () => resolve(null);
+        img.src = url;
+      });
+    }
+
+    async function exportCurrentCard() {
       document.getElementById('shareModal').classList.remove('hidden-modal');
       const canvas = document.getElementById('dossierCanvas');
       const ctx = canvas.getContext('2d');
+
+      const W = 1080, H = 1350;
+      canvas.width = W;
+      canvas.height = H;
+
       const op = currentRolledOp;
+      const isAtk = op.side === 'atk';
+      const accentColor = isAtk ? '#00E5FF' : '#FF6B00';
+      const goldColor = '#F8AA00';
 
-      ctx.fillStyle = '#06090f';
-      ctx.fillRect(0, 0, 500, 600);
-      ctx.strokeStyle = '#F8AA00';
-      ctx.lineWidth = 6;
-      ctx.strokeRect(12, 12, 476, 576);
+      // 1. Tactical Dark Background & Grid
+      const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+      bgGrad.addColorStop(0, '#070b14');
+      bgGrad.addColorStop(0.5, '#0b1322');
+      bgGrad.addColorStop(1, '#05080f');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, W, H);
 
-      ctx.fillStyle = '#F8AA00';
-      ctx.font = '900 22px sans-serif';
-      ctx.fillText('R6 COMMAND CENTER DOSSIER', 30, 50);
-
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '900 40px sans-serif';
-      ctx.fillText(op.name.toUpperCase(), 30, 110);
-
-      ctx.fillStyle = op.side === 'atk' ? '#00E5FF' : '#FF6B00';
-      ctx.font = 'bold 15px sans-serif';
-      ctx.fillText(`${op.side.toUpperCase()} • ${op.org} • CALLSIGN: ${userProfile.callsign}`, 30, 140);
-
-      ctx.fillStyle = '#0b121e';
-      ctx.fillRect(30, 165, 440, 260);
-      ctx.strokeStyle = '#1e2d47';
-      ctx.strokeRect(30, 165, 440, 260);
-
-      ctx.fillStyle = '#F8AA00';
-      ctx.font = 'bold 16px sans-serif';
-      ctx.fillText('Primary: ' + op.primary, 48, 205);
-      ctx.fillStyle = '#e2e8f0';
-      ctx.font = '14px sans-serif';
-      ctx.fillText('Secondary: ' + op.sec, 48, 240);
-      ctx.fillText('Gadget: ' + op.gadget, 48, 275);
-      if (currentCursedData) {
-        ctx.fillText('Scope: ' + currentCursedData.scope, 48, 315);
-        ctx.fillText('Muzzle: ' + currentCursedData.muzzle, 48, 345);
-        ctx.fillStyle = '#FF2A4D';
-        ctx.fillText('Rule: ' + currentCursedData.rule, 48, 390);
+      // Subtle Grid Lines
+      ctx.strokeStyle = 'rgba(30, 45, 71, 0.35)';
+      ctx.lineWidth = 1;
+      for (let gx = 0; gx < W; gx += 45) {
+        ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke();
+      }
+      for (let gy = 0; gy < H; gy += 45) {
+        ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke();
       }
 
+      // Top Glow
+      const radGrad = ctx.createRadialGradient(W / 2, 180, 30, W / 2, 180, 520);
+      radGrad.addColorStop(0, isAtk ? 'rgba(0, 229, 255, 0.22)' : 'rgba(255, 107, 0, 0.22)');
+      radGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = radGrad;
+      ctx.fillRect(0, 0, W, H);
+
+      // Outer Tactical Frame
+      drawRoundedRect(ctx, 36, 36, W - 72, H - 72, 28, null, accentColor, 4);
+      drawRoundedRect(ctx, 50, 50, W - 100, H - 100, 20, null, '#1e2d47', 2);
+
+      // 2. Top Header Banner
+      drawRoundedRect(ctx, 80, 80, W - 160, 115, 18, '#0b121e', '#1e2d47', 2);
+      drawRoundedRect(ctx, 100, 98, 78, 78, 16, goldColor, null);
+
+      ctx.direction = 'ltr';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#000000';
+      ctx.font = '900 54px "Chakra Petch", sans-serif';
+      ctx.fillText('6', 139, 155);
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 34px "Chakra Petch", sans-serif';
+      ctx.fillText('R6 COMMAND CENTER', 200, 132);
+
+      ctx.fillStyle = accentColor;
+      ctx.font = '700 20px "Chakra Petch", sans-serif';
+      const xp = userProfile.xp || 0;
+      let rankObj = SIEGE_RANKS[0];
+      for (const r of SIEGE_RANKS) { if (xp >= r.minXp) rankObj = r; }
+      ctx.fillText(`CALLSIGN: ${userProfile.callsign || 'OPERATOR'}   •   RANK: ${rankObj.name}`, 200, 166);
+
+      // Mode Tag Pill on Header Right
+      const modeLabel = currentHqMode === 'squad' ? '5-MAN SQUAD' : currentHqMode === 'cursed' ? 'CURSED PROTOCOL' : 'SOLO LOADOUT';
+      drawRoundedRect(ctx, W - 340, 110, 230, 52, 12, 'rgba(248, 170, 0, 0.15)', goldColor, 2);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = goldColor;
+      ctx.font = '900 20px "Chakra Petch", sans-serif';
+      ctx.fillText(modeLabel, W - 225, 143);
+
+      // 3. IF SQUAD MODE -> Render 5-Operator Roster Poster
+      if (currentHqMode === 'squad') {
+        const side = currentFaction === 'def' ? 'def' : 'atk';
+        const roles = side === 'atk'
+          ? ['ENTRY FRAG', 'HARD BREACH', 'SUPPORT', 'INTEL / FLANK', 'FLEX']
+          : ['ANCHOR', 'ROAMER', 'TRAPPER', 'WALL DENIAL', 'INTEL'];
+
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 42px "Chakra Petch", sans-serif';
+        ctx.fillText(`${side === 'atk' ? 'ATTACK' : 'DEFENSE'} 5-MAN SQUAD LINEUP`, W / 2, 265);
+
+        let startY = 310;
+        for (let i = 0; i < currentSquadList.length; i++) {
+          const sqOp = currentSquadList[i];
+          drawRoundedRect(ctx, 80, startY, W - 160, 155, 20, '#0b121e', '#1e2d47', 3);
+          drawRoundedRect(ctx, 105, startY + 20, 115, 115, 16, '#06090f', accentColor, 2);
+
+          const iconImg = await loadCrossOriginImage(getOperatorIconUrl(sqOp.slug));
+          if (iconImg) {
+            ctx.drawImage(iconImg, 115, startY + 30, 95, 95);
+          }
+
+          ctx.direction = 'ltr';
+          ctx.textAlign = 'left';
+          ctx.fillStyle = goldColor;
+          ctx.font = '700 20px "Chakra Petch", sans-serif';
+          ctx.fillText(`#${i + 1} ${roles[i]}  •  ${sqOp.org}`, 245, startY + 52);
+
+          ctx.fillStyle = '#ffffff';
+          ctx.font = '900 44px "Chakra Petch", sans-serif';
+          ctx.fillText(sqOp.name.toUpperCase(), 245, startY + 102);
+
+          ctx.fillStyle = '#94a3b8';
+          ctx.font = '600 22px "Chakra Petch", sans-serif';
+          ctx.fillText(`Primary: ${sqOp.primary}   |   Gadget: ${sqOp.gadget}`, 245, startY + 135);
+
+          startY += 178;
+        }
+      } else {
+        // 4. SOLO / CURSED OPERATOR POSTER
+        // Operator Center Hero Box
+        drawRoundedRect(ctx, 80, 225, W - 160, 340, 24, '#0b121e', accentColor, 3);
+
+        // Operator Badge Box
+        drawRoundedRect(ctx, 115, 260, 265, 265, 24, '#06090f', accentColor, 4);
+        const opImg = await loadCrossOriginImage(getOperatorIconUrl(op.slug));
+        if (opImg) {
+          // Subtle watermark on right
+          ctx.save();
+          ctx.globalAlpha = 0.07;
+          ctx.drawImage(opImg, W - 430, 235, 320, 320);
+          ctx.restore();
+          // Main crisp icon
+          ctx.drawImage(opImg, 135, 280, 225, 225);
+        }
+
+        ctx.direction = 'ltr';
+        ctx.textAlign = 'left';
+        ctx.fillStyle = accentColor;
+        ctx.font = '900 24px "Chakra Petch", sans-serif';
+        ctx.fillText(`${isAtk ? 'ATTACKER' : 'DEFENDER'}   •   ${op.org}`, 415, 305);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 84px "Chakra Petch", sans-serif';
+        ctx.fillText(op.name.toUpperCase(), 415, 395);
+
+        // Speed & Armor Pills
+        drawRoundedRect(ctx, 415, 425, 220, 52, 12, '#06090f', '#1e2d47', 2);
+        ctx.fillStyle = '#e2e8f0';
+        ctx.font = '700 22px "Chakra Petch", sans-serif';
+        ctx.fillText(`SPD ${op.speed}  •  ARM ${op.armor}`, 442, 458);
+
+        drawRoundedRect(ctx, 655, 425, 310, 52, 12, 'rgba(248, 170, 0, 0.14)', goldColor, 2);
+        ctx.fillStyle = goldColor;
+        ctx.font = '700 22px "Chakra Petch", sans-serif';
+        ctx.fillText(op.gadget, 678, 458);
+
+        // Weapons & Loadout Section
+        drawRoundedRect(ctx, 80, 595, 445, 220, 20, '#0b121e', '#1e2d47', 2);
+        drawRoundedRect(ctx, 555, 595, 445, 220, 20, '#0b121e', '#1e2d47', 2);
+
+        // Primary Box
+        ctx.textAlign = 'left';
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '700 22px "Vazirmatn", sans-serif';
+        ctx.fillText('PRIMARY WEAPON / سلاح اصلی', 110, 645);
+        ctx.fillStyle = goldColor;
+        ctx.font = '900 38px "Chakra Petch", sans-serif';
+        ctx.fillText(op.primary, 110, 705);
+        ctx.fillStyle = '#cbd5e1';
+        ctx.font = '600 22px "Vazirmatn", sans-serif';
+        ctx.fillText(currentHqMode === 'cursed' ? `Scope: ${currentCursedData.scope}` : 'Standard Tactical Optic', 110, 760);
+
+        // Secondary Box
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '700 22px "Vazirmatn", sans-serif';
+        ctx.fillText('SECONDARY / سلاح کمری', 585, 645);
+        ctx.fillStyle = '#FF6B00';
+        ctx.font = '900 38px "Chakra Petch", sans-serif';
+        ctx.fillText(op.sec, 585, 705);
+        ctx.fillStyle = '#cbd5e1';
+        ctx.font = '600 22px "Vazirmatn", sans-serif';
+        ctx.fillText(currentHqMode === 'cursed' ? `Muzzle: ${currentCursedData.muzzle}` : `Gadget: ${op.gadget}`, 585, 760);
+
+        // Bottom Tactical / Cursed Challenge Box (RTL Persian Safe Rendering)
+        drawRoundedRect(ctx, 80, 845, W - 160, 340, 22, '#0b121e', currentHqMode === 'cursed' ? '#FF2A4D' : '#1e2d47', 3);
+
+        ctx.direction = 'rtl';
+        ctx.textAlign = 'right';
+
+        if (currentHqMode === 'cursed') {
+          ctx.fillStyle = '#FF2A4D';
+          ctx.font = '900 28px "Vazirmatn", sans-serif';
+          ctx.fillText('⚠️ محدودیت و اتچمنت‌های نفرین‌شده (CURSED LOADOUT):', W - 115, 905);
+
+          ctx.fillStyle = '#ffffff';
+          ctx.font = '700 26px "Vazirmatn", sans-serif';
+          ctx.fillText(`• اسکوپ: ${currentCursedData.scope}    |    • سرلوله: ${currentCursedData.muzzle}`, W - 115, 965);
+          ctx.fillText(`• گریپ: ${currentCursedData.grip}    |    • زیرلوله: ${currentCursedData.laser}`, W - 115, 1015);
+
+          drawRoundedRect(ctx, 115, 1050, W - 230, 95, 16, 'rgba(255, 42, 77, 0.16)', '#FF2A4D', 2);
+          ctx.fillStyle = '#FF2A4D';
+          ctx.font = '900 28px "Vazirmatn", sans-serif';
+          ctx.fillText(`قانون اجباری: ${currentCursedData.rule}`, W - 145, 1108);
+        } else {
+          ctx.fillStyle = goldColor;
+          ctx.font = '900 28px "Vazirmatn", sans-serif';
+          ctx.fillText(`🎯 چالش پیشنهادی راند (${currentStratObj.title}):`, W - 115, 905);
+
+          ctx.fillStyle = '#e2e8f0';
+          ctx.font = '600 26px "Vazirmatn", sans-serif';
+          drawWrappedText(ctx, currentStratObj.desc, W - 115, 968, W - 230, 44);
+
+          ctx.fillStyle = accentColor;
+          ctx.font = '700 22px "Vazirmatn", sans-serif';
+          ctx.fillText(`نقشه پیشنهادی: ${currentMapObj.name} (${currentMapObj.sites[0].site})`, W - 115, 1135);
+        }
+      }
+
+      // 5. Footer Watermark
+      ctx.direction = 'ltr';
+      ctx.textAlign = 'center';
       ctx.fillStyle = '#64748b';
-      ctx.font = '12px sans-serif';
-      ctx.fillText('GENERATED BY R6 COMMAND CENTER 2.0', 30, 555);
+      ctx.font = '700 20px "Chakra Petch", sans-serif';
+      ctx.fillText('GENERATED BY R6 COMMAND CENTER PRO 2.0  •  TACTICAL OPERATOR SUITE', W / 2, H - 68);
     }
 
     function closeShareModal() { document.getElementById('shareModal').classList.add('hidden-modal'); }
+
     function downloadDossierImage() {
+      const canvas = document.getElementById('dossierCanvas');
       const link = document.createElement('a');
-      link.download = `R6_${currentRolledOp.name}.png`;
-      link.href = document.getElementById('dossierCanvas').toDataURL('image/png');
+      const suffix = currentHqMode === 'squad' ? 'SQUAD' : currentRolledOp.name.toUpperCase();
+      link.download = `R6_DOSSIER_${suffix}.png`;
+      link.href = canvas.toDataURL('image/png');
       link.click();
+      showToast('📥 پوستر با کیفیت بالا دانلود شد!');
+    }
+
+    async function shareDossierNative() {
+      const canvas = document.getElementById('dossierCanvas');
+      try {
+        canvas.toBlob(async (blob) => {
+          if (!blob) return downloadDossierImage();
+          const file = new File([blob], `R6_${currentRolledOp.name}.png`, { type: 'image/png' });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              title: 'R6 Command Center Dossier',
+              text: `لوداوت تاکتیکی من در R6 Command Center: ${currentRolledOp.name}`,
+              files: [file]
+            });
+          } else {
+            downloadDossierImage();
+          }
+        }, 'image/png');
+      } catch (e) {
+        downloadDossierImage();
+      }
     }
 
     /* 18. ONBOARDING SLIDER */
@@ -1966,16 +2322,16 @@
       }
     }
 
-    /* 19. INITIALIZE */
+    /* 19. INITIALIZE (NO AUTO-XP ON LOAD) */
     window.addEventListener('DOMContentLoaded', () => {
       if (userProfile.skin) document.body.setAttribute('data-skin', userProfile.skin);
       document.getElementById('bannedCountBadge').innerText = bannedOpIds.length;
       updateHeaderProgression();
-      triggerHqRoll();
-      rollRandomStrat();
-      rollDuoCombo();
-      rollDuelMatch();
-      rollMapAndSite();
+
+      // Render initial state cleanly WITHOUT awarding XP or auto-rolling on tab switches
+      renderMainOperatorCard(currentRolledOp);
+      renderSquadGrid(currentSquadList, 'atk');
+      setHqConfirmButtonState(true);
 
       if (!localStorage.getItem('r6_intro_seen_v5')) {
         setTimeout(() => openIntroModal(), 450);
