@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.9.0 — 2026-10-24
+
+### Added
+- Doubled tactical challenges from 55 to 110 with 55 new community-inspired ideas: sidearm/shotgun rounds, hip-fire, no-drone rules, VIP escort, ping-focused callouts, trap setups, layered defense, buddy systems, and more.
+- Updated the all-team count and challenge counter to reflect the full pool.
+- Bumped app version to 1.9.0 and Service Worker cache to r6-cache-v21.
+
+### Validation
+- Source checks verify 110 sequential challenge IDs, supported side filters, and JavaScript syntax. These are optional custom/casual house rules, not recommended for Ranked.
+
 ## 1.8.3 — 2026-10-24
 
 ### Fixed
