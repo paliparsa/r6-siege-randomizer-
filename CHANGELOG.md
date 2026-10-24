@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.9.2 — 2026-10-24
+
+### Fixed
+- Updated Duel Arena sharing and poster output to use the new attacker/defender, gadget, weapon, and scenario fields.
+- Removed obsolete references to the deleted per-player weapon/movement rules from the share and poster flows.
+- Cleaned Markdown markers from duel rules so they render as plain, readable text.
+- Bumped app version to 1.9.2 and Service Worker cache to r6-cache-v23.
+
+### Validation
+- Source checks confirm the share and poster contexts use the current duel rule model; inline JavaScript syntax checks pass.
+
 ## 1.9.1 — 2026-10-24
 
 ### Fixed

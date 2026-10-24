@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#0B0D0F">
-  <meta name="app-version" content="1.9.1">
+  <meta name="app-version" content="1.9.2">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -2843,12 +2843,12 @@
       if(currentDuelMatch)rollDuelMatch();
     }
     function duelRulesForMode(p1,p2,mode) {
-      if(mode==='pure')return {global:'**گان‌پلی خالص**\nهر دو بازیکن با سلاح اصلی یا کمری خود بازی می‌کنند. گجت‌های اطلاعاتی/دفاعی برای آماده‌سازی مجازند؛ استفاده از گجت برای گرفتن کیل ممنوع.\n**شرط برد:** حذف حریف در Custom Game.',verdict:'بدون محدودیت ساختگی برای حرکت یا سرعت؛ مهارت نشانه‌گیری و استفاده از کاور تعیین‌کننده است.'};
-      if(mode==='gadget')return {global:'**دوئل گجت**\nمهاجم از گجت اختصاصی خود برای بازکردن مسیر یا جمع‌آوری اطلاعات استفاده می‌کند؛ مدافع از گجت خود برای بستن مسیر، منحرف‌کردن یا گرفتن اطلاعات استفاده می‌کند. سلاح‌ها آزادند.\n**شرط برد:** حذف حریف؛ گجت باید روی تصمیم‌گیری اثر بگذارد، نه اینکه قانون ساختگی اضافه کند.',verdict:'قبل از شروع، هر دو نفر گجت اپراتورشان را بشناسند و Custom Game را طوری تنظیم کنند که هر دو بتوانند درگیری منصفانه داشته باشند.'};
-      if(mode==='objective')return {global:'**کنترل هدف**\nدر Custom Game یک سایت مشخص کنید. مهاجم مسیر ورود و رسیدن به سایت را اجرا می‌کند؛ مدافع سایت و مسیرهای ورودی را نگه می‌دارد. اگر حالت بمب و دیفیوزر فعال است، هدف مهاجم پلنت و هدف مدافع جلوگیری از پلنت/خنثی‌سازی است.\n**شرط برد:** اجرای هدف یا حذف حریف طبق قوانین همان مود.',verdict:'این حالت یک رقابت نامتقارن است: مهاجم باید فضا بسازد؛ مدافع باید مسیر و زمان را مدیریت کند.'};
+      if(mode==='pure')return {global:'گان‌پلی خالص\nهر دو بازیکن با سلاح اصلی یا کمری خود بازی می‌کنند. گجت‌های اطلاعاتی/دفاعی برای آماده‌سازی مجازند؛ استفاده از گجت برای گرفتن کیل ممنوع.\nشرط برد: حذف حریف در Custom Game.',verdict:'بدون محدودیت ساختگی برای حرکت یا سرعت؛ مهارت نشانه‌گیری و استفاده از کاور تعیین‌کننده است.'};
+      if(mode==='gadget')return {global:'دوئل گجت\nمهاجم از گجت اختصاصی خود برای بازکردن مسیر یا جمع‌آوری اطلاعات استفاده می‌کند؛ مدافع از گجت خود برای بستن مسیر، منحرف‌کردن یا گرفتن اطلاعات استفاده می‌کند. سلاح‌ها آزادند.\nشرط برد: حذف حریف؛ گجت باید روی تصمیم‌گیری اثر بگذارد، نه اینکه قانون ساختگی اضافه کند.',verdict:'قبل از شروع، هر دو نفر گجت اپراتورشان را بشناسند و Custom Game را طوری تنظیم کنند که هر دو بتوانند درگیری منصفانه داشته باشند.'};
+      if(mode==='objective')return {global:'کنترل هدف\nدر Custom Game یک سایت مشخص کنید. مهاجم مسیر ورود و رسیدن به سایت را اجرا می‌کند؛ مدافع سایت و مسیرهای ورودی را نگه می‌دارد. اگر حالت بمب و دیفیوزر فعال است، هدف مهاجم پلنت و هدف مدافع جلوگیری از پلنت/خنثی‌سازی است.\nشرط برد: اجرای هدف یا حذف حریف طبق قوانین همان مود.',verdict:'این حالت یک رقابت نامتقارن است: مهاجم باید فضا بسازد؛ مدافع باید مسیر و زمان را مدیریت کند.'};
       const pool=STRAT_CHALLENGES.filter(c=>c.side==='all'||c.side==='atk'||c.side==='def');
       const challenge=getRandomItem(pool);
-      return {challenge,global:'**چالش تاکتیکی تصادفی: '+challenge.title+'**\n'+challenge.desc+'\n\n**قانون اجرا:** این متن، قانون اصلی راند است. چون چالش‌ها برای حالت‌های مختلف طراحی شده‌اند، اگر با دوئل 1v1 یا تنظیمات Custom Game شما جور نبود، «شروع دوئل جدید» را دوباره بزنید.',verdict:'منبع: دیتابیس چالش‌های تاکتیکی همین برنامه؛ چالش تازه و جداگانه‌ای ساخته نشده است.'};
+      return {challenge,global:'چالش تاکتیکی تصادفی: '+challenge.title+'**\n'+challenge.desc+'\n\n**قانون اجرا:** این متن، قانون اصلی راند است. چون چالش‌ها برای حالت‌های مختلف طراحی شده‌اند، اگر با دوئل 1v1 یا تنظیمات Custom Game شما جور نبود، «شروع دوئل جدید» را دوباره بزنید.',verdict:'منبع: دیتابیس چالش‌های تاکتیکی همین برنامه؛ چالش تازه و جداگانه‌ای ساخته نشده است.'};
     }
     function rollDuelMatch() {
       const attackers=OPERATORS.filter(o=>o.side==='atk'&&!bannedOpIds.includes(o.id));
@@ -2876,7 +2876,7 @@
     }
     function shareDuelMatch() {
       if(!currentDuelMatch){showToast('اول یک دوئل بساز.');return;}
-      const m=currentDuelMatch;shareTextPayload('R6 Duel Arena',m.p1.name+' VS '+m.p2.name+'\nMode: '+DUEL_MODE_LABELS[m.mode]+'\n'+m.rules.global+'\n'+m.p1.name+': '+m.rules.w1+' / '+m.rules.m1+'\n'+m.p2.name+': '+m.rules.w2+' / '+m.rules.m2+'\nNo guaranteed winner — skill and map matter.');
+      const m=currentDuelMatch;shareTextPayload('R6 Duel Arena',m.p1.name+' (ATTACKER) VS '+m.p2.name+' (DEFENDER)'+'\nMode: '+DUEL_MODE_LABELS[m.mode]+'\n'+m.rules.global+'\n'+m.rules.verdict);
     }
     function confirmDuelXp() {
       if(!duelRollCanClaimXp)return;duelRollCanClaimXp=false;
@@ -3210,7 +3210,7 @@
           }
           const selectedMode = document.querySelector('#opsDuelView .duel-mode-btn.active')?.innerText?.trim() || DUEL_MODE_LABELS[match.mode] || 'سناریوی تاکتیکی';
           const tournamentLabel = duelTournament?.champion ? 'قهرمان تورنمنت: ' + duelTournament.champion.name : duelTournament ? 'تورنمنت فعال: ' + duelTournament.size + ' اپراتور' : 'تورنمنت هنوز شروع نشده';
-          return { title: match.p1.name + ' VS ' + match.p2.name, subtitle: 'DUEL ARENA • ' + selectedMode, accent: '#D94A45', suffix: 'DUEL_' + match.mode + '_' + match.p1.name + '_' + match.p2.name, operators: [match.p1,match.p2], lines: ['حالت انتخاب‌شده: ' + selectedMode, match.p1.name + ': ' + match.rules.w1 + ' • ' + match.rules.m1, match.p2.name + ': ' + match.rules.w2 + ' • ' + match.rules.m2, 'قانون مشترک: ' + match.rules.global, document.getElementById('duelVerdict')?.innerText || 'برنده‌ی قطعی صرفاً از روی آمار پایه تعیین نمی‌شود.', tournamentLabel] };
+          return { title: match.p1.name + ' VS ' + match.p2.name, subtitle: 'DUEL ARENA • ' + selectedMode, accent: '#D94A45', suffix: 'DUEL_' + match.mode + '_' + match.p1.name + '_' + match.p2.name, operators: [match.p1,match.p2], lines: ['مهاجم: ' + match.p1.name + ' • گجت: ' + match.p1.gadget, 'مدافع: ' + match.p2.name + ' • گجت: ' + match.p2.gadget, 'حالت انتخاب‌شده: ' + selectedMode, 'سناریو: ' + match.rules.global, match.rules.verdict || document.getElementById('duelVerdict')?.innerText || '', tournamentLabel] };
         }
         const challenge = currentStratObj || {};
         const challengeFilter = currentStratSide === 'atk' ? 'ویژه‌ی حمله' : currentStratSide === 'def' ? 'ویژه‌ی دفاع' : 'همه‌ی چالش‌ها';
