@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.7.1 — 2026-10-24
+
+### Fix clipped Duel Arena and Squad Intelligence content
+- Prevented the Operations hub and its subviews from shrinking into a fixed-height layout that clipped lower controls and tournament content.
+- Removed overflow clipping from the Duel Arena feature panel so the shared rule, stat comparison, verdict, and match randomizer remain reachable.
+- Prevented the five-operator squad report and squad cards from flex-shrinking or being clipped; the main content area now owns vertical scrolling.
+- Added mobile-specific spacing and wrapping safeguards for duel details and squad report text.
+- Bumped app version to 1.7.1 and Service Worker cache to r6-cache-v16.
+
+### Validation
+- Source checks confirm the affected panels, controls, report, version, cache, and changelog are present. Browser/device visual testing is still required to confirm exact rendering.
+
+
 ## 1.7.0 — 2026-10-24
 
 ### Motion system and Duel Arena access
