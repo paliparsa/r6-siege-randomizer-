@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#0B0D0F">
-  <meta name="app-version" content="1.6.0">
+  <meta name="app-version" content="1.7.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -532,7 +532,34 @@
       }
 
 
-/* v1.6.0 — HQ / Operations / Maps & Timer visual pass */
+
+      /* v1.7.0 — Unified motion language */
+      :root { --motion-fast:180ms; --motion-normal:240ms; --motion-enter:820ms; --motion-ease:cubic-bezier(.2,.75,.25,1); }
+      @keyframes commandScanIn { 0%{opacity:0;transform:translateY(9px);clip-path:inset(0 0 100% 0);filter:brightness(.7)} 45%{opacity:.9;clip-path:inset(0);filter:brightness(1.18)} 100%{opacity:1;transform:translateY(0);clip-path:inset(0);filter:brightness(1)} }
+      @keyframes panelSlideIn { from{opacity:.15;transform:translateX(var(--panel-shift,8px))} to{opacity:1;transform:translateX(0)} }
+      @keyframes dossierReveal { 0%{opacity:.35;filter:brightness(.78);box-shadow:0 0 0 0 rgba(214,240,74,0)} 55%{filter:brightness(1.12);box-shadow:0 0 0 1px rgba(214,240,74,.2),0 0 24px rgba(214,240,74,.08)} 100%{opacity:1;filter:brightness(1);box-shadow:0 0 0 0 rgba(214,240,74,0)} }
+      @keyframes cornerFrameIn { from{opacity:.2;transform:scale(.985)} to{opacity:1;transform:scale(1)} }
+      @keyframes posterScanIn { 0%{opacity:.45;filter:brightness(.7) contrast(1.08)} 45%{opacity:1;filter:brightness(1.16) contrast(1.04)} 100%{opacity:1;filter:brightness(1) contrast(1)} }
+      body.app-entry-ready header{animation:commandScanIn 820ms var(--motion-ease) both}
+      body.app-entry-ready main>section:not(.hidden){animation:panelSlideIn 280ms var(--motion-ease) both}
+      body.app-entry-ready main>section:not(.hidden)>*{animation:commandScanIn 500ms var(--motion-ease) both}
+      body.app-entry-ready main>section:not(.hidden)>*:nth-child(2){animation-delay:65ms}
+      body.app-entry-ready main>section:not(.hidden)>*:nth-child(3){animation-delay:110ms}
+      main>section.hub-motion-enter{animation:panelSlideIn 230ms var(--motion-ease) both!important}
+      #operatorMainCard.operator-reveal{animation:dossierReveal 620ms var(--motion-ease) both}
+      #cardBadgeBox.operator-frame-reveal{animation:cornerFrameIn 420ms var(--motion-ease) both}
+      .tactical-portrait.portrait-reveal,.duel-portrait.portrait-reveal{animation:dossierReveal 520ms var(--motion-ease) both}
+      #dossierCanvas.poster-reveal{animation:posterScanIn 650ms var(--motion-ease) both}
+      #hub-ops .duel-quick-access{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid rgba(214,240,74,.38);border-radius:11px;padding:10px 12px;color:var(--noir-bone);background:linear-gradient(100deg,rgba(214,240,74,.09),rgba(25,29,33,.86));text-align:right;font-size:11px;font-weight:800;transition:border-color 180ms ease,background 180ms ease,transform 180ms ease}
+      #hub-ops .duel-quick-access:hover{border-color:rgba(214,240,74,.7);background:rgba(214,240,74,.12)}
+      #hub-ops .duel-quick-access .duel-quick-icon{color:var(--noir-signal);font-size:15px}
+      #opsMode-duel{border-color:rgba(214,240,74,.28)}
+      #opsMode-duel:not(.bg-siege-yellow){color:var(--noir-signal)!important;background:rgba(214,240,74,.045)}
+      #opsDuelView .duel-mode-btn{min-height:38px}
+      #opsDuelView button:focus-visible,#hub-ops .duel-quick-access:focus-visible{outline-offset:3px}
+      @media(prefers-reduced-motion:reduce){body.app-entry-ready header,body.app-entry-ready main>section:not(.hidden),body.app-entry-ready main>section:not(.hidden)>*,main>section.hub-motion-enter,#operatorMainCard.operator-reveal,#cardBadgeBox.operator-frame-reveal,.tactical-portrait.portrait-reveal,.duel-portrait.portrait-reveal,#dossierCanvas.poster-reveal{animation:none!important;filter:none!important;transform:none!important}#hub-ops .duel-quick-access,#opsMode-duel{transition:none!important}}
+
+      /* v1.6.0 — HQ / Operations / Maps & Timer visual pass */
 #hub-hq{gap:1rem!important}#hub-hq>div:first-child{gap:.65rem!important}
 #hub-hq>div:first-child>div{background:rgba(25,29,33,.76)!important;border-color:rgba(232,233,229,.12)!important;box-shadow:inset 0 1px rgba(255,255,255,.025)}
 #hqSingleCardWrap{perspective:1200px;padding:2px}
@@ -871,6 +898,7 @@
           <i class="fa-solid fa-swords ml-1"></i>رقابت دونفره (1v1)
         </button>
       </div>
+      <button type="button" class="duel-quick-access" id="duelQuickAccessBtn" onclick="openDuelArena()" aria-label="باز کردن بخش رقابت دونفره یک در برابر یک"><span class="flex items-center gap-2"><i class="fa-solid fa-swords duel-quick-icon" aria-hidden="true"></i><span><span class="block">ورود مستقیم به رقابت دونفره</span><span class="block text-[9px] font-normal text-slate-400 mt-0.5">DUEL ARENA · 1V1 · حالت‌ها و تورنمنت</span></span></span><i class="fa-solid fa-arrow-left text-xs duel-quick-icon" aria-hidden="true"></i></button>
 
       <!-- 2A. 55 SECRET STRATS CARD -->
       <div id="opsStratsView" class="flex-1 flex flex-col justify-between gap-2.5 min-h-0">
@@ -1918,8 +1946,10 @@
             : 'flex flex-col items-center gap-0.5 text-slate-400 text-[10px] font-bold py-1 px-3';
         }
       });
+      const activePanel=document.getElementById(`hub-${hubId}`);
+      if(activePanel){activePanel.classList.remove('hub-motion-enter');void activePanel.offsetWidth;activePanel.classList.add('hub-motion-enter');}
       triggerHaptic(10);
-      playTone(540, 'sine', 0.04);
+      playTone(540,'sine',0.04);
     }
 
     // Switching HQ Mode NO LONGER triggers automatic roll!
@@ -1950,19 +1980,31 @@
       playTone(550, 'sine', 0.04);
     }
 
+    function openDuelArena() {
+      switchHub('ops');
+      setOpsMode('duel');
+      const view=document.getElementById('opsDuelView');
+      if(view)view.scrollTop=0;
+      const startButton=document.querySelector('#opsDuelView button[onclick="rollDuelMatch()"]');
+      if(startButton)startButton.focus({preventScroll:true});
+    }
     function setOpsMode(mode) {
-      currentOpsMode = mode;
-      ['strats', 'duo', 'duel'].forEach(m => {
-        const btn = document.getElementById(`opsMode-${m}`);
-        btn.className = m === mode
-          ? 'py-1.5 rounded-lg text-xs font-bold bg-siege-yellow text-black transition'
-          : 'py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition';
+      if(!['strats','duo','duel'].includes(mode))mode='strats';
+      currentOpsMode=mode;
+      ['strats','duo','duel'].forEach(m=>{
+        const btn=document.getElementById(`opsMode-${m}`);
+        if(!btn)return;
+        btn.className=m===mode?'py-1.5 rounded-lg text-xs font-bold bg-siege-yellow text-black transition':'py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition';
+        btn.setAttribute('aria-pressed',String(m===mode));
       });
-
-      document.getElementById('opsStratsView').classList.toggle('hidden', mode !== 'strats');
-      document.getElementById('opsDuoView').classList.toggle('hidden', mode !== 'duo');
-      document.getElementById('opsDuelView').classList.toggle('hidden', mode !== 'duel');
-      playTone(560, 'sine', 0.04);
+      const views={strats:'opsStratsView',duo:'opsDuoView',duel:'opsDuelView'};
+      Object.entries(views).forEach(([key,id])=>{
+        const panel=document.getElementById(id);
+        if(!panel)return;
+        panel.classList.toggle('hidden',key!==mode);
+        if(key===mode){panel.classList.remove('hub-motion-enter');void panel.offsetWidth;panel.classList.add('hub-motion-enter');}
+      });
+      playTone(560,'sine',0.04);
     }
 
     /* 11. 3D CARD FLIP, LASER SCAN & MANUAL XP CONFIRMATION */
@@ -2047,6 +2089,9 @@
     }
 
     function renderMainOperatorCard(op) {
+      const dossier=document.getElementById('operatorMainCard'),badgeFrame=document.getElementById('cardBadgeBox');
+      if(dossier){dossier.classList.remove('operator-reveal');void dossier.offsetWidth;dossier.classList.add('operator-reveal');}
+      if(badgeFrame){badgeFrame.classList.remove('operator-frame-reveal');void badgeFrame.offsetWidth;badgeFrame.classList.add('operator-frame-reveal');}
       document.body.setAttribute('data-faction', op.side);
 
       document.getElementById('cardOpName').innerText = op.name;
@@ -2399,6 +2444,7 @@
       document.getElementById('duelP1Move').innerText=rules.m1;document.getElementById('duelP2Move').innerText=rules.m2;
       document.getElementById('duelP1Stats').innerText=(p1.speed||'—')+' SPD / '+(p1.armor||'—')+' ARM';document.getElementById('duelP2Stats').innerText=(p2.speed||'—')+' SPD / '+(p2.armor||'—')+' ARM';
       document.getElementById('duelP1Img').src=getOperatorIconUrl(p1.slug);document.getElementById('duelP2Img').src=getOperatorIconUrl(p2.slug);
+      ['duelP1Img','duelP2Img'].forEach(id=>{const img=document.getElementById(id),frame=img?.closest('.duel-portrait');if(frame){frame.classList.remove('portrait-reveal');void frame.offsetWidth;frame.classList.add('portrait-reveal');}});
       document.getElementById('duelP1Img').alt=p1.name;document.getElementById('duelP2Img').alt=p2.name;
       document.getElementById('duelGlobalRule').innerText=rules.global;renderDuelStats(p1,p2);
       const verdict=document.getElementById('duelVerdict');
@@ -2742,6 +2788,7 @@
       const ctx = canvas.getContext('2d');
       const W = 1080, H = 1350;
       canvas.width = W; canvas.height = H;
+      canvas.classList.remove('poster-reveal');void canvas.offsetWidth;canvas.classList.add('poster-reveal');
       currentPosterSuffix = String(context.suffix || context.title || 'TACTICAL').replace(/[^a-z0-9_-]+/gi, '_').slice(0, 80);
       document.getElementById('shareModal').classList.remove('hidden-modal');
       const bg = ctx.createLinearGradient(0, 0, 0, H);
@@ -3170,6 +3217,7 @@
 
     /* 19. INITIALIZE (NO AUTO-XP ON LOAD) */
     window.addEventListener('DOMContentLoaded', () => {
+      requestAnimationFrame(()=>document.body.classList.add('app-entry-ready'));
       if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
         navigator.serviceWorker.register('./sw.js').catch(error => console.warn('Service worker registration failed.', error));
       }

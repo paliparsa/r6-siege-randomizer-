@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.7.0 — 2026-10-24
+
+### Motion system and Duel Arena access
+- Added a restrained shared motion language for initial entry, hub/subview transitions, operator dossier and duel portrait reveals, and explicitly generated posters.
+- Kept effects tied to meaningful interactions instead of routine rendering.
+- Preserved `prefers-reduced-motion` support for every new animation.
+- Added a prominent direct-entry button for Duel Arena; it opens Operations, selects 1v1, scrolls the arena to the top, and focuses the match-start control.
+- Hardened Operations mode switching with validation, missing-element guards, and accessible pressed states.
+- Bumped app version to 1.7.0 and Service Worker cache to r6-cache-v15.
+
+### Validation
+- Source-level checks cover motion hooks, reduced-motion overrides, direct Duel Arena routing, and version/cache/changelog updates. Browser/device interaction and visual regression testing remain outstanding.
+
+
 ## 1.6.0 — 2026-10-24
 
 ### Visual redesign
