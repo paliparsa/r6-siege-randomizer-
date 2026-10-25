@@ -6,8 +6,8 @@ const sw = fs.readFileSync('sw.js', 'utf8');
 const changelog = fs.readFileSync('CHANGELOG.md', 'utf8');
 
 test('app and service worker versions are aligned', () => {
-  assert.match(html, /app-version" content="1\.24\.0"/);
-  assert.match(sw, /r6-cache-v38/);
+  assert.match(html, /app-version" content="1\[1\.28\.0\].28\\.0"/);
+  assert.match(sw, /r6-cache-v42/);
   assert.match(changelog, /\[1\.23\.0\]/);
 });
 
