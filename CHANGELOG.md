@@ -1,3 +1,19 @@
+## 1.15.0 — 2026-10-25
+
+### Changed
+- Reworked Operator HQ roster and detail panel with a Siege-inspired faction roster, sharper selected states, improved loadout hierarchy, and more consistent industrial surfaces.
+- Improved keyboard focus, responsive roster density, and reduced-motion handling in the operator selector.
+- Added readable portrait fallbacks for operator roster and hero images when both the portrait and icon sources fail.
+- Kept browsing an operator in the selector isolated from the randomizer until the existing explicit “confirm selection” action is used; no history, XP, or saved-profile mutation was added to browsing.
+
+### Preserved
+- Existing operator and weapon reference data, filters, search, faction tabs, loadout controls, manual confirm action, randomizer logic, and all other feature systems.
+- Updated app version and service-worker cache to refresh the new UI.
+
+### Validation
+- Source-level checks performed for targeted renderer replacements and required selectors.
+- Browser/device interaction tests were not run in this environment.
+
 ## 1.14.0 — 2026-10-25
 
 ### Added
