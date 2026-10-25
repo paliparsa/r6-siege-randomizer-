@@ -1,4 +1,23 @@
-# Changelog
+## 1.12.0 — 2026-10-25
+
+### Added
+- Added reference data for all 78 operators with available full-body figure art, artwork/icon fallbacks, primary/secondary weapon choices, secondary gadget choices, and unique-ability descriptions/art where present.
+- Added weapon reference data for 102 weapons including base damage, fire rate, magazine capacity, reserve ammo, mobility, reload times, and official weapon images where supplied by the upstream dataset.
+- Rebuilt the loadout panel to display weapon images and available stats, unique-ability artwork/descriptions, and secondary-gadget cards with imagery and descriptions.
+- Added data files to the service-worker app shell and refreshed the cache.
+
+### Data sources and accuracy notes
+- Operator loadout reference: https://github.com/Bmat9000/r6-loadout-db
+- Weapon reference data and full-body figure/gadget assets: https://github.com/danielwerg/r6data (MIT-licensed project).
+- Noor's loadout and 2-speed/2-armor profile checked against Ubisoft's operator page and Y11S3 release notes: https://www.ubisoft.com/en-us/game/rainbow-six/siege/game-info/operators/noor
+- Weapon stats are a community-maintained reference snapshot, not a live Ubisoft feed; values can change after balance patches. Missing stats are shown as unavailable instead of invented.
+- The upstream full-body figure set covers 71 of the 78 current project entries; six newer operators use available operator artwork, and Noor uses Ubisoft's official operator badge because the upstream figure set lacks a full-body image for every current operator.
+
+### Maintenance
+- Bumped app version to 1.12.0 and Service Worker cache to `r6-cache-v26`.
+
+### Validation
+- Source-level checks cover the 78-entry operator roster, 102 weapon stat records, weapon/gadget UI wiring, and offline app-shell paths. Real-browser/device visual testing remains outstanding.
 
 ## 1.11.0 — 2026-10-25
 
