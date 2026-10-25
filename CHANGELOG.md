@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.23.0] - 2026-10-25
+### Added
+- Added a dedicated “مشاهده همه اپراتورها” tab in desktop and mobile navigation.
+- Moved the full operator roster/loadout browser into the main app flow instead of a blocking full-screen modal.
+### Fixed
+- Reworked operator roster layout for small screens, with readable operator tiles, reachable loadout controls, and touch-sized buttons.
+- Improved compact mobile navigation, Duo/Duel card wrapping, and poster modal sizing.
+- Made poster export wait until canvas rendering finishes before showing the share/download actions.
+- Replaced synchronous data-URL-only downloads with PNG Blob downloads and a guarded data-URL fallback.
+- Added compact, context-aware poster actions to the operator, operations, map, and all-operators tabs.
+- Improved image sharing with Web Share file support, share-link fallback, download fallback, and clearer error feedback.
+### Maintenance
+- Bumped app version to 1.23.0 and Service Worker cache to r6-cache-v37.
+### Validation
+- Inline JavaScript syntax and source-contract checks are run before merge; real mobile-browser and device testing is still required.
+
 ## [1.22.0] - 2026-10-25
 ### Expanded
 - Expanded cursed-loadout scope, muzzle, grip, and tactical challenge options to reduce repeat results.

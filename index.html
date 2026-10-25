@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#101112">
-  <meta name="app-version" content="1.22.0">
+  <meta name="app-version" content="1.23.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -725,7 +725,7 @@
 
 
 /* v1.11.0 Operator selection screen */
-#operatorSelectModal{position:fixed;inset:0;z-index:70;display:none;background:rgba(3,5,7,.98);color:#e8e9e5}#operatorSelectModal.is-open{display:flex}.op-select-shell{width:100%;height:100%;display:flex;flex-direction:column;min-height:0;background:#0b0d0f}.op-select-top,.op-select-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;border-bottom:1px solid rgba(214,240,74,.25);background:#101315}.op-select-footer{border-top:1px solid rgba(232,233,229,.12);border-bottom:0}.op-select-layout{display:grid;grid-template-columns:minmax(260px,330px) minmax(0,1fr);flex:1;min-height:0}.op-roster-pane{display:flex;flex-direction:column;min-height:0;border-right:1px solid #343a3f;background:#0d1012}.op-roster-toolbar{padding:12px;display:grid;gap:9px;border-bottom:1px solid #292e30}.op-side-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px}.op-side-tab,.op-action{padding:9px;border:1px solid #343a3f;background:#171b1e;color:#aeb5b9;font-size:11px;font-weight:800}.op-side-tab.active,.op-action.primary{color:#0b0d0f;background:#d6f04a;border-color:#d6f04a}.op-search{width:100%;background:#050708;border:1px solid #343a3f;padding:10px;color:#e8e9e5;outline:none;font-size:12px}.op-search:focus{border-color:#d6f04a}.op-roster-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:9px;overflow:auto;align-content:start}.op-roster-item{min-width:0;min-height:80px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:6px 2px;border:1px solid rgba(232,233,229,.1);background:#141719;color:#aeb5b9}.op-roster-item:hover{border-color:#777f63}.op-roster-item[aria-pressed=true]{border:1px solid #d6f04a;background:rgba(214,240,74,.09);color:#fff}.op-roster-item img{width:42px;height:42px;object-fit:contain}.op-roster-item span{font-size:10px;font-weight:800;text-align:center;line-height:1.2;overflow-wrap:anywhere}.op-roster-item small{font:8px ui-monospace,monospace;color:#828b8f}.op-profile-pane{min-width:0;min-height:0;overflow:auto;padding:clamp(12px,2vw,24px);display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,.95fr);gap:16px;align-content:start}.op-hero{position:relative;min-height:340px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;border:1px solid #343a3f;background:linear-gradient(180deg,#181c1f,#0b0d0f 76%);padding:16px}.op-hero:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.28;background-image:linear-gradient(rgba(232,233,229,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(232,233,229,.05) 1px,transparent 1px);background-size:28px 28px}.op-hero-watermark{position:absolute;right:-7%;bottom:-8%;width:78%;height:78%;object-fit:contain;opacity:.13;filter:grayscale(1);pointer-events:none}.op-hero-content{position:relative;z-index:1}.op-eyebrow{font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:#d6f04a}.op-hero-icon{height:clamp(130px,24vh,235px);width:100%;object-fit:contain;filter:drop-shadow(0 15px 20px #0009);animation:opHeroIn .25s ease both}.op-hero-name{font:900 clamp(28px,4vw,52px)/.98 "Chakra Petch",sans-serif;color:#fff;text-transform:uppercase;overflow-wrap:anywhere;margin-top:8px}.op-hero-meta{font:700 10px ui-monospace,monospace;color:#a1a8aa;margin-top:8px}.op-stat-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.op-stat{border:1px solid #343a3f;background:#080a0b;padding:7px 9px;font:700 10px ui-monospace,monospace;color:#dfe2dd}.op-loadout{display:flex;flex-direction:column;gap:9px;min-width:0}.op-section-title{font:800 11px ui-monospace,monospace;letter-spacing:.1em;color:#d6f04a;border-bottom:1px solid #d6f04a44;padding-bottom:9px}.op-loadout-slot{border:1px solid #e8e9e522;background:#121517;padding:11px;min-width:0}.op-slot-label{font:700 9px ui-monospace,monospace;color:#8f999c;letter-spacing:.07em}.op-weapon-options{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.op-weapon-option{border:1px solid #3b4244;background:#090b0c;color:#d9ddda;padding:8px;font:700 11px "Chakra Petch",sans-serif;overflow-wrap:anywhere}.op-weapon-option.active{border-color:#d6f04a;color:#d6f04a;background:#d6f04a12}.op-data-note{font-size:10px;line-height:1.6;color:#8d9699;margin-top:7px}.op-action{color:#e8e9e5;cursor:pointer}.op-action:disabled{opacity:.45;cursor:not-allowed}@keyframes opHeroIn{from{opacity:.2;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}@media(max-width:850px){.op-select-layout{grid-template-columns:220px minmax(0,1fr)}.op-profile-pane{grid-template-columns:1fr}.op-hero{min-height:270px}.op-hero-icon{height:145px}.op-roster-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:600px){.op-select-top{padding:9px 11px}.op-select-layout{grid-template-columns:1fr;grid-template-rows:minmax(155px,33%) minmax(0,1fr)}.op-roster-pane{border-right:0;border-bottom:1px solid #343a3f}.op-roster-toolbar{padding:7px;gap:6px}.op-side-tab{padding:6px}.op-roster-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;padding:5px}.op-roster-item{min-height:58px;padding:3px 1px;gap:2px}.op-roster-item img{width:29px;height:29px}.op-roster-item span{font-size:8px}.op-roster-item small{display:none}.op-profile-pane{padding:9px;gap:9px;grid-template-columns:1fr}.op-hero{min-height:210px;padding:11px}.op-hero-icon{height:105px}.op-hero-name{font-size:30px}.op-loadout-slot{padding:9px}.op-select-footer{padding:8px 10px}.op-action{padding:8px}}@media(prefers-reduced-motion:reduce){.op-hero-icon{animation:none!important}}
+#hub-operators{position:relative;display:flex;min-height:68vh;color:#e8e9e5}#hub-operators.hidden{display:none}.op-select-shell{width:100%;height:auto;min-height:0;display:flex;flex-direction:column;background:#0b0d0f}.op-select-top,.op-select-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;border-bottom:1px solid rgba(214,240,74,.25);background:#101315}.op-select-footer{border-top:1px solid rgba(232,233,229,.12);border-bottom:0}.op-select-layout{display:grid;grid-template-columns:minmax(260px,330px) minmax(0,1fr);flex:1;min-height:0}.op-roster-pane{display:flex;flex-direction:column;min-height:0;border-right:1px solid #343a3f;background:#0d1012}.op-roster-toolbar{padding:12px;display:grid;gap:9px;border-bottom:1px solid #292e30}.op-side-tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px}.op-side-tab,.op-action{padding:9px;border:1px solid #343a3f;background:#171b1e;color:#aeb5b9;font-size:11px;font-weight:800}.op-side-tab.active,.op-action.primary{color:#0b0d0f;background:#d6f04a;border-color:#d6f04a}.op-search{width:100%;background:#050708;border:1px solid #343a3f;padding:10px;color:#e8e9e5;outline:none;font-size:12px}.op-search:focus{border-color:#d6f04a}.op-roster-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:9px;overflow:auto;align-content:start}.op-roster-item{min-width:0;min-height:80px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:6px 2px;border:1px solid rgba(232,233,229,.1);background:#141719;color:#aeb5b9}.op-roster-item:hover{border-color:#777f63}.op-roster-item[aria-pressed=true]{border:1px solid #d6f04a;background:rgba(214,240,74,.09);color:#fff}.op-roster-item img{width:42px;height:42px;object-fit:contain}.op-roster-item span{font-size:10px;font-weight:800;text-align:center;line-height:1.2;overflow-wrap:anywhere}.op-roster-item small{font:8px ui-monospace,monospace;color:#828b8f}.op-profile-pane{min-width:0;min-height:0;overflow:auto;padding:clamp(12px,2vw,24px);display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,.95fr);gap:16px;align-content:start}.op-hero{position:relative;min-height:340px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;border:1px solid #343a3f;background:linear-gradient(180deg,#181c1f,#0b0d0f 76%);padding:16px}.op-hero:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.28;background-image:linear-gradient(rgba(232,233,229,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(232,233,229,.05) 1px,transparent 1px);background-size:28px 28px}.op-hero-watermark{position:absolute;right:-7%;bottom:-8%;width:78%;height:78%;object-fit:contain;opacity:.13;filter:grayscale(1);pointer-events:none}.op-hero-content{position:relative;z-index:1}.op-eyebrow{font:700 9px ui-monospace,monospace;letter-spacing:.14em;color:#d6f04a}.op-hero-icon{height:clamp(130px,24vh,235px);width:100%;object-fit:contain;filter:drop-shadow(0 15px 20px #0009);animation:opHeroIn .25s ease both}.op-hero-name{font:900 clamp(28px,4vw,52px)/.98 "Chakra Petch",sans-serif;color:#fff;text-transform:uppercase;overflow-wrap:anywhere;margin-top:8px}.op-hero-meta{font:700 10px ui-monospace,monospace;color:#a1a8aa;margin-top:8px}.op-stat-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.op-stat{border:1px solid #343a3f;background:#080a0b;padding:7px 9px;font:700 10px ui-monospace,monospace;color:#dfe2dd}.op-loadout{display:flex;flex-direction:column;gap:9px;min-width:0}.op-section-title{font:800 11px ui-monospace,monospace;letter-spacing:.1em;color:#d6f04a;border-bottom:1px solid #d6f04a44;padding-bottom:9px}.op-loadout-slot{border:1px solid #e8e9e522;background:#121517;padding:11px;min-width:0}.op-slot-label{font:700 9px ui-monospace,monospace;color:#8f999c;letter-spacing:.07em}.op-weapon-options{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.op-weapon-option{border:1px solid #3b4244;background:#090b0c;color:#d9ddda;padding:8px;font:700 11px "Chakra Petch",sans-serif;overflow-wrap:anywhere}.op-weapon-option.active{border-color:#d6f04a;color:#d6f04a;background:#d6f04a12}.op-data-note{font-size:10px;line-height:1.6;color:#8d9699;margin-top:7px}.op-action{color:#e8e9e5;cursor:pointer}.op-action:disabled{opacity:.45;cursor:not-allowed}@keyframes opHeroIn{from{opacity:.2;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}@media(max-width:850px){.op-select-layout{grid-template-columns:220px minmax(0,1fr)}.op-profile-pane{grid-template-columns:1fr}.op-hero{min-height:270px}.op-hero-icon{height:145px}.op-roster-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:600px){.op-select-top{padding:9px 11px}.op-select-layout{grid-template-columns:1fr;grid-template-rows:minmax(155px,33%) minmax(0,1fr)}.op-roster-pane{border-right:0;border-bottom:1px solid #343a3f}.op-roster-toolbar{padding:7px;gap:6px}.op-side-tab{padding:6px}.op-roster-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;padding:5px}.op-roster-item{min-height:58px;padding:3px 1px;gap:2px}.op-roster-item img{width:29px;height:29px}.op-roster-item span{font-size:8px}.op-roster-item small{display:none}.op-profile-pane{padding:9px;gap:9px;grid-template-columns:1fr}.op-hero{min-height:210px;padding:11px}.op-hero-icon{height:105px}.op-hero-name{font-size:30px}.op-loadout-slot{padding:9px}.op-select-footer{padding:8px 10px}.op-action{padding:8px}}@media(prefers-reduced-motion:reduce){.op-hero-icon{animation:none!important}}
 
 
 /* v1.12.0 operator portraits, weapon cards and equipment details */
@@ -845,52 +845,52 @@
       }
 
 /* v1.15.0 — Siege Operator HQ pass: visual hierarchy and resilient portraits */
-#operatorSelectModal{background:rgba(3,5,7,.94);backdrop-filter:blur(10px)}
-#operatorSelectModal .op-select-shell{background:var(--siege-bg-canvas,#0b0d0f);border:1px solid var(--siege-border-strong,#41484d);box-shadow:0 24px 90px #000b}
-#operatorSelectModal .op-select-top{background:#0e1113;border-bottom-color:#d6f04a55;min-height:68px}
-#operatorSelectModal .op-select-top h2{letter-spacing:-.025em}
-#operatorSelectModal .op-select-footer{background:#0e1113;gap:14px}
-#operatorSelectModal .op-select-layout{grid-template-columns:minmax(280px,350px) minmax(0,1fr)}
-#operatorSelectModal .op-roster-pane{border-right:1px solid #3a4145;background:#0a0d0f}
-#operatorSelectModal .op-roster-toolbar{background:#101416;border-bottom-color:#343b3f}
-#operatorSelectModal .op-side-tab{min-height:40px;position:relative;transition:background .15s,border-color .15s,color .15s}
-#operatorSelectModal .op-side-tab.active{background:#d6f04a;color:#0b0d0f;border-color:#d6f04a;box-shadow:inset 3px 0 #fff8}
-#operatorSelectModal .op-side-tab:not(.active):hover{background:#242a2d;border-color:#606a6f;color:#f7f8f4}
-#operatorSelectModal .op-search{min-height:42px;border-radius:2px;background:#07090a;border-color:#41484d}
-#operatorSelectModal .op-search:focus-visible{outline:2px solid #d6f04a;outline-offset:2px;border-color:#d6f04a}
-#operatorSelectModal .op-roster-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:10px}
-#operatorSelectModal .op-roster-item{position:relative;min-height:100px;justify-content:flex-start;gap:7px;padding:8px 4px 7px;background:#131719;border:1px solid #30373b;border-radius:0;transition:background .14s,border-color .14s,transform .14s;overflow:hidden}
-#operatorSelectModal .op-roster-item:before{content:"";position:absolute;inset:0 0 auto;height:2px;background:transparent}
-#operatorSelectModal .op-roster-item:hover{background:#202629;border-color:#7a858a;transform:translateY(-1px)}
-#operatorSelectModal .op-roster-item[aria-pressed=true]{background:linear-gradient(180deg,#d6f04a18,#d6f04a05);border-color:#d6f04a;color:#fff;box-shadow:inset 0 0 0 1px #d6f04a35}
-#operatorSelectModal .op-roster-item[aria-pressed=true]:before{background:#d6f04a}
-#operatorSelectModal .op-roster-item img{width:52px;height:52px;object-fit:contain;filter:drop-shadow(0 4px 7px #0009)}
-#operatorSelectModal .op-roster-item span:not(.op-roster-fallback){font-size:10px;color:#f0f2ed}
-#operatorSelectModal .op-roster-item small{font-size:8px;letter-spacing:.02em;color:#929da1}
-#operatorSelectModal .op-roster-item:focus-visible,#operatorSelectModal .op-action:focus-visible,#operatorSelectModal .op-weapon-card:focus-visible{outline:2px solid #e8e9e5;outline-offset:2px}
-#operatorSelectModal .op-profile-pane{background:#0b0e10;grid-template-columns:minmax(0,1.03fr) minmax(280px,.97fr);gap:14px}
-#operatorSelectModal .op-hero{min-height:420px;border-color:#41484d;border-radius:0;background:linear-gradient(145deg,#1a2023 0%,#101416 46%,#080a0b 100%);padding:clamp(14px,2vw,22px)}
-#operatorSelectModal .op-hero:after{content:"";position:absolute;inset:8px;border:1px solid #e8e9e510;pointer-events:none}
-#operatorSelectModal .op-hero-icon{position:relative;z-index:1;filter:drop-shadow(0 16px 22px #000c);object-position:center bottom}
-#operatorSelectModal .op-hero-name{position:relative;z-index:1;text-shadow:0 3px 18px #000b}
-#operatorSelectModal .op-hero-meta{letter-spacing:.06em}
-#operatorSelectModal .op-stat{border-radius:0;border-color:#41484d;background:#0a0d0e}
-#operatorSelectModal .op-section-title{display:flex;align-items:center;gap:10px}
-#operatorSelectModal .op-loadout-slot{border-radius:0;border-color:#353c40;background:#111517}
-#operatorSelectModal .op-weapon-card,#operatorSelectModal .op-gadget-card{border-radius:0;border-color:#343b3f;transition:border-color .14s,background .14s}
-#operatorSelectModal .op-weapon-card:hover{border-color:#a4b77a;background:#151a16}
-#operatorSelectModal .op-weapon-card.active{border-color:#d6f04a;background:#d6f04a12;box-shadow:inset 2px 0 #d6f04a}
-#operatorSelectModal .op-action{min-height:38px;border-radius:0;background:#171c1f;border-color:#41484d}
-#operatorSelectModal .op-action:hover:not(:disabled){background:#272e31;border-color:#818c91;color:#fff}
-#operatorSelectModal .op-action.primary{background:#d6f04a;color:#0b0d0f;border-color:#d6f04a}
-#operatorSelectModal .op-action.primary:hover:not(:disabled){background:#e5fa69;border-color:#e5fa69}
-#operatorSelectModal .op-action:disabled{opacity:.4}
+#hub-operators{background:rgba(3,5,7,.94);backdrop-filter:blur(10px)}
+#hub-operators .op-select-shell{background:var(--siege-bg-canvas,#0b0d0f);border:1px solid var(--siege-border-strong,#41484d);box-shadow:0 24px 90px #000b}
+#hub-operators .op-select-top{background:#0e1113;border-bottom-color:#d6f04a55;min-height:68px}
+#hub-operators .op-select-top h2{letter-spacing:-.025em}
+#hub-operators .op-select-footer{background:#0e1113;gap:14px}
+#hub-operators .op-select-layout{grid-template-columns:minmax(280px,350px) minmax(0,1fr)}
+#hub-operators .op-roster-pane{border-right:1px solid #3a4145;background:#0a0d0f}
+#hub-operators .op-roster-toolbar{background:#101416;border-bottom-color:#343b3f}
+#hub-operators .op-side-tab{min-height:40px;position:relative;transition:background .15s,border-color .15s,color .15s}
+#hub-operators .op-side-tab.active{background:#d6f04a;color:#0b0d0f;border-color:#d6f04a;box-shadow:inset 3px 0 #fff8}
+#hub-operators .op-side-tab:not(.active):hover{background:#242a2d;border-color:#606a6f;color:#f7f8f4}
+#hub-operators .op-search{min-height:42px;border-radius:2px;background:#07090a;border-color:#41484d}
+#hub-operators .op-search:focus-visible{outline:2px solid #d6f04a;outline-offset:2px;border-color:#d6f04a}
+#hub-operators .op-roster-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:10px}
+#hub-operators .op-roster-item{position:relative;min-height:100px;justify-content:flex-start;gap:7px;padding:8px 4px 7px;background:#131719;border:1px solid #30373b;border-radius:0;transition:background .14s,border-color .14s,transform .14s;overflow:hidden}
+#hub-operators .op-roster-item:before{content:"";position:absolute;inset:0 0 auto;height:2px;background:transparent}
+#hub-operators .op-roster-item:hover{background:#202629;border-color:#7a858a;transform:translateY(-1px)}
+#hub-operators .op-roster-item[aria-pressed=true]{background:linear-gradient(180deg,#d6f04a18,#d6f04a05);border-color:#d6f04a;color:#fff;box-shadow:inset 0 0 0 1px #d6f04a35}
+#hub-operators .op-roster-item[aria-pressed=true]:before{background:#d6f04a}
+#hub-operators .op-roster-item img{width:52px;height:52px;object-fit:contain;filter:drop-shadow(0 4px 7px #0009)}
+#hub-operators .op-roster-item span:not(.op-roster-fallback){font-size:10px;color:#f0f2ed}
+#hub-operators .op-roster-item small{font-size:8px;letter-spacing:.02em;color:#929da1}
+#hub-operators .op-roster-item:focus-visible,#hub-operators .op-action:focus-visible,#hub-operators .op-weapon-card:focus-visible{outline:2px solid #e8e9e5;outline-offset:2px}
+#hub-operators .op-profile-pane{background:#0b0e10;grid-template-columns:minmax(0,1.03fr) minmax(280px,.97fr);gap:14px}
+#hub-operators .op-hero{min-height:420px;border-color:#41484d;border-radius:0;background:linear-gradient(145deg,#1a2023 0%,#101416 46%,#080a0b 100%);padding:clamp(14px,2vw,22px)}
+#hub-operators .op-hero:after{content:"";position:absolute;inset:8px;border:1px solid #e8e9e510;pointer-events:none}
+#hub-operators .op-hero-icon{position:relative;z-index:1;filter:drop-shadow(0 16px 22px #000c);object-position:center bottom}
+#hub-operators .op-hero-name{position:relative;z-index:1;text-shadow:0 3px 18px #000b}
+#hub-operators .op-hero-meta{letter-spacing:.06em}
+#hub-operators .op-stat{border-radius:0;border-color:#41484d;background:#0a0d0e}
+#hub-operators .op-section-title{display:flex;align-items:center;gap:10px}
+#hub-operators .op-loadout-slot{border-radius:0;border-color:#353c40;background:#111517}
+#hub-operators .op-weapon-card,#hub-operators .op-gadget-card{border-radius:0;border-color:#343b3f;transition:border-color .14s,background .14s}
+#hub-operators .op-weapon-card:hover{border-color:#a4b77a;background:#151a16}
+#hub-operators .op-weapon-card.active{border-color:#d6f04a;background:#d6f04a12;box-shadow:inset 2px 0 #d6f04a}
+#hub-operators .op-action{min-height:38px;border-radius:0;background:#171c1f;border-color:#41484d}
+#hub-operators .op-action:hover:not(:disabled){background:#272e31;border-color:#818c91;color:#fff}
+#hub-operators .op-action.primary{background:#d6f04a;color:#0b0d0f;border-color:#d6f04a}
+#hub-operators .op-action.primary:hover:not(:disabled){background:#e5fa69;border-color:#e5fa69}
+#hub-operators .op-action:disabled{opacity:.4}
 .op-roster-fallback{width:52px;height:52px;align-items:center;justify-content:center;border:1px solid #596247;background:#20271b;color:#d6f04a;font:900 24px/1 "Chakra Petch",sans-serif}
 .op-hero-fallback{height:clamp(130px,24vh,235px);align-items:center;justify-content:center;color:#d6f04a;font:900 clamp(54px,9vw,100px)/1 "Chakra Petch",sans-serif;text-shadow:0 12px 25px #000}
-#operatorSelectModal .op-hero-fallback:not([hidden]),#operatorSelectModal .op-roster-fallback:not([hidden]){display:flex}
-@media(max-width:1000px){#operatorSelectModal .op-select-layout{grid-template-columns:260px minmax(0,1fr)}#operatorSelectModal .op-profile-pane{grid-template-columns:1fr}#operatorSelectModal .op-hero{min-height:350px}}
-@media(max-width:600px){#operatorSelectModal .op-select-layout{grid-template-rows:minmax(165px,34%) minmax(0,1fr)}#operatorSelectModal .op-roster-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;padding:5px}#operatorSelectModal .op-roster-item{min-height:65px;padding:4px 1px;gap:3px}#operatorSelectModal .op-roster-item img,#operatorSelectModal .op-roster-fallback{width:30px;height:30px}#operatorSelectModal .op-roster-fallback{font-size:15px}#operatorSelectModal .op-roster-item span:not(.op-roster-fallback){font-size:8px}#operatorSelectModal .op-roster-item small{display:none}#operatorSelectModal .op-profile-pane{grid-template-columns:1fr}#operatorSelectModal .op-hero{min-height:235px}#operatorSelectModal .op-hero-icon{height:125px}#operatorSelectModal .op-hero-fallback{height:125px}#operatorSelectModal .op-select-footer{align-items:stretch;flex-direction:column}#operatorSelectModal .op-select-footer>div{display:flex;justify-content:flex-end}}
-@media(prefers-reduced-motion:reduce){#operatorSelectModal .op-roster-item,#operatorSelectModal .op-action,#operatorSelectModal .op-weapon-card{transition:none!important}#operatorSelectModal .op-roster-item:hover{transform:none}}
+#hub-operators .op-hero-fallback:not([hidden]),#hub-operators .op-roster-fallback:not([hidden]){display:flex}
+@media(max-width:1000px){#hub-operators .op-select-layout{grid-template-columns:260px minmax(0,1fr)}#hub-operators .op-profile-pane{grid-template-columns:1fr}#hub-operators .op-hero{min-height:350px}}
+@media(max-width:600px){#hub-operators .op-select-layout{grid-template-rows:minmax(165px,34%) minmax(0,1fr)}#hub-operators .op-roster-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;padding:5px}#hub-operators .op-roster-item{min-height:65px;padding:4px 1px;gap:3px}#hub-operators .op-roster-item img,#hub-operators .op-roster-fallback{width:30px;height:30px}#hub-operators .op-roster-fallback{font-size:15px}#hub-operators .op-roster-item span:not(.op-roster-fallback){font-size:8px}#hub-operators .op-roster-item small{display:none}#hub-operators .op-profile-pane{grid-template-columns:1fr}#hub-operators .op-hero{min-height:235px}#hub-operators .op-hero-icon{height:125px}#hub-operators .op-hero-fallback{height:125px}#hub-operators .op-select-footer{align-items:stretch;flex-direction:column}#hub-operators .op-select-footer>div{display:flex;justify-content:flex-end}}
+@media(prefers-reduced-motion:reduce){#hub-operators .op-roster-item,#hub-operators .op-action,#hub-operators .op-weapon-card{transition:none!important}#hub-operators .op-roster-item:hover{transform:none}}
 
 
       /* v1.16.0 — Phase 3: mode-specific command surfaces. Visual states only. */
@@ -1144,7 +1144,7 @@
     body[data-skin="default"] .squad-briefing,
     body[data-skin="default"] #profileModal > div,
     body[data-skin="default"] #alphaModal > div,
-    body[data-skin="default"] #operatorSelectModal > div,
+    body[data-skin="default"] #hub-operators > div,
     body[data-skin="default"] #banModal > div,
     body[data-skin="default"] #shareModal > div,
     body[data-skin="default"] #introModal > div {
@@ -1293,7 +1293,81 @@
       .randomize-pending .fa-regular { animation: none !important; }
     }
 
-    </style>
+    
+    /* Phase 9 — operator roster tab and small-screen usability */
+    #hub-operators .op-select-shell{min-height:0;height:auto;border:1px solid var(--siege-border-strong,#41484d);box-shadow:none}
+    #hub-operators .op-select-layout{min-height:0}
+    #hub-operators .op-profile-pane{min-width:0}
+    #hub-operators .op-select-top{position:sticky;top:0;z-index:3;padding:10px 12px}
+    #hub-operators .op-select-footer{position:sticky;bottom:0;z-index:3;flex-wrap:wrap}
+    #hub-operators .op-roster-item:focus-visible,#hub-operators .op-action:focus-visible,#hub-operators .op-side-tab:focus-visible,#hub-operators .op-search:focus-visible{outline:2px solid #d6f04a;outline-offset:2px}
+    @media(max-width:639.98px){
+      main{padding-left:8px!important;padding-right:8px!important;padding-top:8px!important;padding-bottom:10px!important}
+      #hub-operators{min-height:0}
+      #hub-operators .op-select-shell{min-height:0}
+      #hub-operators .op-select-top{align-items:flex-start;gap:8px}
+      #hub-operators .op-select-top h2{font-size:16px;line-height:1.3}
+      #hub-operators .op-select-layout{display:flex;flex-direction:column;gap:8px}
+      #hub-operators .op-roster-pane{min-height:0;border:1px solid #343a3f}
+      #hub-operators .op-roster-toolbar{padding:8px;gap:7px}
+      #hub-operators .op-side-tab{min-height:42px;padding:8px 5px;font-size:11px}
+      #hub-operators .op-search{min-height:44px;font-size:14px}
+      #hub-operators .op-roster-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:6px;max-height:260px;overflow-y:auto;overscroll-behavior:contain}
+      #hub-operators .op-roster-item{min-height:76px;padding:5px 2px;gap:4px}
+      #hub-operators .op-roster-item img{width:36px;height:36px}
+      #hub-operators .op-roster-item span{font-size:10px;line-height:1.2}
+      #hub-operators .op-roster-item small{display:none}
+      #hub-operators .op-profile-pane{display:flex;flex-direction:column;overflow:visible;padding:0;gap:8px}
+      #hub-operators .op-hero{min-height:0;padding:12px;display:grid;grid-template-columns:minmax(95px,34%) minmax(0,1fr);column-gap:10px;align-items:center}
+      #hub-operators .op-hero-content:first-child{grid-column:1/-1}
+      #hub-operators .op-hero-content:nth-child(2){display:contents}
+      #hub-operators .op-hero-watermark{width:55%;height:65%;right:-10%;bottom:-8%}
+      #hub-operators .op-hero-icon{grid-column:1;grid-row:2 / span 4;height:150px;max-height:150px;min-width:0}
+      #hub-operators .op-hero-fallback{grid-column:1;grid-row:2 / span 4}
+      #hub-operators .op-hero-name{grid-column:2;font-size:clamp(24px,7vw,34px);overflow-wrap:anywhere}
+      #hub-operators .op-hero-meta{grid-column:2;font-size:9px;overflow-wrap:anywhere}
+      #hub-operators .op-stat-row{grid-column:2;gap:4px;margin-top:6px}
+      #hub-operators .op-stat{font-size:9px;padding:6px}
+      #hub-operators .op-loadout-slot{padding:9px}
+      #hub-operators .op-weapon-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+      #hub-operators .op-weapon-card{grid-template-columns:54px minmax(0,1fr);gap:6px;padding:6px;min-height:64px}
+      #hub-operators .op-weapon-card img{width:54px;height:42px}
+      #hub-operators .op-weapon-card-name{font-size:10px}
+      #hub-operators .op-select-footer{position:sticky;bottom:0;padding:8px;gap:8px;background:#0e1113}
+      #hub-operators #opSelectStatus{font-size:10px;flex:1 1 100%}
+      #hub-operators .op-select-footer>div{display:grid;grid-template-columns:1fr 1fr;width:100%}
+      #hub-operators .op-action{min-height:44px;padding:10px 8px;font-size:11px}
+      #mhub-operators span{font-size:8px;letter-spacing:-.02em}
+      #mhub-hq,#mhub-ops,#mhub-tools,#mhub-operators{padding-left:3px;padding-right:3px;min-width:0;flex:1}
+      #opsDuoView,#opsDuelView{min-width:0;max-width:100%}
+      #opsDuoView button,#opsDuelView button{overflow-wrap:anywhere;min-height:44px}
+      #opsDuelView .duel-match-card{grid-template-columns:minmax(0,1fr)!important}
+      #opsDuelView .duel-versus{margin:2px auto}
+      #hqSquadWrap{min-width:0}
+      #hqSquadWrap .squad-operator-card{min-width:0;overflow-wrap:anywhere}
+      #hqRollBtn,#hqConfirmXpBtn{width:100%;min-height:46px}
+      #shareModal{padding:8px}
+      #shareModal>div{max-height:92dvh;overflow-y:auto}
+      #shareModal canvas{display:block;width:auto;max-width:100%;height:auto;max-height:56dvh;margin:auto;object-fit:contain}
+      #shareModal .grid.grid-cols-2{grid-template-columns:1fr}
+      #shareModal button{min-height:44px}
+    }
+    @media(max-width:380px){
+      #hub-operators .op-roster-grid{grid-template-columns:repeat(3,minmax(0,1fr));max-height:225px}
+      #hub-operators .op-hero{grid-template-columns:90px minmax(0,1fr)}
+      #hub-operators .op-hero-icon{height:120px;max-height:120px}
+      #hub-operators .op-weapon-card{grid-template-columns:1fr}
+      #hub-operators .op-weapon-card img{width:100%;height:38px}
+      #mhub-hq span,#mhub-ops span,#mhub-tools span,#mhub-operators span{font-size:7px}
+    }
+
+
+    .poster-action{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;padding:7px 11px;border:1px solid rgba(214,240,74,.45);background:#121719;color:#d6f04a;font-size:11px;font-weight:800;white-space:nowrap;transition:background .15s,border-color .15s}
+    .poster-action:hover{background:#22282b;border-color:#d6f04a}
+    .poster-action:focus-visible{outline:2px solid #d6f04a;outline-offset:2px}
+    @media(max-width:639.98px){.poster-action{min-height:42px;padding:8px 10px;font-size:11px}#hub-hq>.poster-action{width:100%}#hub-operators .op-select-top .poster-action{padding:8px;font-size:0;gap:0}#hub-operators .op-select-top .poster-action span{display:none}#hub-operators .op-select-top{flex-wrap:wrap}}
+
+</style>
 </head>
 <body data-faction="atk" data-skin="default" data-hq-mode="standard" data-ops-mode="strats" class="antialiased selection:bg-siege-yellow selection:text-black">
 
@@ -1372,7 +1446,7 @@
   <nav class="hidden sm:block bg-siege-dark/80 border-b border-siege-border px-4 py-2 shrink-0">
     <div class="max-w-5xl mx-auto flex items-center justify-between gap-2">
       <div class="flex items-center gap-2">
-        <button onclick="switchHub('hq')" id="hub-btn-hq" class="px-4 py-1.5 rounded-xl font-bold text-xs transition bg-siege-yellow text-black shadow-md shadow-siege-yellow/20 flex items-center gap-2">
+        <button onclick="switchHub('operators')" id="hub-btn-operators" class="px-4 py-1.5 rounded-xl font-bold text-xs transition text-slate-300 hover:bg-siege-surface border border-transparent flex items-center gap-2"><i class="fa-solid fa-users"></i><span>مشاهده همه اپراتورها</span></button><button onclick="switchHub('hq')" id="hub-btn-hq" class="px-4 py-1.5 rounded-xl font-bold text-xs transition bg-siege-yellow text-black shadow-md shadow-siege-yellow/20 flex items-center gap-2">
           <i class="fa-solid fa-crosshairs"></i>
           <span>۱. انتخاب اپراتور و تجهیزات</span>
         </button>
@@ -1472,13 +1546,15 @@
             </div>
 
             <div class="flex items-center gap-1.5">
-          <button type="button" onclick="openOperatorSelect()" class="px-2.5 py-1 rounded-lg bg-siege-yellow text-black border border-siege-yellow text-[11px] font-black flex items-center gap-1.5" title="باز کردن منوی انتخاب اپراتور"><i class="fa-solid fa-list-check"></i><span>انتخاب اپراتور</span></button>
+          <button type="button" onclick="openOperatorSelect()" class="px-2.5 py-1 rounded-lg bg-siege-yellow text-black border border-siege-yellow text-[11px] font-black flex items-center gap-1.5" title="باز کردن منوی انتخاب اپراتور"><i class="fa-solid fa-list-check"></i><span>مشاهده همه اپراتورها</span></button>
               
               <button onclick="toggleFavoriteCurrent()" class="w-8 h-8 rounded-lg bg-siege-dark border border-siege-border text-slate-400 hover:text-siege-yellow flex items-center justify-center transition active:scale-95" title="افزودن به علاقه‌مندی‌ها (یا کشیدن کارت به بالا)">
                 <i class="fa-regular fa-star text-sm" id="cardFavIcon"></i>
               </button>
             </div>
           </div>
+
+          <div class="flex justify-end shrink-0"><button type="button" onclick="exportCurrentCard()" class="poster-action" aria-label="ساخت پوستر از بخش فعلی"><i class="fa-solid fa-image" aria-hidden="true"></i><span>ساخت پوستر</span></button></div>
 
           <!-- Center Operator Identity -->
           <div class="flex items-center gap-4 my-auto py-2 z-10">
@@ -1590,6 +1666,8 @@
       </div>
       <button type="button" class="duel-quick-access" id="duelQuickAccessBtn" onclick="openDuelArena()" aria-label="باز کردن بخش رقابت دونفره یک در برابر یک"><span class="flex items-center gap-2"><i class="fa-solid fa-swords duel-quick-icon" aria-hidden="true"></i><span><span class="block">ورود مستقیم به رقابت دونفره</span><span class="block text-[9px] font-normal text-slate-400 mt-0.5">DUEL ARENA · 1V1 · حالت‌ها و تورنمنت</span></span></span><i class="fa-solid fa-arrow-left text-xs duel-quick-icon" aria-hidden="true"></i></button>
 
+      <div class="flex justify-end shrink-0"><button type="button" onclick="exportCurrentCard()" class="poster-action" aria-label="ساخت پوستر از بخش فعلی"><i class="fa-solid fa-image" aria-hidden="true"></i><span>ساخت پوستر</span></button></div>
+
       <!-- 2A. 55 SECRET STRATS CARD -->
       <div id="opsStratsView" class="flex-1 flex flex-col justify-between gap-2.5 min-h-0">
         <div class="grid grid-cols-3 gap-1.5 bg-siege-card/70 p-1 rounded-xl border border-siege-border shrink-0">
@@ -1686,7 +1764,7 @@
             <h2 class="text-xl sm:text-2xl font-black text-white mt-1">انتخاب نقشه و سایت بمب</h2>
             <p class="text-[11px] text-slate-400 mt-1">فهرست نقشه‌های Ranked فعلی؛ انتخاب دستی یا قرعه‌کشی تصادفی.</p>
           </div>
-          <span id="mapCountBadge" class="px-2.5 py-1 rounded-lg bg-siege-dark border border-siege-border text-[10px] font-mono text-siege-yellow shrink-0">15 MAPS</span>
+          <div class="flex flex-col sm:flex-row items-end sm:items-center gap-2 shrink-0"><button type="button" onclick="exportCurrentCard()" class="poster-action" aria-label="ساخت پوستر از بخش فعلی"><i class="fa-solid fa-image" aria-hidden="true"></i><span>ساخت پوستر</span></button><span id="mapCountBadge" class="px-2.5 py-1 rounded-lg bg-siege-dark border border-siege-border text-[10px] font-mono text-siege-yellow shrink-0">15 MAPS</span></div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1727,6 +1805,17 @@
       </div>
     </section>
 
+    <!-- Operator roster and loadout selection -->
+  <section id="hub-operators" class="hidden flex flex-col min-h-0 gap-2.5" aria-labelledby="opSelectTitle">
+    <div class="op-select-shell">
+      <header class="op-select-top"><div><div class="op-eyebrow">RAINBOW SIX // OPERATOR SELECT</div><h2 id="opSelectTitle" class="text-lg sm:text-xl font-black text-white">انتخاب اپراتور و تجهیزات</h2></div><button type="button" onclick="exportCurrentCard()" class="poster-action" aria-label="ساخت پوستر از بخش فعلی"><i class="fa-solid fa-image" aria-hidden="true"></i><span>ساخت پوستر</span></button><button type="button" class="op-action" onclick="closeOperatorSelect()" aria-label="بازگشت به صفحه اصلی"><i class="fa-solid fa-xmark"></i> بستن</button></header>
+      <div class="op-select-layout">
+        <aside class="op-roster-pane" aria-label="فهرست اپراتورها">
+          <div class="op-roster-toolbar"><div class="op-side-tabs" role="group" aria-label="جناح"><button type="button" class="op-side-tab active" id="opSelectAtk" aria-pressed="true" onclick="setOperatorSelectSide('atk')">مهاجمان <span id="opAtkCount">39</span></button><button type="button" class="op-side-tab" id="opSelectDef" aria-pressed="false" onclick="setOperatorSelectSide('def')">مدافعان <span id="opDefCount">39</span></button></div><input id="opSelectSearch" class="op-search" type="search" placeholder="جست‌وجوی اپراتور یا سازمان…" autocomplete="off" aria-label="جست‌وجوی اپراتور" oninput="renderOperatorRoster()"><div class="flex items-center justify-between text-[9px] font-mono text-slate-500"><span>ROSTER INDEX</span><span id="opRosterCount">39 / 78</span></div></div>
+          <div id="opRosterGrid" class="op-roster-grid" role="listbox" aria-label="انتخاب اپراتور"></div>
+        </aside>
+        <div class="op-profile-pane"><article class="op-hero" aria-live="polite"><img id="opHeroWatermark" class="op-hero-watermark" src="" alt="" aria-hidden="true"><div class="op-hero-content flex items-center justify-between gap-3"><span id="opHeroFaction" class="op-eyebrow">ATTACKER</span><span id="opHeroIndex" class="text-[9px] font-mono text-slate-500">OP // 01</span></div><div class="op-hero-content"><img id="opHeroIcon" class="op-hero-icon" src="" alt="پرتره اپراتور انتخاب‌شده"><div id="opHeroFallback" class="op-hero-fallback" hidden aria-label="جایگزین پرتره"></div><div id="opHeroName" class="op-hero-name">ASH</div><div id="opHeroMeta" class="op-hero-meta">FBI SWAT</div><div class="op-stat-row"><span class="op-stat" id="opHeroSpeed">سرعت —</span><span class="op-stat" id="opHeroArmor">زره —</span><span class="op-stat" id="opHeroGadget">قابلیت ویژه —</span></div></div></article>
+          <section class="op-loadout" aria-label="تجهیزات اپراتور"><div class="op-section-title">LOADOUT CONFIGURATION</div><div class="op-loadout-slot"><div class="op-slot-label">01 / PRIMARY WEAPON</div><div id="opPrimaryOptions" class="op-weapon-grid"></div><div id="opPrimaryStats" class="op-selected-stats"></div></div><div class="op-loadout-slot"><div class="op-slot-label">02 / SECONDARY WEAPON</div><div id="opSecondaryOptions" class="op-weapon-grid"></div><div id="opSecondaryStats" class="op-selected-stats"></div></div><div class="op-loadout-slot"><div class="op-slot-label">03 / UNIQUE ABILITY</div><div class="op-ability-row"><img id="opAbilityImage" class="op-ability-image" src="" alt="" hidden><div><div id="opAbilityName" class="text-sm font-black text-white mt-2"></div><div id="opAbilityDescription" class="op-data-note"></div></div></div></div><div class="op-loadout-slot"><div class="op-slot-label">04 / SECONDARY GADGETS</div><div id="opSecondaryGadgets" class="op-gadget-grid"></div></div><div class="op-data-note">تصاویر و Loadout از داده‌های مرجع جامعه و تصاویر رسمی موجود استخراج شده‌اند. اعداد سلاح‌ها داده‌ی پایه‌ی دیتابیس مرجع‌اند و ممکن است پس از پچ‌های توازن تغییر کنند؛ گزینه‌ی انتخابی در این پنل تجهیزات بازی را تغییر نمی‌دهد.</div></section>
   </main>
 
   
@@ -1734,7 +1823,7 @@
 
   <!-- ================= MOBILE BOTTOM NAVIGATION BAR (4 BENTO HUBS) ================= -->
   <nav class="sm:hidden bg-siege-dark/95 backdrop-blur-md border-t border-siege-border px-2 py-1.5 flex items-center justify-around z-40 shrink-0" style="padding-bottom: calc(6px + var(--safe-bottom));">
-    <button onclick="switchHub('hq')" id="mhub-hq" class="flex flex-col items-center gap-0.5 text-siege-yellow text-[10px] font-bold py-1 px-3">
+    <button onclick="switchHub('operators')" id="mhub-operators" class="flex flex-col items-center justify-center gap-0.5 text-slate-400 text-[9px] font-bold py-1 px-1.5 min-w-0 flex-1" aria-label="مشاهده همه اپراتورها"><i class="fa-solid fa-users text-base"></i><span>مشاهده همه<br>اپراتورها</span></button><button onclick="switchHub('hq')" id="mhub-hq" class="flex flex-col items-center gap-0.5 text-siege-yellow text-[10px] font-bold py-1 px-3">
       <i class="fa-solid fa-crosshairs text-base"></i>
       <span>اپراتورها</span>
     </button>
@@ -1906,17 +1995,7 @@
     </div>
   </div>
 
-  <!-- Operator roster and loadout selection -->
-  <section id="operatorSelectModal" role="dialog" aria-modal="true" aria-labelledby="opSelectTitle" aria-hidden="true">
-    <div class="op-select-shell">
-      <header class="op-select-top"><div><div class="op-eyebrow">RAINBOW SIX // OPERATOR SELECT</div><h2 id="opSelectTitle" class="text-lg sm:text-xl font-black text-white">انتخاب اپراتور و تجهیزات</h2></div><button type="button" class="op-action" onclick="closeOperatorSelect()" aria-label="بستن منوی انتخاب"><i class="fa-solid fa-xmark"></i> بستن</button></header>
-      <div class="op-select-layout">
-        <aside class="op-roster-pane" aria-label="فهرست اپراتورها">
-          <div class="op-roster-toolbar"><div class="op-side-tabs" role="group" aria-label="جناح"><button type="button" class="op-side-tab active" id="opSelectAtk" aria-pressed="true" onclick="setOperatorSelectSide('atk')">مهاجمان <span id="opAtkCount">39</span></button><button type="button" class="op-side-tab" id="opSelectDef" aria-pressed="false" onclick="setOperatorSelectSide('def')">مدافعان <span id="opDefCount">39</span></button></div><input id="opSelectSearch" class="op-search" type="search" placeholder="جست‌وجوی اپراتور یا سازمان…" autocomplete="off" aria-label="جست‌وجوی اپراتور" oninput="renderOperatorRoster()"><div class="flex items-center justify-between text-[9px] font-mono text-slate-500"><span>ROSTER INDEX</span><span id="opRosterCount">39 / 78</span></div></div>
-          <div id="opRosterGrid" class="op-roster-grid" role="listbox" aria-label="انتخاب اپراتور"></div>
-        </aside>
-        <div class="op-profile-pane"><article class="op-hero" aria-live="polite"><img id="opHeroWatermark" class="op-hero-watermark" src="" alt="" aria-hidden="true"><div class="op-hero-content flex items-center justify-between gap-3"><span id="opHeroFaction" class="op-eyebrow">ATTACKER</span><span id="opHeroIndex" class="text-[9px] font-mono text-slate-500">OP // 01</span></div><div class="op-hero-content"><img id="opHeroIcon" class="op-hero-icon" src="" alt="پرتره اپراتور انتخاب‌شده"><div id="opHeroFallback" class="op-hero-fallback" hidden aria-label="جایگزین پرتره"></div><div id="opHeroName" class="op-hero-name">ASH</div><div id="opHeroMeta" class="op-hero-meta">FBI SWAT</div><div class="op-stat-row"><span class="op-stat" id="opHeroSpeed">سرعت —</span><span class="op-stat" id="opHeroArmor">زره —</span><span class="op-stat" id="opHeroGadget">قابلیت ویژه —</span></div></div></article>
-          <section class="op-loadout" aria-label="تجهیزات اپراتور"><div class="op-section-title">LOADOUT CONFIGURATION</div><div class="op-loadout-slot"><div class="op-slot-label">01 / PRIMARY WEAPON</div><div id="opPrimaryOptions" class="op-weapon-grid"></div><div id="opPrimaryStats" class="op-selected-stats"></div></div><div class="op-loadout-slot"><div class="op-slot-label">02 / SECONDARY WEAPON</div><div id="opSecondaryOptions" class="op-weapon-grid"></div><div id="opSecondaryStats" class="op-selected-stats"></div></div><div class="op-loadout-slot"><div class="op-slot-label">03 / UNIQUE ABILITY</div><div class="op-ability-row"><img id="opAbilityImage" class="op-ability-image" src="" alt="" hidden><div><div id="opAbilityName" class="text-sm font-black text-white mt-2"></div><div id="opAbilityDescription" class="op-data-note"></div></div></div></div><div class="op-loadout-slot"><div class="op-slot-label">04 / SECONDARY GADGETS</div><div id="opSecondaryGadgets" class="op-gadget-grid"></div></div><div class="op-data-note">تصاویر و Loadout از داده‌های مرجع جامعه و تصاویر رسمی موجود استخراج شده‌اند. اعداد سلاح‌ها داده‌ی پایه‌ی دیتابیس مرجع‌اند و ممکن است پس از پچ‌های توازن تغییر کنند؛ گزینه‌ی انتخابی در این پنل تجهیزات بازی را تغییر نمی‌دهد.</div></section>
+
         </div>
       </div>
       <footer class="op-select-footer"><span id="opSelectStatus" class="text-[10px] text-slate-400">انتخاب را تأیید کنید تا با رندومایزر همگام شود.</span><div class="flex items-center gap-2"><button type="button" class="op-action" onclick="randomOperatorFromSelect()"><i class="fa-solid fa-shuffle ml-1"></i>تصادفی</button><button type="button" class="op-action primary" onclick="confirmOperatorSelect()"><i class="fa-solid fa-check ml-1"></i>تأیید انتخاب</button></div></footer>
@@ -3104,7 +3183,7 @@
     /* 10. BENTO COMMAND CENTER HUB SWITCHING (NO AUTO-ROLL ON SWITCH) */
     function switchHub(hubId) {
       currentHub = hubId;
-      ['hq', 'ops', 'tools'].forEach(h => {
+      ['hq', 'ops', 'tools', 'operators'].forEach(h => {
         document.getElementById(`hub-${h}`).classList.toggle('hidden', h !== hubId);
 
         const dBtn = document.getElementById(`hub-btn-${h}`);
@@ -4140,8 +4219,14 @@
     }
 
     let currentPosterSuffix = '';
+    let posterExportReady = false;
+    let posterExportInProgress = false;
 
     function getCurrentPosterContext() {
+      if (currentHub === 'operators') {
+        const op = OPERATORS.find(item => item.id === operatorSelectId) || currentRolledOp || OPERATORS[0];
+        return {title:op.name.toUpperCase()+' // OPERATOR DOSSIER',subtitle:(op.side==='atk'?'ATTACKER':'DEFENDER')+' • '+op.org,accent:op.side==='atk'?'#D6F04A':'#FF6B00',suffix:'OP_'+op.id,operators:[op],lines:['سازمان: '+op.org,'قابلیت ویژه: '+op.gadget,'سلاح اصلی: '+(operatorSelectPrimary||op.primary),'سلاح کمکی: '+(operatorSelectSecondary||op.sec),'سرعت: '+(op.speed||'—')+' • زره: '+(op.armor||'—')]};
+      }
       if (currentHub === 'ops') {
         if (currentOpsMode === 'duo') {
           const combo = currentDuoCombo;
@@ -4188,7 +4273,7 @@
       canvas.width = W; canvas.height = H;
       canvas.classList.remove('poster-reveal');void canvas.offsetWidth;canvas.classList.add('poster-reveal');
       currentPosterSuffix = String(context.suffix || context.title || 'TACTICAL').replace(/[^a-z0-9_-]+/gi, '_').slice(0, 80);
-      document.getElementById('shareModal').classList.remove('hidden-modal');
+      posterExportReady = false;
       const bg = ctx.createLinearGradient(0, 0, 0, H);
       bg.addColorStop(0, '#070b14'); bg.addColorStop(.52, '#0b1322'); bg.addColorStop(1, '#05080f');
       ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
@@ -4249,15 +4334,17 @@
       ctx.direction='ltr';ctx.textAlign='center';ctx.fillStyle='#64748b';ctx.font='700 19px "Chakra Petch",sans-serif';ctx.fillText('GENERATED FROM YOUR CURRENT TAB • R6 COMMAND CENTER PRO',W/2,H-83);
       const modalTitle=document.querySelector('#shareModal .text-xs.font-tactical.font-black');
       if(modalTitle)modalTitle.innerHTML='<i class="fa-solid fa-id-card text-siege-yellow"></i> پوستر تاکتیکی R6';
+      posterExportReady = true;
+      document.getElementById('shareModal').classList.remove('hidden-modal');
     }
 
-    async function exportCurrentCard() {
+    async function exportCurrentCardUnsafe() {
+      posterExportReady = false;
       if (currentHub !== 'hq') {
         const context = getCurrentPosterContext();
         if (context) { await exportContextPoster(context); return; }
       }
       currentPosterSuffix = currentHqMode === 'squad' ? 'SQUAD' : (currentRolledOp?.name || 'OPERATOR');
-      document.getElementById('shareModal').classList.remove('hidden-modal');
       const canvas = document.getElementById('dossierCanvas');
       const ctx = canvas.getContext('2d');
 
@@ -4265,7 +4352,7 @@
       canvas.width = W;
       canvas.height = H;
 
-      const op = currentRolledOp;
+      const op = currentRolledOp || OPERATORS[0];
       const isAtk = op.side === 'atk';
       const accentColor = isAtk ? '#00E5FF' : '#FF6B00';
       const goldColor = '#F8AA00';
@@ -4475,18 +4562,59 @@
       ctx.fillStyle = '#64748b';
       ctx.font = '700 20px "Chakra Petch", sans-serif';
       ctx.fillText('GENERATED BY R6 COMMAND CENTER PRO 2.0  •  TACTICAL OPERATOR SUITE', W / 2, H - 68);
+      posterExportReady = true;
+      document.getElementById('shareModal').classList.remove('hidden-modal');
+    }
+
+    async function exportCurrentCard() {
+      if (posterExportInProgress) return;
+      posterExportInProgress = true;
+      try { await exportCurrentCardUnsafe(); }
+      catch (error) { console.error('Poster generation failed:', error); posterExportReady = false; showToast('ساخت پوستر ناموفق بود؛ دوباره تلاش کن.'); }
+      finally { posterExportInProgress = false; }
     }
 
     function closeShareModal() { document.getElementById('shareModal').classList.add('hidden-modal'); }
 
-    function downloadDossierImage() {
+    async function downloadDossierImage() {
       const canvas = document.getElementById('dossierCanvas');
-      const link = document.createElement('a');
-      const suffix = currentPosterSuffix || (currentHqMode === 'squad' ? 'SQUAD' : currentRolledOp.name.toUpperCase());
-      link.download = `R6_DOSSIER_${suffix}.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-      showToast('📥 پوستر با کیفیت بالا دانلود شد!');
+      if (!canvas || !posterExportReady || !canvas.width || !canvas.height) {
+        showToast('اول ساخت پوستر را کامل کن؛ بعد دانلود را بزن.');
+        return false;
+      }
+      const suffix = (currentPosterSuffix || (currentHqMode === 'squad' ? 'SQUAD' : currentRolledOp?.name || 'R6'))
+        .normalize('NFKD').replace(/[^a-z0-9_-]+/gi, '_').slice(0, 80) || 'R6';
+      try {
+        const blob = await canvasToBlob(canvas);
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `R6_DOSSIER_${suffix}.png`;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.setTimeout(() => URL.revokeObjectURL(url), 30000);
+        showToast('دانلود پوستر PNG شروع شد.');
+        return true;
+      } catch (error) {
+        console.warn('PNG download via Blob failed; trying data URL.', error);
+        try {
+          const link = document.createElement('a');
+          link.href = canvas.toDataURL('image/png');
+          link.download = `R6_DOSSIER_${suffix}.png`;
+          link.style.display = 'none';
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          showToast('دانلود پوستر شروع شد.');
+          return true;
+        } catch (fallbackError) {
+          console.error('Poster download failed:', fallbackError);
+          showToast('دانلود مستقیم در این مرورگر پشتیبانی نشد؛ از اشتراک‌گذاری یا ذخیره تصویر استفاده کن.');
+          return false;
+        }
+      }
     }
 
     function canvasToBlob(canvas) {
@@ -4497,20 +4625,48 @@
     }
     async function shareDossierNative() {
       const canvas = document.getElementById('dossierCanvas');
+      if (!canvas || !posterExportReady) { showToast('اول ساخت پوستر را کامل کن.'); return; }
+      const suffix = (currentPosterSuffix || 'R6').replace(/[^a-z0-9_-]+/gi, '_').slice(0,80);
       try {
         const blob = await canvasToBlob(canvas);
-        const suffix = currentPosterSuffix || (currentHqMode === 'squad' ? 'SQUAD' : currentRolledOp.name);
-        const file = new File([blob], `R6_${suffix}.png`, { type: 'image/png' });
-        if (typeof navigator.share === 'function' && navigator.canShare && navigator.canShare({ files: [file] })) {
+        const file = new File([blob], `R6_DOSSIER_${suffix}.png`, { type: 'image/png' });
+        const fileShareSupported = typeof navigator.share === 'function' &&
+          typeof navigator.canShare === 'function' && navigator.canShare({ files: [file] });
+        if (fileShareSupported) {
           try {
-            await navigator.share({ title: 'R6 Command Center Dossier', text: `لوداوت تاکتیکی من در R6 Command Center: ${suffix}`, files: [file] });
+            await navigator.share({ title: 'R6 Command Center', text: 'پوستر تاکتیکی R6 من', files: [file] });
+            showToast('پوستر برای اشتراک‌گذاری ارسال شد.');
+            return;
           } catch (error) {
-            if (error && error.name === 'AbortError') return;
-            console.warn('Native sharing failed; falling back to download.', error); downloadDossierImage();
+            if (error?.name === 'AbortError') return;
+            console.warn('Image share was not completed.', error);
           }
-        } else downloadDossierImage();
+        }
+        if (typeof navigator.share === 'function') {
+          try {
+            await navigator.share({ title: 'R6 Command Center', text: 'پوستر تاکتیکی R6 — تصویر را هم از دکمه دانلود ذخیره کن.', url: location.href });
+            await downloadDossierImage();
+            return;
+          } catch (error) {
+            if (error?.name === 'AbortError') return;
+            console.warn('Text/link share fallback failed.', error);
+          }
+        }
+        const downloaded = await downloadDossierImage();
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(location.href);
+            showToast(downloaded ? 'پوستر دانلود شد و لینک برنامه کپی شد.' : 'لینک برنامه کپی شد.');
+          } else {
+            showToast(downloaded ? 'پوستر دانلود شد؛ فایل PNG را برای دیگران ارسال کن.' : 'برای اشتراک‌گذاری، پوستر را دوباره بساز.');
+          }
+        } catch (clipboardError) {
+          showToast(downloaded ? 'پوستر دانلود شد؛ حالا فایل PNG را ارسال کن.' : 'اشتراک‌گذاری در این مرورگر در دسترس نیست.');
+        }
       } catch (error) {
-        console.warn('Could not export dossier image; falling back to download.', error); downloadDossierImage();
+        console.error('Poster share failed:', error);
+        const downloaded = await downloadDossierImage();
+        showToast(downloaded ? 'اشتراک مستقیم در دسترس نبود؛ فایل PNG دانلود شد.' : 'ساخت فایل اشتراک‌گذاری ناموفق بود؛ دوباره پوستر را بساز.');
       }
     }
 
@@ -4620,8 +4776,8 @@
 
     /* v1.11.0 — operator select, bound to the existing roster */
     let operatorSelectSide='atk', operatorSelectId='ash', operatorSelectPrimary='', operatorSelectSecondary='';
-    function openOperatorSelect(){const modal=document.getElementById('operatorSelectModal');if(!modal)return;operatorSelectId=(currentRolledOp&&currentRolledOp.id)||'ash';const op=OPERATORS.find(x=>x.id===operatorSelectId)||OPERATORS[0];operatorSelectSide=op.side;operatorSelectPrimary='';operatorSelectSecondary='';const search=document.getElementById('opSelectSearch');if(search)search.value='';modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';renderOperatorRoster();renderOperatorProfile();modal.querySelector('button[aria-label="بستن منوی انتخاب"]')?.focus();}
-    function closeOperatorSelect(){const modal=document.getElementById('operatorSelectModal');if(!modal)return;modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';document.querySelector('button[onclick="openOperatorSelect()"]')?.focus();}
+    function openOperatorSelect(){operatorSelectId=(currentRolledOp&&currentRolledOp.id)||operatorSelectId||'ash';const op=OPERATORS.find(x=>x.id===operatorSelectId)||OPERATORS[0];operatorSelectSide=op.side;operatorSelectPrimary='';operatorSelectSecondary='';const search=document.getElementById('opSelectSearch');if(search)search.value='';renderOperatorRoster();renderOperatorProfile();switchHub('operators');document.getElementById('opSelectSearch')?.focus({preventScroll:true});}
+    function closeOperatorSelect(){switchHub('hq');document.querySelector('button[onclick="openOperatorSelect()"]')?.focus({preventScroll:true});}
     function setOperatorSelectSide(side){if(!['atk','def'].includes(side))return;operatorSelectSide=side;const current=OPERATORS.find(x=>x.id===operatorSelectId);if(!current||current.side!==side){const first=OPERATORS.find(x=>x.side===side);if(first){operatorSelectId=first.id;operatorSelectPrimary='';operatorSelectSecondary='';}}renderOperatorRoster();renderOperatorProfile();}
     function getOperatorReference(op){return (window.R6_OPERATOR_DATA||[]).find(item=>item.id===op.id)||null;}
     function normalizeR6Name(value){return String(value||'').toLowerCase().replace(/[^a-z0-9]/g,'');}
@@ -4665,7 +4821,7 @@
     function selectLoadoutWeapon(kind,name){const op=OPERATORS.find(x=>x.id===operatorSelectId),d=op&&getOperatorReference(op);if(!op)return;const items=kind==='primary'?(d?.primaryWeapons||[]):(d?.secondaryWeapons||[]);if(!items.some(item=>item.name===name))return;if(kind==='primary')operatorSelectPrimary=name;else if(kind==='secondary')operatorSelectSecondary=name;else return;renderOperatorProfile();}
     function randomOperatorFromSelect(){const pool=OPERATORS.filter(op=>op.side===operatorSelectSide&&!bannedOpIds.includes(op.id));if(!pool.length){showToast('در این جناح اپراتور قابل انتخابی وجود ندارد.');return;}const op=getRandomItem(pool);operatorSelectId=op.id;operatorSelectPrimary='';operatorSelectSecondary='';renderOperatorRoster();renderOperatorProfile();}
     function confirmOperatorSelect(){const op=OPERATORS.find(x=>x.id===operatorSelectId);if(!op)return;currentRolledOp=op;currentCursedData={op,scope:CURSED_SCOPES[0],muzzle:CURSED_MUZZLES[0],grip:CURSED_GRIPS[0],laser:'بدون لیزر',rule:CURSED_RULES[0]};currentFaction=op.side;renderMainOperatorCard(op);setHqConfirmButtonState(true);closeOperatorSelect();showToast('اپراتور '+op.name+' انتخاب شد.');}
-    document.addEventListener('keydown',event=>{const modal=document.getElementById('operatorSelectModal');if(event.key==='Escape'&&modal?.classList.contains('is-open'))closeOperatorSelect();});
+    document.addEventListener('keydown',event=>{if(event.key==='Escape'&&currentHub==='operators')closeOperatorSelect();});
 
     /* 19. INITIALIZE (NO AUTO-XP ON LOAD) */
     window.addEventListener('DOMContentLoaded', () => {
