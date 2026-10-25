@@ -9,6 +9,7 @@
 - Improved compact mobile navigation, Duo/Duel card wrapping, and poster modal sizing.
 - Made poster export wait until canvas rendering finishes before showing the share/download actions.
 - Replaced synchronous data-URL-only downloads with PNG Blob downloads and a guarded data-URL fallback.
+- Added compact, context-aware poster actions to the operator, operations, map, and all-operators tabs.
 - Improved image sharing with Web Share file support, share-link fallback, download fallback, and clearer error feedback.
 ### Maintenance
 - Bumped app version to 1.23.0 and Service Worker cache to r6-cache-v37.
