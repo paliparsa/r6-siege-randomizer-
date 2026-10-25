@@ -1,3 +1,15 @@
+## 1.19.0 — 2026-10-25
+
+### Changed
+- Reworked menu and component colors to align with Siege's in-game UI language: graphite/charcoal surfaces, bone-white text, restrained signal-yellow active states, and clearly separated danger/success colors.
+- Updated shared controls, modal surfaces, borders, navigation, selection states, and utility color classes so the yellow accent reads as an interaction cue rather than a universal panel fill.
+- Preserved all existing app flows, randomizer modes, operator data, reward logic, storage keys, and custom theme options.
+- Bumped app version to 1.19.0 and Service Worker cache to r6-cache-v33.
+
+### Validation
+- Added source-contract checks for palette tokens, menu surfaces, selected states, and preservation of key features/storage.
+- Real-browser visual comparison and desktop/mobile interaction checks remain required.
+
 ## 1.18.0 — 2026-10-25
 
 ### Changed
