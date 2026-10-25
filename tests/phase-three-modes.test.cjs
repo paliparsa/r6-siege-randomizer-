@@ -10,7 +10,7 @@ function functionSource(name, nextName) {
   const start = html.indexOf('function ' + name + '(');
   assert.notEqual(start, -1, 'missing function: ' + name);
   let end = nextName ? html.indexOf('function ' + nextName + '(', start + 1) : -1;
-  if (end <= start) end = html.indexOf('\\n    function ', start + 1);
+  if (end <= start) end = html.indexOf(String.fromCharCode(10) + '    function ', start + 1);
   assert.ok(end > start, 'could not find function boundary for: ' + name);
   return html.slice(start, end);
 }
@@ -31,7 +31,7 @@ test('Squad: side and bans remain enforced; five-operator minimum and report rem
   assert.match(source, /currentFaction==='def'\?'def':'atk'/);
   assert.match(source, /!bannedOpIds\.includes\(o\.id\)/);
   assert.match(source, /pool\.length<5/);
-  assert.match(source, /slice\(0,5\)/);
+  assert.match(source, /selectSquadForDoctrine\\(pool,currentSquadDoctrine\\)/);
   assert.match(source, /renderSquadGrid/);
   assert.match(html, /id="squadIntelReport"/);
 });
