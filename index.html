@@ -1813,7 +1813,7 @@
 
   <!-- ================= MOBILE BOTTOM NAVIGATION BAR (4 BENTO HUBS) ================= -->
   <nav class="sm:hidden bg-siege-dark/95 backdrop-blur-md border-t border-siege-border px-2 py-1.5 flex items-center justify-around z-40 shrink-0" style="padding-bottom: calc(6px + var(--safe-bottom));">
-    <button onclick="switchHub('operators')" id="mhub-operators" class="flex flex-col items-center justify-center gap-0.5 text-slate-400 text-[9px] font-bold py-1 px-1.5 min-w-0 flex-1" aria-label="مشاهده همه اپراتورها"><i class="fa-solid fa-users text-base"></i><span>همه اپراتورها</span></button><button onclick="switchHub('hq')" id="mhub-hq" class="flex flex-col items-center gap-0.5 text-siege-yellow text-[10px] font-bold py-1 px-3">
+    <button onclick="switchHub('operators')" id="mhub-operators" class="flex flex-col items-center justify-center gap-0.5 text-slate-400 text-[9px] font-bold py-1 px-1.5 min-w-0 flex-1" aria-label="مشاهده همه اپراتورها"><i class="fa-solid fa-users text-base"></i><span>مشاهده همه<br>اپراتورها</span></button><button onclick="switchHub('hq')" id="mhub-hq" class="flex flex-col items-center gap-0.5 text-siege-yellow text-[10px] font-bold py-1 px-3">
       <i class="fa-solid fa-crosshairs text-base"></i>
       <span>اپراتورها</span>
     </button>
@@ -4651,7 +4651,8 @@
         }
       } catch (error) {
         console.error('Poster share failed:', error);
-        showToast('ساخت فایل اشتراک‌گذاری ناموفق بود؛ دانلود PNG را امتحان کن.');
+        const downloaded = await downloadDossierImage();
+        showToast(downloaded ? 'اشتراک مستقیم در دسترس نبود؛ فایل PNG دانلود شد.' : 'ساخت فایل اشتراک‌گذاری ناموفق بود؛ دوباره پوستر را بساز.');
       }
     }
 
