@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#101112">
-  <meta name="app-version" content="1.26.0">
+  <meta name="app-version" content="1.27.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -1367,7 +1367,60 @@
     .poster-action:focus-visible{outline:2px solid #d6f04a;outline-offset:2px}
     @media(max-width:639.98px){.poster-action{min-height:42px;padding:8px 10px;font-size:11px}#hub-hq>.poster-action{width:100%}#hub-operators .op-select-top .poster-action{padding:8px;font-size:0;gap:0}#hub-operators .op-select-top .poster-action span{display:none}#hub-operators .op-select-top{flex-wrap:wrap}}
 
-</style>
+ 
+    /* v1.27.0 — restore poster export and de-clutter operator selection */
+    #hub-operators{min-width:0}
+    #hub-operators .op-select-shell{overflow:visible}
+    #hub-operators .op-select-layout{display:grid;grid-template-columns:minmax(270px,320px) minmax(0,1fr);gap:12px;align-items:start;padding:12px}
+    #hub-operators .op-roster-pane{min-width:0;border:1px solid #343a3f;border-radius:10px;overflow:hidden;align-self:stretch}
+    #hub-operators .op-roster-toolbar{gap:10px;padding:12px}
+    #hub-operators .op-roster-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;max-height:min(66vh,760px);padding:10px;overscroll-behavior:contain}
+    #hub-operators .op-roster-item{min-height:88px;padding:8px 4px;border-radius:8px}
+    #hub-operators .op-roster-item img{width:44px;height:44px}
+    #hub-operators .op-profile-pane{min-width:0;display:grid;grid-template-columns:minmax(0,1fr);gap:12px;padding:0;overflow:visible;align-content:start}
+    #hub-operators .op-hero{min-width:0;min-height:0;display:grid;grid-template-columns:minmax(130px,190px) minmax(0,1fr);grid-template-rows:auto 1fr;gap:8px 16px;align-items:center;padding:18px;border:1px solid #343a3f;border-radius:10px;overflow:hidden}
+    #hub-operators .op-hero-content:first-of-type{grid-column:1/-1}
+    #hub-operators .op-hero-content:nth-of-type(2){grid-column:1/-1;display:grid;grid-template-columns:minmax(130px,190px) minmax(0,1fr);grid-template-rows:auto auto auto;align-content:center;gap:5px 16px;min-width:0}
+    #hub-operators .op-hero-icon{grid-row:1/4;grid-column:1;width:100%;max-width:180px;height:190px;object-fit:contain;justify-self:center}
+    #hub-operators .op-hero-name,#hub-operators .op-hero-meta,#hub-operators .op-stat-row{grid-column:2;min-width:0}
+    #hub-operators .op-stat-row{display:flex;flex-wrap:wrap;gap:6px}
+    #hub-operators .op-stat{max-width:100%}
+    #hub-operators .op-loadout{min-width:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:12px;border:1px solid #343a3f;border-radius:10px;background:rgba(12,15,17,.65)}
+    #hub-operators .op-section-title{grid-column:1/-1}
+    #hub-operators .op-loadout-slot{min-width:0;padding:10px;border:1px solid rgba(232,233,229,.1);border-radius:8px}
+    #hub-operators .op-weapon-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+    #hub-operators .op-weapon-card{min-width:0}
+    #hub-operators .op-data-note{grid-column:1/-1;overflow-wrap:anywhere}
+    #hub-operators .op-select-top{gap:10px;flex-wrap:wrap}
+    #hub-operators .op-select-footer{gap:8px}
+    @media(max-width:900px){
+      #hub-operators .op-select-layout{grid-template-columns:minmax(0,1fr)}
+      #hub-operators .op-roster-grid{grid-template-columns:repeat(5,minmax(0,1fr));max-height:340px}
+    }
+    @media(max-width:639.98px){
+      #hub-operators .op-select-layout{display:flex;flex-direction:column;gap:10px;padding:8px}
+      #hub-operators .op-roster-pane{width:100%}
+      #hub-operators .op-roster-toolbar{padding:9px;gap:8px}
+      #hub-operators .op-roster-grid{grid-template-columns:repeat(4,minmax(0,1fr));max-height:310px;gap:5px;padding:7px}
+      #hub-operators .op-roster-item{min-height:76px;padding:5px 2px}
+      #hub-operators .op-roster-item img{width:34px;height:34px}
+      #hub-operators .op-roster-item span{font-size:10px;line-height:1.25}
+      #hub-operators .op-profile-pane{display:flex;flex-direction:column;gap:10px}
+      #hub-operators .op-hero{display:grid;grid-template-columns:96px minmax(0,1fr);grid-template-rows:auto 1fr;gap:7px 10px;padding:12px}
+      #hub-operators .op-hero-content:first-of-type{grid-column:1/-1}
+      #hub-operators .op-hero-content:nth-of-type(2){grid-column:1/-1;grid-template-columns:96px minmax(0,1fr);grid-template-rows:auto auto auto;gap:5px 10px}
+      #hub-operators .op-hero-icon{grid-column:1;grid-row:1/4;width:90px;height:115px}
+      #hub-operators .op-hero-name,#hub-operators .op-hero-meta,#hub-operators .op-stat-row{grid-column:2}
+      #hub-operators .op-hero-name{font-size:22px;line-height:1.15;overflow-wrap:anywhere}
+      #hub-operators .op-stat-row{gap:5px}
+      #hub-operators .op-stat{font-size:10px}
+      #hub-operators .op-loadout{display:flex;flex-direction:column;padding:9px;gap:8px}
+      #hub-operators .op-loadout-slot{padding:9px}
+      #hub-operators .op-weapon-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      #hub-operators .op-select-top .poster-action{margin-inline-start:auto}
+    }
+
+  </style>
 </head>
 <body data-faction="atk" data-skin="default" data-hq-mode="standard" data-ops-mode="strats" class="antialiased selection:bg-siege-yellow selection:text-black">
 
@@ -4594,7 +4647,7 @@
 
     function closeShareModal() { document.getElementById('shareModal').classList.add('hidden-modal'); }
 
-    function downloadDossierImage() {
+    async function downloadDossierImage() {
       const canvas = document.getElementById('dossierCanvas');
       if (!canvas || !posterExportReady || !canvas.width || !canvas.height) {
         showToast('اول ساخت پوستر را کامل کن؛ بعد دانلود را بزن.');
@@ -4602,51 +4655,34 @@
       }
       const suffix = (currentPosterSuffix || (currentHqMode === 'squad' ? 'SQUAD' : currentRolledOp?.name || 'R6'))
         .normalize('NFKD').replace(/[^a-z0-9_-]+/gi, '_').slice(0, 80) || 'R6';
-      // Keep the entire export path synchronous inside the user's click gesture.
-      // Awaiting canvas.toBlob() first can make Chrome/WebView classify the later
-      // hidden-anchor click as an unsolicited download and block it.
-      let dataUrl;
       try {
-        dataUrl = canvas.toDataURL('image/png');
-        if (!dataUrl || dataUrl.length < 1000) throw new Error('Poster PNG data URL is empty.');
-      } catch (error) {
-        console.error('Synchronous poster export failed:', error);
-        showToast('ساخت فایل تصویر ممکن نشد؛ پوستر را دوباره بساز و امتحان کن.');
-        return false;
-      }
-
-      try {
+        const blob = await canvasToBlob(canvas);
+        const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
-        link.href = dataUrl;
+        link.href = url;
         link.download = `R6_DOSSIER_${suffix}.png`;
-        link.style.position = 'fixed';
-        link.style.left = '-10000px';
-        link.style.top = '0';
+        link.style.display = 'none';
         document.body.appendChild(link);
         link.click();
         link.remove();
-        showToast('درخواست دانلود پوستر ارسال شد. اگر دانلود شروع نشد، اشتراک‌گذاری را امتحان کن.');
+        window.setTimeout(() => URL.revokeObjectURL(url), 30000);
+        showToast('دانلود پوستر PNG شروع شد.');
         return true;
       } catch (error) {
-        console.warn('Direct poster download failed; opening image preview.', error);
+        console.warn('PNG download via Blob failed; trying data URL.', error);
         try {
-          const preview = window.open('', '_blank');
-          if (!preview) {
-            showToast('مرورگر پنجره‌ی تصویر را مسدود کرد؛ اجازه‌ی Pop-up این سایت را فعال کن.');
-            return false;
-          }
-          preview.document.title = 'R6 Poster — save image';
-          preview.document.body.style.cssText = 'margin:0;background:#090c10;text-align:center;padding:12px';
-          const image = preview.document.createElement('img');
-          image.alt = 'R6 tactical poster';
-          image.src = dataUrl;
-          image.style.cssText = 'display:block;max-width:100%;height:auto;margin:12px auto';
-          preview.document.body.appendChild(image);
-          showToast('پوستر در تب جدید باز شد؛ روی تصویر راست‌کلیک یا لمس طولانی کن و ذخیره‌اش کن.');
+          const link = document.createElement('a');
+          link.href = canvas.toDataURL('image/png');
+          link.download = `R6_DOSSIER_${suffix}.png`;
+          link.style.display = 'none';
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          showToast('دانلود پوستر شروع شد.');
           return true;
         } catch (fallbackError) {
-          console.error('Poster preview fallback failed:', fallbackError);
-          showToast('دانلود مسدود شد؛ اجازه‌ی دانلود برای این سایت را از تنظیمات مرورگر فعال کن.');
+          console.error('Poster download failed:', fallbackError);
+          showToast('دانلود مستقیم در این مرورگر پشتیبانی نشد؛ از اشتراک‌گذاری یا ذخیره تصویر استفاده کن.');
           return false;
         }
       }
