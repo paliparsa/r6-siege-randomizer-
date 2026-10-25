@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#0B0D0F">
-  <meta name="app-version" content="1.14.0">
+  <meta name="app-version" content="1.15.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -856,6 +856,55 @@
           transition-duration: .01ms !important;
         }
       }
+
+/* v1.15.0 — Siege Operator HQ pass: visual hierarchy and resilient portraits */
+#operatorSelectModal{background:rgba(3,5,7,.94);backdrop-filter:blur(10px)}
+#operatorSelectModal .op-select-shell{background:var(--siege-bg-canvas,#0b0d0f);border:1px solid var(--siege-border-strong,#41484d);box-shadow:0 24px 90px #000b}
+#operatorSelectModal .op-select-top{background:#0e1113;border-bottom-color:#d6f04a55;min-height:68px}
+#operatorSelectModal .op-select-top h2{letter-spacing:-.025em}
+#operatorSelectModal .op-select-footer{background:#0e1113;gap:14px}
+#operatorSelectModal .op-select-layout{grid-template-columns:minmax(280px,350px) minmax(0,1fr)}
+#operatorSelectModal .op-roster-pane{border-right:1px solid #3a4145;background:#0a0d0f}
+#operatorSelectModal .op-roster-toolbar{background:#101416;border-bottom-color:#343b3f}
+#operatorSelectModal .op-side-tab{min-height:40px;position:relative;transition:background .15s,border-color .15s,color .15s}
+#operatorSelectModal .op-side-tab.active{background:#d6f04a;color:#0b0d0f;border-color:#d6f04a;box-shadow:inset 3px 0 #fff8}
+#operatorSelectModal .op-side-tab:not(.active):hover{background:#242a2d;border-color:#606a6f;color:#f7f8f4}
+#operatorSelectModal .op-search{min-height:42px;border-radius:2px;background:#07090a;border-color:#41484d}
+#operatorSelectModal .op-search:focus-visible{outline:2px solid #d6f04a;outline-offset:2px;border-color:#d6f04a}
+#operatorSelectModal .op-roster-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:10px}
+#operatorSelectModal .op-roster-item{position:relative;min-height:100px;justify-content:flex-start;gap:7px;padding:8px 4px 7px;background:#131719;border:1px solid #30373b;border-radius:0;transition:background .14s,border-color .14s,transform .14s;overflow:hidden}
+#operatorSelectModal .op-roster-item:before{content:"";position:absolute;inset:0 0 auto;height:2px;background:transparent}
+#operatorSelectModal .op-roster-item:hover{background:#202629;border-color:#7a858a;transform:translateY(-1px)}
+#operatorSelectModal .op-roster-item[aria-pressed=true]{background:linear-gradient(180deg,#d6f04a18,#d6f04a05);border-color:#d6f04a;color:#fff;box-shadow:inset 0 0 0 1px #d6f04a35}
+#operatorSelectModal .op-roster-item[aria-pressed=true]:before{background:#d6f04a}
+#operatorSelectModal .op-roster-item img{width:52px;height:52px;object-fit:contain;filter:drop-shadow(0 4px 7px #0009)}
+#operatorSelectModal .op-roster-item span:not(.op-roster-fallback){font-size:10px;color:#f0f2ed}
+#operatorSelectModal .op-roster-item small{font-size:8px;letter-spacing:.02em;color:#929da1}
+#operatorSelectModal .op-roster-item:focus-visible,#operatorSelectModal .op-action:focus-visible,#operatorSelectModal .op-weapon-card:focus-visible{outline:2px solid #e8e9e5;outline-offset:2px}
+#operatorSelectModal .op-profile-pane{background:#0b0e10;grid-template-columns:minmax(0,1.03fr) minmax(280px,.97fr);gap:14px}
+#operatorSelectModal .op-hero{min-height:420px;border-color:#41484d;border-radius:0;background:linear-gradient(145deg,#1a2023 0%,#101416 46%,#080a0b 100%);padding:clamp(14px,2vw,22px)}
+#operatorSelectModal .op-hero:after{content:"";position:absolute;inset:8px;border:1px solid #e8e9e510;pointer-events:none}
+#operatorSelectModal .op-hero-icon{position:relative;z-index:1;filter:drop-shadow(0 16px 22px #000c);object-position:center bottom}
+#operatorSelectModal .op-hero-name{position:relative;z-index:1;text-shadow:0 3px 18px #000b}
+#operatorSelectModal .op-hero-meta{letter-spacing:.06em}
+#operatorSelectModal .op-stat{border-radius:0;border-color:#41484d;background:#0a0d0e}
+#operatorSelectModal .op-section-title{display:flex;align-items:center;gap:10px}
+#operatorSelectModal .op-loadout-slot{border-radius:0;border-color:#353c40;background:#111517}
+#operatorSelectModal .op-weapon-card,#operatorSelectModal .op-gadget-card{border-radius:0;border-color:#343b3f;transition:border-color .14s,background .14s}
+#operatorSelectModal .op-weapon-card:hover{border-color:#a4b77a;background:#151a16}
+#operatorSelectModal .op-weapon-card.active{border-color:#d6f04a;background:#d6f04a12;box-shadow:inset 2px 0 #d6f04a}
+#operatorSelectModal .op-action{min-height:38px;border-radius:0;background:#171c1f;border-color:#41484d}
+#operatorSelectModal .op-action:hover:not(:disabled){background:#272e31;border-color:#818c91;color:#fff}
+#operatorSelectModal .op-action.primary{background:#d6f04a;color:#0b0d0f;border-color:#d6f04a}
+#operatorSelectModal .op-action.primary:hover:not(:disabled){background:#e5fa69;border-color:#e5fa69}
+#operatorSelectModal .op-action:disabled{opacity:.4}
+.op-roster-fallback{width:52px;height:52px;align-items:center;justify-content:center;border:1px solid #596247;background:#20271b;color:#d6f04a;font:900 24px/1 "Chakra Petch",sans-serif}
+.op-hero-fallback{height:clamp(130px,24vh,235px);align-items:center;justify-content:center;color:#d6f04a;font:900 clamp(54px,9vw,100px)/1 "Chakra Petch",sans-serif;text-shadow:0 12px 25px #000}
+#operatorSelectModal .op-hero-fallback:not([hidden]),#operatorSelectModal .op-roster-fallback:not([hidden]){display:flex}
+@media(max-width:1000px){#operatorSelectModal .op-select-layout{grid-template-columns:260px minmax(0,1fr)}#operatorSelectModal .op-profile-pane{grid-template-columns:1fr}#operatorSelectModal .op-hero{min-height:350px}}
+@media(max-width:600px){#operatorSelectModal .op-select-layout{grid-template-rows:minmax(165px,34%) minmax(0,1fr)}#operatorSelectModal .op-roster-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;padding:5px}#operatorSelectModal .op-roster-item{min-height:65px;padding:4px 1px;gap:3px}#operatorSelectModal .op-roster-item img,#operatorSelectModal .op-roster-fallback{width:30px;height:30px}#operatorSelectModal .op-roster-fallback{font-size:15px}#operatorSelectModal .op-roster-item span:not(.op-roster-fallback){font-size:8px}#operatorSelectModal .op-roster-item small{display:none}#operatorSelectModal .op-profile-pane{grid-template-columns:1fr}#operatorSelectModal .op-hero{min-height:235px}#operatorSelectModal .op-hero-icon{height:125px}#operatorSelectModal .op-hero-fallback{height:125px}#operatorSelectModal .op-select-footer{align-items:stretch;flex-direction:column}#operatorSelectModal .op-select-footer>div{display:flex;justify-content:flex-end}}
+@media(prefers-reduced-motion:reduce){#operatorSelectModal .op-roster-item,#operatorSelectModal .op-action,#operatorSelectModal .op-weapon-card{transition:none!important}#operatorSelectModal .op-roster-item:hover{transform:none}}
+
 </style>
 </head>
 <body data-faction="atk" data-skin="default" class="antialiased selection:bg-siege-yellow selection:text-black">
@@ -1481,7 +1530,7 @@
           <div class="op-roster-toolbar"><div class="op-side-tabs" role="group" aria-label="جناح"><button type="button" class="op-side-tab active" id="opSelectAtk" aria-pressed="true" onclick="setOperatorSelectSide('atk')">مهاجمان <span id="opAtkCount">39</span></button><button type="button" class="op-side-tab" id="opSelectDef" aria-pressed="false" onclick="setOperatorSelectSide('def')">مدافعان <span id="opDefCount">39</span></button></div><input id="opSelectSearch" class="op-search" type="search" placeholder="جست‌وجوی اپراتور یا سازمان…" autocomplete="off" aria-label="جست‌وجوی اپراتور" oninput="renderOperatorRoster()"><div class="flex items-center justify-between text-[9px] font-mono text-slate-500"><span>ROSTER INDEX</span><span id="opRosterCount">39 / 78</span></div></div>
           <div id="opRosterGrid" class="op-roster-grid" role="listbox" aria-label="انتخاب اپراتور"></div>
         </aside>
-        <div class="op-profile-pane"><article class="op-hero" aria-live="polite"><img id="opHeroWatermark" class="op-hero-watermark" src="" alt="" aria-hidden="true"><div class="op-hero-content flex items-center justify-between gap-3"><span id="opHeroFaction" class="op-eyebrow">ATTACKER</span><span id="opHeroIndex" class="text-[9px] font-mono text-slate-500">OP // 01</span></div><div class="op-hero-content"><img id="opHeroIcon" class="op-hero-icon" src="" alt="پرتره اپراتور انتخاب‌شده"><div id="opHeroName" class="op-hero-name">ASH</div><div id="opHeroMeta" class="op-hero-meta">FBI SWAT</div><div class="op-stat-row"><span class="op-stat" id="opHeroSpeed">سرعت —</span><span class="op-stat" id="opHeroArmor">زره —</span><span class="op-stat" id="opHeroGadget">قابلیت ویژه —</span></div></div></article>
+        <div class="op-profile-pane"><article class="op-hero" aria-live="polite"><img id="opHeroWatermark" class="op-hero-watermark" src="" alt="" aria-hidden="true"><div class="op-hero-content flex items-center justify-between gap-3"><span id="opHeroFaction" class="op-eyebrow">ATTACKER</span><span id="opHeroIndex" class="text-[9px] font-mono text-slate-500">OP // 01</span></div><div class="op-hero-content"><img id="opHeroIcon" class="op-hero-icon" src="" alt="پرتره اپراتور انتخاب‌شده"><div id="opHeroFallback" class="op-hero-fallback" hidden aria-label="جایگزین پرتره"></div><div id="opHeroName" class="op-hero-name">ASH</div><div id="opHeroMeta" class="op-hero-meta">FBI SWAT</div><div class="op-stat-row"><span class="op-stat" id="opHeroSpeed">سرعت —</span><span class="op-stat" id="opHeroArmor">زره —</span><span class="op-stat" id="opHeroGadget">قابلیت ویژه —</span></div></div></article>
           <section class="op-loadout" aria-label="تجهیزات اپراتور"><div class="op-section-title">LOADOUT CONFIGURATION</div><div class="op-loadout-slot"><div class="op-slot-label">01 / PRIMARY WEAPON</div><div id="opPrimaryOptions" class="op-weapon-grid"></div><div id="opPrimaryStats" class="op-selected-stats"></div></div><div class="op-loadout-slot"><div class="op-slot-label">02 / SECONDARY WEAPON</div><div id="opSecondaryOptions" class="op-weapon-grid"></div><div id="opSecondaryStats" class="op-selected-stats"></div></div><div class="op-loadout-slot"><div class="op-slot-label">03 / UNIQUE ABILITY</div><div class="op-ability-row"><img id="opAbilityImage" class="op-ability-image" src="" alt="" hidden><div><div id="opAbilityName" class="text-sm font-black text-white mt-2"></div><div id="opAbilityDescription" class="op-data-note"></div></div></div></div><div class="op-loadout-slot"><div class="op-slot-label">04 / SECONDARY GADGETS</div><div id="opSecondaryGadgets" class="op-gadget-grid"></div></div><div class="op-data-note">تصاویر و Loadout از داده‌های مرجع جامعه و تصاویر رسمی موجود استخراج شده‌اند. اعداد سلاح‌ها داده‌ی پایه‌ی دیتابیس مرجع‌اند و ممکن است پس از پچ‌های توازن تغییر کنند؛ گزینه‌ی انتخابی در این پنل تجهیزات بازی را تغییر نمی‌دهد.</div></section>
         </div>
       </div>
@@ -4056,13 +4105,13 @@
       const list=all.filter(op=>[op.name,op.org,op.gadget,op.primary,op.sec,getOperatorReference(op)?.organization].some(v=>String(v||'').toLowerCase().includes(q)));
       for(const [id,side] of [['opSelectAtk','atk'],['opSelectDef','def']]){const el=document.getElementById(id);if(el){el.classList.toggle('active',operatorSelectSide===side);el.setAttribute('aria-pressed',String(operatorSelectSide===side));}}
       document.getElementById('opRosterCount').textContent=list.length+' / '+all.length+' • TOTAL '+OPERATORS.length;
-      grid.innerHTML=list.map(op=>{const d=getOperatorReference(op),icon=getOperatorIconUrl(op.slug),portrait=d?.portrait||icon;return '<button type="button" role="option" aria-selected="'+(op.id===operatorSelectId)+'" aria-pressed="'+(op.id===operatorSelectId)+'" class="op-roster-item" onclick="selectOperatorInMenu(this.dataset.operatorId)" data-operator-id="'+safe(op.id)+'" title="'+safe(op.name+' • '+(d?.organization||op.org))+'"><img src="'+safe(portrait)+'" data-fallback="'+safe(icon)+'" alt="" loading="lazy" onerror="if(this.dataset.fallback&&this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback=\'\';}else{this.style.visibility=\'hidden\';}"><span>'+safe(op.name)+'</span><small>'+safe(d?.organization||op.org)+'</small></button>';}).join('');
+      grid.innerHTML=list.map(op=>{const d=getOperatorReference(op),icon=getOperatorIconUrl(op.slug),portrait=d?.portrait||icon,initial=safe((op.name||op.id||'?').trim().charAt(0).toUpperCase());return '<button type="button" role="option" aria-label="'+safe(op.name+' • '+(d?.organization||op.org))+'" aria-selected="'+(op.id===operatorSelectId)+'" aria-pressed="'+(op.id===operatorSelectId)+'" class="op-roster-item" onclick="selectOperatorInMenu(this.dataset.operatorId)" data-operator-id="'+safe(op.id)+'" title="'+safe(op.name+' • '+(d?.organization||op.org))+'"><img src="'+safe(portrait)+'" data-fallback="'+safe(icon)+'" alt="" loading="lazy" onerror="if(this.dataset.fallback&&this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback='\'\';}else{this.hidden=true;this.nextElementSibling.hidden=false;}"><span class="op-roster-fallback" hidden aria-hidden="true">'+initial+'</span><span>'+safe(op.name)+'</span><small>'+safe(d?.organization||op.org)+'</small></button>';}).join('');
       if(!list.length)grid.innerHTML='<div class="col-span-full text-center text-xs text-slate-500 p-8">اپراتوری با این عبارت پیدا نشد.</div>';
     }
     function selectOperatorInMenu(id){const op=OPERATORS.find(x=>x.id===id);if(!op)return;operatorSelectId=op.id;operatorSelectPrimary='';operatorSelectSecondary='';operatorSelectSide=op.side;renderOperatorRoster();renderOperatorProfile();}
     function renderOperatorProfile(){
       const op=OPERATORS.find(x=>x.id===operatorSelectId);if(!op)return;const d=getOperatorReference(op),portrait=d?.portrait||getOperatorIconUrl(op.slug);
-      const hero=document.getElementById('opHeroIcon'),wm=document.getElementById('opHeroWatermark'),iconFallback=getOperatorIconUrl(op.slug);hero.onerror=()=>{if(hero.src!==iconFallback){hero.src=iconFallback;}else{hero.style.visibility='hidden';}};hero.style.visibility='visible';hero.src=portrait;hero.alt='پرتره '+op.name;hero.classList.toggle('op-hero-art',d?.portraitType!=='full-body');wm.onerror=()=>{wm.onerror=null;wm.style.display='none';};wm.src=portrait;wm.style.display='';
+      const hero=document.getElementById('opHeroIcon'),wm=document.getElementById('opHeroWatermark'),heroFallback=document.getElementById('opHeroFallback'),iconFallback=getOperatorIconUrl(op.slug);if(heroFallback){heroFallback.hidden=true;heroFallback.textContent=(op.name||op.id||'?').trim().charAt(0).toUpperCase();}hero.onerror=()=>{if(hero.dataset.fallback&&hero.src!==hero.dataset.fallback){hero.src=hero.dataset.fallback;hero.dataset.fallback='';}else{hero.hidden=true;if(heroFallback)heroFallback.hidden=false;}};hero.hidden=false;hero.dataset.fallback=iconFallback;hero.src=portrait;hero.alt='پرتره '+op.name;hero.classList.toggle('op-hero-art',d?.portraitType!=='full-body');wm.onerror=()=>{wm.onerror=null;wm.style.display='none';};wm.src=portrait;wm.style.display='';
       document.getElementById('opHeroFaction').textContent=op.side==='atk'?'ATTACKER / مهاجم':'DEFENDER / مدافع';document.getElementById('opHeroIndex').textContent='OP // '+String(OPERATORS.indexOf(op)+1).padStart(2,'0');document.getElementById('opHeroName').textContent=op.name;document.getElementById('opHeroMeta').textContent=(d?.organization||op.org)+' • '+op.id.toUpperCase()+(d?.portraitType==='full-body'?' • FULL-BODY':d?.portraitType==='official-art'?' • OFFICIAL ART':' • ART FALLBACK');document.getElementById('opHeroSpeed').textContent='سرعت '+(d?.speed||op.speed||'—')+' / 3';document.getElementById('opHeroArmor').textContent='زره '+(d?.armor||op.armor||'—')+' / 3';document.getElementById('opHeroGadget').textContent=d?.ability?.name||op.gadget||'قابلیت ثبت نشده';
       document.getElementById('opAbilityName').textContent=d?.ability?.name||op.gadget||'قابلیت ویژه ثبت نشده';document.getElementById('opAbilityDescription').textContent=d?.ability?.description||'توضیح تفصیلی در منبع مرجع موجود نیست.';
       const ai=document.getElementById('opAbilityImage');if(d?.ability?.image){ai.hidden=false;ai.src=d.ability.image;ai.alt=d.ability.name||'تصویر قابلیت ویژه';ai.onerror=()=>{ai.hidden=true;};}else{ai.hidden=true;ai.removeAttribute('src');}
