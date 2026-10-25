@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#0B0D0F">
-  <meta name="app-version" content="1.12.0">
+  <meta name="app-version" content="1.13.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -3918,6 +3918,10 @@
     }
 
 
+    /* Shared HTML escaping for operator/loadout markup. Previously safe() only existed inside renderSquadGrid,
+       so the selector crashed with ReferenceError before rendering its roster and profile. */
+    function safe(value){return String(value==null?'—':value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+
     /* v1.11.0 — operator select, bound to the existing roster */
     let operatorSelectSide='atk', operatorSelectId='ash', operatorSelectPrimary='', operatorSelectSecondary='';
     function openOperatorSelect(){const modal=document.getElementById('operatorSelectModal');if(!modal)return;operatorSelectId=(currentRolledOp&&currentRolledOp.id)||'ash';const op=OPERATORS.find(x=>x.id===operatorSelectId)||OPERATORS[0];operatorSelectSide=op.side;operatorSelectPrimary='';operatorSelectSecondary='';const search=document.getElementById('opSelectSearch');if(search)search.value='';modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';renderOperatorRoster();renderOperatorProfile();modal.querySelector('button[aria-label="بستن منوی انتخاب"]')?.focus();}
@@ -3946,13 +3950,13 @@
       const list=all.filter(op=>[op.name,op.org,op.gadget,op.primary,op.sec,getOperatorReference(op)?.organization].some(v=>String(v||'').toLowerCase().includes(q)));
       for(const [id,side] of [['opSelectAtk','atk'],['opSelectDef','def']]){const el=document.getElementById(id);if(el){el.classList.toggle('active',operatorSelectSide===side);el.setAttribute('aria-pressed',String(operatorSelectSide===side));}}
       document.getElementById('opRosterCount').textContent=list.length+' / '+all.length+' • TOTAL '+OPERATORS.length;
-      grid.innerHTML=list.map(op=>{const d=getOperatorReference(op),icon=getOperatorIconUrl(op.slug),fallback=d?.portrait||icon;return '<button type="button" role="option" aria-selected="'+(op.id===operatorSelectId)+'" aria-pressed="'+(op.id===operatorSelectId)+'" class="op-roster-item" onclick="selectOperatorInMenu(\''+safe(op.id)+'\')" title="'+safe(op.name+' • '+(d?.organization||op.org))+'"><img src="'+safe(icon)+'" alt="" loading="lazy" onerror="this.onerror=null;this.src=\''+safe(fallback)+'\'"><span>'+safe(op.name)+'</span><small>'+safe(d?.organization||op.org)+'</small></button>';}).join('');
+      grid.innerHTML=list.map(op=>{const d=getOperatorReference(op),icon=getOperatorIconUrl(op.slug),portrait=d?.portrait||icon;return '<button type="button" role="option" aria-selected="'+(op.id===operatorSelectId)+'" aria-pressed="'+(op.id===operatorSelectId)+'" class="op-roster-item" onclick="selectOperatorInMenu(\\''+safe(op.id)+'\\')" title="'+safe(op.name+' • '+(d?.organization||op.org))+'"><img src="'+safe(portrait)+'" data-fallback="'+safe(icon)+'" alt="" loading="lazy" onerror="if(this.dataset.fallback&&this.src!==this.dataset.fallback){this.src=this.dataset.fallback;this.dataset.fallback=\'\';}else{this.style.visibility=\'hidden\';}"><span>'+safe(op.name)+'</span><small>'+safe(d?.organization||op.org)+'</small></button>';}).join('');
       if(!list.length)grid.innerHTML='<div class="col-span-full text-center text-xs text-slate-500 p-8">اپراتوری با این عبارت پیدا نشد.</div>';
     }
     function selectOperatorInMenu(id){const op=OPERATORS.find(x=>x.id===id);if(!op)return;operatorSelectId=op.id;operatorSelectPrimary='';operatorSelectSecondary='';operatorSelectSide=op.side;renderOperatorRoster();renderOperatorProfile();}
     function renderOperatorProfile(){
       const op=OPERATORS.find(x=>x.id===operatorSelectId);if(!op)return;const d=getOperatorReference(op),portrait=d?.portrait||getOperatorIconUrl(op.slug);
-      const hero=document.getElementById('opHeroIcon'),wm=document.getElementById('opHeroWatermark');hero.onerror=()=>{hero.onerror=null;hero.src=getOperatorIconUrl(op.slug);};hero.src=portrait;hero.alt='پرتره '+op.name;hero.classList.toggle('op-hero-art',d?.portraitType!=='full-body');wm.onerror=()=>{wm.onerror=null;wm.style.display='none';};wm.src=portrait;wm.style.display='';
+      const hero=document.getElementById('opHeroIcon'),wm=document.getElementById('opHeroWatermark'),iconFallback=getOperatorIconUrl(op.slug);hero.onerror=()=>{if(hero.src!==iconFallback){hero.src=iconFallback;}else{hero.style.visibility='hidden';}};hero.style.visibility='visible';hero.src=portrait;hero.alt='پرتره '+op.name;hero.classList.toggle('op-hero-art',d?.portraitType!=='full-body');wm.onerror=()=>{wm.onerror=null;wm.style.display='none';};wm.src=portrait;wm.style.display='';
       document.getElementById('opHeroFaction').textContent=op.side==='atk'?'ATTACKER / مهاجم':'DEFENDER / مدافع';document.getElementById('opHeroIndex').textContent='OP // '+String(OPERATORS.indexOf(op)+1).padStart(2,'0');document.getElementById('opHeroName').textContent=op.name;document.getElementById('opHeroMeta').textContent=(d?.organization||op.org)+' • '+op.id.toUpperCase()+(d?.portraitType==='full-body'?' • FULL-BODY':d?.portraitType==='official-art'?' • OFFICIAL ART':' • ART FALLBACK');document.getElementById('opHeroSpeed').textContent='سرعت '+(d?.speed||op.speed||'—')+' / 3';document.getElementById('opHeroArmor').textContent='زره '+(d?.armor||op.armor||'—')+' / 3';document.getElementById('opHeroGadget').textContent=d?.ability?.name||op.gadget||'قابلیت ثبت نشده';
       document.getElementById('opAbilityName').textContent=d?.ability?.name||op.gadget||'قابلیت ویژه ثبت نشده';document.getElementById('opAbilityDescription').textContent=d?.ability?.description||'توضیح تفصیلی در منبع مرجع موجود نیست.';
       const ai=document.getElementById('opAbilityImage');if(d?.ability?.image){ai.hidden=false;ai.src=d.ability.image;ai.alt=d.ability.name||'تصویر قابلیت ویژه';ai.onerror=()=>{ai.hidden=true;};}else{ai.hidden=true;ai.removeAttribute('src');}
