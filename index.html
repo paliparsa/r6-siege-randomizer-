@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#111315">
-  <meta name="app-version" content="1.19.0">
+  <meta name="theme-color" content="#101112">
+  <meta name="app-version" content="1.20.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -1073,187 +1073,163 @@
       }
 
 
-    /* v1.18.0 — Siege menu atmosphere: smoked concrete, muted olive light, restrained tactical yellow */
+    /* v1.20.0 — consolidated Siege-inspired menu system
+       Replaces conflicting phase-5/6 overrides with one coherent default-skin layer.
+       Product logic, layout structure, theme chooser, and game data remain untouched. */
     :root {
-      --theme-primary: #c9bd63;
-      --theme-secondary: #e5dfb7;
-      --theme-glow: rgba(201, 189, 99, .13);
-      --bg-base: #11130f;
-      --bg-card: rgba(25, 27, 22, .92);
-      --siege-menu-ink: #11130f;
-      --siege-menu-olive: #77764e;
-      --siege-menu-yellow: #c9bd63;
-      --siege-menu-line: rgba(214, 210, 174, .11);
+      --siege-bg-canvas: #101112;
+      --siege-bg-panel: #191a1b;
+      --siege-bg-elevated: #222425;
+      --siege-bg-selected: rgba(211, 194, 92, .13);
+      --siege-text-primary: #f1f0e9;
+      --siege-text-muted: #b0b0a9;
+      --siege-text-subtle: #777a79;
+      --siege-accent: #d3c25c;
+      --siege-danger: #d94b4b;
+      --siege-border: rgba(220, 220, 210, .15);
+      --siege-border-strong: rgba(211, 194, 92, .52);
+      --siege-menu-ink: #101112;
+      --siege-menu-olive: #77745b;
+      --siege-menu-yellow: #d3c25c;
+      --siege-menu-line: rgba(220, 220, 210, .13);
     }
-    body[data-faction="atk"], body[data-faction="def"] {
-      --theme-primary: #c9bd63;
-      --theme-glow: rgba(201, 189, 99, .13);
+    body[data-skin="default"] {
+      --theme-primary: #d3c25c;
+      --theme-secondary: #f1f0e9;
+      --theme-glow: rgba(211,194,92,.08);
+      --bg-base: #101112;
+      --bg-card: rgba(25,26,27,.97);
     }
-    html, body { background-color: #11130f; }
-    body {
-      isolation: isolate;
-      position: relative;
-      background-color: #11130f !important;
+    html, body { background-color: var(--bg-base); color: var(--siege-text-primary); }
+    body[data-skin="default"] {
       background-image:
-        linear-gradient(112deg, rgba(9, 11, 9, .91) 0%, rgba(20, 22, 17, .72) 39%, rgba(10, 12, 10, .91) 100%),
-        radial-gradient(ellipse at 72% 17%, rgba(135, 132, 83, .20), transparent 42%),
-        radial-gradient(ellipse at 12% 78%, rgba(93, 101, 78, .15), transparent 38%),
-        repeating-linear-gradient(0deg, transparent 0 47px, rgba(220, 219, 192, .022) 48px, transparent 49px),
-        repeating-linear-gradient(90deg, transparent 0 79px, rgba(220, 219, 192, .018) 80px, transparent 81px),
-        linear-gradient(135deg, #25271f 0%, #151711 42%, #0c0e0c 100%) !important;
+        linear-gradient(112deg, rgba(9,10,11,.96), rgba(20,21,21,.92) 48%, rgba(9,10,11,.97)),
+        repeating-linear-gradient(0deg, transparent 0 47px, rgba(235,235,225,.012) 48px, transparent 49px) !important;
       background-attachment: fixed;
     }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: .8;
+    body[data-skin="default"]::before {
+      opacity: .22;
       background:
-        linear-gradient(116deg, transparent 0 54%, rgba(185, 180, 135, .055) 54.1% 54.35%, transparent 54.5%),
-        linear-gradient(116deg, transparent 0 57%, rgba(0, 0, 0, .24) 57.1% 67%, transparent 67.2%),
-        radial-gradient(ellipse at 50% 50%, transparent 24%, rgba(0, 0, 0, .34) 100%),
-        repeating-linear-gradient(135deg, rgba(255,255,255,.012) 0 1px, transparent 1px 5px);
-      mix-blend-mode: normal;
+        linear-gradient(116deg, transparent 0 54%, rgba(211,194,92,.035) 54.1% 54.25%, transparent 54.4%),
+        radial-gradient(ellipse at 50% 45%, transparent 35%, rgba(0,0,0,.45) 100%);
     }
-    body > header {
-      background: rgba(15, 17, 13, .91) !important;
-      border-bottom-color: rgba(201, 189, 99, .28) !important;
-      box-shadow: 0 12px 34px rgba(0,0,0,.34), 0 1px 0 rgba(235,230,190,.035) !important;
-      backdrop-filter: blur(18px) saturate(.72);
+    body[data-skin="default"] > header {
+      background: rgba(13,14,15,.97) !important;
+      border-bottom: 1px solid rgba(220,220,210,.16) !important;
+      box-shadow: 0 6px 20px rgba(0,0,0,.24) !important;
+      backdrop-filter: blur(12px) saturate(.82);
     }
-    body > nav[class~="sm:hidden"] {
-      background: rgba(13, 15, 12, .94) !important;
-      border-top-color: rgba(201, 189, 99, .20) !important;
-      backdrop-filter: blur(18px) saturate(.72);
+    body[data-skin="default"] > nav[class~="sm:hidden"] {
+      background: rgba(13,14,15,.98) !important;
+      border-top: 1px solid rgba(220,220,210,.15) !important;
+      backdrop-filter: blur(12px) saturate(.82);
     }
-    .ds-panel, .tactical-feature-panel, .squad-briefing {
-      background-color: rgba(24, 26, 21, .86);
-      border-color: rgba(201, 189, 99, .18);
-      box-shadow: 0 18px 42px rgba(0,0,0,.19), inset 0 1px rgba(238,235,202,.025);
-      backdrop-filter: blur(8px);
+    body[data-skin="default"] .bg-siege-dark { background-color: #101112 !important; }
+    body[data-skin="default"] .bg-siege-card { background-color: #191a1b !important; }
+    body[data-skin="default"] .bg-siege-surface { background-color: #222425 !important; }
+    body[data-skin="default"] .text-siege-cyan,
+    body[data-skin="default"] .text-siege-yellow,
+    body[data-skin="default"] .dynamic-text { color: #d3c25c !important; }
+    body[data-skin="default"] .bg-siege-cyan,
+    body[data-skin="default"] .bg-siege-yellow,
+    body[data-skin="default"] .dynamic-bg { background-color: #d3c25c !important; }
+    body[data-skin="default"] .border-siege-border { border-color: rgba(220,220,210,.15) !important; }
+    body[data-skin="default"] .border-siege-cyan,
+    body[data-skin="default"] .border-siege-yellow { border-color: rgba(211,194,92,.56) !important; }
+    body[data-skin="default"] .bg-siege-cyan\/10,
+    body[data-skin="default"] .bg-siege-yellow\/10 { background-color: rgba(211,194,92,.08) !important; }
+    body[data-skin="default"] .bg-siege-cyan\/15,
+    body[data-skin="default"] .bg-siege-yellow\/15 { background-color: rgba(211,194,92,.11) !important; }
+    body[data-skin="default"] .bg-siege-cyan\/20,
+    body[data-skin="default"] .bg-siege-yellow\/20 { background-color: rgba(211,194,92,.14) !important; }
+    body[data-skin="default"] .text-cyan-400 { color: #d3c25c !important; }
+    body[data-skin="default"] .text-slate-500,
+    body[data-skin="default"] .text-slate-600 { color: #858783 !important; }
+    body[data-skin="default"] .text-slate-200,
+    body[data-skin="default"] .text-slate-300,
+    body[data-skin="default"] .text-slate-400 { color: #c4c4bd !important; }
+    body[data-skin="default"] .border-siege-border\/50,
+    body[data-skin="default"] .border-siege-border\/60,
+    body[data-skin="default"] .border-siege-border\/70,
+    body[data-skin="default"] .border-siege-border\/80 { border-color: rgba(220,220,210,.12) !important; }
+    body[data-skin="default"] .ds-panel,
+    body[data-skin="default"] .tactical-feature-panel,
+    body[data-skin="default"] .squad-briefing,
+    body[data-skin="default"] #profileModal > div,
+    body[data-skin="default"] #alphaModal > div,
+    body[data-skin="default"] #operatorSelectModal > div,
+    body[data-skin="default"] #banModal > div,
+    body[data-skin="default"] #shareModal > div,
+    body[data-skin="default"] #introModal > div {
+      background-color: rgba(25,26,27,.985);
+      border-color: rgba(220,220,210,.16);
+      box-shadow: 0 14px 38px rgba(0,0,0,.42);
+      backdrop-filter: blur(10px);
     }
-    .tactical-operator-card, .duel-operator-card, .duel-match-card,
-    .squad-stat, .duo-link-core {
-      border-color: rgba(201, 189, 99, .16);
+    body[data-skin="default"] .ds-control {
+      background: #202223;
+      border-color: rgba(220,220,210,.17);
+      color: #f1f0e9;
+      border-radius: 3px;
+      box-shadow: none;
     }
-    .tactical-portrait, .duel-portrait, .squad-op-portrait {
-      background:
-        linear-gradient(145deg, rgba(122,121,83,.14), transparent 54%),
-        #10120f;
-      border-color: rgba(201, 189, 99, .13);
+    body[data-skin="default"] .ds-control:hover:not(:disabled) {
+      background: #2a2c2c;
+      border-color: rgba(211,194,92,.48);
     }
-    .dynamic-border { border-color: color-mix(in srgb, var(--theme-primary) 35%, #34362b); }
-    .dynamic-text { color: var(--theme-primary); }
-    .dynamic-bg { background-color: var(--theme-primary); }
-    .tactical-pill, .duel-round-title { color: #d8cc78; }
-    .tactical-pill { border-color: rgba(201,189,99,.34); background: rgba(201,189,99,.07); }
-    body button:focus-visible, body a:focus-visible, body input:focus-visible,
-    body select:focus-visible, body textarea:focus-visible {
-      outline-color: #d8cc78 !important;
-      box-shadow: 0 0 0 3px rgba(201,189,99,.19) !important;
+    body[data-skin="default"] .ds-control[aria-pressed="true"],
+    body[data-skin="default"] .ds-control.is-selected,
+    body[data-skin="default"] .ds-control[aria-selected="true"] {
+      background: rgba(211,194,92,.12);
+      border-color: #d3c25c;
+      color: #f1e8b4;
     }
+    body[data-skin="default"] .ds-control--primary {
+      background: #d3c25c;
+      border-color: #d3c25c;
+      color: #151511;
+      box-shadow: none;
+    }
+    body[data-skin="default"] .ds-control--primary:hover:not(:disabled) {
+      background: #e0d17a;
+      border-color: #e0d17a;
+      color: #101112;
+    }
+    body[data-skin="default"] .dynamic-border {
+      border-color: rgba(211,194,92,.35);
+      box-shadow: none;
+    }
+    body[data-skin="default"] .tactical-pill,
+    body[data-skin="default"] .duel-round-title { color: #d9ca77; }
+    body[data-skin="default"] .tactical-pill {
+      border-color: rgba(211,194,92,.28);
+      background: rgba(211,194,92,.055);
+    }
+    body[data-skin="default"] button:focus-visible,
+    body[data-skin="default"] a:focus-visible,
+    body[data-skin="default"] input:focus-visible,
+    body[data-skin="default"] select:focus-visible,
+    body[data-skin="default"] textarea:focus-visible {
+      outline: 2px solid #d3c25c !important;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 3px rgba(211,194,92,.13) !important;
+    }
+    body[data-skin="default"] .text-siege-red,
+    body[data-skin="default"] .text-red-200 { color: #ff8580 !important; }
+    body[data-skin="default"] .border-siege-red,
+    body[data-skin="default"] .border-siege-red\/40,
+    body[data-skin="default"] .border-siege-red\/45,
+    body[data-skin="default"] .border-siege-red\/50 { border-color: rgba(217,75,75,.48) !important; }
+    body[data-skin="default"] .bg-siege-red,
+    body[data-skin="default"] .bg-siege-red\/10,
+    body[data-skin="default"] .bg-siege-red\/20 { background-color: rgba(217,75,75,.12) !important; }
     @media (max-width: 639.98px) {
-      body { background-attachment: scroll; }
-      body::before { opacity: .55; }
+      body[data-skin="default"] { background-attachment: scroll; }
+      body[data-skin="default"]::before { opacity: .12; }
+      .ds-control { min-height: 42px; }
     }
     @media (prefers-reduced-motion: reduce) {
       body { transition: none !important; }
-    }
-
-
-    /* v1.19.0 — Siege menu UI color pass: graphite surfaces, bone-white type, signal-yellow selection */
-    :root {
-      --siege-bg-canvas: #111315;
-      --siege-bg-panel: #191c1e;
-      --siege-bg-elevated: #232729;
-      --siege-bg-selected: rgba(214, 224, 75, .14);
-      --siege-text-primary: #f0f1ed;
-      --siege-text-muted: #a4aaab;
-      --siege-text-subtle: #747c7f;
-      --siege-accent: #d6e04b;
-      --siege-danger: #e14b4b;
-      --siege-border: rgba(205, 211, 207, .16);
-      --siege-border-strong: rgba(214, 224, 75, .55);
-      --theme-primary: #d6e04b;
-      --theme-secondary: #f0f1ed;
-      --theme-glow: rgba(214,224,75,.12);
-      --bg-base: #111315;
-      --bg-card: rgba(25,28,30,.96);
-      --siege-menu-yellow: #d6e04b;
-      --siege-menu-line: rgba(215,220,215,.14);
-    }
-    /* Keep the game's signature yellow as a selection cue, not as a panel fill. */
-    .bg-siege-dark { background-color: #111315 !important; }
-    .bg-siege-card { background-color: rgba(25,28,30,.96) !important; }
-    .bg-siege-surface { background-color: #232729 !important; }
-    .border-siege-border { border-color: rgba(205,211,207,.16) !important; }
-    .text-siege-cyan, .text-siege-yellow, .dynamic-text { color: #d6e04b !important; }
-    .bg-siege-cyan, .bg-siege-yellow, .dynamic-bg { background-color: #d6e04b !important; }
-    .border-siege-cyan, .border-siege-yellow { border-color: rgba(214,224,75,.62) !important; }
-    .bg-siege-cyan\/10, .bg-siege-yellow\/10 { background-color: rgba(214,224,75,.09) !important; }
-    .bg-siege-cyan\/15, .bg-siege-yellow\/15 { background-color: rgba(214,224,75,.12) !important; }
-    .bg-siege-cyan\/20, .bg-siege-yellow\/20 { background-color: rgba(214,224,75,.16) !important; }
-    .border-siege-cyan\/30, .border-siege-yellow\/30 { border-color: rgba(214,224,75,.25) !important; }
-    .border-siege-cyan\/50, .border-siege-yellow\/50 { border-color: rgba(214,224,75,.44) !important; }
-    .border-siege-cyan\/70, .border-siege-yellow\/70 { border-color: rgba(214,224,75,.66) !important; }
-    .text-cyan-400 { color: #d6e04b !important; }
-    .bg-slate-600 { background-color: #44494b !important; }
-    .text-slate-500, .text-slate-600 { color: #7f8789 !important; }
-    .text-slate-200, .text-slate-300, .text-slate-400 { color: #b8bdbc !important; }
-    .border-siege-border\/50, .border-siege-border\/60, .border-siege-border\/70, .border-siege-border\/80 {
-      border-color: rgba(205,211,207,.13) !important;
-    }
-    .ds-panel, .tactical-feature-panel, .squad-briefing,
-    #profileModal > div, #alphaModal > div, #operatorSelectModal > div,
-    #banModal > div, #shareModal > div, #introModal > div {
-      background-color: rgba(25,28,30,.97);
-      border-color: rgba(205,211,207,.16);
-      box-shadow: 0 18px 48px rgba(0,0,0,.44), inset 0 1px rgba(255,255,255,.025);
-    }
-    .ds-control {
-      background: #1d2123;
-      border-color: rgba(205,211,207,.2);
-      color: #f0f1ed;
-    }
-    .ds-control:hover:not(:disabled) {
-      background: #292e30;
-      border-color: rgba(214,224,75,.5);
-    }
-    .ds-control--primary {
-      background: #d6e04b;
-      border-color: #d6e04b;
-      color: #151713;
-    }
-    .ds-control--primary:hover:not(:disabled) {
-      background: #e2eb61;
-      border-color: #e2eb61;
-      color: #11130f;
-    }
-    body > header {
-      background: rgba(17,19,21,.96) !important;
-      border-bottom-color: rgba(205,211,207,.17) !important;
-    }
-    body > nav[class~="sm:hidden"] {
-      background: rgba(17,19,21,.98) !important;
-      border-top-color: rgba(205,211,207,.17) !important;
-    }
-    body button:focus-visible, body a:focus-visible, body input:focus-visible,
-    body select:focus-visible, body textarea:focus-visible {
-      outline-color: #d6e04b !important;
-      box-shadow: 0 0 0 3px rgba(214,224,75,.2) !important;
-    }
-    /* State colors remain semantically distinct: red for danger, green only for success. */
-    .text-siege-red, .text-red-200 { color: #ff7777 !important; }
-    .border-siege-red, .border-siege-red\/40, .border-siege-red\/45, .border-siege-red\/50 {
-      border-color: rgba(225,75,75,.48) !important;
-    }
-    .bg-siege-red, .bg-siege-red\/10, .bg-siege-red\/20 {
-      background-color: rgba(225,75,75,.12) !important;
-    }
-    @media (max-width: 639.98px) {
-      .ds-control { min-height: 42px; }
     }
 
     </style>
