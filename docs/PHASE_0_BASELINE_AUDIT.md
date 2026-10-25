@@ -49,24 +49,42 @@ The following capabilities are part of the preservation baseline. This is a func
 - [ ] Dynamic faction/skin styling and app navigation.
 - [ ] Toasts/feedback, copy/share/download actions and other existing controls discovered during the remaining exhaustive DOM/event pass.
 
-## 3. Persistence inventory — known key and remaining audit
+## 3. Persistence inventory — source-level key extraction
 
-### Confirmed key
+A regex/source pass of the current `index.html` found the following persistent keys. Data schemas below reflect the current read/write call sites, not a guarantee that every historical stored value has been sampled.
 
-| Key | Observed use | Data format | Required handling |
-|---|---|---|---|
-| `r6_intro_seen_v7` | Read during initialization; set to `'1'` when onboarding closes. | String flag: `'1'` means seen. | Keep key and behavior stable unless a documented migration is necessary. Storage access is guarded with try/catch. |
+| Key | Current representation / observed use | Preservation requirement |
+|---|---|---|
+| `r6_profile_v2` | JSON object normalized against `DEFAULT_PROFILE`: `callsign`, `title`, `xp`, `rolls`, `wins`, `packs`, `favs` (operator ID array), `skin`. | Preserve fields, normalization, default values and old profile contents. |
+| `r6_banned_ops_v1` | JSON array of operator IDs; invalid/unknown IDs are filtered on load. | Preserve valid ban selections and current filtering behavior. |
+| `r6_xp_claims_v1` | JSON object used by `claimDailyXp`; the code reads/writes a date-keyed claim record. | Preserve anti-repeat/claim semantics; inspect the complete function before changing the schema. |
+| `r6_alpha_history_v1` | JSON array of reward/history objects; write path retains up to 100 records. | Preserve history and ordering; no reset during visual changes. |
+| `r6_alpha_collection_v1` | JSON array of collection/reward objects; write path retains up to 100 records. | Preserve collected items and compatibility with existing reward objects. |
+| `r6_intro_seen_v7` | Direct string flag: `'1'` means onboarding was seen. | Keep the exact key/value convention and guarded storage access. |
 
-### Still requiring exhaustive extraction from `index.html`
+Storage implementation uses guarded `localStorage` access: generic JSON helpers catch read/write failures; onboarding has its own try/catch. The source pass found no `sessionStorage`, IndexedDB or cookie usage in `index.html`. No `clear()` or `removeItem()` calls were found in the current page.
 
-- [ ] Enumerate every `localStorage.getItem/setItem/removeItem/clear` call and every `sessionStorage` call.
-- [ ] Record exact key names, value types, JSON schemas, defaults, validation and error handling.
-- [ ] Trace profile, XP, rank, inventory/Alpha Pack, collection/history, banned operators, skin, settings, selected operator, map/site, Squad/Duo/Duel and install-related persistence.
-- [ ] Confirm whether any storage writes happen from rendering or initialization unexpectedly.
-- [ ] Check quota, malformed JSON, private browsing/storage denial and old-version data behavior.
-- [ ] Define migration tests only if a real schema change is proposed. Do not introduce a migration merely for visual redesign.
+- [ ] Still sample existing browser profiles and verify the exact shape of persisted XP-claim entries and Alpha Pack objects.
+- [ ] Test malformed JSON, storage denial/quota failures, old-version profile objects and reload persistence in a browser.
+- [ ] Do not introduce a migration unless a real schema change is approved; if required, make it additive, versioned and backward-compatible.
 
-**Important:** the complete storage key list and all serialized schemas are not yet certified by this initial source pass.
+## 4. Navigation, controls, events and modals — source inventory
+
+- Main navigation has three hubs: `hq`, `ops`, and `tools`, with matching desktop and mobile navigation controls.
+- Main randomizer modes: `standard`, `cursed`, `squad`; faction filters: `all`, `atk`, `def`.
+- Operations modes: `strats`, `duo`, `duel`; Duo filters include side and style; Duel includes selectable mode and tournament controls.
+- Tools include map/site selection and related roll actions.
+- Header controls include profile, Alpha Packs, operator bans, shake-to-roll, audio, help/onboarding, and install UI.
+- The page has 205 distinct HTML `id` attributes in the inspected source snapshot, with no duplicate IDs found by a simple source scan.
+- Seven modal/dialog surfaces were identified: `alphaModal`, `profileModal`, `operatorSelectModal`, `banModal`, `shareModal`, `introModal`, plus the separately rendered `webAppInstallCard` install surface. The install card is not a modal.
+- The source includes inline handlers and global functions; a source inventory alone does not prove each event path works at runtime.
+
+Remaining behavior-level checks:
+- [ ] Verify every visible control and all open/close, backdrop, Escape, focus and scroll-lock paths in a browser.
+- [ ] Check dynamically generated buttons (especially duel tournament and ban list) as well as static inline handlers.
+- [ ] Confirm tab changes do not trigger an unintended reroll, award XP, consume packs or overwrite user selections.
+- [ ] Check poster/share/download entry points preserve the active HQ/Duo/Duel context.
+- [ ] Run automated duplicate-ID and JavaScript syntax checks in CI or a local test environment.
 
 ## 4. Navigation, controls, events and modals — remaining exhaustive pass
 
