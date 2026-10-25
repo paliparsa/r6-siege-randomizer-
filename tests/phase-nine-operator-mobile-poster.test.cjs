@@ -27,6 +27,11 @@ test('operator tab keeps search, side filters, roster, and loadout IDs', () => {
   assert.match(html, /#hub-operators \.op-roster-grid\{grid-template-columns:repeat\(4/);
 });
 
+test('each major tab offers a context-aware poster action', () => {
+  assert.equal((html.match(/onclick="exportCurrentCard\\(\\)"/g) || []).length, 4);
+  assert.match(html, /if \\(currentHub === 'operators'\\)/);
+});
+
 test('poster generation finishes before actions and supports PNG blob export', () => {
   assert.match(html, /posterExportReady = true/);
   assert.match(html, /async function downloadDossierImage\(\)/);
