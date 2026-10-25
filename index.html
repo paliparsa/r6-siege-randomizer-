@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#101112">
-  <meta name="app-version" content="1.23.0">
+  <meta name="app-version" content="1.24.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -4584,34 +4584,80 @@
       }
       const suffix = (currentPosterSuffix || (currentHqMode === 'squad' ? 'SQUAD' : currentRolledOp?.name || 'R6'))
         .normalize('NFKD').replace(/[^a-z0-9_-]+/gi, '_').slice(0, 80) || 'R6';
+      const isMobileBrowser = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
+        (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+      // On mobile Safari/embedded PWA browsers, download attributes on Blob URLs are
+      // inconsistently honored. Open a tab synchronously within the click gesture so
+      // it remains available to display the finished PNG if native download is blocked.
+      let mobilePreview = null;
+      if (isMobileBrowser) {
+        try { mobilePreview = window.open('about:blank', '_blank'); } catch (_) { mobilePreview = null; }
+      }
+      let objectUrl = null;
       try {
         const blob = await canvasToBlob(canvas);
-        const url = URL.createObjectURL(blob);
+        if (!blob || blob.size < 100) throw new Error('Poster PNG is empty.');
+        objectUrl = URL.createObjectURL(blob);
+        if (isMobileBrowser && mobilePreview && !mobilePreview.closed) {
+          mobilePreview.document.title = 'R6 Poster — save image';
+          mobilePreview.document.body.innerHTML = '';
+          mobilePreview.document.body.style.cssText = 'margin:0;background:#090c10;color:#fff;font:16px system-ui;text-align:center;padding:12px';
+          const note = mobilePreview.document.createElement('p');
+          note.textContent = 'برای ذخیره، تصویر را نگه دارید و گزینه Save Image / Download Image را بزنید.';
+          const image = mobilePreview.document.createElement('img');
+          image.alt = 'R6 tactical poster';
+          image.src = objectUrl;
+          image.style.cssText = 'display:block;max-width:100%;height:auto;margin:12px auto';
+          mobilePreview.document.body.append(note, image);
+          // Keep the Blob URL alive long enough for the user to save the image from the preview tab.
+          window.setTimeout(() => URL.revokeObjectURL(objectUrl), 120000);
+          showToast('پوستر باز شد؛ روی تصویر نگه دار و Save Image را انتخاب کن.');
+          return true;
+        }
+        if (mobilePreview && !mobilePreview.closed) mobilePreview.close();
         const link = document.createElement('a');
-        link.href = url;
+        link.href = objectUrl;
         link.download = `R6_DOSSIER_${suffix}.png`;
+        link.target = '_blank';
+        link.rel = 'noopener';
         link.style.display = 'none';
         document.body.appendChild(link);
         link.click();
         link.remove();
-        window.setTimeout(() => URL.revokeObjectURL(url), 30000);
         showToast('دانلود پوستر PNG شروع شد.');
+        // Keep the Blob URL alive long enough for browsers that start downloads asynchronously.
+        window.setTimeout(() => URL.revokeObjectURL(objectUrl), 120000);
         return true;
       } catch (error) {
-        console.warn('PNG download via Blob failed; trying data URL.', error);
+        console.warn('Blob poster export failed; trying data URL fallback.', error);
+        if (mobilePreview && !mobilePreview.closed) {
+          try {
+            const dataUrl = canvas.toDataURL('image/png');
+            mobilePreview.location.href = dataUrl;
+            showToast('پوستر باز شد؛ تصویر را نگه دار و ذخیره کن.');
+            return true;
+          } catch (previewError) {
+            console.warn('Mobile preview fallback failed.', previewError);
+          }
+        }
         try {
+          if (objectUrl) URL.revokeObjectURL(objectUrl);
+          const dataUrl = canvas.toDataURL('image/png');
           const link = document.createElement('a');
-          link.href = canvas.toDataURL('image/png');
+          link.href = dataUrl;
           link.download = `R6_DOSSIER_${suffix}.png`;
+          link.target = '_blank';
+          link.rel = 'noopener';
           link.style.display = 'none';
           document.body.appendChild(link);
           link.click();
           link.remove();
-          showToast('دانلود پوستر شروع شد.');
+          showToast('دانلود مستقیم ممکن نبود؛ تصویر در تب جدید باز می‌شود تا ذخیره‌اش کنی.');
           return true;
         } catch (fallbackError) {
           console.error('Poster download failed:', fallbackError);
-          showToast('دانلود مستقیم در این مرورگر پشتیبانی نشد؛ از اشتراک‌گذاری یا ذخیره تصویر استفاده کن.');
+          if (mobilePreview && !mobilePreview.closed) mobilePreview.close();
+          showToast('مرورگر دانلود را مسدود کرد؛ تصویر را در تب جدید باز کن یا از اشتراک‌گذاری استفاده کن.');
           return false;
         }
       }

@@ -6,8 +6,8 @@ const sw = fs.readFileSync('sw.js', 'utf8');
 const changelog = fs.readFileSync('CHANGELOG.md', 'utf8');
 
 test('app and service worker versions are aligned', () => {
-  assert.match(html, /app-version" content="1\.23\.0"/);
-  assert.match(sw, /r6-cache-v37/);
+  assert.match(html, /app-version" content="1\.24\.0"/);
+  assert.match(sw, /r6-cache-v38/);
   assert.match(changelog, /\[1\.23\.0\]/);
 });
 
@@ -36,7 +36,11 @@ test('poster generation finishes before actions and supports PNG blob export', (
   assert.match(html, /posterExportReady = true/);
   assert.match(html, /async function downloadDossierImage\(\)/);
   assert.match(html, /canvasToBlob\(canvas\)/);
-  assert.match(html, /URL\.createObjectURL\(blob\)/);
+  assert.match(html, /window\.open\('about:blank', '_blank'\)/);
+  assert.match(html, /blob\.size < 100/);
+  assert.match(html, /Save Image \/ Download Image/);
+  assert.match(html, /setTimeout\(\(\) => URL\.revokeObjectURL\(objectUrl\), 120000\)/);
+  assert.match(html, /URL\.createObjectURL\(blob\)|URL\.createObjectURL\(objectUrl\)/);
   assert.match(html, /async function shareDossierNative\(\)/);
   assert.match(html, /navigator\.canShare\(\{ files: \[file\] \}\)/);
   assert.match(html, /navigator\.clipboard\?\.writeText/);
