@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#0B0D0F">
-  <meta name="app-version" content="1.17.0">
+  <meta name="theme-color" content="#11130F">
+  <meta name="app-version" content="1.18.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -1071,6 +1071,96 @@
           transition-duration: .01ms !important;
         }
       }
+
+
+    /* v1.18.0 — Siege menu atmosphere: smoked concrete, muted olive light, restrained tactical yellow */
+    :root {
+      --theme-primary: #c9bd63;
+      --theme-secondary: #e5dfb7;
+      --theme-glow: rgba(201, 189, 99, .13);
+      --bg-base: #11130f;
+      --bg-card: rgba(25, 27, 22, .92);
+      --siege-menu-ink: #11130f;
+      --siege-menu-olive: #77764e;
+      --siege-menu-yellow: #c9bd63;
+      --siege-menu-line: rgba(214, 210, 174, .11);
+    }
+    body[data-faction="atk"], body[data-faction="def"] {
+      --theme-primary: #c9bd63;
+      --theme-glow: rgba(201, 189, 99, .13);
+    }
+    html, body { background-color: #11130f; }
+    body {
+      isolation: isolate;
+      position: relative;
+      background-color: #11130f !important;
+      background-image:
+        linear-gradient(112deg, rgba(9, 11, 9, .91) 0%, rgba(20, 22, 17, .72) 39%, rgba(10, 12, 10, .91) 100%),
+        radial-gradient(ellipse at 72% 17%, rgba(135, 132, 83, .20), transparent 42%),
+        radial-gradient(ellipse at 12% 78%, rgba(93, 101, 78, .15), transparent 38%),
+        repeating-linear-gradient(0deg, transparent 0 47px, rgba(220, 219, 192, .022) 48px, transparent 49px),
+        repeating-linear-gradient(90deg, transparent 0 79px, rgba(220, 219, 192, .018) 80px, transparent 81px),
+        linear-gradient(135deg, #25271f 0%, #151711 42%, #0c0e0c 100%) !important;
+      background-attachment: fixed;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .8;
+      background:
+        linear-gradient(116deg, transparent 0 54%, rgba(185, 180, 135, .055) 54.1% 54.35%, transparent 54.5%),
+        linear-gradient(116deg, transparent 0 57%, rgba(0, 0, 0, .24) 57.1% 67%, transparent 67.2%),
+        radial-gradient(ellipse at 50% 50%, transparent 24%, rgba(0, 0, 0, .34) 100%),
+        repeating-linear-gradient(135deg, rgba(255,255,255,.012) 0 1px, transparent 1px 5px);
+      mix-blend-mode: normal;
+    }
+    body > header {
+      background: rgba(15, 17, 13, .91) !important;
+      border-bottom-color: rgba(201, 189, 99, .28) !important;
+      box-shadow: 0 12px 34px rgba(0,0,0,.34), 0 1px 0 rgba(235,230,190,.035) !important;
+      backdrop-filter: blur(18px) saturate(.72);
+    }
+    body > nav[class~="sm:hidden"] {
+      background: rgba(13, 15, 12, .94) !important;
+      border-top-color: rgba(201, 189, 99, .20) !important;
+      backdrop-filter: blur(18px) saturate(.72);
+    }
+    .ds-panel, .tactical-feature-panel, .squad-briefing {
+      background-color: rgba(24, 26, 21, .86);
+      border-color: rgba(201, 189, 99, .18);
+      box-shadow: 0 18px 42px rgba(0,0,0,.19), inset 0 1px rgba(238,235,202,.025);
+      backdrop-filter: blur(8px);
+    }
+    .tactical-operator-card, .duel-operator-card, .duel-match-card,
+    .squad-stat, .duo-link-core {
+      border-color: rgba(201, 189, 99, .16);
+    }
+    .tactical-portrait, .duel-portrait, .squad-op-portrait {
+      background:
+        linear-gradient(145deg, rgba(122,121,83,.14), transparent 54%),
+        #10120f;
+      border-color: rgba(201, 189, 99, .13);
+    }
+    .dynamic-border { border-color: color-mix(in srgb, var(--theme-primary) 35%, #34362b); }
+    .dynamic-text { color: var(--theme-primary); }
+    .dynamic-bg { background-color: var(--theme-primary); }
+    .tactical-pill, .duel-round-title { color: #d8cc78; }
+    .tactical-pill { border-color: rgba(201,189,99,.34); background: rgba(201,189,99,.07); }
+    body button:focus-visible, body a:focus-visible, body input:focus-visible,
+    body select:focus-visible, body textarea:focus-visible {
+      outline-color: #d8cc78 !important;
+      box-shadow: 0 0 0 3px rgba(201,189,99,.19) !important;
+    }
+    @media (max-width: 639.98px) {
+      body { background-attachment: scroll; }
+      body::before { opacity: .55; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body { transition: none !important; }
+    }
 
     </style>
 </head>
