@@ -4609,7 +4609,8 @@
           image.src = objectUrl;
           image.style.cssText = 'display:block;max-width:100%;height:auto;margin:12px auto';
           mobilePreview.document.body.append(note, image);
-          // Keep the object URL alive while the preview tab is open.
+          // Keep the Blob URL alive long enough for the user to save the image from the preview tab.
+          window.setTimeout(() => URL.revokeObjectURL(objectUrl), 120000);
           showToast('پوستر باز شد؛ روی تصویر نگه دار و Save Image را انتخاب کن.');
           return true;
         }
