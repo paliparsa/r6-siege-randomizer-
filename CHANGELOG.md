@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.27.0] - 2026-10-26
+### Fixed
+- Restored the previous Blob/object-URL poster download flow with the data-URL fallback, replacing the synchronous data-URL-only path that browsers were blocking.
+- Reorganized the operator browser into a clearer desktop roster/profile layout and a compact mobile layout, with consistent loadout panels and less visual crowding.
+### Maintenance
+- Bumped app version to 1.27.0 and Service Worker cache to `r6-cache-v41`.
+
+
 ## [1.26.0] - 2026-10-25
 ### Fixed
 - Render the operator roster and profile as soon as the dedicated operator tab is opened, including direct desktop/mobile navigation.
