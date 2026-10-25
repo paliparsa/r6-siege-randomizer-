@@ -6,9 +6,9 @@ const sw = fs.readFileSync('sw.js', 'utf8');
 const changelog = fs.readFileSync('CHANGELOG.md', 'utf8');
 
 test('app and service worker versions are aligned', () => {
-  assert.match(html, /app-version" content="1\.28\.0"/);
-  assert.match(sw, /r6-cache-v42/);
-  assert.match(changelog, /\[1\.28\.0\]/);
+  assert.ok(html.includes('app-version" content="1.29.0"'));
+  assert.ok(sw.includes("r6-cache-v43"));
+  assert.ok(changelog.includes("[1.29.0]"));
 });
 
 test('all operators is a first-class hub on desktop and mobile', () => {
@@ -32,15 +32,15 @@ test('each major tab offers a context-aware poster action', () => {
   assert.match(html, /if \\(currentHub === 'operators'\\)/);
 });
 
-test('poster export opens a preview during the click and offers an explicit download link', () => {
-  assert.match(html, /posterExportReady = true/);
-  assert.match(html, /function downloadDossierImage\(\)/);
-  assert.match(html, /window\.open\('about:blank', '_blank'\)/);
-  assert.match(html, /canvasToBlob\(canvas\)\.then/);
-  assert.match(html, /link\.download = filename/);
-  assert.match(html, /دانلود پوستر PNG/);
-  assert.match(html, /canvas\.toDataURL\('image\/png'\)/);
-  assert.match(html, /async function shareDossierNative\(\)/);
-  assert.match(html, /navigator\.canShare\(\{ files: \[file\] \}\)/);
-  assert.match(html, /navigator\.clipboard\?\.writeText/);
+test('poster export restores the known Blob download flow and data-URL fallback', () => {
+  assert.ok(html.includes('posterExportReady = true'));
+  assert.ok(html.includes('async function downloadDossierImage()'));
+  assert.ok(html.includes('const blob = await canvasToBlob(canvas)'));
+  assert.ok(html.includes('URL.createObjectURL(blob)'));
+  assert.ok(html.includes('link.download = `R6_DOSSIER_${suffix}.png`'));
+  assert.ok(html.includes('URL.revokeObjectURL(url)'));
+  assert.ok(html.includes("canvas.toDataURL('image/png')"));
+  assert.ok(html.includes('async function shareDossierNative()'));
+  assert.ok(html.includes('navigator.canShare({ files: [file] })'));
+  assert.ok(html.includes('navigator.clipboard?.writeText'));
 });

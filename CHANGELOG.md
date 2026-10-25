@@ -1,3 +1,10 @@
+## [1.29.0] - 2026-10-26
+### Fixed
+- Restored the known-good v1.23 poster PNG download flow: Blob/object URL first, then data-URL fallback if Blob export fails.
+- Removed the newer preview-tab/download-link flow from the download handler; preserved poster generation, sharing, and all randomizer features.
+### Maintenance
+- Bumped app version to 1.29.0 and Service Worker cache to `r6-cache-v43`.
+
 # Changelog
 
 ## [1.28.0] - 2026-10-26
