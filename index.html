@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#101112">
-  <meta name="app-version" content="1.21.0">
+  <meta name="app-version" content="1.22.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -399,13 +399,7 @@
     }
 
   
-      /* Global contextual poster action — available from every hub */
-      #globalPosterButton { position: fixed !important; display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; right: max(14px, env(safe-area-inset-right)); bottom: calc(88px + var(--safe-bottom, 0px)); z-index: 49 !important; }
-      @media (min-width: 640px) { #globalPosterButton { bottom: 18px; } }
-      @media (max-width: 380px) { #globalPosterButton { right: 10px; bottom: calc(82px + var(--safe-bottom, 0px)); } }
-
-
-      /* v1.5.0 — Tactical Noir visual system; visual-only, preserves app behavior */
+/* v1.5.0 — Tactical Noir visual system; visual-only, preserves app behavior */
       :root {
         color-scheme: dark;
         --noir-obsidian: #0B0D0F;
@@ -513,14 +507,7 @@
         box-shadow: 0 18px 46px rgba(0,0,0,.48), 0 0 26px rgba(214,240,74,.055) !important;
       }
       #webAppInstallCard .install-cta { background: var(--noir-signal) !important; color: #0B0D0F !important; }
-      #globalPosterButton {
-        border: 1px solid rgba(214,240,74,.52) !important;
-        background: var(--noir-signal) !important; color: #0B0D0F !important;
-        box-shadow: 0 8px 26px rgba(0,0,0,.35), 0 0 22px rgba(214,240,74,.10);
-        transition: transform var(--motion-fast) ease, box-shadow var(--motion-fast) ease;
-      }
-      #globalPosterButton:hover { box-shadow: 0 10px 32px rgba(0,0,0,.4), 0 0 28px rgba(214,240,74,.17); transform: translateY(-2px); }
-      .laser-scanline { background: linear-gradient(90deg, transparent, var(--noir-signal), #fff, var(--noir-signal), transparent); box-shadow: 0 0 14px 2px rgba(214,240,74,.55); }
+.laser-scanline { background: linear-gradient(90deg, transparent, var(--noir-signal), #fff, var(--noir-signal), transparent); box-shadow: 0 0 14px 2px rgba(214,240,74,.55); }
       .dynamic-border { box-shadow: 0 8px 30px -8px rgba(214,240,74,.12); }
       .alpha-pack-bag::after { background: linear-gradient(45deg, transparent 40%, rgba(214,240,74,.13) 50%, transparent 60%); }
       @media (prefers-reduced-motion: reduce) {
@@ -1486,10 +1473,7 @@
 
             <div class="flex items-center gap-1.5">
           <button type="button" onclick="openOperatorSelect()" class="px-2.5 py-1 rounded-lg bg-siege-yellow text-black border border-siege-yellow text-[11px] font-black flex items-center gap-1.5" title="باز کردن منوی انتخاب اپراتور"><i class="fa-solid fa-list-check"></i><span>انتخاب اپراتور</span></button>
-              <button onclick="exportCurrentCard()" class="px-2.5 py-1 rounded-lg bg-siege-dark border border-siege-border hover:border-siege-yellow text-slate-300 hover:text-siege-yellow text-[11px] font-bold flex items-center gap-1.5 transition active:scale-95" title="خروجی پوستر دیسکورد و استوری">
-                <i class="fa-solid fa-camera-retro text-siege-yellow"></i>
-                <span>ساخت پوستر</span>
-              </button>
+              
               <button onclick="toggleFavoriteCurrent()" class="w-8 h-8 rounded-lg bg-siege-dark border border-siege-border text-slate-400 hover:text-siege-yellow flex items-center justify-center transition active:scale-95" title="افزودن به علاقه‌مندی‌ها (یا کشیدن کارت به بالا)">
                 <i class="fa-regular fa-star text-sm" id="cardFavIcon"></i>
               </button>
@@ -1549,10 +1533,7 @@
       <div id="hqSquadWrap" class="hidden flex-1 flex flex-col justify-between min-h-0 gap-2">
         <div class="flex items-center justify-between bg-siege-card/80 px-3 py-1.5 rounded-xl border border-siege-border shrink-0">
           <span class="text-xs font-bold text-slate-300"><i class="fa-solid fa-users text-siege-yellow ml-1.5"></i>ترکیب تیم ۵ نفره</span>
-          <button onclick="exportCurrentCard()" class="px-2.5 py-1 rounded-lg bg-siege-dark border border-siege-border hover:border-siege-yellow text-siege-yellow text-[11px] font-bold flex items-center gap-1.5 transition active:scale-95">
-            <i class="fa-solid fa-camera-retro"></i>
-            <span>ساخت پوستر ترکیب تیم</span>
-          </button>
+          
         </div>
         <div class="squad-briefing rounded-xl p-3 shrink-0 space-y-2">
           <div class="flex items-center justify-between gap-2"><div><div class="text-[10px] uppercase tracking-[.18em] font-mono text-siege-cyan">MISSION BRIEFING</div><div class="text-xs font-bold text-white mt-0.5">هدف مأموریت را انتخاب کن</div></div><span id="squadDoctrineBadge" class="text-[9px] font-mono text-siege-yellow border border-siege-yellow/30 bg-siege-yellow/10 rounded-full px-2 py-1">BALANCED</span></div>
@@ -1653,7 +1634,7 @@
       <div id="opsDuoView" class="hidden flex-1 flex flex-col gap-3 min-h-0 overflow-y-auto no-scrollbar">
         <div class="tactical-feature-panel rounded-2xl p-3 space-y-3">
           <div class="flex items-center justify-between gap-2"><div><div class="text-[10px] tracking-[.2em] font-mono text-siege-cyan">DUO SYNERGY INTELLIGENCE</div><h3 class="text-sm font-black text-white">ترکیب دونفره‌ی تاکتیکی</h3></div><span id="duoStrengthBadge" class="tactical-pill">READY</span></div>
-          <div class="flex justify-end"><button type="button" onclick="exportCurrentCard()" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border border-siege-yellow/45 bg-siege-yellow/10 px-3 py-2 text-xs font-black text-siege-yellow transition hover:bg-siege-yellow hover:text-black active:scale-[.98]" title="ساخت پوستر از ترکیب دو اپراتور"><i class="fa-solid fa-camera-retro"></i><span>ساخت پوستر ترکیب دو اپراتور</span></button></div>
+          <div class="flex justify-end"></div>
           <div class="flex items-center justify-between gap-2">
             <div class="flex gap-1 bg-siege-dark p-1 rounded-lg border border-siege-border"><button onclick="setDuoSide('atk')" id="duoSideAtk" class="px-3 py-1.5 rounded text-xs font-bold bg-siege-cyan text-black">مهاجمان (ATK)</button><button onclick="setDuoSide('def')" id="duoSideDef" class="px-3 py-1.5 rounded text-xs font-bold text-slate-400">مدافعان (DEF)</button></div>
             <span id="duoTitle" class="font-tactical font-black text-[10px] sm:text-xs text-siege-yellow text-left">THE BREACH MASTERS</span>
@@ -1674,15 +1655,20 @@
       <div id="opsDuelView" class="hidden flex-1 flex flex-col gap-3 min-h-0 overflow-y-auto no-scrollbar">
         <div class="tactical-feature-panel rounded-2xl p-3 space-y-3">
           <div class="flex items-center justify-between gap-2"><div><div class="text-[10px] tracking-[.2em] font-mono text-siege-red">DUEL ARENA // 1V1</div><h3 class="text-sm font-black text-white">رقابت رو‌در‌رو</h3></div><span id="duelModeBadge" class="tactical-pill duel-pill">RANDOM SCENARIO</span></div>
-          <div class="flex justify-end"><button type="button" onclick="exportCurrentCard()" class="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg border border-siege-red/45 bg-siege-red/10 px-3 py-2 text-xs font-black text-red-200 transition hover:bg-siege-red hover:text-white active:scale-[.98]" title="ساخت پوستر از سناریوی دوئل"><i class="fa-solid fa-camera-retro"></i><span>ساخت پوستر دوئل</span></button></div>
+          <div class="flex justify-end"></div>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5" role="group" aria-label="حالت دوئل"><button type="button" data-duel-mode="pure" onclick="setDuelMode('pure')" class="duel-mode-btn active">🎯 گان‌پلی خالص</button><button type="button" data-duel-mode="gadget" onclick="setDuelMode('gadget')" class="duel-mode-btn">🧰 برتری گجت</button><button type="button" data-duel-mode="objective" onclick="setDuelMode('objective')" class="duel-mode-btn">📍 کنترل هدف</button><button type="button" data-duel-mode="random" onclick="setDuelMode('random')" class="duel-mode-btn">🎲 سناریوی تصادفی</button></div>
           <p id="duelModeDescription" class="rounded-lg border border-siege-border bg-siege-dark/60 px-3 py-2 text-[11px] leading-relaxed text-slate-300">گان‌پلی خالص: هر دو از سلاح‌های معمول خود استفاده می‌کنند؛ گجت تهاجمی برای آسیب‌زدن به حریف ممنوع.</p>
+          <label class="flex items-start gap-2 rounded-lg border border-siege-border bg-siege-dark/60 p-3 text-xs cursor-pointer">
+            <input id="duelSpecialRestrictionsToggle" type="checkbox" onchange="setDuelSpecialRestrictions(this.checked)" class="mt-0.5 accent-yellow-300">
+            <span class="flex-1"><strong class="block text-siege-yellow">محدودیت ویژه (اختیاری)</strong><span class="block text-slate-400 mt-1">اتچمنت و قانون چالش از دیتابیس «تجهیزات با محدودیت»؛ فقط در صورت فعال‌کردن اعمال می‌شود.</span></span>
+          </label>
+          <div id="duelSpecialRestrictionsPanel" class="hidden rounded-lg border border-siege-yellow/30 bg-siege-yellow/5 p-3 text-xs leading-relaxed text-slate-200" aria-live="polite">محدودیت ویژه در دوئل بعدی اعمال می‌شود.</div>
           <div class="grid grid-cols-[minmax(0,1fr)_36px_minmax(0,1fr)] gap-2 items-stretch">
             <article class="duel-operator-card duel-blue"><div class="duel-portrait"><img id="duelP1Img" src="" alt="اپراتور مهاجم" loading="lazy" onerror="this.style.opacity='1';this.style.filter='none';this.closest('.tactical-portrait,.duel-portrait')?.classList.add('portrait-load-failed')"></div><div class="text-[9px] font-mono text-siege-cyan mt-2">ATTACKER · PLAYER 01</div><strong id="duelP1Op" class="block text-sm font-tactical text-white mt-1">BUCK</strong><div class="duel-detail"><span>گجت اختصاصی</span><b id="duelP1Gadget">—</b></div><div class="duel-detail"><span>سلاح‌های انتخابی</span><b id="duelP1Loadout">—</b></div></article>
             <div class="duel-versus">VS</div>
             <article class="duel-operator-card duel-orange"><div class="duel-portrait"><img id="duelP2Img" src="" alt="اپراتور مدافع" loading="lazy" onerror="this.style.opacity='1';this.style.filter='none';this.closest('.tactical-portrait,.duel-portrait')?.classList.add('portrait-load-failed')"></div><div class="text-[9px] font-mono text-siege-orange mt-2">DEFENDER · PLAYER 02</div><strong id="duelP2Op" class="block text-sm font-tactical text-white mt-1">MUTE</strong><div class="duel-detail"><span>گجت اختصاصی</span><b id="duelP2Gadget">—</b></div><div class="duel-detail"><span>سلاح‌های انتخابی</span><b id="duelP2Loadout">—</b></div></article>
           </div>
-          <div class="rounded-xl border border-siege-border bg-siege-dark/80 p-3"><div class="text-[10px] font-bold text-siege-yellow mb-1">سناریو و شرط برد</div><p id="duelGlobalRule" class="text-xs text-slate-200 leading-relaxed">یک سناریو انتخاب کن تا هدف هر دو بازیکن مشخص شود.</p><div id="duelVerdict" class="text-xs text-slate-300 leading-relaxed border-t border-siege-border mt-3 pt-3">مهاجم و مدافع هدف‌های متفاوت دارند؛ برنده با اجرای هدف سناریو مشخص می‌شود.</div></div>
+          <div class="rounded-xl border border-siege-border bg-siege-dark/80 p-3"><div class="text-[10px] font-bold text-siege-yellow mb-1">سناریو و هدف هر بازیکن</div><p id="duelGlobalRule" class="text-xs text-slate-200 leading-relaxed">یک سناریو انتخاب کن تا هدف هر دو بازیکن مشخص شود.</p><div id="duelVerdict" class="text-xs text-slate-300 leading-relaxed border-t border-siege-border mt-3 pt-3">هدف مهاجم و مدافع جداگانه نمایش داده می‌شود؛ شرط برد از این تمرین حذف شده است.</div></div>
           <div class="flex gap-2"><button onclick="rollDuelMatch()" class="flex-1 py-3 rounded-xl bg-gradient-to-r from-siege-red to-siege-orange text-white font-tactical font-black text-xs flex items-center justify-center gap-2 active:scale-95 transition"><i class="fa-solid fa-bolt"></i><span>شروع دوئل جدید</span></button><button onclick="shareDuelMatch()" class="px-4 py-3 rounded-xl bg-siege-dark border border-siege-border text-slate-200 text-xs font-bold"><i class="fa-solid fa-share-nodes ml-1"></i>اشتراک</button><button onclick="confirmDuelXp()" id="duelConfirmXpBtn" disabled class="px-3 py-3 rounded-xl bg-siege-surface border border-siege-border text-slate-500 font-bold text-xs disabled:opacity-40" aria-label="ثبت دوئل و دریافت XP"><i class="fa-solid fa-check-double"></i></button></div>
         </div>
         <div class="tactical-feature-panel rounded-2xl p-3 space-y-3"><div class="flex items-center justify-between gap-2"><div><div class="text-[10px] tracking-[.2em] font-mono text-siege-yellow">CHAMPIONSHIP MODE</div><h3 class="text-sm font-black text-white">تورنمنت حذفی اپراتورها</h3></div><i class="fa-solid fa-trophy text-siege-yellow text-lg"></i></div><p class="text-[10px] text-slate-400">برنده‌ی هر مسابقه را انتخاب کن تا مرحله‌ی بعدی ساخته شود؛ تورنمنت صرفاً برای سرگرمی است.</p><div class="flex gap-2 items-center"><select id="duelTournamentSize" class="flex-1 rounded-lg bg-siege-dark border border-siege-border text-white text-xs p-2.5"><option value="8">۸ اپراتور</option><option value="16">۱۶ اپراتور</option></select><button onclick="startDuelTournament()" class="px-4 py-2.5 rounded-lg bg-siege-yellow text-black text-xs font-black">شروع تورنمنت</button><button onclick="shareDuelTournament()" id="duelTournamentShare" class="px-3 py-2.5 rounded-lg bg-siege-dark border border-siege-border text-slate-300 text-xs" disabled aria-label="اشتراک نتیجه تورنمنت"><i class="fa-solid fa-share-nodes"></i></button></div><div id="duelTournamentBoard" class="space-y-3"><div class="text-xs text-slate-500 text-center py-3">تورنمنت هنوز شروع نشده است.</div></div></div>
@@ -1744,9 +1730,7 @@
   </main>
 
   <!-- Global poster generator: follows the currently active hub/sub-tab -->
-  <button id="globalPosterButton" type="button" onclick="exportCurrentCard()" title="ساخت پوستر از تب فعلی" aria-label="ساخت پوستر از محتوای تب فعلی" class="group flex items-center gap-2 rounded-full border border-siege-yellow/70 bg-siege-dark/95 backdrop-blur-md px-4 py-3 text-xs font-black text-white shadow-xl shadow-black/40 hover:border-siege-cyan hover:text-siege-cyan active:scale-95 transition">
-    <i class="fa-solid fa-wand-magic-sparkles text-siege-yellow group-hover:text-siege-cyan text-sm"></i><span>ساخت پوستر</span>
-  </button>
+  
 
   <!-- ================= MOBILE BOTTOM NAVIGATION BAR (4 BENTO HUBS) ================= -->
   <nav class="sm:hidden bg-siege-dark/95 backdrop-blur-md border-t border-siege-border px-2 py-1.5 flex items-center justify-around z-40 shrink-0" style="padding-bottom: calc(6px + var(--safe-bottom));">
@@ -2239,18 +2223,10 @@
     ];
 
     /* 4. CURSED, MAPS, DUO, 1V1 & 55 SECRET STRATS DATABASES */
-    const CURSED_SCOPES = ['Iron Sight (مگسک آهنی)', 'Magnified A (زوم بالا)', 'Holo A', 'Red Dot C', 'Reflex B'];
-    const CURSED_MUZZLES = ['Suppressor (صداخفه‌کن)', 'Extended Barrel', 'بدون سرلوله (No Muzzle)', 'Flash Hider'];
-    const CURSED_GRIPS = ['بدون دستگیره (No Grip)', 'Angled Grip', 'Horizontal Grip', 'Vertical Grip'];
-    const CURSED_RULES = [
-      'فقط شلیک از لگن (Hip-fire Only) در کل راند!',
-      'فقط حرکت در حالت نشسته (Crouch Only)!',
-      'استفاده از سلاح اصلی ممنوع، فقط پیستول و گجت!',
-      'بعد از هر ۵ تیر باید خشاب عوض کنی (Reload)!',
-      'تنظیم کردن اسلحه روی حالت تک‌تیر!',
-      'حق استفاده از درون یا دوربین را نداری!',
-      'باید اولین نفر وارد ساختمان شوی یا بیرون بپری!'
-    ];
+    const CURSED_SCOPES = ['Iron Sight (مگسک آهنی)', 'Holo A', 'Holo B', 'Red Dot A', 'Red Dot C', 'Reflex A', 'Reflex B', 'Reflex C', 'Magnified A (زوم بالا)', 'بدون اسکوپ (Iron Sight)', 'اسکوپ 1x انتخابی', 'بدون تغییر اسکوپ'];
+    const CURSED_MUZZLES = ['Suppressor (صداخفه‌کن)', 'Extended Barrel', 'بدون سرلوله (No Muzzle)', 'Flash Hider', 'Compensator', 'Muzzle Brake', 'صداخفه‌کن اجباری', 'بدون سرلوله برای کل راند', 'سرلوله را مطابق کنترل لگد انتخاب کن'];
+    const CURSED_GRIPS = ['بدون دستگیره (No Grip)', 'Angled Grip', 'Vertical Grip', 'Horizontal Grip', 'دستگیره عمودی اجباری', 'بدون گریپ برای کل راند', 'گریپ را در اولین فرصت عوض کن', 'فقط گریپ پیش‌فرض'];
+    const CURSED_RULES = ['فقط شلیک از لگن (Hip-fire Only) در کل راند!','فقط حرکت در حالت نشسته (Crouch Only)!','استفاده از سلاح اصلی ممنوع، فقط پیستول و گجت!','بعد از هر ۵ تیر باید خشاب عوض کنی (Reload)!','تنظیم کردن اسلحه روی حالت تک‌تیر!','حق استفاده از درون یا دوربین را نداری!','باید اولین نفر وارد ساختمان شوی یا بیرون بپری!','تا اولین برخورد با دشمن حق دویدن نداری.','بعد از هر بار شلیک، قبل از شلیک بعدی زاویه را عوض کن.','در هر درگیری فقط یک خشاب مجاز است؛ ریلود فقط پشت کاور.','اولین گجت را قبل از ورود به سایت استفاده کن.','درون را برای اطلاعات نگه دار؛ برای تعقیب بی‌هدف استفاده نکن.','در هر اتاق فقط از یک ورودی استفاده کن و همان ورودی را کال بده.','تا وقتی هم‌تیمی کال نداده، از پیک طولانی خودداری کن.','بعد از هر کیل یا از دست دادن هم‌تیمی، موقعیت را عوض کن.','فقط شلیک‌های کوتاه؛ اسپری طولانی ممنوع.','در اولین تماس با دشمن، یک بار عقب‌نشینی تاکتیکی و سپس ری‌پیک کن.','در هر درگیری از یک گجت یا ابزار اطلاعاتی استفاده کن، اگر در دسترس است.','از یک مسیر تکراری دوبار وارد نشو.','در نیمه‌ی اول راند فقط اطلاعات جمع کن؛ در نیمه‌ی دوم فشار بیاور.','تا وقتی سایت مشخص نشده، گجت‌های قابل‌جای‌گذاری را هدر نده.','در هر چرخش، مسیر خروج و کاور بعدی را از قبل مشخص کن.','فقط از کاور به کاور حرکت کن؛ عبور از فضای باز را محدود کن.','بعد از استفاده از گجت، محل خودت را تغییر بده.','برای هر پیک یک هدف مشخص داشته باش؛ پیک بی‌هدف ممنوع.','یک بار در راند مسیر عمودی را بررسی کن، اگر نقشه اجازه می‌دهد.','تا پیش از مشخص شدن موقعیت حریف، از ریلود غیرضروری خودداری کن.','در شروع راند یک مسیر جایگزین انتخاب کن و به آن پایبند بمان.','در صورت از دست رفتن اطلاعات، دوباره درون/دوربین بفرست؛ تنها وارد نشو.','گجت‌های محدود را برای لحظه‌ی ارزشمند نگه دار؛ استفاده‌ی عجولانه ممنوع.'];
 
     const MAP_DATABASE = [
       {
@@ -2710,6 +2686,26 @@
       { side: 'def', category: 'control', title: 'DEF | DENIAL LAYER 56', op1: 'Sentry', role1: 'Dual Defensive Rig', op2: 'Vigil', role2: 'ERC-7 Disruptor', plan: 'پیش از راند، محل استفاده از Dual Defensive Rig و ERC-7 Disruptor را مشخص کنید. با هم‌پوشانی کنترل و حفظ مسیر چرخش، مهاجمان را مجبور کنید زمان بیشتری برای ورود صرف کنند.' },
       { side: 'def', category: 'breach', title: 'DEF | BREACH WINDOW 57', op1: 'Sentry', role1: 'Dual Defensive Rig', op2: 'Maestro', role2: 'Evil Eye Laser', plan: 'هماهنگی Dual Defensive Rig و Evil Eye Laser: یکی از اپراتورها ناحیه‌ی دفاعی را آماده می‌کند و دیگری مسیر ورود یا فشار مهاجمان را کنترل می‌کند. جای‌گذاری را با چیدمان سایت هماهنگ کنید و راه خروج هم‌تیمی را نبندید.' }
     ];
+    const DUO_EXPANSION_PAIRS = [
+      ['atk','Ace','IQ'],['atk','Hibana','Twitch'],['atk','Maverick','Zero'],['atk','Brava','Flores'],['atk','Grim','Ying'],['atk','Sens','Nomad'],['atk','Osa','Capitão'],['atk','Lion','Jackal'],['atk','Nøkk','Iana'],['atk','Kali','Glaz'],['atk','Amaru','Buck'],['atk','Zofia','Finka'],['atk','Ram','Gridlock'],['atk','Rauora','Montagne'],['atk','Solid Snake','Deimos'],['atk','Thermite','Brava'],['atk','Thatcher','Zero'],['atk','Ash','Flores'],['atk','Fuze','Ying'],['atk','Twitch','Brava'],['atk','Jackal','Nomad'],['atk','Dokkaebi','Lion'],['atk','Sledge','Maverick'],['atk','Blackbeard','Sens'],['atk','Capitão','Gridlock'],
+      ['def','Tubarão','Bandit'],['def','Kaid','Mute'],['def','Wamai','Jäger'],['def','Solis','Pulse'],['def','Azami','Aruni'],['def','Castle','Goyo'],['def','Rook','Doc'],['def','Valkyrie','Mozzie'],['def','Echo','Maestro'],['def','Lesion','Melusi'],['def','Fenrir','Smoke'],['def','Thorn','Kapkan'],['def','Frost','Ela'],['def','Vigil','Oryx'],['def','Clash','Warden'],['def','Mira','Castle'],['def','Sentry','Tachanka'],['def','Skópos','Tubarão'],['def','Thunderbird','Rook'],['def','Denari','Aruni'],['def','Noor','Vigil'],['def','Alibi','Pulse'],['def','Caveira','Lesion'],['def','Jäger','Kaid'],['def','Mute','Mozzie']
+    ];
+    const DUO_PLAN_VARIANTS = {
+      breach:[(a,b)=>`${a.name} مسیر اصلی را آماده می‌کند؛ ${b.name} زاویه و مسیر جایگزین را پوشش می‌دهد. پس از ایجاد فرصت، هم‌زمان فشار بیاورید.`,(a,b)=>`ابتدا ${a.name} فشار اولیه را ایجاد کند؛ ${b.name} ابزار ${b.gadget} را برای لحظه‌ی ورود نگه دارد. مصرف ابزارها را با کال هماهنگ کنید.`,(a,b)=>`یک نفر مسیر امن را بررسی کند و نفر دوم با ${b.gadget} از ورود پشتیبانی کند. پشت سر هم وارد یک خط آتش نشوید.`],
+      intel:[(a,b)=>`${a.name} با ${a.gadget} اطلاعات جمع کند؛ ${b.name} از اطلاعات برای فشار از زاویه‌ی دوم استفاده کند. پس از لو رفتن موقعیت جابه‌جا شوید.`,(a,b)=>`نقش‌ها را تقسیم کنید: ${a.name} مسئول اطلاعات، ${b.name} مسئول تبدیل اطلاعات به فشار. بدون پوشش هدف را طولانی تعقیب نکنید.`,(a,b)=>`ابتدا ابزار ${a.gadget} را برای اطلاعات به کار ببرید؛ سپس ${b.name} مسیر چرخش را ببندد. با اطلاعات ناقص وارد درگیری کور نشوید.`],
+      control:[(a,b)=>`${a.name} با ${a.gadget} فضای کلیدی را کنترل کند و ${b.name} مسیر چرخش را پوشش دهد. ابزارها را در دو نقطه‌ی مکمل پخش کنید.`,(a,b)=>`یک محدوده‌ی قابل دفاع انتخاب کنید؛ ${a.name} نقطه‌ی اصلی را آماده کند و ${b.name} ورودی دوم را زیر نظر بگیرد. مسیر خروج هم‌تیمی را نبندید.`,(a,b)=>`${a.name} فشار اولیه را جذب یا منحرف کند و ${b.name} از ${b.gadget} برای کنترل تکمیلی استفاده کند. پس از هر تماس موقعیت را بازبینی کنید.`]
+    };
+    const duoExistingPairs = new Set(DUO_COMBOS.map(c=>[c.side,c.op1.toLowerCase(),c.op2.toLowerCase()].join('|')));
+    DUO_EXPANSION_PAIRS.forEach(([side,n1,n2],index)=>{
+      const a=OPERATORS.find(o=>o.name.toLowerCase()===n1.toLowerCase()&&o.side===side), b=OPERATORS.find(o=>o.name.toLowerCase()===n2.toLowerCase()&&o.side===side);
+      if(!a||!b)return;
+      const key=[side,a.name.toLowerCase(),b.name.toLowerCase()].join('|'), reverse=[side,b.name.toLowerCase(),a.name.toLowerCase()].join('|');
+      if(duoExistingPairs.has(key)||duoExistingPairs.has(reverse))return;
+      const category=['breach','intel','control'][index%3];
+      DUO_COMBOS.push({side,category,title:`${side==='atk'?'ATK':'DEF'} | FIELD SYNERGY ${String(index+1).padStart(2,'0')} — ${a.name.toUpperCase()} + ${b.name.toUpperCase()}`,op1:a.name,role1:a.gadget||'ابزار تاکتیکی اختصاصی',op2:b.name,role2:b.gadget||'ابزار تاکتیکی اختصاصی',plan:DUO_PLAN_VARIANTS[category][index%3](a,b)});
+      duoExistingPairs.add(key);
+    });
+
 
     const STRAT_CHALLENGES = [
       { id: 1, side: 'atk', diff: 'HARDCORE', title: 'راش ۳۰ ثانیه‌ای (Blitzkrieg Protocol)', desc: 'تمام مهاجمان موظفند در ۳۰ ثانیه اول راند داخل اتاق بمب باشند! ایستادن بیرون ساختمان ممنوع است.' },
@@ -3613,13 +3609,53 @@
       const btn=document.getElementById('duoConfirmXpBtn');btn.disabled=true;btn.className='px-3 py-3 rounded-xl bg-siege-surface border border-siege-border text-slate-500 text-xs opacity-50';
       showToast('ترکیب ثبت شد؛ ۲۰ XP دریافت کردی!');playTone(840,'sine',.1);
     }
-    const DUEL_MODE_LABELS={pure:'GUNSKILL',gadget:'GADGET DUEL',objective:'OBJECTIVE',random:'RANDOM CHALLENGE'};
+
+    const DUEL_MODE_LABELS={pure:'GUNSKILL',gadget:'GADGET DUEL',objective:'OBJECTIVE',random:'RANDOM SCENARIO'};
     const DUEL_MODE_DESCRIPTIONS={
-      pure:'گان‌پلی خالص: هر دو از سلاح‌های معمول خود استفاده می‌کنند؛ گجت برای آسیب‌زدن مستقیم به حریف استفاده نشود.',
-      gadget:'دوئل گجت: قابلیت اصلی هر اپراتور محور رقابت است. از گجت‌ها برای گرفتن اطلاعات، بستن مسیر یا ایجاد فرصت استفاده کنید؛ کیل همچنان با سلاح انجام می‌شود.',
-      objective:'کنترل هدف: مهاجم باید به هدف/سایت برسد و در صورت تنظیم Custom Game دیفیوزر را اجرا کند؛ مدافع باید مسیر را نگه دارد و مانع اجرای هدف شود.',
-      random:'چالش تصادفی: یک چالش واقعی از دیتابیس چالش‌های تاکتیکی انتخاب می‌شود. همان متن چالش، قانون این راند است؛ اگر برای 1v1 مناسب نبود، دوباره رول کنید.'
+      pure:'گان‌پلی خالص: تمرکز روی پیک، کاور، کنترل لگد و جابه‌جایی؛ گجت فقط برای اطلاعات یا آماده‌سازی.',
+      gadget:'دوئل گجت: از ابزار اختصاصی برای اطلاعات، کنترل فضا یا ایجاد فرصت استفاده کنید؛ هر نقش هدف جدا دارد.',
+      objective:'کنترل هدف: تمرین نامتقارن مهاجم/مدافع روی سایت، ورودی‌ها، مسیر چرخش و مدیریت فضا.',
+      random:'سناریوی تصادفی: یک سناریوی اختصاصی 1v1 با وظایف جداگانه‌ی مهاجم و مدافع؛ بدون شرط برد از پیش تعیین‌شده.'
     };
+    const DUEL_SCENARIOS = [
+      {id:'angle',modes:['pure'],title:'زاویه‌ی ثابت در برابر چرخش',setup:'یک اتاق و دو مسیر ورود انتخاب کنید.',atk:'از مسیر دوم زاویه بگیر و مدافع را مجبور به تغییر موقعیت کن.',def:'زاویه‌ی اصلی را نگه دار؛ پس از لو رفتن موقعیت، به کاور بعدی بچرخ.'},
+      {id:'ammo',modes:['pure'],title:'مدیریت خشاب',setup:'هر دو از سلاح اصلی معمول استفاده کنند.',atk:'با شلیک‌های کنترل‌شده فشار بیاور و زمان ریلود حریف را بخوان.',def:'از پیک طولانی خودداری کن و بعد از تبادل آتش موقعیتت را عوض کن.'},
+      {id:'cover',modes:['pure'],title:'کاور و زاویه‌ی متقاطع',setup:'دو نقطه‌ی کاور نزدیک به هم تعیین کنید.',atk:'بین کاورها حرکت کن و از زاویه‌ی تکراری دوباره پیک نده.',def:'خط دید را مدیریت کن و مسیر خروج از کاور را از قبل در نظر بگیر.'},
+      {id:'sound',modes:['pure'],title:'ردیابی با صدا',setup:'در محدوده‌ای با چند مسیر نزدیک بازی کنید.',atk:'صدای فیک ایجاد کن و از مسیر دیگر جابه‌جا شو.',def:'به صدای قدم و ریلود توجه کن؛ بدون اطلاعات قطعی پیک نده.'},
+      {id:'peek',modes:['pure'],title:'پیک کوتاه',setup:'یک راهرو با کاور دوطرفه انتخاب کنید.',atk:'پیک کوتاه بزن و پس از هر تماس زاویه را تغییر بده.',def:'از نگه‌داشتن زاویه‌ی طولانی پرهیز کن و زمان پیک را تغییر بده.'},
+      {id:'vertical',modes:['pure'],title:'کنترل عمودی',setup:'اگر نقشه اجازه می‌دهد، دو طبقه‌ی مرتبط انتخاب کنید.',atk:'از مسیر عمودی برای ایجاد فشار و تغییر زاویه استفاده کن.',def:'صدای حرکت بالا/پایین را بررسی و مسیر چرخش را حفظ کن.'},
+      {id:'utility',modes:['gadget'],title:'گجت در زمان درست',setup:'هر بازیکن استفاده‌ی هدفمند از ابزار خود را برنامه‌ریزی کند.',atk:'گجت را برای اطلاعات یا ساخت فرصت ورود نگه دار.',def:'ابزار را برای قطع مسیر یا آشکارکردن حرکت مهاجم زمان‌بندی کن.'},
+      {id:'intel',modes:['gadget'],title:'اطلاعات در برابر ضد‌اطلاعات',setup:'یک نقطه‌ی کلیدی و مسیر فرعی انتخاب کنید.',atk:'با ابزار اطلاعاتی موقعیت مدافع را مشخص و سپس مسیر را عوض کن.',def:'اطلاعات مهاجم را مختل کن و پس از استفاده از ابزار جابه‌جا شو.'},
+      {id:'trap',modes:['gadget'],title:'شناسایی و دورزدن تله',setup:'مدافع از تله یا ابزار کنترل موجود در لوداوت استفاده کند.',atk:'ورودی‌ها را بررسی و برای عبور امن مسیر جایگزین پیدا کن.',def:'ابزار را روی مسیر پرتردد قرار بده و راه‌های جایگزین را زیر نظر بگیر.'},
+      {id:'deny',modes:['gadget'],title:'پنجره‌ی انکار',setup:'یک ورودی و یک مسیر چرخش مشخص کنید.',atk:'در زمان مناسب از گجت برای ایجاد پنجره‌ی ورود استفاده کن.',def:'زمان استفاده از ابزار را بخوان و مسیر ورود یا چرخش را محدود کن.'},
+      {id:'drone',modes:['gadget'],title:'اطلاعات قبل از درگیری',setup:'در صورت داشتن درون/دوربین، یک بار برای اطلاعات استفاده شود.',atk:'اطلاعات جمع کن و بعد از تغییر موقعیت مدافع نزدیک شو.',def:'حرکت مهاجم را رصد کن؛ پس از اسپات شدن موقعیتت را عوض کن.'},
+      {id:'bait',modes:['gadget'],title:'فریب گجت',setup:'هر دو ابزار قابل‌استفاده‌ی خود را پیش از شروع مشخص کنند.',atk:'حرکت فریبنده ایجاد کن تا مدافع ابزارش را زود مصرف کند.',def:'برای صدای فیک یا حرکت مشکوک، ابزار کلیدی را بی‌دلیل مصرف نکن.'},
+      {id:'site',modes:['objective'],title:'ورود به سایت',setup:'یک سایت و دو ورودی در Custom Game انتخاب کنید.',atk:'یک ورودی اصلی و مسیر جایگزین را بررسی و ورود امن را اجرا کن.',def:'ورودی اصلی را کنترل کن و برای مسیر جایگزین هم پوشش داشته باش.'},
+      {id:'plant',modes:['objective'],title:'پنجره‌ی پلنت',setup:'در صورت فعال بودن Bomb، محل دیفیوزر را مشخص کنید؛ در غیر این صورت نقطه‌ی هدف را تعیین کنید.',atk:'فضای کافی برای رسیدن به هدف ایجاد و مسیر برگشت را حفظ کن.',def:'مسیر دسترسی به هدف را زیر نظر بگیر و زاویه‌ی جایگزین بساز.'},
+      {id:'rotate',modes:['objective'],title:'کنترل مسیر چرخش',setup:'سایت و یک مسیر چرخش بین دو اتاق انتخاب کنید.',atk:'با فشار اولیه مدافع را مجبور به چرخش کن و از مسیر دوم نزدیک شو.',def:'مسیر چرخش را حفظ کن و نشانه‌های ورود از سمت دیگر را بررسی کن.'},
+      {id:'anchor',modes:['objective'],title:'نگه‌داری نقطه‌ی هدف',setup:'یک اتاق هدف و محدوده‌ی مجاور آن را تعیین کنید.',atk:'با پاک‌سازی مرحله‌ای نزدیک شو؛ از ورود کور خودداری کن.',def:'نقطه‌ی هدف را با کاور نگه دار و راه عقب‌نشینی امن داشته باش.'},
+      {id:'soft',modes:['objective'],title:'مسیر نرم',setup:'یک دیوار یا کف قابل تخریب نزدیک سایت انتخاب کنید.',atk:'از تخریب محیط برای ایجاد زاویه‌ی جدید استفاده کن.',def:'زاویه‌ی جدید را بررسی و پس از تخریب موقعیتت را عوض کن.'},
+      {id:'late',modes:['objective'],title:'چرخش دیرهنگام',setup:'دو مسیر به سایت مشخص کنید.',atk:'مسیر اول را تهدید کن و در زمان مناسب از مسیر دوم برو.',def:'به صدا و اطلاعات توجه کن و بدون رها کردن کامل هدف چرخش را پوشش بده.'},
+      {id:'door',modes:['objective'],title:'کنترل درگاه',setup:'یک درگاه و کاور نزدیک آن انتخاب کنید.',atk:'با استفاده از کاور، درگاه را مرحله‌به‌مرحله پاک‌سازی کن.',def:'درگاه را مستقیم و طولانی پیک نده؛ از کاور و زاویه‌ی مکمل استفاده کن.'},
+      {id:'utility-clear',modes:['gadget','objective'],title:'پاک‌سازی ابزار',setup:'یک گجت قابل تخریب یا قابل دور زدن در مسیر فرض کنید.',atk:'مسیر را بررسی و ابزار مدافع را با احتیاط خنثی یا دور بزن.',def:'ابزار را در مسیر معنادار قرار بده و مراقب زاویه‌ی دوم باش.'},
+      {id:'no-repeat',modes:['pure','objective'],title:'مسیر غیرقابل‌پیش‌بینی',setup:'دو مسیر ورود با فاصله‌ی کوتاه تعیین کنید.',atk:'پس از تماس اول مسیر را عوض کن و همان پیک را تکرار نکن.',def:'به الگوی حرکت توجه کن و زاویه‌ی دوم را برای مسیر جایگزین نگه دار.'},
+      {id:'cover-chain',modes:['pure','objective'],title:'زنجیره‌ی کاور',setup:'سه کاور پشت سر هم انتخاب کنید.',atk:'بین کاورها حرکت کن و هر بار فقط یک بخش را پاک‌سازی کن.',def:'مسیر بعدی را کنترل کن و از دنبال کردن مستقیم در فضای باز بپرهیز.'},
+      {id:'fake-rotate',modes:['gadget','objective'],title:'چرخش فریبنده',setup:'یک مسیر اصلی و یک مسیر جایگزین تعیین کنید.',atk:'با صدا یا ابزار توجه را جلب کن و از مسیر جایگزین برو.',def:'با اولین نشانه‌ی صدا سایت را ترک نکن؛ مسیر واقعی را با اطلاعات تأیید کن.'},
+      {id:'timing',modes:['pure','gadget'],title:'زمان‌بندی ورود',setup:'هر دو نفر پیش از شروع، زمان‌بندی حرکت را توافق کنند.',atk:'حرکت را با تغییر صدا یا استفاده از گجت هماهنگ کن.',def:'حرکت مهاجم را بخوان و هنگام استفاده از گجت، زاویه‌ی امن را حفظ کن.'},
+      {id:'reset',modes:['pure','gadget'],title:'ریست زاویه',setup:'پس از اولین تبادل آتش، هر دو از خط دید خارج شوند.',atk:'پس از تغییر موقعیت از زاویه‌ی متفاوت نزدیک شو.',def:'برای ری‌پیک فوری عجله نکن؛ مسیر جایگزین را بررسی کن.'},
+      {id:'map',modes:['objective','pure'],title:'دانش نقشه',setup:'از یک نقطه‌ی آشنا با حداقل دو مسیر استفاده کنید.',atk:'از مسیر کمتر قابل‌پیش‌بینی نزدیک شو.',def:'مسیرهای رایج را پوشش بده و بدون اطلاعات، کاور را حفظ کن.'},
+      {id:'economy',modes:['gadget'],title:'اقتصاد گجت',setup:'از مصرف غیرضروری ابزار خودداری کنید.',atk:'ابزار را فقط وقتی مصرف کن که مسیر یا اطلاعاتی به دست می‌آید.',def:'مهاجم را وادار به مصرف ابزار کن و قابلیت خود را نگه دار.'},
+      {id:'cross-room',modes:['objective','gadget'],title:'فشار بین دو اتاق',setup:'دو اتاق متصل و یک مسیر چرخش انتخاب کنید.',atk:'از اتاق اول فشار ایجاد کن و از ارتباط بین اتاق‌ها بهره ببر.',def:'مسیر اتصال را کنترل کن و از گیر افتادن در یک زاویه جلوگیری کن.'}
+    ];
+    let duelScenarioHistory=[];
+    let currentDuelSpecialRestriction=null;
+    function pickDuelScenario(mode) {
+      const pool=DUEL_SCENARIOS.filter(s=>mode==='random'||s.modes.includes(mode));
+      const fresh=pool.filter(s=>!duelScenarioHistory.includes(s.id));
+      const chosen=getRandomItem(fresh.length?fresh:pool);
+      if(chosen){duelScenarioHistory.push(chosen.id);if(duelScenarioHistory.length>8)duelScenarioHistory.shift();}
+      return chosen;
+    }
     function setDuelMode(mode) {
       if(!DUEL_MODE_LABELS[mode])return;
       currentDuelMode=mode;
@@ -3628,15 +3664,21 @@
       const description=document.getElementById('duelModeDescription');if(description)description.textContent=DUEL_MODE_DESCRIPTIONS[mode];
       if(currentDuelMatch)rollDuelMatch();
     }
-    function duelRulesForMode(p1,p2,mode) {
-      if(mode==='pure')return {global:'گان‌پلی خالص\nهر دو بازیکن با سلاح اصلی یا کمری خود بازی می‌کنند. گجت‌های اطلاعاتی/دفاعی برای آماده‌سازی مجازند؛ استفاده از گجت برای گرفتن کیل ممنوع.\nشرط برد: حذف حریف در Custom Game.',verdict:'بدون محدودیت ساختگی برای حرکت یا سرعت؛ مهارت نشانه‌گیری و استفاده از کاور تعیین‌کننده است.'};
-      if(mode==='gadget')return {global:'دوئل گجت\nمهاجم از گجت اختصاصی خود برای بازکردن مسیر یا جمع‌آوری اطلاعات استفاده می‌کند؛ مدافع از گجت خود برای بستن مسیر، منحرف‌کردن یا گرفتن اطلاعات استفاده می‌کند. سلاح‌ها آزادند.\nشرط برد: حذف حریف؛ گجت باید روی تصمیم‌گیری اثر بگذارد، نه اینکه قانون ساختگی اضافه کند.',verdict:'قبل از شروع، هر دو نفر گجت اپراتورشان را بشناسند و Custom Game را طوری تنظیم کنند که هر دو بتوانند درگیری منصفانه داشته باشند.'};
-      if(mode==='objective')return {global:'کنترل هدف\nدر Custom Game یک سایت مشخص کنید. مهاجم مسیر ورود و رسیدن به سایت را اجرا می‌کند؛ مدافع سایت و مسیرهای ورودی را نگه می‌دارد. اگر حالت بمب و دیفیوزر فعال است، هدف مهاجم پلنت و هدف مدافع جلوگیری از پلنت/خنثی‌سازی است.\nشرط برد: اجرای هدف یا حذف حریف طبق قوانین همان مود.',verdict:'این حالت یک رقابت نامتقارن است: مهاجم باید فضا بسازد؛ مدافع باید مسیر و زمان را مدیریت کند.'};
-      const pool=STRAT_CHALLENGES.filter(c=>c.side==='all'||c.side==='atk'||c.side==='def');
-      const challenge=getRandomItem(pool);
-      return {challenge,global:'چالش تاکتیکی تصادفی: '+challenge.title+'**\n'+challenge.desc+'\n\n**قانون اجرا:** این متن، قانون اصلی راند است. چون چالش‌ها برای حالت‌های مختلف طراحی شده‌اند، اگر با دوئل 1v1 یا تنظیمات Custom Game شما جور نبود، «شروع دوئل جدید» را دوباره بزنید.',verdict:'منبع: دیتابیس چالش‌های تاکتیکی همین برنامه؛ چالش تازه و جداگانه‌ای ساخته نشده است.'};
+    function buildOptionalDuelRestriction() {
+      return {scope:getRandomItem(CURSED_SCOPES),muzzle:getRandomItem(CURSED_MUZZLES),grip:getRandomItem(CURSED_GRIPS),laser:Math.random()>.5?'Laser On':'بدون لیزر',rule:getRandomItem(CURSED_RULES)};
     }
-    // Pure pairing contract: Duel Arena must always draw one attacker and one defender.
+    function setDuelSpecialRestrictions(enabled) {
+      const panel=document.getElementById('duelSpecialRestrictionsPanel');
+      if(panel){panel.classList.toggle('hidden',!enabled);panel.textContent=enabled?'محدودیت‌های انتخاب‌شده در دوئل بعدی اعمال می‌شوند: اسکوپ، سرلوله، گریپ، لیزر و قانون ویژه.':'محدودیت ویژه غیرفعال است.';}
+      currentDuelSpecialRestriction=null;
+      if(enabled)showToast('محدودیت ویژه برای دوئل بعدی فعال شد.');
+    }
+    function duelRulesForMode(p1,p2,mode) {
+      const scenario=pickDuelScenario(mode);
+      if(!scenario)return {scenario:null,global:'سناریوی مناسبی پیدا نشد؛ دوباره تلاش کن.',verdict:'مهاجم و مدافع هدف‌های جداگانه دارند.'};
+      return {scenario,global:'سناریو: '+scenario.title+'\n\nآماده‌سازی: '+scenario.setup,verdict:'هدف مهاجم: '+scenario.atk+'\n\nهدف مدافع: '+scenario.def};
+    }
+        // Pure pairing contract: Duel Arena must always draw one attacker and one defender.
     // Kept separate so the faction invariant can be tested without touching UI state.
     function pickDuelPair(operators, bannedIds, randomItem = getRandomItem) {
       const banned = new Set(bannedIds);
@@ -3652,6 +3694,9 @@
       if (!pair) { endRandomize('duel'); showToast('برای دوئل به حداقل یک اپراتور آزاد از هر دو سمت حمله و دفاع نیاز است.'); return; }
       const { p1, p2 } = pair;
       const rules=duelRulesForMode(p1,p2,currentDuelMode);
+      currentDuelSpecialRestriction=document.getElementById('duelSpecialRestrictionsToggle')?.checked?buildOptionalDuelRestriction():null;
+      if(currentDuelSpecialRestriction){const r=currentDuelSpecialRestriction;const extra='\n\nمحدودیت ویژه (اختیاری): اسکوپ: '+r.scope+' | سرلوله: '+r.muzzle+' | گریپ: '+r.grip+' | لیزر: '+r.laser+'\nقانون اجرا: '+r.rule;rules.global+=extra;rules.verdict+='\n\nاین محدودیت‌ها فقط با فعال‌سازی گزینه‌ی اختیاری اضافه شده‌اند.';const panel=document.getElementById('duelSpecialRestrictionsPanel');if(panel)panel.textContent=extra.trim();}
+      else {const panel=document.getElementById('duelSpecialRestrictionsPanel');if(panel)panel.textContent='محدودیت ویژه غیرفعال است؛ سناریو بدون محدودیت اضافه اجرا می‌شود.';}
       currentDuelMatch={p1,p2,rules,mode:currentDuelMode};
       document.getElementById('duelP1Op').innerText=p1.name.toUpperCase();
       document.getElementById('duelP2Op').innerText=p2.name.toUpperCase();
