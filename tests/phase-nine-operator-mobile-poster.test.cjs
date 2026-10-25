@@ -6,7 +6,7 @@ const sw = fs.readFileSync('sw.js', 'utf8');
 const changelog = fs.readFileSync('CHANGELOG.md', 'utf8');
 
 test('app and service worker versions are aligned', () => {
-  assert.match(html, /app-version" content="1\[1\.28\.0\].28\\.0"/);
+  assert.match(html, /app-version" content="1\\.28\\.0"/);
   assert.match(sw, /r6-cache-v42/);
   assert.match(changelog, /\[1\.23\.0\]/);
 });
@@ -32,15 +32,14 @@ test('each major tab offers a context-aware poster action', () => {
   assert.match(html, /if \\(currentHub === 'operators'\\)/);
 });
 
-test('poster generation finishes before actions and supports PNG blob export', () => {
+test('poster export opens a preview during the click and offers an explicit download link', () => {
   assert.match(html, /posterExportReady = true/);
-  assert.match(html, /async function downloadDossierImage\(\)/);
-  assert.match(html, /canvasToBlob\(canvas\)/);
+  assert.match(html, /function downloadDossierImage\(\)/);
   assert.match(html, /window\.open\('about:blank', '_blank'\)/);
-  assert.match(html, /blob\.size < 100/);
-  assert.match(html, /Save Image \/ Download Image/);
-  assert.match(html, /setTimeout\(\(\) => URL\.revokeObjectURL\(objectUrl\), 120000\)/);
-  assert.match(html, /URL\.createObjectURL\(blob\)|URL\.createObjectURL\(objectUrl\)/);
+  assert.match(html, /canvasToBlob\(canvas\)\.then/);
+  assert.match(html, /link\.download = filename/);
+  assert.match(html, /دانلود پوستر PNG/);
+  assert.match(html, /canvas\.toDataURL\('image\/png'\)/);
   assert.match(html, /async function shareDossierNative\(\)/);
   assert.match(html, /navigator\.canShare\(\{ files: \[file\] \}\)/);
   assert.match(html, /navigator\.clipboard\?\.writeText/);
