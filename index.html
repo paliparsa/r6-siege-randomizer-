@@ -3227,7 +3227,6 @@
       if (!beginRandomize('hq', ['hqRollBtn'], [], 650)) return;
       if (currentHqMode === 'squad') {
         rollFullSquad();
-        endRandomize('hq');
         return;
       }
 
@@ -3497,7 +3496,6 @@
       revealResult(document.getElementById('stratCard3D'));
       triggerHaptic(15);
       playTone(640, 'triangle', 0.07);
-      endRandomize('strat');
     }
 
     function completeCurrentStrat() {
@@ -3595,7 +3593,6 @@
       const btn=document.getElementById('duoConfirmXpBtn');btn.disabled=false;
       btn.className='px-3 py-3 rounded-xl bg-siege-cyan/20 border border-siege-cyan text-siege-cyan font-bold text-xs';
       playTone(610,'sine',.07);
-      endRandomize('duo');
     }
     async function shareTextPayload(title,textValue) {
       try {
@@ -3673,7 +3670,6 @@
       duelRollCanClaimXp=true;
       const btn=document.getElementById('duelConfirmXpBtn');btn.disabled=false;btn.className='px-3 py-3 rounded-xl bg-siege-cyan/20 border border-siege-cyan text-siege-cyan text-xs';
       playTone(720,'triangle',.09);
-      endRandomize('duel');
     }
     function shareDuelMatch() {
       if(!currentDuelMatch){showToast('اول یک دوئل بساز.');return;}
@@ -3728,7 +3724,6 @@
       mapTitle.classList.add('map-result-update');
       rollOnlySite();
       revealResult(document.getElementById('mapNameDisplay'));
-      endRandomize('map');
     }
 
     function rollOnlySite() {
