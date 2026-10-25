@@ -17,7 +17,7 @@ test('poster creation controls are removed from the interface', () => {
 });
 
 test('equipment restriction pools are expanded', () => {
-  const rules = html.match(/const CURSED_RULES = \[([\s\S]*?)\n    \];/);
+  const rules = html.match(/const CURSED_RULES = \[([\s\S]*?)\];/);
   assert.ok(rules);
   assert.ok((rules[1].match(/'/g) || []).length >= 50);
   assert.match(html, /const CURSED_SCOPES = \[[^\]]{100,}\]/);
