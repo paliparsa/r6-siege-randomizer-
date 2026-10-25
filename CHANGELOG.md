@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.28.0] - 2026-10-26
+### Fixed
+- Reworked poster saving so the click opens a preview immediately, then presents a visible PNG download link after the image is ready; this avoids relying on a hidden automatic download after an asynchronous conversion.
+- Kept a synchronous data-URL download fallback when the browser blocks the preview window, and a visible-image save fallback if PNG Blob generation fails.
+### Maintenance
+- Bumped app version to 1.28.0 and Service Worker cache to `r6-cache-v42`.
+
+
+
 ## [1.27.0] - 2026-10-26
 ### Fixed
 - Restored the previous Blob/object-URL poster download flow with the data-URL fallback, replacing the synchronous data-URL-only path that browsers were blocking.

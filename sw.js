@@ -1,4 +1,4 @@
-const CACHE_NAME = 'r6-cache-v41';
+const CACHE_NAME = 'r6-cache-v42';
 const APP_SHELL = ['./', './index.html', './manifest.json', './data/r6-weapon-data.js', './data/r6-operator-data.js'];
 
 self.addEventListener('install', event => {
