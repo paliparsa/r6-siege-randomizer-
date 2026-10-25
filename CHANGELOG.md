@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.22.0] - 2026-10-25
+### Expanded
+- Expanded cursed-loadout scope, muzzle, grip, and tactical challenge options to reduce repeat results.
+- Added operator-aware Duo Synergy pairings and varied execution plans; existing combinations are retained and duplicate operator pairs are skipped.
+- Added a dedicated Duel Arena scenario database for gunskill, gadget, and objective drills, with recent-scenario avoidance.
+- Added optional Duel Arena special restrictions using the same attachment/challenge pools as Equipment with Restrictions.
+### Removed
+- Removed poster-creation buttons from the operator card, Squad, Duo Synergy, Duel Arena, and the global floating action.
+- Removed explicit win-condition text from Duel Arena; attacker and defender objectives are displayed separately.
+### Maintenance
+- Bumped app version to 1.22.0 and Service Worker cache to r6-cache-v36.
+### Validation
+- Added source-contract tests for dataset expansion, optional restrictions, win-condition copy removal, poster-button removal, and version/cache alignment.
+- Real browser, mobile, and offline smoke tests still need to be run.
+
 ## [1.21.0] - 2026-10-25
 ### Improved
 - Added brief interaction locks to HQ, Duo, Duel, Strat, and map randomizers to ignore rapid repeat activation.
