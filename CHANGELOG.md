@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.25.0] - 2026-10-25
+### Fixed
+- Made poster PNG export synchronous within the download button's original click gesture, avoiding the asynchronous Blob conversion that could cause Chrome and embedded browsers to block the download as unsolicited.
+- Kept a data-URL image preview fallback for export exceptions and improved the Persian guidance shown when browser permissions block saving.
+### Maintenance
+- Bumped app version to 1.25.0 and Service Worker cache to `r6-cache-v39`.
+
+
 ## [1.24.0] - 2026-10-25
 ### Fixed
 - Reworked poster download for mobile Safari, Android WebView, and installed-PWA browsers: open a preview tab during the original click gesture, display the generated PNG for long-press saving when native download attributes are ignored, validate the exported Blob, and extend Blob URL lifetime for asynchronous downloads.
