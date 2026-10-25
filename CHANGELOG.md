@@ -1,6 +1,28 @@
 ## 1.12.0 — 2026-10-25
 
 ### Added
+- Added reference data for all 78 operators with 71 available full-body figure assets, six newer-operator artwork fallbacks, and an official operator badge fallback for Noor.
+- Added primary/secondary weapon choices, 2nd-gadget options and images, and unique-ability names, descriptions and available artwork.
+- Added 118 weapon reference entries, including base damage, fire rate, magazine capacity, reserve ammo, mobility, reload data where available, and weapon artwork.
+- Added weapon cards with selected-weapon stats and secondary-gadget cards with imagery/descriptions; added XK23 to the current loadout options for Dokkaebi, Rauora and Sens.
+- Added both data files to the Service Worker app shell and refreshed the cache.
+
+### Data sources and accuracy notes
+- Operator loadout reference: https://github.com/Bmat9000/r6-loadout-db
+- Weapon reference data and full-body figure/gadget assets: https://github.com/danielwerg/r6data (MIT-licensed data project).
+- Supplemental recent weapon records and artwork: https://wiki.r6dle.net/weapons and community weapon data tables.
+- Noor's loadout and 2-speed/2-armor profile checked against Ubisoft's operator page and Y11S3 release notes: https://www.ubisoft.com/en-us/game/rainbow-six/siege/game-info/operators/noor
+- Weapon stats are a community-maintained reference snapshot, not a live Ubisoft feed; values can change after balance patches. Unknown weapon stats are not invented and are displayed as unavailable.
+- The available full-body figure set does not cover all current operators. For six newer operators, the menu uses available operator artwork instead; Noor uses Ubisoft's official operator badge. These are clearly differentiated in the data.
+
+### Maintenance
+- Bumped app version to 1.12.0 and Service Worker cache to `r6-cache-v26`.
+
+### Validation
+- Source-level checks cover the 78-entry operator roster, 118 weapon reference entries, 271 weapon choices, gadget/ability UI wiring, and offline app-shell paths. Real-browser/device visual testing remains outstanding.
+
+
+### Added
 - Added reference data for all 78 operators with available full-body figure art, artwork/icon fallbacks, primary/secondary weapon choices, secondary gadget choices, and unique-ability descriptions/art where present.
 - Added weapon reference data for 102 weapons including base damage, fire rate, magazine capacity, reserve ammo, mobility, reload times, and official weapon images where supplied by the upstream dataset.
 - Rebuilt the loadout panel to display weapon images and available stats, unique-ability artwork/descriptions, and secondary-gadget cards with imagery and descriptions.
