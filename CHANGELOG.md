@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.10.0 — 2026-10-25
+
+### Added
+- Rebuilt the Alpha Pack simulator as a cinematic, responsive reward-opening experience with a custom illustrated container, scan effects, staged reveal, rarity-driven reward presentation, and a manual zipper control.
+- Expanded the simulated loot catalogue across weapon skins, headgear, uniforms, charms, player cards, attachment cosmetics, and profile titles; existing profile theme unlocks remain supported.
+- Added rarity-weighted selection, pack-consumption safeguards, opening history, a local collection, drop statistics, reward-name copy, and open-next flow.
+- Added reduced-motion support, mobile layouts, local-storage guards, and explicit copy clarifying that drops are simulated and are not official Ubisoft rewards.
+
+### Improved
+- Preserved the existing app navigation, profile progression, XP/pack earning flow, profile titles, and theme unlocks.
+- Bumped app version to 1.10.0 and Service Worker cache to r6-cache-v24.
+
+### Validation
+- Source-level checks confirm Alpha Pack modal and handlers, reward/history/collection targets, app version, and preservation markers for existing profile and Duel Arena code. Real-browser animation, sound, storage, and mobile testing remains required.
+
+
+
 ## 1.9.2 — 2026-10-24
 
 ### Fixed
