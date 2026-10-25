@@ -3924,13 +3924,13 @@
     function normalizeR6Name(value){return String(value||'').toLowerCase().replace(/[^a-z0-9]/g,'');}
     function getWeaponReference(item){
       const data=window.R6_WEAPON_DATA||[],id=normalizeR6Name(item?.id),name=normalizeR6Name(item?.name||item);
-      return data.find(w=>normalizeR6Name(w.slug)===id||normalizeR6Name(w.name)===name||normalizeR6Name(w.slug)===name||normalizeR6Name(w.name)===id)||null;
+      const aliases={'9x19svn':'9x19vsn'};return data.find(w=>normalizeR6Name(w.slug)===id||normalizeR6Name(w.name)===name||normalizeR6Name(w.slug)===name||normalizeR6Name(w.name)===id)||data.find(w=>normalizeR6Name(w.slug)===aliases[id]||normalizeR6Name(w.name)===aliases[id])||null;
     }
     function renderWeaponStats(targetId,item){
       const target=document.getElementById(targetId);if(!target)return;const data=getWeaponReference(item);
       if(!data||![data.damage,data.fireRate,data.capacity].some(v=>v!==null&&v!==undefined)){target.innerHTML='<span class="op-data-note">آمار این سلاح در دیتابیس مرجع موجود نیست.</span>';return;}
       const parts=[['DMG',data.damage],['RPM',data.fireRate],['MAG',data.capacity],['RESERVE',data.ammo],['MOB',data.mobility]];
-      target.innerHTML=parts.filter(([,v])=>v!==null&&v!==undefined).map(([label,value])=>'<span class="op-weapon-stat">'+label+' <strong>'+safe(String(value))+'</strong></span>').join('')+(data.reloadTime?'<span class="op-weapon-stat">RELOAD <strong>'+safe(String(data.reloadTime.tactical))+'s</strong></span>':'');
+      target.innerHTML=parts.filter(([label,v])=>v!==null&&v!==undefined&&(label!=='RPM'||v>0)).map(([label,value])=>'<span class="op-weapon-stat">'+label+' <strong>'+safe(String(value))+'</strong></span>').join('')+(data.reloadTime?'<span class="op-weapon-stat">RELOAD <strong>'+safe(String(data.reloadTime.tactical))+'s</strong></span>':'');
     }
     function renderWeaponOptions(items,selected,kind,targetId,statsId){
       const target=document.getElementById(targetId);if(!target)return;
