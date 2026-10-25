@@ -1,3 +1,18 @@
+# Changelog
+
+## [1.20.0] - 2026-10-25
+### Changed
+- Replaced conflicting v1.18/v1.19 global menu CSS overrides with one consolidated Siege-inspired default-skin layer.
+- Removed the heavy olive wash and exaggerated geometric background treatment; shifted the default UI toward restrained charcoal surfaces, neutral text, muted tactical yellow selection, and sharper low-glow controls.
+- Applied consistent surface, border, selected, hover, focus, and dialog states across existing UI components.
+- Scoped the visual pass to the default skin so Black Ice, Keres, Nighthaven, and theme selection continue to work.
+### Preserved
+- No feature logic, operator/weapon data, randomizer modes, modal structure, localStorage keys, or game flow changed.
+- Updated app version to 1.20.0 and Service Worker cache to r6-cache-v34.
+### Validation
+- Source-contract checks included with this phase.
+- Real browser, responsive, theme-switching, and offline visual tests have not yet been run.
+
 ## 1.19.0 — 2026-10-25
 
 ### Changed

@@ -16,3 +16,7 @@ No application logic or data model was changed. Existing randomizer modes, opera
 
 ## Validation
 Source-contract tests were added. Compare against the supplied reference in a real browser and verify mobile layouts, modals, theme switching, and PWA/offline behavior before considering the match pixel-accurate.
+
+
+## Follow-up
+Phase 7 supersedes the stacked v1.18/v1.19 global color overrides with a consolidated default-skin layer. See `docs/PHASE_7_CONSOLIDATED_SIEGE_UI.md`. This follow-up remains an approximation and requires real screenshot/browser comparison.
