@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.24.0] - 2026-10-25
+### Fixed
+- Reworked poster download for mobile Safari, Android WebView, and installed-PWA browsers: open a preview tab during the original click gesture, display the generated PNG for long-press saving when native download attributes are ignored, validate the exported Blob, and extend Blob URL lifetime for asynchronous downloads.
+- Added a data-URL fallback and clearer feedback when a browser blocks direct downloads.
+### Maintenance
+- Bumped app version to 1.24.0 and Service Worker cache to r6-cache-v38.
+
 ## [1.23.0] - 2026-10-25
 ### Added
 - Added a dedicated “مشاهده همه اپراتورها” tab in desktop and mobile navigation.
