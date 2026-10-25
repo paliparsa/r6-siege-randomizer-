@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.21.0] - 2026-10-25
+### Improved
+- Added brief interaction locks to HQ, Duo, Duel, Strat, and map randomizers to ignore rapid repeat activation.
+- Added a reduced-motion path for the primary operator roll so the selected result does not depend on animation.
+- Added focused reveal feedback for Duo and tactical challenge results.
+- Added asynchronous image decoding defaults and eager loading priority for the primary operator and duel portraits.
+- Improved small-screen control targets and constrained Duel/Squad content to avoid horizontal overflow.
+- Expanded `prefers-reduced-motion` handling to disable motion and transition effects across the interface.
+- Bumped Service Worker cache to `r6-cache-v35`.
+### Preserved
+- Existing randomizer datasets, modes, profile/storage keys, XP behavior, and Alpha Pack logic remain unchanged.
+### Validation
+- Source-contract checks were performed for the added guard paths, motion preference, version/cache alignment, and preserved features.
+- Real device, browser performance, keyboard-only, and offline update tests still need to be run.
+
 ## [1.20.0] - 2026-10-25
 ### Changed
 - Replaced conflicting v1.18/v1.19 global menu CSS overrides with one consolidated Siege-inspired default-skin layer.
