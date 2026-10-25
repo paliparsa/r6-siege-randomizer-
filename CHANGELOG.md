@@ -1,3 +1,20 @@
+## 1.14.0 — 2026-10-25
+
+### Added
+- Established the first shared Siege Design System foundation: semantic color, surface, border, spacing, radius, shadow, and motion tokens.
+- Added opt-in panel, kicker, divider, muted text, and control primitives with explicit selected, disabled, primary, and danger states.
+- Added consistent keyboard focus-visible treatment and a global reduced-motion accommodation.
+
+### Preserved
+- Visual foundation only: no application feature logic, data files, storage keys, navigation markup, or existing controls were removed or rewritten.
+- Existing faction/skin theme variables remain the source for the system's primary accent aliases.
+
+### Updated
+- Bumped the app version to **1.14.0** and Service Worker cache to **r6-cache-v28**.
+
+### Validation
+- Source-level review only; desktop/mobile browser regression tests have not yet been run.
+
 # Changelog
 
 ## 1.13.0 — 2026-10-25
