@@ -1,5 +1,5 @@
-const CACHE_NAME = 'r6-cache-v24';
-const APP_SHELL = ['./', './index.html', './manifest.json'];
+const CACHE_NAME = 'r6-cache-v26';
+const APP_SHELL = ['./', './index.html', './manifest.json', './data/r6-weapon-data.js', './data/r6-operator-data.js'];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)));
