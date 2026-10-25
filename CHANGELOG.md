@@ -3,7 +3,7 @@
 ## 1.12.0 — 2026-10-25
 
 ### Added
-- Added reference data for all 78 operators with 71 available full-body figure assets, six newer-operator artwork fallbacks, and an official operator badge fallback for Noor.
+- Added reference data for all 78 operators with 71 available full-body figure assets, five recent-operator official art images, and two operator-art fallbacks for recruit entries.
 - Added primary/secondary weapon choices, 2nd-gadget options and images, and unique-ability names, descriptions and available artwork.
 - Added 118 weapon reference entries, including base damage, fire rate, magazine capacity, reserve ammo, mobility, reload data where available, and weapon artwork.
 - Added weapon cards with selected-weapon stats and secondary-gadget cards with imagery/descriptions; added XK23 to the current loadout options for Dokkaebi, Rauora and Sens.
@@ -15,7 +15,7 @@
 - Supplemental recent weapon records and artwork: https://wiki.r6dle.net/weapons and community weapon data tables.
 - Noor's loadout and 2-speed/2-armor profile checked against Ubisoft's operator page and Y11S3 release notes: https://www.ubisoft.com/en-us/game/rainbow-six/siege/game-info/operators/noor
 - Weapon stats are a community-maintained reference snapshot, not a live Ubisoft feed; values can change after balance patches. Unknown weapon stats are not invented and are displayed as unavailable.
-- The available full-body figure set does not cover all current operators. For six newer operators, the menu uses available operator artwork instead; Noor uses Ubisoft's official operator badge. These are clearly differentiated in the data.
+- The available full-body figure set does not cover all current operators. Five newer operators use official Ubisoft key-art/biography images; two recruit entries use the best available operator-art fallback because the upstream full-body figure set does not cover every current operator. These are clearly differentiated in the data.
 
 ### Maintenance
 - Bumped app version to 1.12.0 and Service Worker cache to `r6-cache-v26`.
