@@ -1,3 +1,15 @@
+## 1.18.0 — 2026-10-25
+
+### Changed
+- Rebuilt the global background treatment around Rainbow Six Siege's in-game menu atmosphere: smoked charcoal/olive tones, restrained tactical-yellow highlights, layered industrial geometry, subtle grid/texture, and a stronger vignette.
+- Unified the header, mobile navigation, tactical panels, operator portrait stages, and focus states with the updated background palette.
+- Kept all existing randomizer modes, operator and weapon data, Alpha Pack/XP/inventory/history behavior, theme switching, maps/sites, poster exports, storage keys, and navigation logic intact.
+- Bumped app version to 1.18.0 and Service Worker cache to r6-cache-v32.
+
+### Validation
+- Source changes are limited to theme CSS, app metadata, cache version, changelog, and a source-contract test.
+- Real-browser screenshot comparison and desktop/mobile/offline interaction checks remain required.
+
 ## 1.17.0 — 2026-10-25
 
 ### Changed
