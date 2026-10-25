@@ -1293,7 +1293,75 @@
       .randomize-pending .fa-regular { animation: none !important; }
     }
 
-    </style>
+    
+    /* Phase 9 — operator roster tab and small-screen usability */
+    #hub-operators .op-select-shell{min-height:0;height:auto;border:1px solid var(--siege-border-strong,#41484d);box-shadow:none}
+    #hub-operators .op-select-layout{min-height:0}
+    #hub-operators .op-profile-pane{min-width:0}
+    #hub-operators .op-select-top{position:sticky;top:0;z-index:3;padding:10px 12px}
+    #hub-operators .op-select-footer{position:sticky;bottom:0;z-index:3;flex-wrap:wrap}
+    #hub-operators .op-roster-item:focus-visible,#hub-operators .op-action:focus-visible,#hub-operators .op-side-tab:focus-visible,#hub-operators .op-search:focus-visible{outline:2px solid #d6f04a;outline-offset:2px}
+    @media(max-width:639.98px){
+      main{padding-left:8px!important;padding-right:8px!important;padding-top:8px!important;padding-bottom:10px!important}
+      #hub-operators{min-height:0}
+      #hub-operators .op-select-shell{min-height:0}
+      #hub-operators .op-select-top{align-items:flex-start;gap:8px}
+      #hub-operators .op-select-top h2{font-size:16px;line-height:1.3}
+      #hub-operators .op-select-layout{display:flex;flex-direction:column;gap:8px}
+      #hub-operators .op-roster-pane{min-height:0;border:1px solid #343a3f}
+      #hub-operators .op-roster-toolbar{padding:8px;gap:7px}
+      #hub-operators .op-side-tab{min-height:42px;padding:8px 5px;font-size:11px}
+      #hub-operators .op-search{min-height:44px;font-size:14px}
+      #hub-operators .op-roster-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:6px;max-height:260px;overflow-y:auto;overscroll-behavior:contain}
+      #hub-operators .op-roster-item{min-height:76px;padding:5px 2px;gap:4px}
+      #hub-operators .op-roster-item img{width:36px;height:36px}
+      #hub-operators .op-roster-item span{font-size:10px;line-height:1.2}
+      #hub-operators .op-roster-item small{display:none}
+      #hub-operators .op-profile-pane{display:flex;flex-direction:column;overflow:visible;padding:0;gap:8px}
+      #hub-operators .op-hero{min-height:0;padding:12px;display:grid;grid-template-columns:minmax(95px,34%) minmax(0,1fr);column-gap:10px;align-items:center}
+      #hub-operators .op-hero-content:first-child{grid-column:1/-1}
+      #hub-operators .op-hero-content:nth-child(2){display:contents}
+      #hub-operators .op-hero-watermark{width:55%;height:65%;right:-10%;bottom:-8%}
+      #hub-operators .op-hero-icon{grid-column:1;grid-row:2 / span 4;height:150px;max-height:150px;min-width:0}
+      #hub-operators .op-hero-fallback{grid-column:1;grid-row:2 / span 4}
+      #hub-operators .op-hero-name{grid-column:2;font-size:clamp(24px,7vw,34px);overflow-wrap:anywhere}
+      #hub-operators .op-hero-meta{grid-column:2;font-size:9px;overflow-wrap:anywhere}
+      #hub-operators .op-stat-row{grid-column:2;gap:4px;margin-top:6px}
+      #hub-operators .op-stat{font-size:9px;padding:6px}
+      #hub-operators .op-loadout-slot{padding:9px}
+      #hub-operators .op-weapon-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+      #hub-operators .op-weapon-card{grid-template-columns:54px minmax(0,1fr);gap:6px;padding:6px;min-height:64px}
+      #hub-operators .op-weapon-card img{width:54px;height:42px}
+      #hub-operators .op-weapon-card-name{font-size:10px}
+      #hub-operators .op-select-footer{position:sticky;bottom:0;padding:8px;gap:8px;background:#0e1113}
+      #hub-operators #opSelectStatus{font-size:10px;flex:1 1 100%}
+      #hub-operators .op-select-footer>div{display:grid;grid-template-columns:1fr 1fr;width:100%}
+      #hub-operators .op-action{min-height:44px;padding:10px 8px;font-size:11px}
+      #mhub-operators span{font-size:8px;letter-spacing:-.02em}
+      #mhub-hq,#mhub-ops,#mhub-tools,#mhub-operators{padding-left:3px;padding-right:3px;min-width:0;flex:1}
+      #opsDuoView,#opsDuelView{min-width:0;max-width:100%}
+      #opsDuoView button,#opsDuelView button{overflow-wrap:anywhere;min-height:44px}
+      #opsDuelView .duel-match-card{grid-template-columns:minmax(0,1fr)!important}
+      #opsDuelView .duel-versus{margin:2px auto}
+      #hqSquadWrap{min-width:0}
+      #hqSquadWrap .squad-operator-card{min-width:0;overflow-wrap:anywhere}
+      #hqRollBtn,#hqConfirmXpBtn{width:100%;min-height:46px}
+      #shareModal{padding:8px}
+      #shareModal>div{max-height:92dvh;overflow-y:auto}
+      #shareModal canvas{display:block;width:auto;max-width:100%;height:auto;max-height:56dvh;margin:auto;object-fit:contain}
+      #shareModal .grid.grid-cols-2{grid-template-columns:1fr}
+      #shareModal button{min-height:44px}
+    }
+    @media(max-width:380px){
+      #hub-operators .op-roster-grid{grid-template-columns:repeat(3,minmax(0,1fr));max-height:225px}
+      #hub-operators .op-hero{grid-template-columns:90px minmax(0,1fr)}
+      #hub-operators .op-hero-icon{height:120px;max-height:120px}
+      #hub-operators .op-weapon-card{grid-template-columns:1fr}
+      #hub-operators .op-weapon-card img{width:100%;height:38px}
+      #mhub-hq span,#mhub-ops span,#mhub-tools span,#mhub-operators span{font-size:7px}
+    }
+
+</style>
 </head>
 <body data-faction="atk" data-skin="default" data-hq-mode="standard" data-ops-mode="strats" class="antialiased selection:bg-siege-yellow selection:text-black">
 
