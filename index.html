@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#101112">
-  <meta name="app-version" content="1.20.0">
+  <meta name="app-version" content="1.21.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -1232,6 +1232,80 @@
       body { transition: none !important; }
     }
 
+    
+    /* v1.21.0 — motion, touch, layout stability, and accessible feedback */
+    :root { --motion-fast: 120ms; --motion-normal: 180ms; --motion-slow: 260ms; }
+    button, [role="button"], a[href], input, select, textarea {
+      touch-action: manipulation;
+    }
+    button, [role="button"] {
+      -webkit-tap-highlight-color: transparent;
+    }
+    button:disabled, [role="button"][aria-disabled="true"] {
+      cursor: wait;
+    }
+    .randomize-pending {
+      opacity: .78;
+      pointer-events: none;
+      cursor: progress !important;
+    }
+    .randomize-pending .fa-solid,
+    .randomize-pending .fa-regular {
+      animation: randomizeSpinner 700ms linear infinite;
+    }
+    @keyframes randomizeSpinner { to { transform: rotate(360deg); } }
+    .result-reveal {
+      animation: resultReveal 260ms cubic-bezier(.2,.75,.25,1) both;
+    }
+    @keyframes resultReveal {
+      from { opacity: .55; transform: translateY(5px) scale(.992); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .tactical-portrait, .duel-portrait {
+      background-color: #101214;
+      contain: layout paint;
+    }
+    .tactical-portrait img, .duel-portrait img,
+    #cardOpIcon, #cardWatermarkImg {
+      backface-visibility: hidden;
+    }
+    #opsDuoView, #opsDuelView, #hqSquadWrap {
+      min-width: 0;
+      max-width: 100%;
+    }
+    #opsDuoView img, #opsDuelView img, #hqSquadWrap img {
+      max-width: 100%;
+    }
+    #opsDuelView .duel-match-card,
+    #opsDuelView .tactical-feature-panel,
+    #hqSquadWrap .squad-operator-card {
+      min-width: 0;
+    }
+    #opsDuelView .duel-match-card > *,
+    #hqSquadWrap .squad-operator-card > * {
+      min-width: 0;
+    }
+    @media (max-width: 420px) {
+      #opsDuelView .duel-match-card { padding: .65rem !important; gap: .55rem !important; }
+      #opsDuelView .duel-portrait { min-width: 0; }
+      #opsDuelView .duel-match-card h3,
+      #opsDuelView .duel-match-card p { overflow-wrap: anywhere; }
+      #hqSquadWrap .squad-operator-card { padding: .55rem !important; }
+      #hqRollBtn, #hqConfirmXpBtn { min-height: 44px; }
+      #opsDuoView button, #opsDuelView button { min-height: 42px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        transition-delay: 0ms !important;
+      }
+      .randomize-pending .fa-solid,
+      .randomize-pending .fa-regular { animation: none !important; }
+    }
+
     </style>
 </head>
 <body data-faction="atk" data-skin="default" data-hq-mode="standard" data-ops-mode="strats" class="antialiased selection:bg-siege-yellow selection:text-black">
@@ -1505,7 +1579,7 @@
 
       <!-- Bottom Roll & Confirm XP Action Buttons -->
       <div class="shrink-0 flex gap-2">
-        <button onclick="triggerHqRoll()" id="hqRollBtn" class="flex-1 py-3.5 px-4 rounded-xl bg-gradient-to-r from-siege-yellow to-siege-orange text-black font-tactical font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-siege-yellow/25 active:scale-95 transition">
+        <button onclick="triggerHqRoll()" id="hqRollBtn" class="flex-1 py-3.5 px-4 rounded-xl bg-gradient-to-r from-siege-yellow to-siege-orange text-black font-tactical font-black text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-siege-yellow/25 active:scale-95 transition" aria-live="polite">
           <i class="fa-solid fa-dice-d20 text-base"></i>
           <span id="hqRollBtnText">رول تصادفی اپراتور</span>
         </button>
@@ -2852,6 +2926,71 @@
     let duelRollCanClaimXp = false;
 
     /* 7. TOAST NOTIFICATION */
+    /* Randomize actions are locked briefly to prevent rapid double activation. */
+    const randomizeLocks = new Map();
+    function beginRandomize(key, buttonIds = [], selectors = [], cooldown = 320) {
+      if (randomizeLocks.has(key)) return false;
+      const buttons = new Set();
+      buttonIds.forEach(id => { const el = document.getElementById(id); if (el) buttons.add(el); });
+      selectors.forEach(selector => document.querySelectorAll(selector).forEach(el => buttons.add(el)));
+      const previous = [...buttons].map(el => ({ el, disabled: 'disabled' in el ? el.disabled : false }));
+      const timer = window.setTimeout(() => endRandomize(key), cooldown);
+      randomizeLocks.set(key, { timer, previous });
+      buttons.forEach(el => {
+        if ('disabled' in el) el.disabled = true;
+        el.setAttribute('aria-busy', 'true');
+        el.classList.add('randomize-pending');
+      });
+      return true;
+    }
+    function endRandomize(key) {
+      const lock = randomizeLocks.get(key);
+      if (!lock) return;
+      window.clearTimeout(lock.timer);
+      randomizeLocks.delete(key);
+      lock.previous.forEach(({el, disabled}) => {
+        if (!el.isConnected) return;
+        if ('disabled' in el) el.disabled = disabled;
+        el.removeAttribute('aria-busy');
+        el.classList.remove('randomize-pending');
+      });
+    }
+    function reducedMotionPreferred() {
+      return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    }
+    function revealResult(el) {
+      if (!el || reducedMotionPreferred()) return;
+      el.classList.remove('result-reveal');
+      void el.offsetWidth;
+      el.classList.add('result-reveal');
+    }
+    /* Decode images asynchronously and defer non-critical dynamic portraits. */
+    function tuneDynamicImage(img, priority = false) {
+      if (!img || img.tagName !== 'IMG') return;
+      img.decoding = 'async';
+      if (priority) {
+        img.loading = 'eager';
+        if ('fetchPriority' in img) img.fetchPriority = 'high';
+      } else if (!img.hasAttribute('loading')) {
+        img.loading = 'lazy';
+      }
+    }
+    function observeDynamicImages(root = document) {
+      root.querySelectorAll?.('img').forEach(img => tuneDynamicImage(img, img.matches('#cardOpIcon, #duelP1Img, #duelP2Img')));
+    }
+    const dynamicImageObserver = new MutationObserver(records => {
+      records.forEach(record => {
+        if (record.type === 'attributes' && record.target instanceof HTMLImageElement && record.attributeName === 'src') {
+          tuneDynamicImage(record.target, record.target.matches('#cardOpIcon, #duelP1Img, #duelP2Img'));
+        }
+        record.addedNodes.forEach(node => {
+          if (node instanceof HTMLImageElement) tuneDynamicImage(node);
+          else if (node && node.querySelectorAll) observeDynamicImages(node);
+        });
+      });
+    });
+    dynamicImageObserver.observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ['src'] });
+
     function showToast(msg) {
       let toast = document.getElementById('r6Toast');
       if (!toast) {
@@ -3085,8 +3224,10 @@
     }
 
     function triggerHqRoll() {
+      if (!beginRandomize('hq', ['hqRollBtn'], [], 650)) return;
       if (currentHqMode === 'squad') {
         rollFullSquad();
+        endRandomize('hq');
         return;
       }
 
@@ -3095,7 +3236,17 @@
         pool = pool.filter(o => o.side === currentFaction);
       }
       if (!pool.length) {
+        endRandomize('hq');
         showToast('تمام اپراتورهای این بخش در لیست بن قفل شده‌اند!');
+        return;
+      }
+
+      if (reducedMotionPreferred()) {
+        currentRolledOp = getRandomItem(pool);
+        currentCursedData = { op: currentRolledOp, scope: getRandomItem(CURSED_SCOPES), muzzle: getRandomItem(CURSED_MUZZLES), grip: getRandomItem(CURSED_GRIPS), laser: Math.random() > 0.5 ? 'Laser On' : 'بدون لیزر', rule: getRandomItem(CURSED_RULES) };
+        renderMainOperatorCard(currentRolledOp);
+        setHqConfirmButtonState(true);
+        endRandomize('hq');
         return;
       }
 
@@ -3128,6 +3279,7 @@
           setHqConfirmButtonState(true);
           triggerHaptic([25, 40]);
           playTone(760, 'sine', 0.12);
+          endRandomize('hq');
         }
       }, 45);
     }
@@ -3317,6 +3469,7 @@
     }
 
     function rollRandomStrat() {
+      if (!beginRandomize('strat', [], ['#hub-ops button[onclick*="rollRandomStrat"]'], 300)) return;
       let pool = STRAT_CHALLENGES;
       if (currentStratSide !== 'all') {
         pool = STRAT_CHALLENGES.filter(c => c.side === currentStratSide || c.side === 'all');
@@ -3341,8 +3494,10 @@
       cBtn.className = 'w-full py-2.5 px-4 rounded-xl bg-siege-cyan/15 border border-siege-cyan hover:bg-siege-cyan hover:text-black text-siege-cyan font-bold text-xs transition flex items-center justify-center gap-2 active:scale-95';
       document.getElementById('stratCompleteBtnText').innerText = 'ثبت پیروزی در این چالش (+100 XP و پیشرفت آلفا پک)';
 
+      revealResult(document.getElementById('stratCard3D'));
       triggerHaptic(15);
       playTone(640, 'triangle', 0.07);
+      endRandomize('strat');
     }
 
     function completeCurrentStrat() {
@@ -3417,8 +3572,9 @@
       requestAnimationFrame(()=>{if(card1)card1.style.animation='';if(card2)card2.style.animation='';});
     }
     function rollDuoCombo() {
+      if (!beginRandomize('duo', [], ['#opsDuoView button[onclick*="rollDuoCombo"]'], 300)) return;
       const pool=duoFilteredPool();
-      if(!pool.length){showToast('برای این فیلتر هنوز ترکیبی ثبت نشده است.');return;}
+      if(!pool.length){endRandomize('duo');showToast('برای این فیلتر هنوز ترکیبی ثبت نشده است.');return;}
       const combo=getRandomItem(pool);currentDuoCombo=combo;
       const countBadge=document.getElementById('duoCountBadge');if(countBadge)countBadge.textContent=pool.length+' MATCHES';
       document.getElementById('duoTitle').innerText=combo.title;
@@ -3432,11 +3588,14 @@
       const img1=document.getElementById('duoOp1Img'),img2=document.getElementById('duoOp2Img');
       img1.src=op1?getOperatorIconUrl(op1.slug):'';img2.src=op2?getOperatorIconUrl(op2.slug):'';
       img1.alt=combo.op1;img2.alt=combo.op2;
+      [img1,img2].forEach(img=>{const frame=img?.closest('.tactical-portrait');if(frame)revealResult(frame);});
+      revealResult(document.getElementById('duoTitle'));
       renderDuoAnalysis(combo);
       duoRollCanClaimXp=true;
       const btn=document.getElementById('duoConfirmXpBtn');btn.disabled=false;
       btn.className='px-3 py-3 rounded-xl bg-siege-cyan/20 border border-siege-cyan text-siege-cyan font-bold text-xs';
       playTone(610,'sine',.07);
+      endRandomize('duo');
     }
     async function shareTextPayload(title,textValue) {
       try {
@@ -3491,8 +3650,9 @@
     }
 
     function rollDuelMatch() {
+      if (!beginRandomize('duel', [], ['#opsDuelView button[onclick*="rollDuelMatch"]'], 320)) return;
       const pair = pickDuelPair(OPERATORS, bannedOpIds);
-      if (!pair) { showToast('برای دوئل به حداقل یک اپراتور آزاد از هر دو سمت حمله و دفاع نیاز است.'); return; }
+      if (!pair) { endRandomize('duel'); showToast('برای دوئل به حداقل یک اپراتور آزاد از هر دو سمت حمله و دفاع نیاز است.'); return; }
       const { p1, p2 } = pair;
       const rules=duelRulesForMode(p1,p2,currentDuelMode);
       currentDuelMatch={p1,p2,rules,mode:currentDuelMode};
@@ -3504,7 +3664,8 @@
       document.getElementById('duelP2Loadout').innerText=(p2.primary||'سلاح اصلی')+' · '+(p2.sec||'سلاح کمری');
       document.getElementById('duelP1Img').src=getOperatorIconUrl(p1.slug);
       document.getElementById('duelP2Img').src=getOperatorIconUrl(p2.slug);
-      ['duelP1Img','duelP2Img'].forEach(id=>{const img=document.getElementById(id),frame=img?.closest('.duel-portrait');if(frame){frame.classList.remove('portrait-reveal');void frame.offsetWidth;frame.classList.add('portrait-reveal');}});
+      ['duelP1Img','duelP2Img'].forEach(id=>{const img=document.getElementById(id),frame=img?.closest('.duel-portrait');if(frame){frame.classList.remove('portrait-reveal');if(!reducedMotionPreferred()){void frame.offsetWidth;frame.classList.add('portrait-reveal');}}});
+      revealResult(document.getElementById('duelGlobalRule'));
       document.getElementById('duelP1Img').alt=p1.name+' — Attacker';
       document.getElementById('duelP2Img').alt=p2.name+' — Defender';
       document.getElementById('duelGlobalRule').innerText=rules.global;
@@ -3512,6 +3673,7 @@
       duelRollCanClaimXp=true;
       const btn=document.getElementById('duelConfirmXpBtn');btn.disabled=false;btn.className='px-3 py-3 rounded-xl bg-siege-cyan/20 border border-siege-cyan text-siege-cyan text-xs';
       playTone(720,'triangle',.09);
+      endRandomize('duel');
     }
     function shareDuelMatch() {
       if(!currentDuelMatch){showToast('اول یک دوئل بساز.');return;}
@@ -3557,6 +3719,7 @@
 
     /* 15. TACTICAL TOOLS (MAP ROULETTE & BOMB TIMER) */
     function rollMapAndSite() {
+      if (!beginRandomize('map', [], ['button[onclick*="rollMapAndSite"]'], 300)) return;
       currentMapObj = getRandomItem(MAP_DATABASE);
       const mapTitle = document.getElementById('mapNameDisplay');
       mapTitle.innerText = currentMapObj.name;
@@ -3564,6 +3727,8 @@
       void mapTitle.offsetWidth;
       mapTitle.classList.add('map-result-update');
       rollOnlySite();
+      revealResult(document.getElementById('mapNameDisplay'));
+      endRandomize('map');
     }
 
     function rollOnlySite() {
@@ -4477,6 +4642,7 @@
 
       // Render initial state cleanly WITHOUT awarding XP or auto-rolling on tab switches
       renderMainOperatorCard(currentRolledOp);
+      observeDynamicImages(document);
       renderSquadGrid(currentSquadList, 'atk');
       renderCurrentMapSite(false);
       setHqConfirmButtonState(true);
