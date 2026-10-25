@@ -3,8 +3,8 @@
 ## 1.12.0 — 2026-10-25
 
 ### Added
-- Added reference data for all 78 operators with 71 available full-body figure assets, five recent-operator official art images, and two operator-art fallbacks for recruit entries.
-- Added primary/secondary weapon choices, 2nd-gadget options and images, and unique-ability names, descriptions and available artwork.
+- Added reference data for all 78 operators with 71 available full-body figure assets, five recent-operator official art images, and two operator-art fallbacks for recruit entries. The recent operator gadget lists and ability art were checked against Ubisoft's current operator pages where available.
+- Added primary/secondary weapon choices, 169 secondary-gadget options with imagery, and unique-ability names, descriptions and artwork for 76 operators.
 - Added 118 weapon reference entries, including base damage, fire rate, magazine capacity, reserve ammo, mobility, reload data where available, and weapon artwork.
 - Added weapon cards with selected-weapon stats and secondary-gadget cards with imagery/descriptions; added XK23 to the current loadout options for Dokkaebi, Rauora and Sens.
 - Added both data files to the Service Worker app shell and refreshed the cache.
