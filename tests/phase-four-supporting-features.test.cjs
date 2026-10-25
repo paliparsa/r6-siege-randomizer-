@@ -22,8 +22,8 @@ test('Alpha Pack: guards against empty stock, consumes only after reward exists,
   assert.match(source, /if \(!reward\)/);
   assert.match(source, /userProfile\.packs\s*=\s*Math\.max/);
   assert.match(source, /saveProfile\(\)/);
-  assert.match(source, /data-state\s*=\s*'opening'/);
-  assert.match(source, /data-state\s*=\s*'reveal'/);
+  assert.match(source, /stage\.dataset\.state\s*=\s*'opening'/);
+  assert.match(source, /stage\.dataset\.state\s*=\s*'reveal'/);
   assert.match(html, /id="alphaRewardCard"/);
   assert.match(html, /id="alphaInventoryList"/);
   assert.match(html, /id="alphaHistoryList"/);
@@ -83,7 +83,7 @@ test('PWA install and offline shell remain intact', () => {
   assert.match(html, /function refreshInstallUI\(/);
   assert.match(html, /navigator\.serviceWorker\.register\('\.\/sw\.js'\)/);
   assert.match(sw, /const CACHE_NAME = 'r6-cache-v31'/);
-  assert.match(sw, /const APP_SHELL = \['\.\/','\.\/index\.html','\.\/manifest\.json','\.\/data\/r6-weapon-data\.js','\.\/data\/r6-operator-data\.js'\]/);
+  assert.match(sw, /const APP_SHELL = \[\s*'\.\/','\.\/index\.html','\.\/manifest\.json','\.\/data\/r6-weapon-data\.js','\.\/data\/r6-operator-data\.js'\s*\]/);
   assert.match(sw, /caches\.match\('\.\/index\.html'\)/);
   assert.match(sw, /self\.clients\.claim\(\)/);
 });
