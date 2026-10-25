@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#0B0D0F">
-  <meta name="app-version" content="1.13.0">
+  <meta name="app-version" content="1.14.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -750,6 +750,112 @@
 
 .op-hero-icon.op-hero-art{height:clamp(160px,30vh,270px);max-height:270px;object-fit:contain;object-position:center;filter:drop-shadow(0 12px 22px #0008)}
 @media(max-width:600px){.op-hero-icon.op-hero-art{height:150px;max-height:150px}}
+
+
+      /* v1.14.0 — Siege Design System foundation (tokens + opt-in primitives).
+         Intentional: semantic aliases and accessible states only; no feature logic or DOM is changed. */
+      :root {
+        --siege-bg-canvas: var(--noir-obsidian, #0B0D0F);
+        --siege-bg-panel: #111517;
+        --siege-bg-elevated: var(--noir-graphite, #191D21);
+        --siege-bg-selected: rgba(214, 240, 74, .10);
+        --siege-text-primary: var(--noir-bone, #E8E9E5);
+        --siege-text-muted: #9AA3A5;
+        --siege-text-subtle: #707A7D;
+        --siege-accent: var(--noir-signal, #D6F04A);
+        --siege-danger: var(--noir-alert, #D94A45);
+        --siege-border: #343A3F;
+        --siege-border-strong: #596148;
+        --siege-border-focus: #E8E9E5;
+        --siege-radius-sm: 4px;
+        --siege-radius-md: 8px;
+        --siege-radius-lg: 12px;
+        --siege-space-1: 4px;
+        --siege-space-2: 8px;
+        --siege-space-3: 12px;
+        --siege-space-4: 16px;
+        --siege-space-5: 20px;
+        --siege-space-6: 24px;
+        --siege-shadow-panel: 0 10px 30px rgba(0,0,0,.24);
+        --siege-shadow-focus: 0 0 0 2px var(--siege-bg-canvas), 0 0 0 4px var(--siege-accent);
+        --siege-motion-fast: 140ms;
+        --siege-motion-normal: 220ms;
+        --siege-motion-slow: 360ms;
+        --siege-motion-ease: cubic-bezier(.2,.75,.25,1);
+      }
+
+      /* Opt-in primitives: new/reworked surfaces can share the system without
+         globally overriding specialized legacy components. */
+      .ds-panel {
+        color: var(--siege-text-primary);
+        background: var(--siege-bg-elevated);
+        border: 1px solid var(--siege-border);
+        border-radius: var(--siege-radius-md);
+        box-shadow: var(--siege-shadow-panel);
+      }
+      .ds-panel--flat { box-shadow: none; }
+      .ds-panel--selected {
+        border-color: var(--siege-accent);
+        background: linear-gradient(0deg, var(--siege-bg-selected), var(--siege-bg-selected)), var(--siege-bg-elevated);
+      }
+      .ds-kicker {
+        color: var(--siege-accent);
+        font: 700 10px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+      .ds-muted { color: var(--siege-text-muted); }
+      .ds-divider { border: 0; border-top: 1px solid var(--siege-border); }
+      .ds-control {
+        min-height: 40px;
+        border: 1px solid var(--siege-border);
+        border-radius: var(--siege-radius-sm);
+        background: var(--siege-bg-panel);
+        color: var(--siege-text-primary);
+        transition: border-color var(--siege-motion-fast) var(--siege-motion-ease),
+                    background-color var(--siege-motion-fast) var(--siege-motion-ease),
+                    color var(--siege-motion-fast) var(--siege-motion-ease),
+                    transform var(--siege-motion-fast) var(--siege-motion-ease);
+      }
+      .ds-control:hover:not(:disabled):not([aria-disabled="true"]) {
+        border-color: var(--siege-border-strong);
+      }
+      .ds-control[aria-pressed="true"],
+      .ds-control.is-selected,
+      .ds-control[aria-selected="true"] {
+        border-color: var(--siege-accent);
+        background: var(--siege-bg-selected);
+        color: var(--siege-accent);
+      }
+      .ds-control:disabled,
+      .ds-control[aria-disabled="true"] {
+        opacity: .45;
+        cursor: not-allowed;
+      }
+      .ds-control--primary {
+        background: var(--siege-accent);
+        border-color: var(--siege-accent);
+        color: #0B0D0F;
+        font-weight: 900;
+      }
+      .ds-control--danger { border-color: rgba(217,74,69,.7); color: #ff938c; }
+      :where(button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])):focus-visible {
+        outline: 2px solid var(--siege-accent);
+        outline-offset: 3px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        :root {
+          --siege-motion-fast: 1ms;
+          --siege-motion-normal: 1ms;
+          --siege-motion-slow: 1ms;
+        }
+        *, *::before, *::after {
+          scroll-behavior: auto !important;
+          animation-duration: .01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: .01ms !important;
+        }
+      }
 </style>
 </head>
 <body data-faction="atk" data-skin="default" class="antialiased selection:bg-siege-yellow selection:text-black">
