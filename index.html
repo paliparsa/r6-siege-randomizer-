@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#11130F">
-  <meta name="app-version" content="1.18.0">
+  <meta name="theme-color" content="#111315">
+  <meta name="app-version" content="1.19.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -1160,6 +1160,100 @@
     }
     @media (prefers-reduced-motion: reduce) {
       body { transition: none !important; }
+    }
+
+
+    /* v1.19.0 — Siege menu UI color pass: graphite surfaces, bone-white type, signal-yellow selection */
+    :root {
+      --siege-bg-canvas: #111315;
+      --siege-bg-panel: #191c1e;
+      --siege-bg-elevated: #232729;
+      --siege-bg-selected: rgba(214, 224, 75, .14);
+      --siege-text-primary: #f0f1ed;
+      --siege-text-muted: #a4aaab;
+      --siege-text-subtle: #747c7f;
+      --siege-accent: #d6e04b;
+      --siege-danger: #e14b4b;
+      --siege-border: rgba(205, 211, 207, .16);
+      --siege-border-strong: rgba(214, 224, 75, .55);
+      --theme-primary: #d6e04b;
+      --theme-secondary: #f0f1ed;
+      --theme-glow: rgba(214,224,75,.12);
+      --bg-base: #111315;
+      --bg-card: rgba(25,28,30,.96);
+      --siege-menu-yellow: #d6e04b;
+      --siege-menu-line: rgba(215,220,215,.14);
+    }
+    /* Keep the game's signature yellow as a selection cue, not as a panel fill. */
+    .bg-siege-dark { background-color: #111315 !important; }
+    .bg-siege-card { background-color: rgba(25,28,30,.96) !important; }
+    .bg-siege-surface { background-color: #232729 !important; }
+    .border-siege-border { border-color: rgba(205,211,207,.16) !important; }
+    .text-siege-cyan, .text-siege-yellow, .dynamic-text { color: #d6e04b !important; }
+    .bg-siege-cyan, .bg-siege-yellow, .dynamic-bg { background-color: #d6e04b !important; }
+    .border-siege-cyan, .border-siege-yellow { border-color: rgba(214,224,75,.62) !important; }
+    .bg-siege-cyan\/10, .bg-siege-yellow\/10 { background-color: rgba(214,224,75,.09) !important; }
+    .bg-siege-cyan\/15, .bg-siege-yellow\/15 { background-color: rgba(214,224,75,.12) !important; }
+    .bg-siege-cyan\/20, .bg-siege-yellow\/20 { background-color: rgba(214,224,75,.16) !important; }
+    .border-siege-cyan\/30, .border-siege-yellow\/30 { border-color: rgba(214,224,75,.25) !important; }
+    .border-siege-cyan\/50, .border-siege-yellow\/50 { border-color: rgba(214,224,75,.44) !important; }
+    .border-siege-cyan\/70, .border-siege-yellow\/70 { border-color: rgba(214,224,75,.66) !important; }
+    .text-cyan-400 { color: #d6e04b !important; }
+    .bg-slate-600 { background-color: #44494b !important; }
+    .text-slate-500, .text-slate-600 { color: #7f8789 !important; }
+    .text-slate-200, .text-slate-300, .text-slate-400 { color: #b8bdbc !important; }
+    .border-siege-border\/50, .border-siege-border\/60, .border-siege-border\/70, .border-siege-border\/80 {
+      border-color: rgba(205,211,207,.13) !important;
+    }
+    .ds-panel, .tactical-feature-panel, .squad-briefing,
+    #profileModal > div, #alphaModal > div, #operatorSelectModal > div,
+    #banModal > div, #shareModal > div, #introModal > div {
+      background-color: rgba(25,28,30,.97);
+      border-color: rgba(205,211,207,.16);
+      box-shadow: 0 18px 48px rgba(0,0,0,.44), inset 0 1px rgba(255,255,255,.025);
+    }
+    .ds-control {
+      background: #1d2123;
+      border-color: rgba(205,211,207,.2);
+      color: #f0f1ed;
+    }
+    .ds-control:hover:not(:disabled) {
+      background: #292e30;
+      border-color: rgba(214,224,75,.5);
+    }
+    .ds-control--primary {
+      background: #d6e04b;
+      border-color: #d6e04b;
+      color: #151713;
+    }
+    .ds-control--primary:hover:not(:disabled) {
+      background: #e2eb61;
+      border-color: #e2eb61;
+      color: #11130f;
+    }
+    body > header {
+      background: rgba(17,19,21,.96) !important;
+      border-bottom-color: rgba(205,211,207,.17) !important;
+    }
+    body > nav[class~="sm:hidden"] {
+      background: rgba(17,19,21,.98) !important;
+      border-top-color: rgba(205,211,207,.17) !important;
+    }
+    body button:focus-visible, body a:focus-visible, body input:focus-visible,
+    body select:focus-visible, body textarea:focus-visible {
+      outline-color: #d6e04b !important;
+      box-shadow: 0 0 0 3px rgba(214,224,75,.2) !important;
+    }
+    /* State colors remain semantically distinct: red for danger, green only for success. */
+    .text-siege-red, .text-red-200 { color: #ff7777 !important; }
+    .border-siege-red, .border-siege-red\/40, .border-siege-red\/45, .border-siege-red\/50 {
+      border-color: rgba(225,75,75,.48) !important;
+    }
+    .bg-siege-red, .bg-siege-red\/10, .bg-siege-red\/20 {
+      background-color: rgba(225,75,75,.12) !important;
+    }
+    @media (max-width: 639.98px) {
+      .ds-control { min-height: 42px; }
     }
 
     </style>
