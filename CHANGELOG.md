@@ -1,3 +1,15 @@
+## 1.17.0 — 2026-10-25
+
+### Changed
+- Polished supporting systems across the app: Alpha Pack history/collection, profile progression, theme controls, map/site selectors, and poster preview surfaces.
+- Improved mobile layout, text wrapping, keyboard focus visibility, and reduced-motion behavior for supporting interfaces.
+- Kept reward generation, inventory/history writes, XP calculations, map/site selection, poster export, theme values, and existing storage keys unchanged.
+- Bumped app version to 1.17.0 and Service Worker cache to r6-cache-v31.
+
+### Validation
+- Added independent source-contract tests for Alpha Pack, XP/Level, Inventory/History, themes, maps/sites, posters, storage compatibility, and PWA/offline wiring.
+- Tests verify preservation contracts; they do not replace browser-based interaction and offline smoke tests.
+
 ## 1.16.0 — 2026-10-25
 
 ### Changed

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#0B0D0F">
-  <meta name="app-version" content="1.16.0">
+  <meta name="app-version" content="1.17.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -977,7 +977,102 @@
         }
       }
 
-</style>
+
+      /* v1.17.0 — Phase 4: supporting systems receive the same tactical polish. */
+      #profileModal > div {
+        border-color: color-mix(in srgb, var(--theme-primary) 24%, #343A3F);
+        box-shadow: 0 26px 90px rgba(0,0,0,.56), 0 0 0 1px rgba(255,255,255,.018);
+      }
+      #profileModal > div > :first-child {
+        background: linear-gradient(112deg, rgba(24,29,34,.98), rgba(9,12,15,.98));
+        border-bottom-color: color-mix(in srgb, var(--theme-primary) 24%, #343A3F);
+      }
+      #profileModal #profileRankName { text-shadow: 0 0 22px var(--theme-glow); }
+      #profileModal #profileXpText { letter-spacing: .045em; }
+      #profileModal #callsignInput {
+        min-height: 42px; transition: border-color .18s ease, box-shadow .18s ease;
+      }
+      #profileModal #callsignInput:focus-visible {
+        border-color: var(--theme-primary);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--theme-primary) 20%, transparent);
+      }
+      #profileModal button[onclick^="setSkinTheme"] {
+        min-height: 48px; transition: border-color .18s ease, background-color .18s ease, transform .18s ease;
+      }
+      #profileModal button[onclick^="setSkinTheme"]:hover { background-color: rgba(255,255,255,.035); }
+      #profileModal button[onclick^="setSkinTheme"]:focus-visible,
+      #profileModal button[onclick="saveCallsign()"]:focus-visible,
+      #profileModal button[onclick="resetProfileStats()"]:focus-visible {
+        outline: 2px solid var(--theme-primary); outline-offset: 3px;
+      }
+      #profileModal #statTotalRolls, #profileModal #statChallengesWon, #profileModal #statFavCount {
+        font-variant-numeric: tabular-nums;
+      }
+      #profileModal #profileFavsContainer { align-content: flex-start; }
+      #mapSelect, #siteSelect {
+        min-height: 46px; transition: border-color .18s ease, box-shadow .18s ease;
+      }
+      #mapSelect:focus-visible, #siteSelect:focus-visible {
+        border-color: var(--theme-primary);
+        box-shadow: 0 0 0 3px var(--theme-glow);
+      }
+      #mapNameDisplay { text-wrap: balance; text-shadow: 0 8px 28px rgba(0,0,0,.4); }
+      #mapSiteDisplay { box-shadow: inset 0 0 0 1px rgba(255,255,255,.025); }
+      #mapTacticalTip { text-wrap: pretty; }
+      #shareModal > div {
+        border-color: color-mix(in srgb, var(--theme-primary) 25%, #343A3F);
+        box-shadow: 0 28px 100px rgba(0,0,0,.68);
+      }
+      #shareModal #dossierCanvas { max-width: 100%; height: auto; }
+      #alphaModal .alpha-stage { border-color: rgba(214,240,74,.28); }
+      #alphaModal .alpha-stat-grid .alpha-stat, #alphaModal .alpha-list-panel {
+        background: linear-gradient(145deg, rgba(21,27,33,.96), rgba(9,12,15,.98));
+        border-color: rgba(148,163,184,.19);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+      }
+      #alphaModal .alpha-history-row {
+        min-width: 0; border-color: rgba(148,163,184,.14);
+        transition: border-color .18s ease, background-color .18s ease;
+      }
+      #alphaModal .alpha-history-row:hover {
+        border-color: color-mix(in srgb, var(--alpha-rarity-color, var(--theme-primary)) 52%, #343A3F);
+        background: rgba(255,255,255,.025);
+      }
+      #alphaModal .alpha-row-copy { min-width: 0; }
+      #alphaModal .alpha-row-copy strong, #alphaModal .alpha-row-copy span {
+        overflow-wrap: anywhere;
+      }
+      #alphaModal .alpha-row-rarity { white-space: nowrap; }
+      #alphaModal .alpha-footer {
+        border-top-color: rgba(148,163,184,.18);
+        background: rgba(5,7,9,.82);
+      }
+      #alphaModal #alphaOpenButton:focus-visible,
+      #alphaModal .alpha-close:focus-visible,
+      #alphaModal #alphaZipperSlider:focus-visible {
+        outline: 2px solid var(--alpha-rarity-color, var(--theme-primary));
+        outline-offset: 3px;
+      }
+      #alphaModal #alphaOpenButton:disabled { cursor: wait; filter: saturate(.72); }
+      @media (max-width: 639.98px) {
+        #profileModal > div { max-height: 92dvh; }
+        #profileModal > div > .p-4 { padding: .9rem; }
+        #profileModal #profileRankName { font-size: 1.1rem; }
+        #profileModal .grid.grid-cols-2 button { min-width: 0; gap: .5rem; overflow-wrap: anywhere; }
+        #mapNameDisplay { font-size: clamp(1.55rem, 7vw, 2.2rem); }
+        #alphaModal .alpha-hero-grid { grid-template-columns: minmax(0,1fr); }
+        #alphaModal .alpha-stage { min-height: 350px; }
+        #alphaModal .alpha-row-rarity { font-size: 9px; }
+        #alphaModal .alpha-footer { flex-wrap: wrap; gap: .4rem .8rem; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #profileModal button[onclick^="setSkinTheme"], #profileModal #callsignInput,
+        #mapSelect, #siteSelect, #alphaModal .alpha-history-row {
+          transition-duration: .01ms !important;
+        }
+      }
+
+    </style>
 </head>
 <body data-faction="atk" data-skin="default" data-hq-mode="standard" data-ops-mode="strats" class="antialiased selection:bg-siege-yellow selection:text-black">
 
