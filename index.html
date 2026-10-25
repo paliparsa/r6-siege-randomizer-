@@ -1634,7 +1634,7 @@
       <div id="opsDuoView" class="hidden flex-1 flex flex-col gap-3 min-h-0 overflow-y-auto no-scrollbar">
         <div class="tactical-feature-panel rounded-2xl p-3 space-y-3">
           <div class="flex items-center justify-between gap-2"><div><div class="text-[10px] tracking-[.2em] font-mono text-siege-cyan">DUO SYNERGY INTELLIGENCE</div><h3 class="text-sm font-black text-white">ترکیب دونفره‌ی تاکتیکی</h3></div><span id="duoStrengthBadge" class="tactical-pill">READY</span></div>
-          <div class="flex justify-end"></div>
+          
           <div class="flex items-center justify-between gap-2">
             <div class="flex gap-1 bg-siege-dark p-1 rounded-lg border border-siege-border"><button onclick="setDuoSide('atk')" id="duoSideAtk" class="px-3 py-1.5 rounded text-xs font-bold bg-siege-cyan text-black">مهاجمان (ATK)</button><button onclick="setDuoSide('def')" id="duoSideDef" class="px-3 py-1.5 rounded text-xs font-bold text-slate-400">مدافعان (DEF)</button></div>
             <span id="duoTitle" class="font-tactical font-black text-[10px] sm:text-xs text-siege-yellow text-left">THE BREACH MASTERS</span>
@@ -1655,7 +1655,7 @@
       <div id="opsDuelView" class="hidden flex-1 flex flex-col gap-3 min-h-0 overflow-y-auto no-scrollbar">
         <div class="tactical-feature-panel rounded-2xl p-3 space-y-3">
           <div class="flex items-center justify-between gap-2"><div><div class="text-[10px] tracking-[.2em] font-mono text-siege-red">DUEL ARENA // 1V1</div><h3 class="text-sm font-black text-white">رقابت رو‌در‌رو</h3></div><span id="duelModeBadge" class="tactical-pill duel-pill">RANDOM SCENARIO</span></div>
-          <div class="flex justify-end"></div>
+          
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5" role="group" aria-label="حالت دوئل"><button type="button" data-duel-mode="pure" onclick="setDuelMode('pure')" class="duel-mode-btn active">🎯 گان‌پلی خالص</button><button type="button" data-duel-mode="gadget" onclick="setDuelMode('gadget')" class="duel-mode-btn">🧰 برتری گجت</button><button type="button" data-duel-mode="objective" onclick="setDuelMode('objective')" class="duel-mode-btn">📍 کنترل هدف</button><button type="button" data-duel-mode="random" onclick="setDuelMode('random')" class="duel-mode-btn">🎲 سناریوی تصادفی</button></div>
           <p id="duelModeDescription" class="rounded-lg border border-siege-border bg-siege-dark/60 px-3 py-2 text-[11px] leading-relaxed text-slate-300">گان‌پلی خالص: هر دو از سلاح‌های معمول خود استفاده می‌کنند؛ گجت تهاجمی برای آسیب‌زدن به حریف ممنوع.</p>
           <label class="flex items-start gap-2 rounded-lg border border-siege-border bg-siege-dark/60 p-3 text-xs cursor-pointer">
@@ -1729,7 +1729,7 @@
 
   </main>
 
-  <!-- Global poster generator: follows the currently active hub/sub-tab -->
+  
   
 
   <!-- ================= MOBILE BOTTOM NAVIGATION BAR (4 BENTO HUBS) ================= -->
@@ -2021,10 +2021,8 @@
           <div class="w-14 h-14 rounded-2xl bg-siege-orange/15 border border-siege-orange text-siege-orange flex items-center justify-center mx-auto text-2xl">
             <i class="fa-solid fa-camera-retro"></i>
           </div>
-          <h3 class="text-base font-black text-white">پوستر گرافیگی HD برای دیسکورد و استوری</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            با زدن دکمه **«ساخت پوستر»**، یک کارت گرافیکی باکیفیت شامل آیکون اپراتور، لوداوت، قوانین نفرین‌شده یا ترکیب اسکواد ۵ نفره تحویل بگیرید و مستقیم به اشتراک بگذارید.
-          </p>
+          <h3 class="text-base font-black text-white">سناریوهای تاکتیکی قابل اجرا</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">ترکیب‌های اپراتورها، چالش‌های تجهیزات و سناریوهای رقابت دونفره را انتخاب کن؛ هر بار یک برنامه‌ی متفاوت برای تمرین دریافت می‌کنی.</p>
         </div>
 
         <div class="flex items-center justify-center gap-1.5 pt-2">
