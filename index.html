@@ -1361,6 +1361,12 @@
       #mhub-hq span,#mhub-ops span,#mhub-tools span,#mhub-operators span{font-size:7px}
     }
 
+
+    .poster-action{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;padding:7px 11px;border:1px solid rgba(214,240,74,.45);background:#121719;color:#d6f04a;font-size:11px;font-weight:800;white-space:nowrap;transition:background .15s,border-color .15s}
+    .poster-action:hover{background:#22282b;border-color:#d6f04a}
+    .poster-action:focus-visible{outline:2px solid #d6f04a;outline-offset:2px}
+    @media(max-width:639.98px){.poster-action{min-height:42px;padding:8px 10px;font-size:11px}#hub-hq>.poster-action{width:100%}#hub-operators .op-select-top .poster-action{padding:8px;font-size:0;gap:0}#hub-operators .op-select-top .poster-action span{display:none}#hub-operators .op-select-top{flex-wrap:wrap}}
+
 </style>
 </head>
 <body data-faction="atk" data-skin="default" data-hq-mode="standard" data-ops-mode="strats" class="antialiased selection:bg-siege-yellow selection:text-black">
@@ -1548,6 +1554,8 @@
             </div>
           </div>
 
+          <div class="flex justify-end shrink-0"><button type="button" onclick="exportCurrentCard()" class="poster-action" aria-label="ساخت پوستر از بخش فعلی"><i class="fa-solid fa-image" aria-hidden="true"></i><span>ساخت پوستر</span></button></div>
+
           <!-- Center Operator Identity -->
           <div class="flex items-center gap-4 my-auto py-2 z-10">
             <div id="cardBadgeBox" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-siege-dark border-2 border-siege-cyan flex items-center justify-center p-2 shrink-0 shadow-xl relative overflow-hidden">
@@ -1658,6 +1666,8 @@
       </div>
       <button type="button" class="duel-quick-access" id="duelQuickAccessBtn" onclick="openDuelArena()" aria-label="باز کردن بخش رقابت دونفره یک در برابر یک"><span class="flex items-center gap-2"><i class="fa-solid fa-swords duel-quick-icon" aria-hidden="true"></i><span><span class="block">ورود مستقیم به رقابت دونفره</span><span class="block text-[9px] font-normal text-slate-400 mt-0.5">DUEL ARENA · 1V1 · حالت‌ها و تورنمنت</span></span></span><i class="fa-solid fa-arrow-left text-xs duel-quick-icon" aria-hidden="true"></i></button>
 
+      <div class="flex justify-end shrink-0"><button type="button" onclick="exportCurrentCard()" class="poster-action" aria-label="ساخت پوستر از بخش فعلی"><i class="fa-solid fa-image" aria-hidden="true"></i><span>ساخت پوستر</span></button></div>
+
       <!-- 2A. 55 SECRET STRATS CARD -->
       <div id="opsStratsView" class="flex-1 flex flex-col justify-between gap-2.5 min-h-0">
         <div class="grid grid-cols-3 gap-1.5 bg-siege-card/70 p-1 rounded-xl border border-siege-border shrink-0">
@@ -1754,7 +1764,7 @@
             <h2 class="text-xl sm:text-2xl font-black text-white mt-1">انتخاب نقشه و سایت بمب</h2>
             <p class="text-[11px] text-slate-400 mt-1">فهرست نقشه‌های Ranked فعلی؛ انتخاب دستی یا قرعه‌کشی تصادفی.</p>
           </div>
-          <span id="mapCountBadge" class="px-2.5 py-1 rounded-lg bg-siege-dark border border-siege-border text-[10px] font-mono text-siege-yellow shrink-0">15 MAPS</span>
+          <div class="flex flex-col sm:flex-row items-end sm:items-center gap-2 shrink-0"><button type="button" onclick="exportCurrentCard()" class="poster-action" aria-label="ساخت پوستر از بخش فعلی"><i class="fa-solid fa-image" aria-hidden="true"></i><span>ساخت پوستر</span></button><span id="mapCountBadge" class="px-2.5 py-1 rounded-lg bg-siege-dark border border-siege-border text-[10px] font-mono text-siege-yellow shrink-0">15 MAPS</span></div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1798,7 +1808,7 @@
     <!-- Operator roster and loadout selection -->
   <section id="hub-operators" class="hidden flex flex-col min-h-0 gap-2.5" aria-labelledby="opSelectTitle">
     <div class="op-select-shell">
-      <header class="op-select-top"><div><div class="op-eyebrow">RAINBOW SIX // OPERATOR SELECT</div><h2 id="opSelectTitle" class="text-lg sm:text-xl font-black text-white">انتخاب اپراتور و تجهیزات</h2></div><button type="button" class="op-action" onclick="closeOperatorSelect()" aria-label="بازگشت به صفحه اصلی"><i class="fa-solid fa-xmark"></i> بستن</button></header>
+      <header class="op-select-top"><div><div class="op-eyebrow">RAINBOW SIX // OPERATOR SELECT</div><h2 id="opSelectTitle" class="text-lg sm:text-xl font-black text-white">انتخاب اپراتور و تجهیزات</h2></div><button type="button" onclick="exportCurrentCard()" class="poster-action" aria-label="ساخت پوستر از بخش فعلی"><i class="fa-solid fa-image" aria-hidden="true"></i><span>ساخت پوستر</span></button><button type="button" class="op-action" onclick="closeOperatorSelect()" aria-label="بازگشت به صفحه اصلی"><i class="fa-solid fa-xmark"></i> بستن</button></header>
       <div class="op-select-layout">
         <aside class="op-roster-pane" aria-label="فهرست اپراتورها">
           <div class="op-roster-toolbar"><div class="op-side-tabs" role="group" aria-label="جناح"><button type="button" class="op-side-tab active" id="opSelectAtk" aria-pressed="true" onclick="setOperatorSelectSide('atk')">مهاجمان <span id="opAtkCount">39</span></button><button type="button" class="op-side-tab" id="opSelectDef" aria-pressed="false" onclick="setOperatorSelectSide('def')">مدافعان <span id="opDefCount">39</span></button></div><input id="opSelectSearch" class="op-search" type="search" placeholder="جست‌وجوی اپراتور یا سازمان…" autocomplete="off" aria-label="جست‌وجوی اپراتور" oninput="renderOperatorRoster()"><div class="flex items-center justify-between text-[9px] font-mono text-slate-500"><span>ROSTER INDEX</span><span id="opRosterCount">39 / 78</span></div></div>
@@ -4213,6 +4223,10 @@
     let posterExportInProgress = false;
 
     function getCurrentPosterContext() {
+      if (currentHub === 'operators') {
+        const op = OPERATORS.find(item => item.id === operatorSelectId) || currentRolledOp || OPERATORS[0];
+        return {title:op.name.toUpperCase()+' // OPERATOR DOSSIER',subtitle:(op.side==='atk'?'ATTACKER':'DEFENDER')+' • '+op.org,accent:op.side==='atk'?'#D6F04A':'#FF6B00',suffix:'OP_'+op.id,operators:[op],lines:['سازمان: '+op.org,'قابلیت ویژه: '+op.gadget,'سلاح اصلی: '+(operatorSelectPrimary||op.primary),'سلاح کمکی: '+(operatorSelectSecondary||op.sec),'سرعت: '+(op.speed||'—')+' • زره: '+(op.armor||'—')]};
+      }
       if (currentHub === 'ops') {
         if (currentOpsMode === 'duo') {
           const combo = currentDuoCombo;
