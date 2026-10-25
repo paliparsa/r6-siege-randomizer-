@@ -26,14 +26,33 @@ test('Main Randomizer: faction and bans constrain the pool and reveal stays wire
   assert.doesNotMatch(source, /operatorSelectId|confirmOperatorSelect/);
 });
 
+test('Cursed Loadout: restrictions and generated attachment data remain mode-gated', () => {
+  const source = functionSource('triggerHqRoll', 'renderMainOperatorCard');
+  assert.match(source, /currentHqMode === 'cursed'/);
+  assert.match(source, /CURSED_SCOPES/);
+  assert.match(source, /CURSED_MUZZLES/);
+  assert.match(source, /CURSED_GRIPS/);
+  assert.match(source, /CURSED_RULES/);
+  assert.match(html, /id="cursedPrimaryAttachments"/);
+  assert.match(html, /id="cursedRuleBox"/);
+});
+
 test('Squad: side and bans remain enforced; five-operator minimum and report remain', () => {
   const source = functionSource('rollFullSquad', 'renderSquadGrid');
   assert.match(source, /currentFaction==='def'\?'def':'atk'/);
   assert.match(source, /!bannedOpIds\.includes\(o\.id\)/);
   assert.match(source, /pool\.length<5/);
-  assert.match(source, /selectSquadForDoctrine\\(pool,currentSquadDoctrine\\)/);
+  assert.ok(source.includes('selectSquadForDoctrine(pool,currentSquadDoctrine)'));
   assert.match(source, /renderSquadGrid/);
   assert.match(html, /id="squadIntelReport"/);
+});
+
+test('Tactical Challenges: side filter and challenge database remain the source of random results', () => {
+  const source = functionSource('rollRandomStrat', 'completeCurrentStrat');
+  assert.match(source, /STRAT_CHALLENGES/);
+  assert.match(source, /currentStratSide !== 'all'/);
+  assert.match(source, /getRandomItem\(pool\)/);
+  assert.match(source, /stratCompleteBtn/);
 });
 
 test('Duo Synergy: selects from the active filtered combo pool and keeps analysis/XP', () => {
