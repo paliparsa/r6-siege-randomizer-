@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.11.0 — 2026-10-25
+
+### Added
+- Added a tactical operator-selection screen with separate attacker/defender rosters, operator search, selection state, and a large operator identity panel.
+- Added selectable primary/secondary weapon options parsed from the existing operator data, plus current speed, armor, organization, and unique-ability labels.
+- Added random selection and an explicit confirm action that synchronizes the selected operator with the existing HQ randomizer without awarding XP or changing the roster.
+- Added responsive desktop/mobile layouts, keyboard Escape-to-close, visible focus support, and reduced-motion handling.
+
+### Data integrity
+- Reused the project's existing operator icon URLs and roster; did not invent operator descriptions, secondary-gadget assignments, weapon stats, or missing cinematic portraits. Missing details are explicitly identified in the UI.
+- Weapon choice in the new panel is informational only; it does not claim to change in-game attachments or game state.
+
+### Maintenance
+- Bumped app version to 1.11.0 and Service Worker cache to `r6-cache-v25`.
+
+### Validation
+- Source inspection confirms the new menu is connected to the existing 78-entry roster and the confirm action calls the existing operator-card renderer. Real-browser, mobile, keyboard and remote-image testing remains to be performed.
+
 ## 1.10.0 — 2026-10-25
 
 ### Added
