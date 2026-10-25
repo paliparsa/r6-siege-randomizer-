@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.13.0 — 2026-10-25
+
+### Fixed
+- Fixed a runtime error in the operator selector: the HTML-escaping helper was scoped inside the squad renderer, causing the roster and operator profile renderer to fail with `ReferenceError: safe is not defined`.
+- Made operator roster portraits load from the operator reference dataset first, with a fallback to the legacy icon source; failed image sources no longer break the roster layout.
+- Made roster selection handlers use a data attribute for operator IDs to avoid fragile inline-quote escaping.
+
+### Updated
+- Bumped the app version to **1.13.0** and Service Worker cache to **r6-cache-v27** so clients can receive the fix.
+
 ## 1.12.0 — 2026-10-25
 
 ### Added
