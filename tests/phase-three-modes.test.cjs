@@ -9,7 +9,8 @@ const html = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 function functionSource(name, nextName) {
   const start = html.indexOf('function ' + name + '(');
   assert.notEqual(start, -1, 'missing function: ' + name);
-  const end = nextName ? html.indexOf('function ' + nextName + '(', start + 1) : -1;
+  let end = nextName ? html.indexOf('function ' + nextName + '(', start + 1) : -1;
+  if (end <= start) end = html.indexOf('\\n    function ', start + 1);
   assert.ok(end > start, 'could not find function boundary for: ' + name);
   return html.slice(start, end);
 }
@@ -73,7 +74,7 @@ test('All six modes have scoped presentation states and legacy feature markers r
   for (const mode of ['standard', 'cursed', 'squad']) assert.ok(html.includes('body[data-hq-mode="' + mode + '"]'));
   for (const mode of ['strats', 'duo', 'duel']) assert.ok(html.includes('body[data-ops-mode="' + mode + '"]'));
   assert.match(html, /prefers-reduced-motion/);
-  for (const id of ['hub-hq', 'hub-ops', 'hub-tools', 'duelTournamentBoard', 'squadIntelReport', 'alphaPackModal', 'globalPosterButton']) {
+  for (const id of ['hub-hq', 'hub-ops', 'hub-tools', 'duelTournamentBoard', 'squadIntelReport', 'alphaModal', 'globalPosterButton']) {
     assert.ok(html.includes('id="' + id + '"'), 'missing preserved feature marker: ' + id);
   }
   assert.match(html, /data-hq-mode="standard" data-ops-mode="strats"/);
