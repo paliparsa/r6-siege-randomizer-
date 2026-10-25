@@ -1,3 +1,15 @@
+## 1.16.0 — 2026-10-25
+
+### Changed
+- Redesigned all six randomizer modes with distinct, responsive mode-scoped surfaces while retaining the Tactical Noir system and reduced-motion support.
+- Preserved existing random pools, filters, operator data, reveal behavior, Squad report, Duo analysis, and mode controls.
+- Extracted Duel Arena's attacker-versus-defender pairing into a pure helper and added independent Node tests for the mode contracts and faction invariant.
+- Bumped app version to 1.16.0 and Service Worker cache to r6-cache-v30.
+
+### Validation
+- `node --test tests/phase-three-modes.test.cjs` covers the mode contracts and verifies Duel Arena side pairing, ban handling, and empty-side behavior.
+- Real-browser visual and mobile interaction testing remains required.
+
 ## 1.15.0 — 2026-10-25
 
 ### Changed
