@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.26.0] - 2026-10-25
+### Fixed
+- Render the operator roster and profile as soon as the dedicated operator tab is opened, including direct desktop/mobile navigation.
+- Automatically populate Duo Synergy and Duel Arena on first entry so their panels are not left looking empty until a manual roll; preserve existing results on later tab visits.
+### Maintenance
+- Bumped app version to 1.26.0 and Service Worker cache to `r6-cache-v40`.
+
 ## [1.25.0] - 2026-10-25
 ### Fixed
 - Made poster PNG export synchronous within the download button's original click gesture, avoiding the asynchronous Blob conversion that could cause Chrome and embedded browsers to block the download as unsolicited.

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#101112">
-  <meta name="app-version" content="1.25.0">
+  <meta name="app-version" content="1.26.0">
   <title>R6 Command Center Pro | دستیار و رندمایزر تاکتیکی رینبو سیکس</title>
 
   <!-- PWA & Dynamic Favicon -->
@@ -3202,6 +3202,16 @@
       });
       const activePanel=document.getElementById(`hub-${hubId}`);
       if(activePanel){activePanel.classList.remove('hub-motion-enter');void activePanel.offsetWidth;activePanel.classList.add('hub-motion-enter');}
+
+      // Render content on first entry, including when the user opens a hub
+      // directly from navigation instead of using an internal launch button.
+      if (hubId === 'operators') {
+        if (typeof renderOperatorRoster === 'function') renderOperatorRoster();
+        if (typeof renderOperatorProfile === 'function') renderOperatorProfile();
+      }
+      if (hubId === 'ops' && typeof setOpsMode === 'function') {
+        setOpsMode(currentOpsMode || 'strats');
+      }
       triggerHaptic(10);
       playTone(540,'sine',0.04);
     }
@@ -3260,6 +3270,14 @@
         panel.classList.toggle('hidden',key!==mode);
         if(key===mode){panel.classList.remove('hub-motion-enter');void panel.offsetWidth;panel.classList.add('hub-motion-enter');}
       });
+
+      // First visit should show a usable result immediately; later visits preserve
+      // the user's current result and never reroll it just because they changed tabs.
+      if (mode === 'duo' && !currentDuoCombo && typeof rollDuoCombo === 'function') {
+        rollDuoCombo();
+      } else if (mode === 'duel' && !currentDuelMatch && typeof rollDuelMatch === 'function') {
+        rollDuelMatch();
+      }
       playTone(560,'sine',0.04);
     }
 
